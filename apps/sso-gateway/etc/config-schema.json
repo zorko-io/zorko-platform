@@ -1,0 +1,18 @@
+{
+  "serverPort": ["required", "positive_integer"],
+  "db": {
+    "nested_object": {
+      "username": ["required", "string"],
+      "password": ["required", "string"],
+      "database": ["required", "string"],
+      "host": ["required", "string"],
+      "port": ["required", "positive_integer"],
+      "dialect": ["required", "string"]
+    }
+  },
+  "auth": {
+    "nested_object": {
+      "secret": ["required", "string"]
+    }
+  }
+}
