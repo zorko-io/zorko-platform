@@ -4,7 +4,7 @@ import User         from './User.mjs';
 
 export function initModels(dbbConfig) {
     const { password, username, database, dialect, host, port } = dbbConfig;
-
+    console.log(password, username, database, dialect, host, port);
     const sequilize = new Sequelize(database, username, password,
         {
             host,
