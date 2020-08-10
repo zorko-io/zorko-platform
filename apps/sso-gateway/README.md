@@ -1,8 +1,7 @@
-# sso-auth-server
-Authorization server for an SSO and OAuth2.0
+# sso-gateway
+Authentication and Identity Management service based on OpenId connect technology.
 
-The server should provide next functionality:
- - registration of consumers;
+The service should provide next functionality:
  - creating, updating, retrieving, removing the users;
  - provide OAuth 2.0 authentication/authorization flow. Should support JWT;
  - provide user-to-service authentication;
@@ -10,4 +9,4 @@ The server should provide next functionality:
  - provide login UI;
  - server should send an invitation email on user creation;
  - setting the password should be implemented through the temporary link;
- - should default user;
+ - social apps authentication;
