@@ -25,10 +25,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --trace-uncaught app.mjs",
-    "migration:db": "sequelize db:migrate --config app/config.cjs --env db",
-    "migration:undo": "sequelize db:migrate:undo --config app/config.cjs --env db",
-    "seeds:db": "sequelize db:seed:all --config app/config.cjs --env db",
-    "seeds:undo": "sequelize db:seed:undo:all --config app/config.cjs --env db"
+    "migration:db": "sequelize db:migrate --config server/config.cjs --env db",
+    "migration:undo": "sequelize db:migrate:undo --config server/config.cjs --env db",
+    "seeds:db": "sequelize db:seed:all --config server/config.cjs --env db",
+    "seeds:undo": "sequelize db:seed:undo:all --config server/config.cjs --env db"
   },
   "repository": {
     "type": "git",

@@ -1,8 +1,8 @@
-import * as RestAPI from './app/api/rest-api/app.mjs';
-import * as Model   from  './app/model/index.mjs';
-import * as API     from './app/api/index.mjs';
-import Logger       from './app/system/Logger.mjs';
-import config       from './app/config.cjs';
+import * as RestAPI from './server/api/rest-api/app.mjs';
+import * as Model   from  './server/model/index.mjs';
+import * as API     from './server/api/index.mjs';
+import Logger       from './server/system/Logger.mjs';
+import config       from './server/config.cjs';
 
 const logger = new Logger();
 
