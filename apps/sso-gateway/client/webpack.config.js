@@ -11,7 +11,6 @@ module.exports = {
     devtool: debug ? "inline-sourcemap" : "",
     entry: {
         app: [
-            "babel-polyfill",
             "./js/client.js"
         ]
     },
@@ -22,10 +21,13 @@ module.exports = {
                 exclude: [
                     path.resolve(__dirname, "node_modules")
                 ],
-                loader: 'babel-loader',
-                options: {
-                    presets: ['react'],
-                },
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+
             },
             { test: /\.html$/, loader: 'html-loader' },
         ]
