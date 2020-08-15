@@ -9,6 +9,8 @@ const app = express();
 app.use(middlewares.json);
 app.use(middlewares.urlencoded);
 app.use(middlewares.cors);
+app.use(middlewares.session);
+app.use(middlewares.keycloak);
 
 app.use('/api/v1', v1Route);
 

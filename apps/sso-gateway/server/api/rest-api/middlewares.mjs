@@ -1,6 +1,10 @@
-import bodyParser   from 'body-parser';
-import cors         from 'cors';
+import bodyParser       from 'body-parser';
+import session          from 'express-session';
+import cors             from 'cors';
+import { keycloak }     from '../../utils/keycloak.mjs';
 
+
+const memoryStore = new session.MemoryStore();
 
 export default {
     urlencoded: bodyParser.urlencoded({ extended: true }),
@@ -22,5 +26,15 @@ export default {
         }
     }),
 
-    cors: cors({ origin: '*' })
+    cors: cors({ origin: '*' }),
+
+    keycloak: keycloak.middleware(),
+
+    session: session({
+        name: 'sso-gateway',
+        secret: 'some random secret',
+        resave: false,
+        saveUninitialized: true,
+        store: memoryStore
+    })
 }
