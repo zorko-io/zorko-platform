@@ -11,7 +11,7 @@ module.exports = {
     devtool: debug ? "inline-sourcemap" : "",
     entry: {
         app: [
-            "./js/client.js"
+            "./client.js"
         ]
     },
     module: {
@@ -43,7 +43,7 @@ module.exports = {
     },
     devServer: {
         publicPath: 'http://127.0.0.1:8086/',
-        contentBase: "./src/",
+        contentBase: "./",
         hot: true,
         inline: true,
         headers: { 'Access-Control-Allow-Origin': '*' }
