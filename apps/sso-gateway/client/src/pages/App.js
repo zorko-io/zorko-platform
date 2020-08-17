@@ -3,9 +3,17 @@ import { withKeycloak } from '@react-keycloak/web'
 import { setDefaults } from '../api';
 import Layout from './Layout';
 import NotAuthenticated from './NotAuthenticated';
+import UserContext from '../context/UserContext';
 
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: null
+        }
+    }
+
     componentDidCatch(error, errorInfo) {
         console.error(error);
     }
@@ -23,9 +31,11 @@ class App extends React.Component {
     render() {
         if (this.props.keycloak.authenticated) {
             return (
-                <Layout
-                    token={this.props.keycloak.token}
-                />
+                <UserContext.Provider value={ { user: this.props.keycloak.token }}>
+                    <Layout
+                        token={this.props.keycloak.token}
+                    />
+                </UserContext.Provider>
                 )
         }
         return <NotAuthenticated />
