@@ -29,6 +29,17 @@ module.exports = {
                 }
 
             },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    // Creates `style` nodes from JS strings
+                    'style-loader',
+                    // Translates CSS into CommonJS
+                    'css-loader',
+                    // Compiles Sass to CSS
+                    'sass-loader',
+                ],
+            },
             { test: /\.html$/, loader: 'html-loader' },
         ]
     },
@@ -46,12 +57,14 @@ module.exports = {
         contentBase: "./",
         hot: true,
         inline: true,
-        headers: { 'Access-Control-Allow-Origin': '*' }
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        historyApiFallback: true,
     },
     output: {
         globalObject: 'this',
         path: srcPath,
         filename: 'client.min.js',
+        publicPath: '/',
         chunkFilename: '[name].chunk.js',
     },
     optimization: {
