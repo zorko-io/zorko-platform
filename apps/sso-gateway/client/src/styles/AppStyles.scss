@@ -1,17 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
 
-.nav-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200px;
-  background-color: azure;
-  height: 100vh;
-}
+
 .page-content {
+  text-align: center;
   position: relative;
   top: 0;
-  left: 200px;
-  width: calc(100vw - 200px);
-  height: 100vh;
 }

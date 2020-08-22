@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import jwt from 'jsonwebtoken';
 import { withKeycloak } from '@react-keycloak/web';
 import { setDefaults } from '../api';
 import Layout from './Layout';
@@ -14,12 +15,17 @@ class App extends React.Component {
     static contextType = UserContext;
 
     componentDidUpdate() {
-        if (this.props.keycloak && !this.props.keycloak.authenticated) {
-            this.props.keycloak.login();
-        } else if (this.props.keycloak && this.props.keycloak.authenticated) {
-            this.context.setToken(this.props.keycloak.token);
-            this.context.setAuthenticated(this.props.keycloak.authenticated);
-            setDefaults(this.props.keycloak.authenticated);
+        const { keycloak } = this.props;
+        if (keycloak && !keycloak.authenticated) {
+            keycloak.login();
+        } else if (keycloak && keycloak.authenticated && keycloak.token !== this.context.token) {
+            if (this.context.token !== keycloak.token) {
+                const user = jwt.decode(keycloak.token);
+                this.context.setToken(keycloak.token);
+                this.context.setAuthenticated(keycloak.authenticated);
+                this.context.setUser(user);
+                setDefaults(keycloak.authenticated);
+            }
         }
     }
 

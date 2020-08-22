@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import jwt from 'jsonwebtoken';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import UserContext from '../../contextProviders/context/UserContext';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import ProfileButton from './ProfileButton';
 
 
@@ -22,22 +22,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Index() {
+export default function Menu() {
     const classes = useStyles();
-    const { token, authenticated } = useContext(UserContext);
-    const user = jwt.decode(token);
+    const history = useHistory();
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    const navigateTo = (path) => {
+        history.push(path);
+    };
 
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        News
+                        Keycloak Based SPA
                     </Typography>
-                    <ProfileButton authenticated={authenticated} user={user} />
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                    >
+                        <Tab label="Home" onClick={() => navigateTo('/')} />
+                        <Tab label="Users" onClick={() => navigateTo('/users')} />
+                    </Tabs>
+                    <ProfileButton />
                 </Toolbar>
             </AppBar>
         </div>

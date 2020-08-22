@@ -5,7 +5,7 @@ import ModalsContext from './context/ModalsContext';
 
 export default function ModalsProvider(props) {
     const [profile, setProfile] = useState({ open: false });
-    const openProfileModal = (user) => setProfile({ open: true, ...user });
+    const openProfileModal = (user) => setProfile({ open: true, user });
     const closeProfileModal = () => setProfile({ open: false });
 
     return (
@@ -16,7 +16,7 @@ export default function ModalsProvider(props) {
 }
 
 ModalsProvider.propTypes = {
-    children: PropTypes.shape({}),
+    children: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 ModalsProvider.defaultProps = {

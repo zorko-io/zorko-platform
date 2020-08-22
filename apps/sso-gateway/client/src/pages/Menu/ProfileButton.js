@@ -12,7 +12,7 @@ import UserContext from '../../contextProviders/context/UserContext';
 
 function ProfileButton(props) {
     const { openProfileModal } = useContext(ModalsContext);
-    const { user } = useContext(UserContext);
+    const { authenticated, user } = useContext(UserContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -28,7 +28,7 @@ function ProfileButton(props) {
         openProfileModal(user);
         handleClose();
     };
-    if (props.authenticated) {
+    if (authenticated) {
         return (
             <div>
                 <Menu
@@ -66,9 +66,7 @@ function ProfileButton(props) {
 }
 
 ProfileButton.propTypes = {
-    authenticated: PropTypes.bool,
     keycloak: PropTypes.shape({
-        logout: PropTypes.func,
     }),
 };
 
