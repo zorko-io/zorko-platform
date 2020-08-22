@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createHistory from 'history/createBrowserHistory';
-import {BrowserRouter, Route} from 'react-router-dom';
-
+import { BrowserRouter, Route } from 'react-router-dom';
+import { KeycloakProvider } from '@react-keycloak/web';
 import App from './pages/App';
-import {KeycloakProvider} from '@react-keycloak/web';
 import keycloak from './keycloak';
 
 const browserHistory = createHistory();
