@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
 import Menu from './Menu';
-import Users from './Users';
+import Users from './admin/Users';
 import Home from './Home';
 
 

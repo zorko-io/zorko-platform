@@ -67,11 +67,11 @@ function ProfileButton(props) {
 
 ProfileButton.propTypes = {
     keycloak: PropTypes.shape({
+        logout: PropTypes.func,
     }),
 };
 
 ProfileButton.defaultProps = {
-    authenticated: false,
     keycloak: null,
 };
 
