@@ -34,6 +34,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'warn',
         'import/no-cycle': 'error',
         'react/destructuring-assignment': [0],
+        'react/static-property-placement': 'off',
         'react/no-array-index-key': 'off',
         'react/prefer-stateless-function': 'warn',
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
@@ -46,6 +47,7 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
         'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
         'react/jsx-one-expression-per-line': 'off',
+        'no-multiple-empty-lines': ['error', { max: 2, maxBOF: 0 }],
         'no-param-reassign': 'warn',
         'no-extend-native': 'warn',
         'no-bitwise': 'off',
@@ -70,12 +72,12 @@ module.exports = {
     },
     settings: {
         'import/resolver': {
-            "node": {
-                "extensions": [
-                    ".js",
-                    ".jsx",
-                    ".ts",
-                    ".tsx"
+            node: {
+                extensions: [
+                    '.js',
+                    '.jsx',
+                    '.ts',
+                    '.tsx',
                 ],
             },
             alias: [

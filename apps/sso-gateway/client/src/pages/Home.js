@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import jwt from 'jsonwebtoken';
-import UserContext from '../context/UserContext';
+import UserContext from '../contextProviders/context/UserContext';
 
 export default function Home() {
     const { token } = useContext(UserContext);

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
+import Menu from './Menu';
 import Nav from './Nav';
 import Users from './Users';
 import Home from './Home';
-import '../styles/AppStyles.scss';
+
 
 export default function Layout(props) {
     const [user, setUser] = useState(null);
@@ -18,7 +19,8 @@ export default function Layout(props) {
 
     return (
         <div>
-            <Nav />
+            <Menu />
+            {/*<Nav />*/}
             <div className="page-content">
                 <Switch>
                     <Route exact path="/" component={Home} />
@@ -33,6 +35,6 @@ Layout.defaultProps = {
     token: null,
 };
 
-Layout.defaultProps = {
+Layout.propTypes = {
     token: PropTypes.shape({}),
 };

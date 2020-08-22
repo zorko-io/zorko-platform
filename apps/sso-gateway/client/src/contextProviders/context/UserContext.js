@@ -1,9 +1,11 @@
 import React from 'react';
 
-const token = null;
 
 const UserContext = React.createContext({
-    token,
+    token: null,
+    authenticated: false,
+    setToken: () => {},
+    setAuthenticated: () => {},
 });
 
 export default UserContext;
