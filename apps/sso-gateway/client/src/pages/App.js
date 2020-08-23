@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { withKeycloak } from '@react-keycloak/web';
 import { setDefaults } from '../api';
 import Layout from './Layout';
-import Modals from '../Modals';
+import Modals from '../modals';
 import NotAuthenticated from './NotAuthenticated';
 import UserContext from '../contextProviders/context/UserContext';
 import ModalsProvider from '../contextProviders/ModalsProvider';
@@ -24,7 +24,7 @@ class App extends React.Component {
                 this.context.setToken(keycloak.token);
                 this.context.setAuthenticated(keycloak.authenticated);
                 this.context.setUser(user);
-                setDefaults(keycloak.authenticated);
+                setDefaults(keycloak.token);
             }
         }
     }
