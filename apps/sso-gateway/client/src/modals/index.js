@@ -1,5 +1,7 @@
 import React from 'react';
 import ProfileModal from './ProfileModal';
+import CreateUserModal from './CreateUserModal';
+import DeleteUserModal from './DeleteUserModal';
 
 
 const style = {
@@ -31,6 +33,8 @@ export default function Modals() {
     return (
         <div>
             <ProfileModal style={style} />
+            <CreateUserModal style={style} />
+            <DeleteUserModal style={style} />
         </div>
     );
 }

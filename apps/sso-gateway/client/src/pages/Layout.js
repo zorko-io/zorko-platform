@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
 import Menu from './Menu';
-import Users from './admin/Users';
-import Home from './Home';
+import UsersTab from './admin/users/UsersTab';
+import HomeTab from './admin/home/HomeTab';
 
 
 export default function Layout(props) {
@@ -21,8 +21,8 @@ export default function Layout(props) {
             <Menu />
             <div className="page-content">
                 <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/users" component={Users} />
+                    <Route exact path="/" component={HomeTab} />
+                    <Route path="/users" component={UsersTab} />
                 </Switch>
             </div>
         </div>

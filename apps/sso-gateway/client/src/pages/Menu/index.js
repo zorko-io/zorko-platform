@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Menu() {
     const classes = useStyles();
     const history = useHistory();
-    const [value, setValue] = React.useState(0);
+    const location = useLocation();
+    const [value, setValue] = React.useState(location.pathname);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -44,8 +45,8 @@ export default function Menu() {
                         value={value}
                         onChange={handleChange}
                     >
-                        <Tab label="Home" onClick={() => navigateTo('/')} />
-                        <Tab label="Users" onClick={() => navigateTo('/users')} />
+                        <Tab label="HomeTab" value="/" onClick={() => navigateTo('/')} />
+                        <Tab label="UsersTab" value="/users" onClick={() => navigateTo('/users')} />
                     </Tabs>
                     <ProfileButton />
                 </Toolbar>
