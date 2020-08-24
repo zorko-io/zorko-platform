@@ -43,3 +43,5 @@ Configuration Client Side SSO
 1. Start the client
     - run ```npm run start```
 1. Try to login as `joe/joe`
+
+// TODO: Add steps for server side
