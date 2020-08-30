@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { getHostName } from '../utils/browserUtils';
 
-export * from './example';
 export * from './users';
 
 export function setDefaults(token) {

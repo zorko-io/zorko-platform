@@ -23,6 +23,7 @@ class App extends React.Component {
                 this.context.setAuthenticated(keycloak.authenticated);
                 this.context.setUser(user);
                 setDefaults(keycloak.token);
+                console.log('keycloak.token:  ', keycloak.token);
             }
         }
     }
