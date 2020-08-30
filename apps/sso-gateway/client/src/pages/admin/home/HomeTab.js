@@ -1,6 +1,8 @@
 import React from 'react';
 
 
+//todo: add example api management
+
 export default function HomeTab() {
     return (
         <div>

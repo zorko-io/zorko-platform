@@ -5,8 +5,10 @@ import { keycloak } from '../../../utils/keycloak.mjs';
 const router = express.Router();
 
 
-// todo: add auth routers
-// todo: add context and auth layer set session and check by jwt
+// todo: remove unused endpoint
+// todo: add keycloak protect on routes
+// todo: add example protected and not protected endpoint
+
 router.get('/users', controllers.users.showAll);
 router.get('/users/:id', controllers.users.show);
 router.delete('/users/:id', controllers.users.remove);

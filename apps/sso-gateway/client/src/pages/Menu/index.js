@@ -45,8 +45,8 @@ export default function Menu() {
                         value={value}
                         onChange={handleChange}
                     >
-                        <Tab label="HomeTab" value="/" onClick={() => navigateTo('/')} />
-                        <Tab label="UsersTab" value="/users" onClick={() => navigateTo('/users')} />
+                        <Tab label="Home" value="/" onClick={() => navigateTo('/')} />
+                        <Tab label="Users" value="/users" onClick={() => navigateTo('/users')} />
                     </Tabs>
                     <ProfileButton />
                 </Toolbar>
