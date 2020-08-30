@@ -4,10 +4,8 @@ import jwt from 'jsonwebtoken';
 import { withKeycloak } from '@react-keycloak/web';
 import { setDefaults } from '../api';
 import Layout from './Layout';
-import Modals from '../modals';
 import NotAuthenticated from './NotAuthenticated';
 import UserContext from '../contextProviders/context/UserContext';
-import ModalsProvider from '../contextProviders/ModalsProvider';
 import '../styles/AppStyles.scss';
 
 
@@ -37,10 +35,7 @@ class App extends React.Component {
         const { authenticated, token } = this.props.keycloak;
         if (authenticated) {
             return (
-                <ModalsProvider>
-                    <Layout token={token} />
-                    <Modals />
-                </ModalsProvider>
+                <Layout token={token} />
             );
         }
         return <NotAuthenticated />;

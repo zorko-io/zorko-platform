@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import ModalsContext from '../contextProviders/context/ModalsContext';
+import withModalStyle from './withModalStyle';
 
 
 function ProfileForm(props) {
@@ -55,20 +55,19 @@ ProfileForm.defaultProps = {
 };
 
 
-export default function ProfileModal(props) {
-    const { profile, closeProfileModal } = useContext(ModalsContext);
+function ProfileModal(props) {
     return (
         <div>
             <Modal
-                isOpen={profile.open}
-                onRequestClose={closeProfileModal}
+                isOpen={props.opened}
+                onRequestClose={props.close}
                 ariaHideApp={false}
                 style={props.style}
                 contentLabel="Example Modal"
             >
                 <ProfileForm
-                    user={profile.user}
-                    closeProfileModal={closeProfileModal}
+                    user={props.user}
+                    closeProfileModal={props.close}
                 />
             </Modal>
         </div>
@@ -77,8 +76,16 @@ export default function ProfileModal(props) {
 
 ProfileModal.defaultProps = {
     style: null,
+    opened: false,
+    close: () => {},
+    user: null,
 };
 
 ProfileModal.propTypes = {
     style: PropTypes.shape({}),
+    opened: PropTypes.bool,
+    close: () => {},
+    user: PropTypes.shape({}),
 };
+
+export default withModalStyle(ProfileModal);

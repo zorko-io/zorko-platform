@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,8 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CreateUserModal from '../../../modals/CreateUserModal';
+import DeleteUserModal from '../../../modals/DeleteUserModal';
 import * as api from '../../../api';
-import ModalsContext from '../../../contextProviders/context/ModalsContext';
 
 
 const useStyles = makeStyles({
@@ -22,22 +23,27 @@ const useStyles = makeStyles({
 
 export default function UsersTab() {
     const [users, setUsers] = useState(null);
-    const { openCreateUserModal, openDeleteUserModal } = useContext(ModalsContext);
+    const [openedUserCreate, setUserCreateModalState] = useState(false);
+    const [openedUserDelete, setUserDeleteModalState] = useState(false);
+    const [deletedUser, setDeletedUser] = useState(null);
     const classes = useStyles();
 
     useEffect(() => {
         api.getUsers().then((data) => { setUsers(data); });
     }, []);
     const handleAddUser = () => {
-        openCreateUserModal();
+        setUserCreateModalState(true);
     };
     const handleDeleteUser = (user) => {
-        openDeleteUserModal(user);
+        setUserDeleteModalState(true);
+        setDeletedUser(user);
     };
     if (!users) return null;
 
     return (
         <div>
+            <CreateUserModal opened={openedUserCreate} close={() => { setUserCreateModalState(false); }} />
+            <DeleteUserModal opened={openedUserDelete} close={() => { setUserDeleteModalState(false); }} user={deletedUser} />
             <div className="admin-actions">
                 <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleAddUser}>
                     <AddCircleIcon />

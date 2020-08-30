@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import ModalsContext from '../contextProviders/context/ModalsContext';
+import withModalStyle from './withModalStyle';
 
 
 function CreateUserForm(props) {
@@ -30,22 +30,20 @@ CreateUserForm.defaultProps = {
 };
 
 
-export default function CreateUserModal(props) {
-    const { createUser, closeCreateUserModal } = useContext(ModalsContext);
-
+function CreateUserModal(props) {
     const submit = () => {
-        closeCreateUserModal();
+        props.close();
     };
 
     const cancel = () => {
-        closeCreateUserModal();
+        props.close();
     };
 
     return (
         <div>
             <Modal
-                isOpen={createUser.open}
-                onRequestClose={closeCreateUserModal}
+                isOpen={props.opened}
+                onRequestClose={props.close}
                 ariaHideApp={false}
                 style={props.style}
                 contentLabel="Example Modal"
@@ -61,8 +59,14 @@ export default function CreateUserModal(props) {
 
 CreateUserModal.defaultProps = {
     style: null,
+    opened: false,
+    close: () => {},
 };
 
 CreateUserModal.propTypes = {
     style: PropTypes.shape({}),
+    opened: PropTypes.bool,
+    close: PropTypes.func,
 };
+
+export default withModalStyle(CreateUserModal);

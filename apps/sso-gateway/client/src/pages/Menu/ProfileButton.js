@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withKeycloak } from '@react-keycloak/web';
 import Button from '@material-ui/core/Button';
@@ -6,14 +6,14 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import ModalsContext from '../../contextProviders/context/ModalsContext';
+import ProfileModal from '../../modals/ProfileModal';
 import UserContext from '../../contextProviders/context/UserContext';
 
 
 function ProfileButton(props) {
-    const { openProfileModal } = useContext(ModalsContext);
     const { authenticated, user } = useContext(UserContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [openedProfileModal, setProfileModalState] = useState(false);
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -25,12 +25,13 @@ function ProfileButton(props) {
         if (props.keycloak) { props.keycloak.logout(); }
     };
     const openProfile = () => {
-        openProfileModal(user);
+        setProfileModalState(true);
         handleClose();
     };
     if (authenticated) {
         return (
             <div>
+                <ProfileModal opened={openedProfileModal} user={user} close={() => { setProfileModalState(false); }} />
                 <Menu
                     id="menu-appbar"
                     anchorEl={anchorEl}

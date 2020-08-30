@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import ModalsContext from '../contextProviders/context/ModalsContext';
+import withModalStyle from './withModalStyle';
 
 
 function DeleteUserForm(props) {
@@ -27,28 +27,26 @@ DeleteUserForm.defaultProps = {
 };
 
 
-export default function DeleteUserModal(props) {
-    const { deleteUser, closeDeleteUserModal } = useContext(ModalsContext);
-
+function DeleteUserModal(props) {
     const submit = () => {
-        closeDeleteUserModal();
+        props.close();
     };
 
     const cancel = () => {
-        closeDeleteUserModal();
+        props.close();
     };
 
     return (
         <div>
             <Modal
-                isOpen={deleteUser.open}
-                onRequestClose={closeDeleteUserModal}
+                isOpen={props.opened}
+                onRequestClose={props.close}
                 ariaHideApp={false}
                 style={props.style}
                 contentLabel="Example Modal"
             >
                 <DeleteUserForm
-                    user={deleteUser}
+                    user={props.user}
                     submit={submit}
                     cancel={cancel}
                 />
@@ -59,8 +57,16 @@ export default function DeleteUserModal(props) {
 
 DeleteUserModal.defaultProps = {
     style: null,
+    opened: false,
+    close: () => {},
+    user: null,
 };
 
 DeleteUserModal.propTypes = {
     style: PropTypes.shape({}),
+    opened: PropTypes.bool,
+    close: PropTypes.func,
+    user: PropTypes.shape({}),
 };
+
+export default withModalStyle(DeleteUserModal);
