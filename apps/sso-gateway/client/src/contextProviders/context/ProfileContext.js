@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const UserContext = React.createContext({
+const ProfileContext = React.createContext({
     user: null,
     token: null,
     authenticated: false,
@@ -10,4 +10,4 @@ const UserContext = React.createContext({
     setAuthenticated: () => {},
 });
 
-export default UserContext;
+export default ProfileContext;

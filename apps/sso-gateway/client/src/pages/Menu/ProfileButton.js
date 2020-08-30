@@ -7,11 +7,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import ProfileModal from '../../modals/ProfileModal';
-import UserContext from '../../contextProviders/context/UserContext';
+import ProfileContext from '../../contextProviders/context/ProfileContext';
 
 
 function ProfileButton(props) {
-    const { authenticated, user } = useContext(UserContext);
+    const { authenticated, user } = useContext(ProfileContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [openedProfileModal, setProfileModalState] = useState(false);
     const handleProfileMenuOpen = (event) => {

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import withModalStyle from './withModalStyle';
 import { userCreate } from '../actions/user';
+import UsersContext from '../contextProviders/context/UsersContext';
 
 
 function CreateUserForm(props) {
@@ -12,12 +13,10 @@ function CreateUserForm(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmed] = useState('');
-    const [submitted, setSubmitted] = useState(false);
 
     const valid = email && firstName && lastName && username && password && (password === confirmedPassword);
     const handleSubmit = (e) => {
         const user = { email, firstName, lastName, username, password };
-        setSubmitted(true);
         props.submit(user);
         e.preventDefault();
     };
@@ -49,11 +48,11 @@ function CreateUserForm(props) {
                 <input type="password" value={confirmedPassword} onChange={(event) => { setConfirmed(event.target.value); }} />
             </label>
             <div>
-                <button type="submit" disabled={!valid || submitted}>
-                    {submitted && <div style={{ position: 'relative', top: '12px' }} className="spinner" />}
+                <button type="submit" disabled={!valid || props.submitted}>
+                    {props.submitted && <div style={{ position: 'relative', top: '12px' }} className="spinner" />}
                     Submit
                 </button>
-                <button type="button" disabled={submitted} onClick={props.cancel}>Cancel</button>
+                <button type="button" disabled={props.submitted} onClick={props.cancel}>Cancel</button>
             </div>
         </form>
     );
@@ -62,6 +61,7 @@ function CreateUserForm(props) {
 CreateUserForm.propTypes = {
     cancel: PropTypes.func,
     submit: PropTypes.func,
+    submitted: PropTypes.bool,
 };
 
 CreateUserForm.defaultProps = {
@@ -69,11 +69,18 @@ CreateUserForm.defaultProps = {
     },
     submit: () => {
     },
+    submitted: false,
 };
 
 function CreateUserModal(props) {
+    const { addUser } = useContext(UsersContext);
+    const [submitted, setSubmitted] = useState(false);
+
     const submit = (user) => {
-        userCreate(user).then(() => {
+        setSubmitted(true);
+        userCreate(user).then((createdUser) => {
+            addUser(createdUser);
+            setSubmitted(false);
             props.close();
         });
     };
@@ -95,6 +102,7 @@ function CreateUserModal(props) {
                 <CreateUserForm
                     submit={submit}
                     cancel={cancel}
+                    submitted={submitted}
                 />
             </Modal>
         </div>

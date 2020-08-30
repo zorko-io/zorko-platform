@@ -6,7 +6,7 @@ export function getUsers() {
     return axios.get(`${keycloakAdminUrl}/users`).then((res) => res.data);
 }
 
-export function getUser(id) {
+export function getUserById(id) {
     return axios.get(`${keycloakAdminUrl}/users/${id}`).then((res) => res.data);
 }
 
@@ -15,7 +15,7 @@ export function getUsersCount() {
 }
 
 export function createUser(user) {
-    return axios.post(`${keycloakAdminUrl}/users`, user).then((res) => res.data);
+    return axios.post(`${keycloakAdminUrl}/users`, user).then((res) => res.headers.location);
 }
 
 export function updateUser(user) {

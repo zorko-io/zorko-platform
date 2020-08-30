@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CreateUserModal from '../../../modals/CreateUserModal';
 import DeleteUserModal from '../../../modals/DeleteUserModal';
 import * as api from '../../../api';
+import UsersContext from '../../../contextProviders/context/UsersContext';
 
 
 const useStyles = makeStyles({
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 });
 
 export default function UsersTab() {
-    const [users, setUsers] = useState(null);
+    const { users, setUsers } = useContext(UsersContext);
     const [openedUserCreate, setUserCreateModalState] = useState(false);
     const [openedUserDelete, setUserDeleteModalState] = useState(false);
     const [deletedUser, setDeletedUser] = useState(null);
@@ -35,10 +36,11 @@ export default function UsersTab() {
         setUserCreateModalState(true);
     };
     const handleDeleteUser = (user) => {
-        setUserDeleteModalState(true);
         setDeletedUser(user);
+        setUserDeleteModalState(true);
     };
-    if (!users) return null;
+
+    if (users.length === 0) return null;
 
     return (
         <div>

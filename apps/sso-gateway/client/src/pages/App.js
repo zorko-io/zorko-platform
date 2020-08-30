@@ -5,12 +5,12 @@ import { withKeycloak } from '@react-keycloak/web';
 import { setDefaults } from '../api';
 import Layout from './Layout';
 import NotAuthenticated from './NotAuthenticated';
-import UserContext from '../contextProviders/context/UserContext';
+import ProfileContext from '../contextProviders/context/ProfileContext';
 import '../styles/AppStyles.scss';
 
 
 class App extends React.Component {
-    static contextType = UserContext;
+    static contextType = ProfileContext;
 
     componentDidUpdate() {
         const { keycloak } = this.props;
