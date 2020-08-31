@@ -76,7 +76,6 @@ const generatePreviews = async () => {
       try {
         spec = vl.compile(val.spec).spec;
       } catch (e) {
-        console.log({val, e})
         console.error(e);
       }
       return spec;

@@ -7,7 +7,7 @@ Data Visualization Content Management Platform
 
 ## Steps to reproduce
 
-1. Run `docker-compose up` from the root of the project
+1. Run `docker-compose up` from the root of the project  (skip not working yet)
 1. Go to `apps/api-gateway` and follow steps from README
 1. Go to `apps/web-portal`  and follow steps from README
 

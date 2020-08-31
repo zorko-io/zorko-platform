@@ -5,6 +5,15 @@
 
 Expose a public API
 
+## Requirement
+
+* node version  10.15.0
+
+to easily switch:
+
+1. Install `nvm`
+1. run `nvm use 10.15.0`
+
 ## Steps to reproduce
 
 1. Copy `.env.sample` to `.env`
