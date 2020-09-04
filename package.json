@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "nesterone",
   "scripts": {
+    "build": "echo 'boom'",
     "test": "lerna run test --stream",
     "reset": "yarn run clean && yarn install",
     "clean": "lerna run clean --parallel && yarn run clean:node-modules",
