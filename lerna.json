@@ -1,0 +1,10 @@
+{
+  "npmClient": "yarn",
+  "packages": [
+    "tools/*",
+    "e2e/*",
+    "packages/*",
+    "apps/*"
+  ],
+  "version": "1.0.0-alpha.0"
+}

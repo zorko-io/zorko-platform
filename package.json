@@ -1,0 +1,27 @@
+{
+  "name": "zorko-platform",
+  "type": "module",
+  "version": "1.0.0",
+  "author": "nesterone",
+  "scripts": {
+    "test": "lerna run test --stream",
+    "reset": "yarn run clean && yarn install",
+    "clean": "lerna run clean --parallel && yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  },
+  "engines": {
+    "node": ">= 14.0.0"
+  },
+  "license": "MIT",
+  "workspaces": [
+    "tools/*",
+    "e2e/*",
+    "packages/*",
+    "apps/*"
+  ],
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "rimraf": "^3.0.2"
+  }
+}
