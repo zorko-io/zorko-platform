@@ -14,6 +14,23 @@ pipeline {
 
             }
         }
+        stage('Install Deps') {
+            steps {
+                sh 'yarn'
+
+            }
+        }
+        stage('Lint') {
+            steps {
+                echo 'TODO: run linters here'
+
+            }
+        }
+        stage('Tests') {
+            steps {
+                sh 'yarn test'
+            }
+        }
     }
 }
 
