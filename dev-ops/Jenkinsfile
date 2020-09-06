@@ -7,9 +7,11 @@ pipeline {
         }
     }
     stages {
-        stage('Test') {
+        stage('Check Env') {
             steps {
                 sh 'node --version'
+                sh 'yarn --version'
+
             }
         }
     }
