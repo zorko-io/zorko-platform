@@ -6,7 +6,9 @@
   "scripts": {
     "test": "lerna run test --stream",
     "test:coverage": "lerna run test --stream -- --coverage",
+    "code": "yarn run code:lint && yarn run code:audit",
     "code:lint": "eslint packages tools --ext mjs",
+    "code:audit": "yarn audit",
     "code:format": "yarn run code:format:packages && yarn run code:format:tools",
     "code:format:packages": "prettier --config .prettierrc.json --write 'packages/**/*.{cjs,mjs}'",
     "code:format:apps": "prettier --config .prettierrc.json --write 'apps/**/*.{cjs,mjs}'",
