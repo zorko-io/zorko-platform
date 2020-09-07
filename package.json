@@ -4,8 +4,15 @@
   "version": "1.0.0",
   "author": "nesterone",
   "scripts": {
-    "build": "echo 'boom'",
     "test": "lerna run test --stream",
+    "test:coverage": "lerna run test --stream -- --coverage",
+    "code": "yarn run code:lint && yarn run code:audit",
+    "code:lint": "eslint packages tools --ext mjs",
+    "code:audit": "yarn audit",
+    "code:format": "yarn run code:format:packages && yarn run code:format:tools",
+    "code:format:packages": "prettier --config .prettierrc.json --write 'packages/**/*.{cjs,mjs}'",
+    "code:format:apps": "prettier --config .prettierrc.json --write 'apps/**/*.{cjs,mjs}'",
+    "code:format:tools": "prettier --config .prettierrc.json --write 'tools/**/*.{cjs,mjs}'",
     "reset": "yarn run clean && yarn install",
     "clean": "lerna run clean --parallel && yarn run clean:node-modules",
     "clean:node-modules": "rimraf node_modules"
@@ -22,7 +29,11 @@
   ],
   "private": true,
   "devDependencies": {
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "lerna": "^3.20.2",
+    "prettier": "^2.1.1",
     "rimraf": "^3.0.2"
   }
 }
