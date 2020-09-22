@@ -36,5 +36,8 @@
     "lerna": "^3.20.2",
     "prettier": "^2.1.1",
     "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "babel-eslint": "^10.1.0"
   }
 }
