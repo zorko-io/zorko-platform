@@ -1,0 +1,22 @@
+{
+  "name": "@zorko-io/util-logger",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "devDependencies": {
+    "@zorko-io/tool-test-harness": "1.0.0"
+  },
+  "scripts": {
+    "test": "tth",
+    "test:watch": "tth --watch",
+    "test:coverage": "tth --coverage",
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  },
+  "dependencies": {
+    "@types/pino": "^6.3.1",
+    "pino": "^6.6.1",
+    "pino-debug": "^1.3.0",
+    "pino-pretty": "^4.2.1"
+  }
+}
