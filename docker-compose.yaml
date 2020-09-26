@@ -26,6 +26,12 @@ services:
       DB_PASSWORD: password
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /opt/jboss/keycloak/realm-exports.json
+    command:
+      - "-b 0.0.0.0"
+      - "-Dkeycloak.import=/opt/jboss/keycloak/realm-export.json"
+    volumes:
+        - ./apps/sso-gateway/etc/realm-export.json:/opt/jboss/keycloak/realm-export.json
     ports:
       - 8080:8080
     depends_on:
