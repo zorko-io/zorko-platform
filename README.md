@@ -19,7 +19,7 @@ It contains from tree parts:
 1. docker 19.03.8 or later
 1. Node - 14.x.x or later
 1. yarn - 1.22.4 or later
-1. 
+1. npx - 6.11.2
 
 ### Install Dependencies
 
