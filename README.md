@@ -1,5 +1,7 @@
 # zorko-platform
 
+> Attention: Project in early stage.
+
 Data Visualization Content Management Platform. 
 It contains from tree parts:
 
@@ -8,24 +10,33 @@ It contains from tree parts:
 1. Data Provide/Consumer communication broker and (API) to plugin any data source  
 
 
-## Pre-requirements
+## Contribution Guide
+
+
+### Pre-requirements
 
 1. docker - 19.03.8
 1. node only starting from 14.x.x
 1. yarn - 1.22.4
 
+### Install Dependencies
+
+Just run `yarn`
+
+### Start Project in Dev Mode
+
+1. `docker-compose up`
+1. `yarn start`
 
 
-
-
-## Content Managemet 
+### Content Managemet 
 
 ...
 
-## Rendering Engine 
+### Rendering Engine 
 
 ...
 
-## Data Broker
+### Data Broker
 
 ...
