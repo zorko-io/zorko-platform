@@ -1496,7 +1496,7 @@ byte-size@^5.0.1:
   resolved "https://registry.yarnpkg.com/byte-size/-/byte-size-5.0.1.tgz#4b651039a5ecd96767e71a3d7ed380e48bed4191"
   integrity sha512-/XuKeqWocKsYa/cBY1YbSJSWWqTi4cFgr9S6OyM7PBaPbr9zvNGwWP33vt0uqGhwDdN+y3yhbXVILEUpnwEWGw==
 
-c8@^7.1.2:
+c8@^7.1.2, c8@^7.3.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/c8/-/c8-7.3.0.tgz#8f3824f5434339805b302b7c089525a4087b259e"
   integrity sha512-DEWiHtepo/KB50K+gw2z5MWnQbgzACy8xqTREBmAAg4j5UOlkmDeJfl8jWjk2iDTDaJfXR0sbnqx7iNCwgsblQ==

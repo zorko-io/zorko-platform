@@ -28,7 +28,20 @@ pipeline {
         }
         stage('Tests') {
             steps {
-                sh 'yarn test'
+                sh 'yarn test:coverage'
+            }
+            post {
+              success {
+                // publish html
+                publishHTML target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: 'packages/util-validation/coverage',
+                    reportFiles: 'index.html',
+                    reportName: 'RCov Report'
+                  ]
+              }
             }
         }
     }
