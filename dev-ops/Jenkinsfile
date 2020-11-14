@@ -39,7 +39,7 @@ pipeline {
                     keepAll: true,
                     reportDir: 'packages/util-validation/coverage',
                     reportFiles: 'index.html',
-                    reportName: 'RCov Report'
+                    reportName: 'Coverage Report',
                   ]
               }
             }

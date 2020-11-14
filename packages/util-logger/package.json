@@ -1,5 +1,5 @@
 {
-  "name": "@zorko-io/util-validation",
+  "name": "@zorko-io/util-logger",
   "type": "module",
   "version": "1.0.0",
   "main": "index.mjs",
@@ -14,6 +14,9 @@
     "clean:node-modules": "rimraf node_modules"
   },
   "dependencies": {
-    "livr": "^2.3.1"
+    "@types/pino": "^6.3.1",
+    "pino": "^6.6.1",
+    "pino-debug": "^1.3.0",
+    "pino-pretty": "^4.2.1"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@zorko-io/util-validation",
+  "name": "@zorko-io/util-error",
   "type": "module",
   "version": "1.0.0",
   "main": "index.mjs",
@@ -12,8 +12,5 @@
     "test:coverage": "tth --coverage",
     "clean": "yarn run clean:node-modules",
     "clean:node-modules": "rimraf node_modules"
-  },
-  "dependencies": {
-    "livr": "^2.3.1"
   }
 }
