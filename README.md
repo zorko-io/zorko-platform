@@ -27,7 +27,7 @@ Just run `yarn`
 
 ### Start Project in Dev Mode
 
-1. `docker-compose up`
+1. ~`docker-compose up`~
 1. `yarn test`
 
 Yep, it's only support test for now ;-)
