@@ -1,0 +1,16 @@
+{
+  "name": "@zorko-io/test-helper-utils",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "devDependencies": {
+    "@zorko-io/tool-test-harness": "1.0.0"
+  },
+  "scripts": {
+    "test": "echo 'No test'",
+    "test:watch": "tth --watch",
+    "test:coverage": "tth --coverage",
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  }
+}

@@ -57,6 +57,8 @@ Overview of folders
  `packages/util-*` - folders with our `Utils` packages
  `packages/access-*` -
  `packages/manager-*` - ...
+ `package/test-helper-*` - testing helper
+
 
  `e2e/` -  end-to-end test suite
  `dev-ops/` -  dev-ops scripts and accepts
@@ -82,6 +84,7 @@ Example:
 ```
 
 #### Project Tools
+
 
 
 
