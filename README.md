@@ -2,16 +2,12 @@
 
 > Attention: Project in early stage.
 
-Data Visualization Content Management Platform. 
+Data Visualization Content Management Platform.
 It contains from tree parts:
 
-1. Visualization Content Managment - server to create,store and share visualizations
-1. Rendering Engine to displa visualization by connecting to various data sources
-1. Data Provide/Consumer communication broker and (API) to plugin any data source  
-
-
-## Contribution Guide
-
+1. Visualization Content Management - server to create,store and share visualizations
+1. Rendering Engine to display visualization by connecting to various data sources
+1. Data Provide/Consumer communication broker and (API) to plugin any data source
 
 
 ### Pre-requirements
@@ -27,20 +23,15 @@ Just run `yarn`
 
 ### Start Project in Dev Mode
 
+> Docker and start in progress
+
 1. ~`docker-compose up`~
 1. `yarn test`
+1. ~`yarn start`~
 
 Yep, it's only support test for now ;-)
 
 
-### Content Managemet 
+## Contribution
 
-...
-
-### Rendering Engine 
-
-...
-
-### Data Broker
-
-...
+What to contribute ? then follow [Contribution Guire](CONTRIBUTING.md)

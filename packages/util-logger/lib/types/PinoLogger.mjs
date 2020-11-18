@@ -1,5 +1,5 @@
 import pino from 'pino'
-import {Logger} from "../core";
+import {Logger} from '../..';
 
 /**
  * @todo #1:45m/DEV Experimenting to send logs in elastic search
