@@ -111,13 +111,42 @@ Example:
 ### Your First Code Contribution
 
 To contribute code to the project, first what you should have it's an
-issue with brief description of what your are doing, it could be an enchantment or
-bug
+issue with brief description of what your are doing, it could be an enchantment, or
+a bug
 
 ### Branch Naming Convention
 
-Branch name should follow next pattern `<username>/gh-<issue number>`
+Branch name should follow next pattern `{username}/gh-{IssueNumber}`
+
+Example:
+
+User `walle` have an issue #18 to provide docs, so branch should have a name `walle/gh-18`
+
+### Commit Message Convention
+
+Commit message should follow next pattern:
+
+```
+gh-{IssueNumber} <IssueTitle>
+- {CommitMessageFirst}
+- {CommitMessageSecond}
+```
+
+Example:
+
+User `walle` is working on issue #18 with title `Dev Prep: Provide initial documentation for the project`
+and decided to commit changes, so message would look like
+
+```
+gh-18 Dev Prep: Provide initial documentation for the project
+- add brach and commit message naming convention
+- do something else
+- and something else
+```
 
 ## Pull Request Process
+
+
+
 
 ...
