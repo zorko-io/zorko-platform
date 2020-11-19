@@ -110,7 +110,13 @@ Example:
 
 ### Your First Code Contribution
 
-...
+To contribute code to the project, first what you should have it's an
+issue with brief description of what your are doing, it could be an enchantment or
+bug
+
+### Branch Naming Convention
+
+Branch name should follow next pattern `<username>/gh-<issue number>`
 
 ## Pull Request Process
 
