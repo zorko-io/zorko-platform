@@ -38,7 +38,7 @@ Allows calling use cases from outside only over message bus
 
 #### Apps
 
-Encapsulate end user application, like a web portal server
+Contains end user application, like a web portal server
 
 
 #### Utils
