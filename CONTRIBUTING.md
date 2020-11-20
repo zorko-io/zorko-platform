@@ -94,8 +94,7 @@ Example:
 
 #### Project Tools
 
-...
-
+// TODO: gh-18 - provide description of project tools
 
 ### Testing
 
@@ -104,25 +103,31 @@ Example:
 It's a must have to provive unite tests on `Util` layer, in some special cases they may contain integration
 test as well.
 
+// TODO: gh-18 - link to test harness tool
+
 #### Integration Testing
 
 We prefere integration testing on next layers: `Access`, `Engine` and `Manager`,
 however unit testing are welcome, but discuss it with team before starting implementation
 
+// TODO: gh-18 - link to test harness tool
+
 #### E2E Tests
 
 We prefare integration testing for UI instead of unit tests
+
+// TODO: gh-18 - link to e2e docs
 
 
 ## How can I contribute ?
 
 ### Reporting Bugs
 
-...
+// TODO: gh-18 - provide a requirements to create bug
 
 ### Suggesting Enhancements
 
-...
+// TODO: gh-18 - provide a requirements to create enchancments
 
 ### Your First Code Contribution
 
@@ -162,7 +167,8 @@ gh-18 Dev Prep: Provide initial documentation for the project
 
 ## Pull Request Process
 
+When you done with a task and ready for review, just push your branch and create PR over `dev` branch
 
+In case you are not done and still want to share your work to get early feedback, then push your branch and
+create PR with `WIP` prefix, for example `WIP:Nesterone/gh-18`. Remove `WIP` when you are ready for final review
 
-
-...
