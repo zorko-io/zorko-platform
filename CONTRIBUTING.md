@@ -19,13 +19,21 @@ We are building open ecosystem for building visualization to find insight in dat
 ### Design Decisions
 
 We  have a semi-layered architecture, which contains from next layers:
-`Access`, `Manager`, `Apps`  and  infrastructure components like `Util`
+`Access`, `Manager`,`Engine` ,`Apps` (Client)  and  infrastructure components like `Util`
 
 
 #### Access
 
 Encapsulate volatility over interaction with third-party systems, like
 databases, third-party api, etc.
+
+#### Engine
+
+Encapsulate volatility in one of the buisness's critical alghorithms , for example such tasks might be:
+
+* suggest best visualization for selected data
+* render selected visualization
+* match data consumer with data provicer
 
 
 #### Manager
@@ -38,7 +46,8 @@ Allows calling use cases from outside only over message bus
 
 #### Apps
 
-Contains end user application, like a web portal server
+Contains end user application, like a web portal server.
+In other words it's a Client to our API
 
 
 #### Utils
@@ -75,7 +84,7 @@ Example:
     |-util-security/
     |-util-logging/
     |-engine-rendering/
-    |-engine-refactoring/
+    |-engine-suggestion/
     |-access-spaces/
     |-manager-content/
     |-manager-data/
@@ -88,14 +97,21 @@ Example:
 ...
 
 
-### Unit Tests
+### Testing
 
-...
+#### Unit Tests
 
+It's a must have to provive unite tests on `Util` layer, in some special cases they may contain integration
+test as well.
 
-### E2E Tests
+#### Integration Testing
 
-...
+We prefere integration testing on next layers: `Access`, `Engine` and `Manager`,
+however unit testing are welcome, but discuss it with team before starting implementation
+
+#### E2E Tests
+
+We prefare integration testing for UI instead of unit tests
 
 
 ## How can I contribute ?
@@ -120,7 +136,7 @@ Branch name should follow next pattern `{username}/gh-{IssueNumber}`
 
 Example:
 
-User `walle` have an issue #18 to provide docs, so branch should have a name `walle/gh-18`
+User `walle` have an issue `#18` to provide docs, so branch should have a name `walle/gh-18`
 
 ### Commit Message Convention
 
