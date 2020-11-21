@@ -1,87 +1,22 @@
 module.exports = {
-    parser: 'babel-eslint',
-    env: {
-        browser: true,
-        es6: true,
-        node: true,
+  parser: 'babel-eslint',
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
+  },
+  extends: ['airbnb', 'prettier'],
+  plugins: ['react', 'react-hooks', 'eslint-plugin-react'],
+  rules: {
+    'prettier/prettier': 'error',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+      alias: [],
     },
-    extends: ['airbnb'],
-    parserOptions: {
-        ecmaFeatures: {
-            experimentalObjectRestSpread: true,
-            jsx: true,
-        },
-        sourceType: 'module',
-    },
-    plugins: [
-        'react',
-        'react-hooks',
-        'eslint-plugin-react',
-    ],
-    globals: {
-        describe: false,
-        xdescribe: false,
-        it: false,
-        xit: false,
-        after: false,
-        before: false,
-    },
-    rules: {
-        'prefer-destructuring': 'off',
-        'linebreak-style': 'off',
-        camelcase: 'off',
-        'import/no-unresolved': 'off',
-        'import/no-extraneous-dependencies': 'warn',
-        'import/no-cycle': 'error',
-        'react/destructuring-assignment': [0],
-        'react/static-property-placement': 'off',
-        'react/no-array-index-key': 'off',
-        'react/prefer-stateless-function': 'warn',
-        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-        'react/jsx-indent': ['error', 4],
-        'react/jsx-indent-props': ['error', 4],
-        'react/forbid-prop-types': 'warn',
-        'react/no-typos': 'warn',
-        'react/jsx-no-bind': 'warn',
-        'react/prop-types': 'warn',
-        'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-        'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
-        'react/jsx-one-expression-per-line': 'off',
-        'no-multiple-empty-lines': ['error', { max: 2, maxBOF: 0 }],
-        'no-param-reassign': 'warn',
-        'no-extend-native': 'warn',
-        'no-bitwise': 'off',
-        'no-restricted-globals': 'warn',
-        'no-lone-blocks': 'off',
-        'no-fallthrough': 'warn',
-        'no-trailing-spaces': 'off',
-        'no-underscore-dangle': 'off',
-        'object-curly-newline': 'off',
-        'no-undef': 'warn',
-        'no-unused-expressions': 'warn',
-        'operator-assignment': 'warn',
-        'max-len': [1, 170],
-        indent: ['error', 4, { SwitchCase: 1 }],
-        'jsx-a11y/click-events-have-key-events': 'warn',
-        'jsx-a11y/no-static-element-interactions': 'warn',
-        'jsx-a11y/mouse-events-have-key-events': 'warn',
-        'jsx-a11y/no-noninteractive-element-interactions': 'warn',
-        'jsx-a11y/anchor-is-valid': 'warn',
-        radix: ['error', 'as-needed'],
-        'jsx-a11y/label-has-for': 'warn',
-    },
-    settings: {
-        'import/resolver': {
-            node: {
-                extensions: [
-                    '.js',
-                    '.jsx',
-                    '.ts',
-                    '.tsx',
-                ],
-            },
-            alias: [
-            ],
-        },
-    },
+  },
 };
