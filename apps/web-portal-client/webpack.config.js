@@ -10,7 +10,7 @@ module.exports = {
     devtool: debug ? 'inline-sourcemap' : '',
     entry: {
         app: [
-            './client.js',
+            './index.js',
         ],
     },
     module: {
@@ -28,14 +28,20 @@ module.exports = {
                 },
             },
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.css$/,
                 use: [
-                    // Creates `style` nodes from JS strings
                     'style-loader',
-                    // Translates CSS into CommonJS
                     'css-loader',
-                    // Compiles Sass to CSS
-                    'sass-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: [
+                                require('tailwindcss'),
+                                require('autoprefixer'),
+                            ],
+                        },
+                    },
                 ],
             },
             { test: /\.html$/, loader: 'html-loader' },
