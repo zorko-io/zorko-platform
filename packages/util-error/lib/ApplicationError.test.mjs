@@ -1,7 +1,7 @@
 import test from '@zorko-io/tool-test-harness'
-import {ApplicationError} from "./ApplicationError";
+import {ApplicationError} from './ApplicationError'
 
-test('creates and check props', t => {
+test('creates and check props', (t) => {
   let error = new ApplicationError('test')
 
   t.assert(error.name, 'ApplicationError')
