@@ -110,13 +110,13 @@ test as well.
 We prefere integration testing on next layers: `Access`, `Engine` and `Manager`,
 however unit testing are welcome, but discuss it with team before starting implementation
 
-// TODO: gh-18 - link to test harness tool
+For more info look at [Testing Docs](...)
 
 #### E2E Tests
 
 We prefare integration testing for UI instead of unit tests
 
-// TODO: gh-18 - link to e2e docs
+For more info look at [E2E Docs](e2e/README.md)
 
 
 ## How can I contribute ?
