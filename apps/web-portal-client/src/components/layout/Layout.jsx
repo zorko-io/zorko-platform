@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-export default function Layout(props) {
-  const { renderHeader, renderSideBar, renderContent } = props;
+export function Layout(props) {
+  const {renderHeader, renderSideBar, renderContent} = props
 
   return (
     <>
@@ -10,17 +10,17 @@ export default function Layout(props) {
       <div>{renderSideBar()}</div>
       <div>{renderContent()}</div>
     </>
-  );
+  )
 }
 
 Layout.propTypes = {
   renderHeader: PropTypes.func,
   renderSideBar: PropTypes.func,
   renderContent: PropTypes.func,
-};
+}
 
 Layout.defaultProps = {
   renderHeader: () => {},
   renderSideBar: () => {},
   renderContent: () => {},
-};
+}

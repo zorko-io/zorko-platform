@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
-import {Logger} from "../..";
+import {Logger} from '../..'
 
 // TODO: move to 'test-helper-utils' and wrap in stubs
 
 export class MockLogger extends Logger {
-
   info(...args) {}
 
   fatal(...args) {}

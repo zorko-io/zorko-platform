@@ -4,12 +4,12 @@
  * @param {Boolean} [options.shareCreated=true] - create logger once
  * @param {String} [options.preferred='PINO'] - preferred logger type
  */
-import {ConsoleLogger, MockLogger, PinoLogger} from "./types";
+import {ConsoleLogger, MockLogger, PinoLogger} from './types'
 
 export const LoggerTypes = {
   Pino: 'PINO',
   Console: 'CONSOLE',
-  Mock: 'MOCK'
+  Mock: 'MOCK',
 }
 
 const cache = {}
@@ -36,7 +36,7 @@ export function createLogger(options = {}) {
     logger = new MockLogger()
   }
 
-  if (shareCreated){
+  if (shareCreated) {
     cache[LoggerTypes.type] = logger
   }
 

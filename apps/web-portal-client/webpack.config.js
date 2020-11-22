@@ -8,7 +8,7 @@ module.exports = {
   context: srcPath,
   devtool: debug ? 'inline-sourcemap' : '',
   entry: {
-    app: ['./index.js'],
+    app: ['./index.jsx'],
   },
   module: {
     rules: [

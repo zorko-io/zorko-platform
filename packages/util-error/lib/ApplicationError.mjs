@@ -1,10 +1,9 @@
 export class ApplicationError extends Error {
-
   constructor(message) {
-    super(message);
+    super(message)
   }
 
-  get name () {
+  get name() {
     return this.constructor.name
   }
 }

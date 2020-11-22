@@ -5,11 +5,12 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: ['airbnb', 'prettier'],
+  extends: ['airbnb', '../../.eslintrc'],
   plugins: ['react', 'react-hooks', 'eslint-plugin-react'],
   rules: {
     'prettier/prettier': 'error',
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx']}],
+    'import/prefer-default-export': 'off',
   },
   settings: {
     'import/resolver': {
@@ -19,4 +20,4 @@ module.exports = {
       alias: [],
     },
   },
-};
+}
