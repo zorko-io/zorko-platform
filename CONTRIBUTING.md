@@ -95,6 +95,7 @@ For example in root of the project you can run next commands
 * `yarn code` - to run formatting check and code quality checks over all packages in a project
 * `yarn format` - to format all code to follow common formatting rules
 * `yarn test` - to run test in all packages where tests are defined
+* `yarn reset` - clean up and reinstall dependencies for all packages
 
 
 ### Unit Tests
