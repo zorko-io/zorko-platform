@@ -6,7 +6,7 @@ module.exports = {
     node: true,
   },
   extends: ['airbnb', '../../.eslintrc'],
-  plugins: ['react', 'react-hooks', 'eslint-plugin-react'],
+  plugins: ['react', 'react-hooks', 'eslint-plugin-react', 'eslint-plugin-prettier'],
   rules: {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx']}],
