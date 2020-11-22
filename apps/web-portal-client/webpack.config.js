@@ -47,6 +47,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules'],
+    extensions: ['.js', '.jsx']
   },
   devServer: {
     publicPath: 'http://127.0.0.1:8086/',
