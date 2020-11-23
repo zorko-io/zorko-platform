@@ -49,6 +49,8 @@ It's designed  be used with any layer in a project.
 
 ### Project Structure
 
+We follow a monorepo approach
+
 Overview of folders
 
  `app/` - contains our applications, which we run in docker image
@@ -85,7 +87,15 @@ Example:
 
 #### Project Tools
 
-...
+In our monorepo we have multiple sub-projects, however we have a root level
+scripts to work with all packages together
+
+For example in root of the project you can run next commands
+
+* `yarn code` - to run formatting check and code quality checks over all packages in a project
+* `yarn format` - to format all code to follow common formatting rules
+* `yarn test` - to run test in all packages where tests are defined
+* `yarn reset` - clean up and reinstall dependencies for all packages
 
 
 ### Unit Tests
@@ -146,7 +156,8 @@ gh-18 Dev Prep: Provide initial documentation for the project
 
 ## Pull Request Process
 
+Before pushing code to the repository, go to root of the project and run `yarn code`
+Make sure that you don't have any errors as in formatting as in eslint rules
 
-
-
-...
+ - if you have formatting issue, just run `yarn format`
+ - if you have eslint issues, then go back to package with issues and run `yarn lint --fix`, fix any other issues manually

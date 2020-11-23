@@ -1,14 +1,16 @@
 {
-  "name": "web-portal-client",
+  "name": "@zorko-io/web-portal-client",
   "version": "1.0.0",
   "description": "",
   "main": "index.jsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No test, expect for e2e tests\"",
     "start": "NODE_ENV=development webpack-dev-server --content-base --host 0.0.0.0 --inline --hot --port 8086 --watch-poll",
     "build": "NODE_ENV=production webpack",
     "format": "prettier --config ../../.prettierrc.json --write './**/*.{js,jsx}'",
-    "lint": "eslint src/**/*.*"
+    "lint": "eslint --ext .jsx,.js lib",
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
   },
   "author": "",
   "license": "MIT",

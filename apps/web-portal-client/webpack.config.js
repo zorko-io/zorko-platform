@@ -1,7 +1,7 @@
 const debug = process.env.NODE_ENV !== 'production'
 const path = require('path')
 
-const srcPath = path.join(__dirname, 'src')
+const srcPath = path.join(__dirname, 'lib')
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -47,6 +47,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules'],
+    extensions: ['.js', '.jsx'],
   },
   devServer: {
     publicPath: 'http://127.0.0.1:8086/',
