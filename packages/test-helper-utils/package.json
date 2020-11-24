@@ -10,6 +10,7 @@
     "test": "echo 'No test'",
     "test:watch": "tth --watch",
     "test:coverage": "tth --coverage",
+    "lint": "echo 'No Code to check, YET!'",
     "clean": "yarn run clean:node-modules",
     "clean:node-modules": "rimraf node_modules"
   }

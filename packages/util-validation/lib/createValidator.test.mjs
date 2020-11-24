@@ -1,25 +1,28 @@
 import test from '@zorko-io/tool-test-harness'
-import {createValidator} from "./createValidator";
-import {ValidationError} from "@zorko-io/util-error";
+import {createValidator} from './createValidator'
+import {ValidationError} from '@zorko-io/util-error'
 
-test('runs validate', t => {
+test('runs validate', (t) => {
   let validator = createValidator({
-    name: 'required'
+    name: 'required',
   })
 
-  let params = {name: 'boo'};
+  let params = {name: 'boo'}
 
   t.deepEqual(validator.validate(params), params)
 })
 
-test('throws proper error', t => {
+test('throws proper error', (t) => {
   let validator = createValidator({
-    name: 'required'
+    name: 'required',
   })
 
-  let params = {foo: 'boo'};
+  let params = {foo: 'boo'}
 
-  t.throws(()=> {
-    validator.validate(params)
-  }, {instanceOf:  ValidationError})
+  t.throws(
+    () => {
+      validator.validate(params)
+    },
+    {instanceOf: ValidationError}
+  )
 })

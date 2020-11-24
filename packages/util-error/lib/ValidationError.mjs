@@ -1,16 +1,15 @@
-import {UserFacedError} from "./UserFacedError";
+import {UserFacedError} from './UserFacedError'
 
 export class ValidationError extends UserFacedError {
   #errors = null
 
   constructor({errors} = {}) {
-    super();
+    super()
 
     this.#errors = errors
   }
 
-  get errors () {
+  get errors() {
     return this.#errors
   }
-
 }

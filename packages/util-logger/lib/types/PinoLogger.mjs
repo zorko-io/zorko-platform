@@ -1,5 +1,5 @@
 import pino from 'pino'
-import {Logger} from '../..';
+import {Logger} from '../..'
 
 /**
  * @todo #1:45m/DEV Experimenting to send logs in elastic search
@@ -9,7 +9,6 @@ import {Logger} from '../..';
  */
 
 export class PinoLogger extends Logger {
-
   #pino = null
 
   /**
@@ -19,25 +18,25 @@ export class PinoLogger extends Logger {
    */
 
   constructor(context = {}, log) {
-    super();
+    super()
 
-    if (!log){
+    if (!log) {
       const defaults = {
-        prettyPrint : {colorize: true},
-        redact      : {
-          paths : [
+        prettyPrint: {colorize: true},
+        redact: {
+          paths: [
             'msg.*.data.password',
             'msg.*.data.confirmPassword',
             'msg.*.password',
             'msg.*.confirmPassword',
             'msg.params.token',
             'msg.result.data.jwt',
-            'msg.result.jwt'
+            'msg.result.jwt',
           ],
-          censor : '**SENSITIVE DATA**'
+          censor: '**SENSITIVE DATA**',
         },
-        level : context.level || 'info'
-      };
+        level: context.level || 'info',
+      }
       log = pino(defaults)
     }
 
@@ -45,31 +44,31 @@ export class PinoLogger extends Logger {
   }
 
   info(...args) {
-    return this.#pino.info( ...args);
+    return this.#pino.info(...args)
   }
 
   fatal(...args) {
-    return this.#pino.fatal(...args);
+    return this.#pino.fatal(...args)
   }
 
   trace(...args) {
-    return this.#pino.trace(...args);
+    return this.#pino.trace(...args)
   }
 
   debug(...args) {
-    return this.#pino.debug(...args);
+    return this.#pino.debug(...args)
   }
 
   warn(...args) {
-    return this.#pino.warn(...args);
+    return this.#pino.warn(...args)
   }
 
   error(...args) {
-    return this.#pino.error(...args);
+    return this.#pino.error(...args)
   }
 
   child(...args) {
-    const pino = this.#pino.child(...args);
+    const pino = this.#pino.child(...args)
     return new PinoLogger(null, pino)
   }
 }

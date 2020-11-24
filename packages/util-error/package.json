@@ -10,6 +10,7 @@
     "test": "tth",
     "test:watch": "tth --watch",
     "test:coverage": "tth --coverage",
+    "lint": "eslint --ext .mjs,.cjs lib",
     "clean": "yarn run clean:node-modules",
     "clean:node-modules": "rimraf node_modules"
   }

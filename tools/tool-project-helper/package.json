@@ -8,6 +8,7 @@
     "tph": "bin/index.mjs"
   },
   "scripts": {
+    "lint": "echo 'No strict checks for scripts like code, yet..'",
     "clean": "yarn run clean:node-modules",
     "clean:node-modules": "rimraf node_modules"
   }

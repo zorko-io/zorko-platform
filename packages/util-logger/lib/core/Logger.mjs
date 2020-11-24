@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
-import {NotYetImplementedError} from "@zorko-io/util-error";
+import {NotYetImplementedError} from '@zorko-io/util-error'
 
 /**
  * @interface
  */
 
 export class Logger {
-
   trace(payload) {
     throw new NotYetImplementedError()
   }
