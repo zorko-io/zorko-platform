@@ -117,14 +117,14 @@ test as well.
 
 #### Integration Testing
 
-We prefere integration testing on next layers: `Access`, `Engine` and `Manager`,
+We prefer integration testing on next layers: `Access`, `Engine` and `Manager`,
 however unit testing are welcome, but discuss it with team before starting implementation
 
 For more info look at [Testing Docs](...)
 
 #### E2E Tests
 
-We prefare integration testing for UI instead of unit tests
+We prefer integration testing for UI instead of unit tests
 
 For more info look at [E2E Docs](e2e/README.md)
 
@@ -133,11 +133,46 @@ For more info look at [E2E Docs](e2e/README.md)
 
 ### Reporting Bugs
 
-// TODO: gh-18 - provide a requirements to create bug
+To create a bug, follow next template:
+
+
+```
+**Steps to reproduce:**
+
+1. Step 1
+1. Step 2
+1. Step 3
+
+
+**Expected:** Define an expected result here
+
+**Actual:** Define actual result here
+
+```
+
+Add label `bug`
+
 
 ### Suggesting Enhancements
 
-// TODO: gh-18 - provide a requirements to create enchancments
+```
+**Problem:**
+
+Define a problem here
+
+**Solution:**
+
+Define a generic solution here
+
+**Technical Solution:**
+
+Define a techincal solution
+
+
+```
+
+add label `enchancment`
+
 
 ### Your First Code Contribution
 
@@ -175,6 +210,17 @@ gh-18 Dev Prep: Provide initial documentation for the project
 - and something else
 ```
 
+In case you are done with issue, add a comment `close #{IssueNumber}`
+
+Example:
+
+```
+gh-18 Dev Prep: Provide initial documentation for the project
+- blah blah
+- blah blah
+- close #18
+```
+
 ## Pull Request Process
 
 Before pushing code to the repository, go to root of the project and run `yarn code`
@@ -183,7 +229,7 @@ Make sure that you don't have any errors as in formatting as in eslint rules
  - if you have formatting issue, just run `yarn format`
  - if you have eslint issues, then go back to package with issues and run `yarn lint --fix`, fix any other issues manually
 
-When you done with a task and ready for review, just push your branch and create PR over `dev` branch
+When you have done with a task and ready for review, just push your branch and create PR over `dev` branch
 
 In case you are not done and still want to share your work to get early feedback, then push your branch and
 create PR with `WIP` prefix, for example `WIP:Nesterone/gh-18`. Remove `WIP` when you are ready for final review
