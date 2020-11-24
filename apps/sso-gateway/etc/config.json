@@ -1,0 +1,16 @@
+{
+  "serverPort": "{{SERVER_PORT}}",
+
+  "db": {
+    "username": "{{DB_USER_NAME}}",
+    "password": "{{DB_PASSWORD}}",
+    "database": "{{DB_NAME}}",
+    "host": "{{DB_HOST}}",
+    "port": "{{DB_PORT}}",
+    "dialect": "{{DB_DIALECT}}"
+  },
+
+  "auth": {
+    "secret": "{{AUTH_SECRET}}"
+  }
+}
