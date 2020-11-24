@@ -11,6 +11,14 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx']}],
     'import/prefer-default-export': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
   },
   settings: {
     'import/resolver': {
