@@ -161,3 +161,12 @@ Make sure that you don't have any errors as in formatting as in eslint rules
 
  - if you have formatting issue, just run `yarn format`
  - if you have eslint issues, then go back to package with issues and run `yarn lint --fix`, fix any other issues manually
+
+By default, select `dev` branch as target branch
+
+
+### Merge in Target branch
+
+Before merging code in a target branch, you should pass all code review checks and status checks for PR
+
+Current rule: is one review approval
