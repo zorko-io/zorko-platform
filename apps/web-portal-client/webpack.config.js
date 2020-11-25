@@ -13,12 +13,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
         exclude: [path.resolve(__dirname, 'node_modules')],
         use: {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
+            plugins: [
+              ["@babel/plugin-proposal-class-properties"]
+            ]
           },
         },
       },
@@ -47,7 +50,10 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.mjs'],
+    alias: {
+      "@util-validation": path.resolve(__dirname, '../../packages/util-validation'),
+    }
   },
   devServer: {
     publicPath: 'http://127.0.0.1:8086/',
