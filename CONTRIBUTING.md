@@ -231,6 +231,9 @@ Make sure that you don't have any errors as in formatting as in eslint rules
 
 When you have done with a task and ready for review, just push your branch and create PR over `dev` branch
 
+
+### Work in Progress
+
 In case you are not done and still want to share your work to get early feedback, then push your branch and
 create PR with `WIP` prefix, for example `WIP:Nesterone/gh-18`. Remove `WIP` when you are ready for final review
 
