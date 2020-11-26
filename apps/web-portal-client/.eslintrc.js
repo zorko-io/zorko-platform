@@ -14,9 +14,7 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': [
       2,
       {
-        required: {
-          some: ['nesting', 'id'],
-        },
+        assert: 'either',
       },
     ],
   },
