@@ -113,14 +113,14 @@ For example in root of the project you can run next commands
 It's a must have to provive unite tests on `Util` layer, in some special cases they may contain integration
 test as well.
 
-// TODO: gh-18 - link to test harness tool
+For more info look at [Testing Docs](tools/tool-test-harness/README.md)
 
 #### Integration Testing
 
 We prefer integration testing on next layers: `Access`, `Engine` and `Manager`,
 however unit testing are welcome, but discuss it with team before starting implementation
 
-For more info look at [Testing Docs](...)
+For more info look at [Testing Docs](tools/tool-test-harness/README.md)
 
 #### E2E Tests
 
