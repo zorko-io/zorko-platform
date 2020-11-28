@@ -8,7 +8,7 @@ export default function Validator() {
     gender: {one_of: ['male', 'female']},
     phone: {max_length: 10},
     password: ['required', {min_length: 10}],
-    password2: {equal_to_field: 'password'}
+    password2: {equal_to_field: 'password'},
   }
   const value = {
     name: 'Name',
@@ -16,12 +16,11 @@ export default function Validator() {
     gender: 'male',
     phone: '+123456789',
     password: 'password12',
-    password2: 'password12'
+    password2: 'password12',
   }
 
+  // TODO: gh-39 issues with webpack build
   const {error, result} = createValidator(rules).parse(value)
 
-  return !error ?
-    <div>{JSON.stringify(result)}</div> :
-    <div>{error.message}</div>
+  return !error ? <div>{JSON.stringify(result)}</div> : <div>{error.message}</div>
 }
