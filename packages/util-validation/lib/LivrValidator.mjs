@@ -1,10 +1,10 @@
 import LIVR from 'livr'
 import assert from 'assert'
-import {ValidationError} from '@zorko-io/util-error'
-import {Validator} from './Validator'
+import {Validator} from './core/Validator'
+import {LivrValidationResult} from './LivrValidationResult'
 
 /**
- * Just wraps with generic error
+ *  Validator with LIVR rules declaration
  */
 
 export class LivrValidator extends Validator {
@@ -18,17 +18,13 @@ export class LivrValidator extends Validator {
     this.#original = new LIVR.Validator(rules)
   }
 
-  validate(params) {
+  async validate(params) {
     const result = this.#original.validate(params)
-
-    if (result) {
-      return result
-    }
-
     const errors = this.#original.getErrors()
 
-    throw new ValidationError({
-      errors,
-    })
+    return new LivrValidationResult(
+      result,
+      errors
+    )
   }
 }
