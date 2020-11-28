@@ -1,11 +1,14 @@
 import React from 'react'
 
-const DesktopMenu = (props) => {
+const MobileMenu = (props) => {
   const {items, active} = props.content
-  const itemsClass = 'px-3 py-2 rounded-md text-sm font-medium'
+
+  const itemsClass = 'block px-3 py-2 rounded-md text-base font-medium'
+  const menuClass = (props.menuStatus ? 'block' : 'hidden') + ' md:hidden'
+
   return (
-    <div className="hidden md:block">
-      <div className="ml-10 flex items-baseline space-x-4">
+    <div className={menuClass}>
+      <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
         {items.map((item, index) => (
           <a
             key={index}
@@ -24,4 +27,4 @@ const DesktopMenu = (props) => {
   )
 }
 
-export default DesktopMenu
+export default MobileMenu
