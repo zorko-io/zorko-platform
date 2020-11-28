@@ -10,12 +10,12 @@ import {NotYetImplementedError} from '@zorko-io/util-error'
 
 export class Validator {
   /**
-   * Parse and validate input params
-   * @param {Object} params - value to validate
-   * @return {Promise<ValidationResult>} - returns params and error if any
+   * Parse and validate input params, fill with defaults if needed
+   * @param {Object} params - input value to validate
+   * @return {Promise<ValidationOutput>} - returns params and error if any
    */
 
-  validate(params) {
+  async parse(params) {
     throw new NotYetImplementedError()
   }
 }

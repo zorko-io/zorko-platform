@@ -2,41 +2,29 @@ import test from '@zorko-io/tool-test-harness'
 import {createValidator} from './createValidator'
 import {ValidationError} from '@zorko-io/util-error'
 
-test('runs validate', (t) => {
+test('parses valid value', async t => {
   let validator = createValidator({
     name: 'required',
   })
+  let value = {name: 'boo'}
+  let {error, result} = await validator.parse(value)
 
-   // TODO: gh-39 fix according to new API
-  let params = {params: {name: 'boo'}}
-
-  let result = validator.validate(params)
-  t.deepEqual(result, params)
+  t.is(error, null)
+  t.deepEqual(result, value)
 })
 
-
-// test('runs validate', (t) => {
-//   let validator = createValidator({
-//     name: 'required',
-//   })
-//
-//   let params = {params: {name: 'boo'}}
-//
-//   let result = validator.validate(params)
-//   t.deepEqual(result, params)
-// })
-
-test('throws proper error', (t) => {
+test('parses invalid value', async t => {
   let validator = createValidator({
     name: 'required',
   })
 
-  let params = {foo: 'boo'}
+  let value = {foo: 'boo'}
+  let expectedError = { name: 'REQUIRED'}
 
-  t.throws(
-    () => {
-      validator.validate(params)
-    },
-    {instanceOf: ValidationError}
-  )
+  const {error, result} = await validator.parse(value)
+
+  t.assert(error instanceof ValidationError)
+  t.deepEqual(error.errors, expectedError)
+  t.is(error.message, `ValidationError: ${JSON.stringify(expectedError)}`)
+  t.is(result, false)
 })

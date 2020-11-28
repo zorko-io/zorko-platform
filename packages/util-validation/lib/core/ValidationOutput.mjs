@@ -2,10 +2,10 @@
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
 /**
- * Validation result, combine parsed parameters and validation errors
+ * Validation output, combine parsed parameters and validation errors
  */
 
-export class ValidationResult {
+export class ValidationOutput {
 
   /**
    * Returns validated parameters, if validation fails,
@@ -13,7 +13,7 @@ export class ValidationResult {
    * @return {Object|null}
    */
 
-  get params() {
+  get result() {
     throw new NotYetImplementedError()
   }
 
