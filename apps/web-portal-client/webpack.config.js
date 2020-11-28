@@ -2,6 +2,7 @@ const debug = process.env.NODE_ENV !== 'production'
 const path = require('path')
 
 const srcPath = path.join(__dirname, 'lib')
+const buildPath = path.join(__dirname, 'build')
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -65,7 +66,7 @@ module.exports = {
   },
   output: {
     globalObject: 'this',
-    path: srcPath,
+    path: buildPath,
     filename: 'client.min.js',
     publicPath: '/',
     chunkFilename: '[name].chunk.js',
