@@ -19,8 +19,8 @@ export default function Validator() {
     password2: 'password12',
   }
 
-  // TODO: gh-39 issues with webpack build
-  const {error, result} = createValidator(rules).parse(value)
+  const validator = createValidator(rules)
+  const {error, result} = validator.parseSync(value)
 
   return !error ? <div>{JSON.stringify(result)}</div> : <div>{error.message}</div>
 }

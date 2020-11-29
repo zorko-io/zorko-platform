@@ -19,6 +19,10 @@ export class LivrValidator extends Validator {
   }
 
   async parse(params) {
+    return this.parseSync(params)
+  }
+
+  parseSync(params) {
     const result = this.#original.validate(params)
     const errors = this.#original.getErrors()
 
@@ -27,4 +31,5 @@ export class LivrValidator extends Validator {
       errors
     )
   }
+
 }
