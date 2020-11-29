@@ -5,3 +5,4 @@ coverage/
 *.log
 ava.config.cjs
 .env
+/apps/web-portal-client/build
