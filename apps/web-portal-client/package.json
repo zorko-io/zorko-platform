@@ -9,7 +9,7 @@
     "build": "NODE_ENV=production webpack",
     "format": "prettier --config ../../.prettierrc.json --write './**/*.{js,jsx}'",
     "lint": "eslint --ext .jsx,.js lib",
-    "clean": "yarn run clean:node-modules",
+    "clean": "yarn run clean:node-modules && yarn clean:build",
     "clean:node-modules": "rimraf node_modules",
     "clean:build": "rimraf -rf build"
   },
