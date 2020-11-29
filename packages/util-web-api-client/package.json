@@ -1,5 +1,5 @@
 {
-  "name": "@zorko-io/{__NAME__}",
+  "name": "@zorko-io/util-web-api-client",
   "type": "module",
   "version": "1.0.0",
   "main": "index.mjs",
@@ -15,4 +15,3 @@
     "clean:node-modules": "rimraf node_modules"
   }
 }
-
