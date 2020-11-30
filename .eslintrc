@@ -9,6 +9,25 @@
     "sourceType": "module"
   },
   "plugins": [],
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "off",
+      {"devDependencies": [
+        "**/?(*.)+(spec|test).[mtj]s?(x)"
+      ]}
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@zorko-io/util-error", "./packages/util-error"],
+          ["@zorko-io/tool-test-harness", "./tools/tool-test-harness"]
+        ],
+        "extensions": [".ts", ".js", ".jsx", ".json", ".mjs"]
+      }
+    }
+  },
   "env": {
     "es6": true,
     "node": true
