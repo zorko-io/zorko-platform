@@ -48,20 +48,129 @@ export function App() {
         />
       </nav>
 
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold leading-tight text-gray-900">Dashboard</h1>
-        </div>
-      </header>
-      <main>
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          {/* Replace with your content */}
-          <div className="px-4 py-6 sm:px-0">
-            <div className="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>
+      <div className="block md:flex">
+        <aside className="md:w-1/4 my-1 md:mx-5">
+          <div className="flex md:block">
+            <div className="flex-shrink-0">
+              <img
+                src="https://image.flaticon.com/icons/png/128/924/924874.png"
+                className="rounded-full w-12 m-2"
+              />
+            </div>
+
+            <div className="">
+              <div className="font-medium ">User Name</div>
+              <div className="font-light">
+                Making things at The Washington Post. Formerly at The Wall Street Journal and The
+                Atlantic.
+              </div>
+            </div>
           </div>
-          {/* /End replace */}
+        </aside>
+
+        <div className="block divide-y w-full px-2">
+          <header className="">
+            <div className="mx-auto py-6 px-4 sm:px-6 lg:px-8">
+              <h1 className="text-3xl leading-tight text-gray-900">Visualizations</h1>
+            </div>
+          </header>
+          <main>
+            <div className="mx-auto py-6 sm:px-6 lg:px-8">
+              <div className="flex flex-wrap">
+                <div className="flex-auto mx-2 my-4 ">
+                  <img src="https://graphsketch.com/images/blank.png" className="w-80" />
+                  <div>Lorem ipsum dolor sit.</div>
+                  <div className="flex">
+                    <div className="w-10 flex-shrink-0">
+                      <img src="https://image.flaticon.com/icons/png/128/924/924874.png" />
+                    </div>
+
+                    <div className="m-1">
+                      <div className="font-extralight text-xs">Author</div>
+                      <div className="text-gray-600 font-extralight text-xs">Date</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-auto mx-2 my-4">
+                  <img src="https://graphsketch.com/images/blank.png" className="w-80" />
+                  <div>Lorem ipsum dolor sit.</div>
+                  <div className="flex">
+                    <div className="w-10 flex-shrink-0">
+                      <img src="https://image.flaticon.com/icons/png/128/924/924874.png" />
+                    </div>
+
+                    <div className="m-1">
+                      <div className="font-extralight text-xs">Author</div>
+                      <div className="text-gray-600 font-extralight text-xs">Date</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-auto mx-2 my-4 ">
+                  <img src="https://graphsketch.com/images/blank.png" className="w-80" />
+                  <div>Lorem ipsum dolor sit.</div>
+                  <div className="flex">
+                    <div className="w-10 flex-shrink-0">
+                      <img src="https://image.flaticon.com/icons/png/128/924/924874.png" />
+                    </div>
+
+                    <div className="m-1">
+                      <div className="font-extralight text-xs">Author</div>
+                      <div className="text-gray-600 font-extralight text-xs">Date</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-auto mx-2 my-4 ">
+                  <img src="https://graphsketch.com/images/blank.png" className="w-80" />
+                  <div>Lorem ipsum dolor sit.</div>
+                  <div className="flex">
+                    <div className="w-10 flex-shrink-0">
+                      <img src="https://image.flaticon.com/icons/png/128/924/924874.png" />
+                    </div>
+
+                    <div className="m-1">
+                      <div className="font-extralight text-xs">Author</div>
+                      <div className="text-gray-600 font-extralight text-xs">Date</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-auto mx-2 my-4 ">
+                  <img src="https://graphsketch.com/images/blank.png" className="w-80" />
+                  <div>Lorem ipsum dolor sit.</div>
+                  <div className="flex">
+                    <div className="w-10 flex-shrink-0">
+                      <img src="https://image.flaticon.com/icons/png/128/924/924874.png" />
+                    </div>
+
+                    <div className="m-1">
+                      <div className="font-extralight text-xs">Author</div>
+                      <div className="text-gray-600 font-extralight text-xs">Date</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-auto mx-2 my-4 ">
+                  <img src="https://graphsketch.com/images/blank.png" className="w-80" />
+                  <div>Lorem ipsum dolor sit.</div>
+                  <div className="flex">
+                    <div className="w-10 flex-shrink-0">
+                      <img src="https://image.flaticon.com/icons/png/128/924/924874.png" />
+                    </div>
+
+                    <div className="m-1">
+                      <div className="font-extralight text-xs">Author</div>
+                      <div className="text-gray-600 font-extralight text-xs">Date</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
         </div>
-      </main>
+      </div>
 
       {/*  <Layout
       renderHeader={() => <HeaderLayout />}
