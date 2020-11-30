@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "main": "index.mjs",
   "devDependencies": {
-    "@zorko-io/tool-test-harness": "1.0.0"
+    "@zorko-io/tool-test-harness": "1.0.0",
+    "@zorko-io/util-error": "1.0.0"
   },
   "scripts": {
     "test": "tth",

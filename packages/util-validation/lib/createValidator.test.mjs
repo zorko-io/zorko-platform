@@ -1,36 +1,36 @@
 import test from '@zorko-io/tool-test-harness'
-import {createValidator} from './createValidator'
 import {ValidationError} from '@zorko-io/util-error'
+import {createValidator} from './createValidator'
 
-test('async - parses valid value', async t => {
-  let validator = createValidator({
+test('async - parses valid value', async (t) => {
+  const validator = createValidator({
     name: 'required',
   })
-  let value = {name: 'boo'}
-  let {error, result} = await validator.parse(value)
+  const value = {name: 'boo'}
+  const {error, result} = await validator.parse(value)
 
   t.is(error, null)
   t.deepEqual(result, value)
 })
 
-test('parses valid value', t => {
-  let validator = createValidator({
+test('parses valid value', (t) => {
+  const validator = createValidator({
     name: 'required',
   })
-  let value = {name: 'boo'}
-  let {error, result} = validator.parseSync(value)
+  const value = {name: 'boo'}
+  const {error, result} = validator.parseSync(value)
 
   t.is(error, null)
   t.deepEqual(result, value)
 })
 
-test('async - parses invalid value', async t => {
-  let validator = createValidator({
+test('async - parses invalid value', async (t) => {
+  const validator = createValidator({
     name: 'required',
   })
 
-  let value = {foo: 'boo'}
-  let expectedError = { name: 'REQUIRED'}
+  const value = {foo: 'boo'}
+  const expectedError = {name: 'REQUIRED'}
 
   const {error, result} = await validator.parse(value)
 
@@ -40,13 +40,13 @@ test('async - parses invalid value', async t => {
   t.is(result, false)
 })
 
-test('parses invalid value', t => {
-  let validator = createValidator({
+test('parses invalid value', (t) => {
+  const validator = createValidator({
     name: 'required',
   })
 
-  let value = {foo: 'boo'}
-  let expectedError = { name: 'REQUIRED'}
+  const value = {foo: 'boo'}
+  const expectedError = {name: 'REQUIRED'}
 
   const {error, result} = validator.parseSync(value)
 
