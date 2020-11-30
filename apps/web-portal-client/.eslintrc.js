@@ -23,7 +23,12 @@ module.exports = {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
-      alias: [],
+      alias: {
+        map: [
+          ['@util-validation', '../../packages/util-validation']
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.json', '.mjs']
+      },
     },
   },
 }

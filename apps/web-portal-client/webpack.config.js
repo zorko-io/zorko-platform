@@ -1,24 +1,26 @@
 const debug = process.env.NODE_ENV !== 'production'
 const path = require('path')
-
-const srcPath = path.join(__dirname, 'lib')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  context: srcPath,
   devtool: debug ? 'inline-sourcemap' : '',
   entry: {
-    app: ['./index.jsx'],
+    app: ['@babel/polyfill', './lib/index.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
         exclude: [path.resolve(__dirname, 'node_modules')],
         use: {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
+            plugins: [
+              ["@babel/plugin-proposal-class-properties"]
+            ]
           },
         },
       },
@@ -47,7 +49,10 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.mjs'],
+    alias: {
+      "@util-validation": path.resolve(__dirname, '../../packages/util-validation'),
+    }
   },
   devServer: {
     publicPath: 'http://127.0.0.1:8086/',
@@ -59,7 +64,7 @@ module.exports = {
   },
   output: {
     globalObject: 'this',
-    path: srcPath,
+    path: path.resolve(__dirname, 'build'),
     filename: 'client.min.js',
     publicPath: '/',
     chunkFilename: '[name].chunk.js',
@@ -74,4 +79,11 @@ module.exports = {
       xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}',
     },
   ],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'public/index.html'
+    })
+  ]
 }

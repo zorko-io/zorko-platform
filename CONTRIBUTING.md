@@ -19,13 +19,21 @@ We are building open ecosystem for building visualization to find insight in dat
 ### Design Decisions
 
 We  have a semi-layered architecture, which contains from next layers:
-`Access`, `Manager`, `Apps`  and  infrastructure components like `Util`
+`Access`, `Manager`,`Engine` ,`Apps` (Client)  and  infrastructure components like `Util`
 
 
 #### Access
 
 Encapsulate volatility over interaction with third-party systems, like
 databases, third-party api, etc.
+
+#### Engine
+
+Encapsulate volatility in one of the buisness's critical alghorithms , for example such tasks might be:
+
+* suggest best visualization for selected data
+* render selected visualization
+* match data consumer with data provicer
 
 
 #### Manager
@@ -38,7 +46,8 @@ Allows calling use cases from outside only over message bus
 
 #### Apps
 
-Contains end user application, like a web portal server
+Contains end user application, like a web portal server.
+In other words it's a Client to our API
 
 
 #### Utils
@@ -77,7 +86,7 @@ Example:
     |-util-security/
     |-util-logging/
     |-engine-rendering/
-    |-engine-refactoring/
+    |-engine-suggestion/
     |-access-spaces/
     |-manager-content/
     |-manager-data/
@@ -97,26 +106,73 @@ For example in root of the project you can run next commands
 * `yarn test` - to run test in all packages where tests are defined
 * `yarn reset` - clean up and reinstall dependencies for all packages
 
+### Testing
 
-### Unit Tests
+#### Unit Tests
 
-...
+It's a must have to provive unite tests on `Util` layer, in some special cases they may contain integration
+test as well.
 
+For more info look at [Testing Docs](tools/tool-test-harness/README.md)
 
-### E2E Tests
+#### Integration Testing
 
-...
+We prefer integration testing on next layers: `Access`, `Engine` and `Manager`,
+however unit testing are welcome, but discuss it with team before starting implementation
+
+For more info look at [Testing Docs](tools/tool-test-harness/README.md)
+
+#### E2E Tests
+
+We prefer integration testing for UI instead of unit tests
+
+For more info look at [E2E Docs](e2e/README.md)
 
 
 ## How can I contribute ?
 
 ### Reporting Bugs
 
-...
+To create a bug, follow next template:
+
+
+```
+**Steps to reproduce:**
+
+1. Step 1
+1. Step 2
+1. Step 3
+
+
+**Expected:** Define an expected result here
+
+**Actual:** Define actual result here
+
+```
+
+Add label `bug`
+
 
 ### Suggesting Enhancements
 
-...
+```
+**Problem:**
+
+Define a problem here
+
+**Solution:**
+
+Define a generic solution here
+
+**Technical Solution:**
+
+Define a techincal solution
+
+
+```
+
+add label `enchancment`
+
 
 ### Your First Code Contribution
 
@@ -130,7 +186,7 @@ Branch name should follow next pattern `{username}/gh-{IssueNumber}`
 
 Example:
 
-User `walle` have an issue #18 to provide docs, so branch should have a name `walle/gh-18`
+User `walle` have an issue `#18` to provide docs, so branch should have a name `walle/gh-18`
 
 ### Commit Message Convention
 
@@ -154,6 +210,17 @@ gh-18 Dev Prep: Provide initial documentation for the project
 - and something else
 ```
 
+In case you are done with issue, add a comment `close #{IssueNumber}`
+
+Example:
+
+```
+gh-18 Dev Prep: Provide initial documentation for the project
+- blah blah
+- blah blah
+- close #18
+```
+
 ## Pull Request Process
 
 Before pushing code to the repository, go to root of the project and run `yarn code`
@@ -161,3 +228,18 @@ Make sure that you don't have any errors as in formatting as in eslint rules
 
  - if you have formatting issue, just run `yarn format`
  - if you have eslint issues, then go back to package with issues and run `yarn lint --fix`, fix any other issues manually
+
+When you have done with a task and ready for review, just push your branch and create PR over `dev` branch
+
+
+### Work in Progress
+
+In case you are not done and still want to share your work to get early feedback, then push your branch and
+create PR with `WIP` prefix, for example `WIP:Nesterone/gh-18`. Remove `WIP` when you are ready for final review
+
+
+### Merge in Target branch
+
+Before merging code in a target branch, you should pass all code review checks and status checks for PR
+
+Current rule: is one review approval
