@@ -12,8 +12,8 @@ const DesktopMenu = (props) => {
             href={item.link}
             className={
               index === active
-                ? itemsClass + ' text-white bg-gray-900'
-                : itemsClass + ' text-gray-300 hover:text-white hover:bg-gray-700'
+                ? itemsClass + ' text-gray-800 bg-gray-200'
+                : itemsClass + ' text-gray-200 hover:text-black hover:bg-gray-200'
             }
           >
             {item.desc}

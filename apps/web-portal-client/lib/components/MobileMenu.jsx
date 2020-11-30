@@ -15,7 +15,7 @@ const MobileMenu = (props) => {
             href={item.link}
             className={
               index === active
-                ? itemsClass + ' text-white bg-gray-900'
+                ? itemsClass + ' text-white bg-gray-600'
                 : itemsClass + ' text-gray-300 hover:text-white hover:bg-gray-700'
             }
           >
