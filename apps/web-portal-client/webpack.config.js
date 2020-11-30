@@ -3,12 +3,11 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-
 module.exports = {
   mode: process.env.NODE_ENV,
   devtool: debug ? 'inline-sourcemap' : '',
   entry: {
-    app: ['./lib/index.jsx'],
+    app: ['@babel/polyfill', './lib/index.jsx'],
   },
   module: {
     rules: [

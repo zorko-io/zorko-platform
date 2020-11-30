@@ -10,7 +10,7 @@ export default function Validator() {
     password: ['required', {min_length: 10}],
     password2: {equal_to_field: 'password'},
   }
-  const params = {
+  const value = {
     name: 'Name',
     email: 'test@gmail.com',
     gender: 'male',
@@ -19,10 +19,8 @@ export default function Validator() {
     password2: 'password12',
   }
 
-  try {
-    const result = createValidator(rules).validate(params)
-    return <div>{JSON.stringify(result)}</div>
-  } catch (err) {
-    return <div>Validation Error</div>
-  }
+  const validator = createValidator(rules)
+  const {error, result} = validator.parseSync(value)
+
+  return !error ? <div>{JSON.stringify(result)}</div> : <div>{error.message}</div>
 }
