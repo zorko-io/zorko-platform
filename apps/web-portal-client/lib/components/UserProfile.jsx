@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserProfile = () => {
+export function UserProfile() {
   return (
     <aside className="md:w-1/4  md:ml-4 mt-4 ">
       <div className="flex md:block">
@@ -8,6 +8,7 @@ const UserProfile = () => {
           <img
             src="https://image.flaticon.com/icons/png/128/924/924874.png"
             className="rounded-full w-12 m-2"
+            alt=""
           />
         </div>
 
@@ -22,5 +23,3 @@ const UserProfile = () => {
     </aside>
   )
 }
-
-export default UserProfile

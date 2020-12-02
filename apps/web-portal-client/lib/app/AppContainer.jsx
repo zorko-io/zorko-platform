@@ -1,7 +1,7 @@
 import React from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import HomePage from '../components/HomePage.jsx'
-import LoginPage from '../components/LoginPage.jsx'
+import {HomePage} from '../components/HomePage'
+import {LoginPage} from '../components/LoginPage'
 import {App} from './App'
 
 export class AppContainer extends React.Component {

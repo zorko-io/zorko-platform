@@ -1,14 +1,14 @@
 import React from 'react'
 
-const Card = () => {
+export function Card() {
   return (
     <div className="flex-auto mx-4 my-4 w-80">
-      <img className="w-full" src="https://graphsketch.com/images/blank.png" />
+      <img className="w-full" src="https://graphsketch.com/images/blank.png" alt="" />
 
       <div>Lorem ipsum dolor sit.</div>
       <div className="flex">
         <div className="w-10">
-          <img src="https://image.flaticon.com/icons/png/128/924/924874.png" />
+          <img src="https://image.flaticon.com/icons/png/128/924/924874.png" alt="" />
         </div>
 
         <div className="m-1">
@@ -19,5 +19,3 @@ const Card = () => {
     </div>
   )
 }
-
-export default Card

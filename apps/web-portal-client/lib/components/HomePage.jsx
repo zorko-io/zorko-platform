@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
 
-import DesktopMenu from './DesktopMenu.jsx'
-import MobileMenuButton from './MobileMenuButton.jsx'
-import Logo from './Logo.jsx'
-import Card from './Card.jsx'
-import MobileMenu from './MobileMenu.jsx'
-import UserProfile from './UserProfile.jsx'
-import LoginButton from './LoginButton.jsx'
+import {DesktopMenu} from './DesktopMenu'
+import {MobileMenuButton} from './MobileMenuButton'
+import {Logo} from './Logo'
+import {Card} from './Card'
+import {MobileMenu} from './MobileMenu'
+import {UserProfile} from './UserProfile'
+import {LoginButton} from './LoginButton'
 
-const HomePage = () => {
+export function HomePage() {
   const [menuStatus, setMenuStatus] = useState(false)
   const [loginStatus, setLoginStatus] = useState(false)
 
@@ -78,5 +78,3 @@ const HomePage = () => {
     </div>
   )
 }
-
-export default HomePage
