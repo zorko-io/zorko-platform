@@ -2,11 +2,12 @@ import React from 'react'
 
 const Card = () => {
   return (
-    <div className="flex-auto mx-2 my-4 ">
-      <img src="https://graphsketch.com/images/blank.png" className="w-80" />
+    <div className="flex-auto mx-4 my-4 w-80">
+      <img className="w-full" src="https://graphsketch.com/images/blank.png" />
+
       <div>Lorem ipsum dolor sit.</div>
       <div className="flex">
-        <div className="w-10 flex-shrink-0">
+        <div className="w-10">
           <img src="https://image.flaticon.com/icons/png/128/924/924874.png" />
         </div>
 

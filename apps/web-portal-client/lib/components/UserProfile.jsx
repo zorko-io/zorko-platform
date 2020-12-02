@@ -2,7 +2,7 @@ import React from 'react'
 
 const UserProfile = () => {
   return (
-    <aside className="md:w-1/4 my-1 md:mx-5">
+    <aside className="md:w-1/4  md:ml-4 mt-4 ">
       <div className="flex md:block">
         <div className="flex-shrink-0">
           <img

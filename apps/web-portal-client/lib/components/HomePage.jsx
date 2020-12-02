@@ -31,10 +31,10 @@ const HomePage = () => {
                 }}
               />
             </div>
-
-            <LoginButton loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
-
-            <MobileMenuButton menuStatus={menuStatus} setMenuStatus={setMenuStatus} />
+            <div className="flex space-x-1">
+              <LoginButton loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
+              <MobileMenuButton menuStatus={menuStatus} setMenuStatus={setMenuStatus} />
+            </div>
           </div>
         </div>
         <MobileMenu
@@ -51,15 +51,16 @@ const HomePage = () => {
         />
       </nav>
 
-      <div className="block md:flex">
+      <div className="max-w-7xl mx-auto md:flex">
         {loginStatus ? <UserProfile /> : ''}
 
         <div className="block divide-y w-full px-2">
-          <header className="">
+          <header>
             <div className="mx-auto py-6 px-4 sm:px-6 lg:px-8">
               <h1 className="text-3xl leading-tight text-gray-900">Visualizations</h1>
             </div>
           </header>
+
           <main>
             <div className="mx-auto py-6 sm:px-6 lg:px-8">
               <div className="flex flex-wrap">
