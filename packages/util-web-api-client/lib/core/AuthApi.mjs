@@ -2,7 +2,6 @@
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
 export class AuthApi {
-
   /**
    * Creates token
    * // TODO: gh-52 define params's type in jsdocs
@@ -11,9 +10,7 @@ export class AuthApi {
    * @return {Promise<String>} - token
    */
 
-  async createToken (params) {
+  async createToken(params) {
     throw new NotYetImplementedError()
   }
-
-
 }

@@ -1,7 +1,6 @@
 import {ClientApi} from '../core/ClientApi'
 
 export class AxiosClientApi extends ClientApi {
-
   #auth = null
 
   /**
@@ -11,9 +10,8 @@ export class AxiosClientApi extends ClientApi {
 
   // eslint-disable-next-line no-unused-vars
   constructor(config) {
-    super();
+    super()
   }
-
 
   get auth() {
     return this.#auth
