@@ -1,4 +1,5 @@
-import {ClientApi} from '../core/ClientApi'
+/* eslint-disable no-unused-vars */
+import {ClientApi} from '../core'
 
 export class AxiosClientApi extends ClientApi {
   #auth = null
@@ -7,8 +8,6 @@ export class AxiosClientApi extends ClientApi {
    * // TODO: gh-53 provide axios implementation
    * @param config - axios config
    */
-
-  // eslint-disable-next-line no-unused-vars
   constructor(config) {
     super()
   }

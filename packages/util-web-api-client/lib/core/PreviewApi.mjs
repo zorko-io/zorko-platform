@@ -2,18 +2,21 @@
 /* eslint-disable class-methods-use-this */
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
-export class ClientApi {
+export class PreviewApi {
   /**
-   * @property {AuthApi}
+   * Get specific preview
+   * @param {string} uid - preview unique identifier
+   * @returns {Promise<PreviewResponse>}
    */
-  get auth() {
+  async getByUid(uid) {
     throw new NotYetImplementedError()
   }
 
   /**
-   * @property {PreviewApi}
+   * Get all previews
+   * @returns {Promise<PreviewResponse>}
    */
-  get preview() {
+  async getAll() {
     throw new NotYetImplementedError()
   }
 }

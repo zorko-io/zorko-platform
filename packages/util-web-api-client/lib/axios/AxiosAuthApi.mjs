@@ -1,12 +1,11 @@
-import {AuthApi} from '../core/AuthApi'
+/* eslint-disable no-unused-vars */
+import {AuthApi} from '../core'
 
 export class AxiosAuthApi extends AuthApi {
   /**
    * // TODO: gh-53 provide axios implementation
    * @param http - Axios instance
    */
-
-  // eslint-disable-next-line no-unused-vars
   constructor(http) {
     super()
   }

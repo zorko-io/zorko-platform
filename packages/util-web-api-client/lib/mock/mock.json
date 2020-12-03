@@ -1,0 +1,32 @@
+{
+  "auth": {
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAZ21haWwuY29tIiwianRpIjoiZjI2MDdmZDAtZjBiZi00MDM1LTk5MmUtM2U5YzVjYzkyOWU2IiwiaWF0IjoxNjA3MDE3NzM5LCJleHAiOjE2MDcwMjEzMzl9.Rlt4Hdb4W_437j2UzffeWoil8zmhAmKGOMoGuOx6eq4",
+    "email": "example@gmail.com",
+    "uid": "6457eda0-4924-4ff0-94ea-199df9b8aa6c",
+    "userName": "Yaroslav Zhbankov"
+  },
+  "preview": [
+    {
+      "uid": "9910f47d-0a9d-4ed2-9c46-a509a68695d2",
+      "title": "Title One",
+      "previewUrl": "/preview/9910f47d-0a9d-4ed2-9c46-a509a68695d2",
+      "contentUrl": "/content/9910f47d-0a9d-4ed2-9c46-a509a68695d2",
+      "createdAt": "2020-12-03T18:30:29.304Z",
+      "author": {
+        "login": "yzhbankov",
+        "avatarUrl": "/avatar/yzhbankov"
+      }
+    },
+    {
+      "uid": "f3dd6d7e-640d-4be9-b91c-0a0d7cddcca9",
+      "title": "Title Two",
+      "previewUrl": "/preview/f3dd6d7e-640d-4be9-b91c-0a0d7cddcca9",
+      "contentUrl": "/content/f3dd6d7e-640d-4be9-b91c-0a0d7cddcca9",
+      "createdAt": "2020-12-03T18:30:29.304Z",
+      "author": {
+        "login": "nesterone",
+        "avatarUrl": "/avatar/nesterone"
+      }
+    }
+  ]
+}
