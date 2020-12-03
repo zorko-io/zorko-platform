@@ -14,7 +14,7 @@ test('create token', async (t) => {
   const client = createClient()
 
   const {auth} = client
-  t.is(mock.auth, await auth.createToken())
+  t.is(mock.auth, await auth.login())
 })
 
 test('get all preview', async (t) => {

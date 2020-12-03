@@ -6,7 +6,7 @@ export default function Validator() {
   const client = createClient()
 
   useEffect(() => {
-    client.auth.createToken().then((res) => {
+    client.auth.login().then((res) => {
       console.log(res)
     })
     client.preview.getAll().then((res) => {

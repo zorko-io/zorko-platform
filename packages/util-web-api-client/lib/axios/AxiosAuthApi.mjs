@@ -10,7 +10,7 @@ export class AxiosAuthApi extends AuthApi {
     super()
   }
 
-  async createToken(params) {
-    super.createToken(params)
+  async login(params) {
+    super.login(params)
   }
 }

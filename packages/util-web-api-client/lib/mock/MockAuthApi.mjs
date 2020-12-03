@@ -9,7 +9,7 @@ export class MockAuthApi extends AuthApi {
     this.#mock = mock
   }
 
-  async createToken(params) {
+  async login(params) {
     return this.#mock
   }
 }

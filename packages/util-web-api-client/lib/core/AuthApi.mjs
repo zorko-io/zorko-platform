@@ -4,11 +4,11 @@ import {NotYetImplementedError} from '@zorko-io/util-error'
 
 export class AuthApi {
   /**
-   * Creates token
+   * Make login
    * @param {LoginRequest}
    * @returns {Promise<LoginResponse>}
    */
-  async createToken({login, password}) {
+  async login({login, password}) {
     throw new NotYetImplementedError()
   }
 }
