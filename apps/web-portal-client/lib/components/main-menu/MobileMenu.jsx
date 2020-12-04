@@ -1,24 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import className from 'classnames'
 
 export function MobileMenu(props) {
   const {items, menuStatus} = props
 
-  const itemsClass = 'block px-3 py-2 rounded-md text-base font-medium'
-  const menuClass = `${menuStatus ? 'block' : 'hidden'} md:hidden`
-
   return (
-    <div className={menuClass}>
+    <div
+      className={className({
+        'md:hidden': true,
+        block: menuStatus,
+        hidden: !menuStatus,
+      })}
+    >
       <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
         {items.map((item) => (
           <a
             key={item.desc}
             href={item.link}
-            className={
-              item.active
-                ? `${itemsClass} text-white bg-gray-600`
-                : `${itemsClass} text-gray-300 hover:text-white hover:bg-gray-700`
-            }
+            className={className({
+              'block px-3 py-2 rounded-md text-base font-medium': true,
+              'text-white bg-gray-600': item.active,
+              'text-gray-300 hover:text-white hover:bg-gray-700': !item.active,
+            })}
           >
             {item.desc}
           </a>
