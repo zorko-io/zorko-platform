@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
 
-import {DesktopMenu} from './DesktopMenu'
-import {MobileMenuButton} from './MobileMenuButton'
 import {Logo} from './Logo'
 import {Card} from './Card'
-import {MobileMenu} from './MobileMenu'
 import {UserProfile} from './UserProfile'
 import {LoginButton} from './LoginButton'
+
+import {DesktopMenu, MobileMenu, MobileMenuButton} from './main-menu'
 
 export function HomePage() {
   const [menuStatus, setMenuStatus] = useState(false)
@@ -20,15 +19,12 @@ export function HomePage() {
             <div className="flex items-center">
               <Logo />
               <DesktopMenu
-                content={{
-                  items: [
-                    {desc: 'Home', link: '#'},
-                    {desc: 'Product', link: '#'},
-                    {desc: 'Teams', link: '#'},
-                    {desc: 'About', link: '#'},
-                  ],
-                  active: 0,
-                }}
+                items={[
+                  {desc: 'Home', link: '#', active: true},
+                  {desc: 'Product', link: '#'},
+                  {desc: 'Teams', link: '#'},
+                  {desc: 'About', link: '#'},
+                ]}
               />
             </div>
             <div className="flex space-x-1">
@@ -38,15 +34,12 @@ export function HomePage() {
           </div>
         </div>
         <MobileMenu
-          content={{
-            items: [
-              {desc: 'Home', link: '#'},
-              {desc: 'Product', link: '#'},
-              {desc: 'Teams', link: '#'},
-              {desc: 'About', link: '#'},
-            ],
-            active: 0,
-          }}
+          items={[
+            {desc: 'Home', link: '#', active: true},
+            {desc: 'Product', link: '#'},
+            {desc: 'Teams', link: '#'},
+            {desc: 'About', link: '#'},
+          ]}
           menuStatus={menuStatus}
         />
       </nav>
