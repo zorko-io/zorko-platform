@@ -243,3 +243,19 @@ create PR with `WIP` prefix, for example `WIP:Nesterone/gh-18`. Remove `WIP` whe
 Before merging code in a target branch, you should pass all code review checks and status checks for PR
 
 Current rule: is one review approval
+
+
+## FAQ:
+
+#### Issue with adding dependencies
+
+You may get a next error when trying to add new dependency:
+
+`An unexpected error occurred: "expected workspace package to exist for "@babel/traverse""`
+
+To fix it, got to root of the project and run
+
+1. `rm yarn.lock`
+1. `yarn reset`
+
+Commit updated yarn's lock file
