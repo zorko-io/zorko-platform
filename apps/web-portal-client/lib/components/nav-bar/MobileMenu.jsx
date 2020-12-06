@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import className from 'classnames'
 
 export function MobileMenu(props) {
-  const {items, menuStatus} = props
+  const {items, isShown} = props
 
   return (
     <div
       className={className({
         'md:hidden': true,
-        block: menuStatus,
-        hidden: !menuStatus,
+        block: isShown,
+        hidden: !isShown,
       })}
     >
       <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -33,11 +33,17 @@ export function MobileMenu(props) {
 }
 
 MobileMenu.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object),
-  menuStatus: PropTypes.bool,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      desc: PropTypes.string,
+      link: PropTypes.string,
+      active: PropTypes.bool,
+    })
+  ),
+  isShown: PropTypes.bool,
 }
 
 MobileMenu.defaultProps = {
   items: [],
-  menuStatus: false,
+  isShown: false,
 }

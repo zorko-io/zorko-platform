@@ -27,7 +27,13 @@ export function DesktopMenu(props) {
 }
 
 DesktopMenu.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object),
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      desc: PropTypes.string,
+      link: PropTypes.string,
+      active: PropTypes.bool,
+    })
+  ),
 }
 
 DesktopMenu.defaultProps = {
