@@ -17,10 +17,10 @@ export class AuthApi {
    */
   /**
    * Make login
-   * @param {LoginParams}
+   * @param {LoginParams} params - params to login
    * @returns {Promise<LoginResponse>}
    */
-  async login({login, password}) {
+  async login(params) {
     throw new NotYetImplementedError()
   }
 }

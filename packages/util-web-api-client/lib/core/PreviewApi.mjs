@@ -25,10 +25,10 @@ export class PreviewApi {
 
   /**
    * Search for previews
-   * @param {CommonParams}
+   * @param {CommonParams} params - params to search over previews
    * @returns {Promise<Collection<Preview>>}
    */
-  async findAll({limit, offset}) {
+  async findAll(params) {
     throw new NotYetImplementedError()
   }
 }
