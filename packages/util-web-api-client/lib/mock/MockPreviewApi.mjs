@@ -9,11 +9,11 @@ export class MockPreviewApi extends PreviewApi {
     this.#mock = mock
   }
 
-  async getByUid(uid) {
+  async findById(id) {
     return this.#mock[0]
   }
 
-  async getAll(params) {
+  async findAll(params) {
     return this.#mock
   }
 }

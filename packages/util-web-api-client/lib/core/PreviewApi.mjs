@@ -4,19 +4,37 @@ import {NotYetImplementedError} from '@zorko-io/util-error'
 
 export class PreviewApi {
   /**
-   * Get specific preview
-   * @param {string} uid - preview unique identifier
-   * @returns {Promise<PreviewResponse>}
+   * @typedef {Object} Preview
+   * @property {String} title - preview title
+   * @property {String} previewUrl - preview URL
+   * @property {String} contentUrl - content URL
+   * @property {String} createAt - ISO 8601 time stamp
+   * @property {Object} author - previews author details
+   * @property {String} author.login - previews author login
+   * @property {String} author.avatarUrl - previews author avatar URL
    */
-  async getByUid(uid) {
+
+  /**
+   * @typedef {Object} PreviewSearchParams
+   * @property {Number} offset - previews search offset
+   * @property {Number} limit - maximum number of previews in response
+   */
+
+  /**
+   * Search by id for a specific preview
+   * @param {String} id - preview unique identifier
+   * @returns {Promise<Collection<Preview>>}
+   */
+  async findById(id) {
     throw new NotYetImplementedError()
   }
 
   /**
-   * Get all previews
-   * @returns {Promise<PreviewResponse>}
+   * Search for previews
+   * @param {CommonParams}
+   * @returns {Promise<Collection<Preview>>}
    */
-  async getAll() {
+  async findAll({limit, offset}) {
     throw new NotYetImplementedError()
   }
 }

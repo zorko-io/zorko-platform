@@ -11,11 +11,11 @@ export class AxiosPreviewApi extends PreviewApi {
     super()
   }
 
-  async getByUid(params) {
-    super.getByUid(params)
+  async findById(params) {
+    super.findById(params)
   }
 
-  async getAll() {
-    super.getAll()
+  async findAll() {
+    super.findAll()
   }
 }

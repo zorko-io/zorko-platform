@@ -1,24 +1,12 @@
 /**
- * @typedef {Object} LoginRequest
- * @property {string} login - user login
- * @property {string} password - user password
+ * @typedef {Object} Collection<T>
+ * @property {T[]} items - items in collection
+ * @property {number} total - count of all available items
+ * @property {number|undefined} [pagesLeft] - number of pages left, calculated according to passed offset and limit params
  */
 
 /**
- * @typedef {Object} LoginResponse
- * @property {string} token - JSON Web Token
- * @property {string} uid - user unique identifier
- * @property {string} email - user email
- * @property {string} name - user name
- */
-
-/**
- * @typedef {Array<Object>} PreviewResponse
- * @property {string} title - preview title
- * @property {string} previewUrl - preview URL
- * @property {string} contentUrl - content URL
- * @property {string} createAt - ISO 8601 time stamp
- * @property {Object} author - previews author details
- * @property {string} author.login - previews author login
- * @property {string} author.avatarUrl - previews author avatar URL
+ * @typedef {Object} CommonParams<T> extends T
+ * @property {number} offset - number of items to offset
+ * @property {number} limit - [limit=10] -  limit response
  */
