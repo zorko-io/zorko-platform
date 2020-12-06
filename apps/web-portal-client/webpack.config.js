@@ -34,6 +34,9 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: [require('tailwindcss'), require('autoprefixer')],
+              options: {
+                sourceMap: true
+              }
             },
           },
         ],
@@ -72,6 +75,14 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: 'initial',
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
     },
   },
   externals: [
