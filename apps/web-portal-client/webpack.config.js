@@ -34,9 +34,6 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: [require('tailwindcss'), require('autoprefixer')],
-              options: {
-                sourceMap: true
-              }
             },
           },
         ],
