@@ -15,12 +15,6 @@ export class PreviewApi {
    */
 
   /**
-   * @typedef {Object} PreviewSearchParams
-   * @property {Number} offset - previews search offset
-   * @property {Number} limit - maximum number of previews in response
-   */
-
-  /**
    * Search by id for a specific preview
    * @param {String} id - preview unique identifier
    * @returns {Promise<Collection<Preview>>}

@@ -1,19 +1,7 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {createValidator} from '@util-validation'
-import {createClient} from '@util-web-api-client'
 
-export default function Validator() {
-  const client = createClient()
-
-  useEffect(() => {
-    client.auth.login().then((res) => {
-      console.log(res)
-    })
-    client.preview.getAll().then((res) => {
-      console.log(res)
-    })
-  }, [])
-
+export default function ValidatorExample() {
   const rules = {
     name: 'required',
     email: ['required', 'email'],

@@ -1,10 +1,12 @@
 import React from 'react'
-import Validator from '../../common/Validator'
+import ValidatorExample from '../../common/ValidatorExample'
+import ApiExample from '../../common/ApiExample'
 
 export function ContentLayout() {
   return (
     <div>
-      <Validator />
+      <ValidatorExample />
+      <ApiExample />
     </div>
   )
 }
