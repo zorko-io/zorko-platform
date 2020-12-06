@@ -1,19 +1,26 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable class-methods-use-this */
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
 export class AuthApi {
-
   /**
-   * Creates token
-   * // TODO: gh-52 define params's type in jsdocs
-   * @param {Object} params - all need info generate auth token
-   * // TODO: gh-52 decide on return type show in jsdocs
-   * @return {Promise<String>} - token
+   * @typedef {Object} LoginParams
+   * @property {String} login - user login
+   * @property {String} password - user password
    */
-
-  async createToken (params) {
+  /**
+   * @typedef {Object} LoginResponse
+   * @property {String} token - JSON Web Token
+   * @property {String} id - user unique identifier
+   * @property {String} email - user email
+   * @property {String} name - user name
+   */
+  /**
+   * Make login
+   * @param {LoginParams} params - params to login
+   * @returns {Promise<LoginResponse>}
+   */
+  async login(params) {
     throw new NotYetImplementedError()
   }
-
-
 }

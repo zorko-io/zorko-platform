@@ -1,8 +1,8 @@
 /**
  * Create web api client
  */
-import {MockClientApi} from './mock/MockClientApi'
-import {AxiosClientApi} from './axios/AxiosClientApi'
+import {MockClientApi} from './mock'
+import {AxiosClientApi} from './axios'
 
 export const ClientTypes = {
   AXIOS: 'axios',

@@ -1,11 +1,32 @@
 import test from '@zorko-io/tool-test-harness'
+import mock from './mock/mock.json'
 import {createClient} from './createClient'
 
-// TODO: gh-52 Add few mock unit tests
 test('create client', async (t) => {
   const client = createClient()
 
-  const {auth} = client
-
+  const {auth, preview} = client
   t.truthy(auth)
+  t.truthy(preview)
+})
+
+test('create token', async (t) => {
+  const client = createClient()
+
+  const {auth} = client
+  t.is(mock.auth, await auth.login())
+})
+
+test('get all preview', async (t) => {
+  const client = createClient()
+
+  const {preview} = client
+  t.is(mock.preview, await preview.findAll())
+})
+
+test('get preview by id', async (t) => {
+  const client = createClient()
+  const fakeId = 'e83f5de5-7b34-453e-bda2-0f4d50f82318'
+  const {preview} = client
+  t.is(mock.preview[0], await preview.findById(fakeId))
 })

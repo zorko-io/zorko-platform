@@ -1,15 +1,15 @@
+/* eslint-disable no-unused-vars */
 import {AuthApi} from '../core'
 
 export class MockAuthApi extends AuthApi {
+  #mock = null
 
-  constructor() {
-    super();
-    // TODO: gh-52 pass mock config here
+  constructor(mock) {
+    super()
+    this.#mock = mock
   }
 
-
-  async createToken(params) {
-    // TODO: gh-52 provide a
-    return  params + 'blalblabl'
+  async login(params) {
+    return this.#mock
   }
 }
