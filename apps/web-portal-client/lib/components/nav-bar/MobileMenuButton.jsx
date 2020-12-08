@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {Image} from './Image'
-
 export function MobileMenuButton(props) {
   const {shape, onToggle} = props
 
@@ -15,7 +13,16 @@ export function MobileMenuButton(props) {
       >
         <span className="sr-only">Open main menu</span>
 
-        <Image shape={shape} />
+        <svg
+          className="block h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={shape} />
+        </svg>
       </button>
     </div>
   )

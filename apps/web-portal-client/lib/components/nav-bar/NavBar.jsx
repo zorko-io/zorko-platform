@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, {useState} from 'react'
 
 import {Logo} from './Logo'
 import {DesktopMenu} from './DesktopMenu'
@@ -7,8 +6,10 @@ import {LoginButton} from './LoginButton'
 import {MobileMenuButton} from './MobileMenuButton'
 import {MobileMenu} from './MobileMenu'
 
-export function NavBar(props) {
-  const {isLogged, setIsLogged, showMobileMenu, setShowMobileMenu} = props
+export function NavBar() {
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [isLogged, setIsLogged] = useState(false)
+
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,18 +48,4 @@ export function NavBar(props) {
       />
     </nav>
   )
-}
-
-NavBar.propTypes = {
-  isLogged: PropTypes.bool,
-  setIsLogged: PropTypes.func,
-  showMobileMenu: PropTypes.bool,
-  setShowMobileMenu: PropTypes.func,
-}
-
-NavBar.defaultProps = {
-  isLogged: false,
-  setIsLogged: () => {},
-  showMobileMenu: false,
-  setShowMobileMenu: () => {},
 }

@@ -12,8 +12,7 @@ export function DesktopMenu(props) {
           <a
             key={item.desc}
             href={item.link}
-            className={className({
-              'px-3 py-2 rounded-md text-sm font-medium': true,
+            className={className('px-3 py-2 rounded-md text-sm font-medium', {
               'text-gray-800 bg-gray-200': item.active,
               'text-gray-200 hover:text-black hover:bg-gray-200': !item.active,
             })}
