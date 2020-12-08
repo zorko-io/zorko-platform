@@ -2,6 +2,7 @@ const debug = process.env.NODE_ENV !== 'production'
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -27,7 +28,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -72,14 +73,6 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: 'initial',
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true,
-        },
-      },
     },
   },
   externals: [
@@ -88,6 +81,7 @@ module.exports = {
     },
   ],
   plugins: [
+    new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
