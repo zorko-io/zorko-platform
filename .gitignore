@@ -6,3 +6,4 @@ coverage/
 ava.config.cjs
 .env
 /apps/web-portal-client/build
+.DS_Store
