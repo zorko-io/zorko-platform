@@ -18,8 +18,7 @@ export function MobileMenu(props) {
           <a
             key={item.desc}
             href={item.link}
-            className={className({
-              'block px-3 py-2 rounded-md text-base font-medium': true,
+            className={className('block px-3 py-2 rounded-md text-base font-medium', {
               'text-white bg-gray-600': item.active,
               'text-gray-300 hover:text-white hover:bg-gray-700': !item.active,
             })}
