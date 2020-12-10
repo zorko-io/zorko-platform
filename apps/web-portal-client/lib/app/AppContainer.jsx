@@ -1,6 +1,7 @@
 import React from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import LoginPage from '../components/LoginPage'
+import {HomePage} from '../components/HomePage'
+import {LoginPage} from '../components/LoginPage'
 import {App} from './App'
 
 export class AppContainer extends React.Component {
@@ -17,6 +18,7 @@ export class AppContainer extends React.Component {
         <Route path="/" exact render={() => <Redirect to="/example" />} />
         <Route path="/example" exact render={() => <App />} />
         <Route path="/login" exact render={() => <LoginPage />} />
+        <Route path="/home" exact render={() => <HomePage />} />
       </Switch>
     )
   }
