@@ -106,6 +106,9 @@ Keep CSS files near component, with the same name, for example
 
 ```
 
+About styles, see `Working with CSS` section
+
+
 ### Containers
 
 Components which have dependencies to redux (actions, selectors etc)
@@ -179,6 +182,17 @@ Example:
  AppContainer.jsx
  index.jsx
 ```
+
+###  Working with CSS
+
+We are using `Tailwindcss`, it has a bit different philosophy, then `Bootstrap` etc
+
+To organize [CSS with components](https://tailwindcss.com/docs/extracting-components) follow next pattern
+
+1. Preface utility classes
+1. Extract a repeatable markup with utility classes to components
+1. Combine utility classes in CSS classes when classnames became too long
+
 
 ### Redux
 
