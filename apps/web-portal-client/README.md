@@ -24,6 +24,28 @@ Application consist within  `Features` each feature may has next layers
 Parts of application which may contains UI. Feature usually contains store state, actions to work with that store and
 already 'connected' UI component to application store.
 
+Each feature may contains its own `Slices`, `Selector`, `Components` and `Containers`
+
+```
+|-myFeature/
+  |-components/
+  |-containers/
+  |-slices/
+  |-effects/
+  |-selectors/
+```
+
+Few nuances with a feature and `index.js`,
+we no need it in a feature's root folder,
+so refer to particular sub-folder instead
+
+```
+import {MyComponent} from '../features/myFeature/components'
+import {MyContainer} from '../features/myFeature/containers'
+import {selectSomeFeatureData} from '../features/myFeature/selectors'
+import {doSomeFeatureEffect} from '../features/myFeature/effects'
+
+```
 
 ### Slices
 
@@ -42,7 +64,7 @@ Naming of files inside of slice folder
 
 Example: usage of slice
 ```
-import {reducer, specsRemoveSuccess } from './slices/specs'
+import {reducer, specsRemoveSuccess } from './slices'
 
 ```
 ### Effects
@@ -50,7 +72,9 @@ import {reducer, specsRemoveSuccess } from './slices/specs'
 Effects in that projects are [redux-thunk](https://github.com/reduxjs/redux-thunk) functions which trigger side effects.
 Like API calls, timers etc.  In case of middleware, put it here too
 
-for example:
+Naming  `{someName}Effect.js`,  `{someName}Middleware.js`
+
+For example:
 
 ```
 |-effects/
@@ -65,24 +89,52 @@ for example:
 Selector functions for read-only operation over root app state.
 Should use cache to optimize React re-rendering.
 
+Naming `select{SomeName}.js`
+
+
 ### Components
 
 *Reusable* React components, shouldn't have any dependencies to Redux, try to keep them as simple as possible
 
+#### Organizing CSS
+
+Keep CSS files near component, with the same name, for example
+
+```
+-MyComponent.jsx
+-myComponent.css
+
+```
+
 ### Containers
 
-Components which have dependencies to redux (actions, selectors etc), may contains react components not connected directly for
-store and used only in one place
+Components which have dependencies to redux (actions, selectors etc)
+
+
+For example:
+
+```
+|-containers/
+  |-index.js
+  |-PrivateRouter.jsx
+  |-NavBar.jsx
+  |-LoginButton.jsx
+```
+
+We are encourage use hooks for mapping within the store, see
+
+* [useDispatch]https://react-redux.js.org/next/api/hooks#usedispatch)
+
 
 ### Project Structure
 
 ### Root folders overview
 
-`utils/` - contains all reusable utilises, typings etc, organized in a way that it could be extracted as separates npm module without big effort
-`api/` - remote api endpoints
-`components/` - all reusable react components
-`features/` - application's features
-`store/` - contains functions/objects to build Redux store instance
+* `utils/` - contains all reusable utilises, typings etc, organized in a way that it could be extracted as separates npm module without big effort
+* `api/` - remote api endpoints
+* `components/` - all reusable react components
+* `features/` - application's features
+* `store/` - contains functions/objects to build Redux store instance
 
 > Other folder in 'src' are not welcome
 
@@ -116,6 +168,7 @@ Example:
             |-index.jsx
         |-selectors/
             |-analyticBoardSectors.jsx
+            |-index.jsx
         |-slices/
             |-analyticBoardActions.jsx
             |-analyticBoardReducer.jsx
