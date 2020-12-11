@@ -123,7 +123,7 @@ For example:
 
 We are encourage use hooks for mapping within the store, see
 
-* [useDispatch]https://react-redux.js.org/next/api/hooks#usedispatch)
+* [Hooks](https://react-redux.js.org/next/api/hooks#hooks)
 
 
 ### Project Structure
@@ -179,3 +179,10 @@ Example:
  AppContainer.jsx
  index.jsx
 ```
+
+### Redux
+
+We are using
+
+* [Redux Tooklikt](https://redux-toolkit.js.org/)
+* [Immer](https://immerjs.github.io/immer/docs/introduction)
