@@ -7,8 +7,7 @@ export function MobileMenu(props) {
 
   return (
     <div
-      className={className({
-        'md:hidden': true,
+      className={className('md:hidden', {
         block: isShown,
         hidden: !isShown,
       })}
