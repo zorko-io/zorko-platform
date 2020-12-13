@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {Logo} from './Logo'
 import {DesktopMenu} from './DesktopMenu'
 import {LoginButton} from './LoginButton'
-import {MobileMenuButton} from './MobileMenuButton'
+import {ButtonSVG} from './ButtonSVG'
 import {MobileMenu} from './MobileMenu'
 
 export function NavBar() {
@@ -30,8 +30,8 @@ export function NavBar() {
               label={isLogged ? 'Logout' : 'Login'}
               onClick={() => setIsLogged(!isLogged)}
             />
-            <MobileMenuButton
-              shape={showMobileMenu ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
+            <ButtonSVG
+              shape={showMobileMenu ? 'sandwich' : 'cross'}
               onToggle={() => setShowMobileMenu(!showMobileMenu)}
             />
           </div>

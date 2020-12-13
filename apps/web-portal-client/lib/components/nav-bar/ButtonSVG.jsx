@@ -1,13 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './mobileMenuButton.css'
+import './ButtonSVG.css'
 
-export function MobileMenuButton(props) {
+export function ButtonSVG(props) {
   const {shape, onToggle} = props
+
+  const svgTemplates = {
+    sandwich: 'M6 18L18 6M6 6l12 12',
+    cross: 'M4 6h16M4 12h16M4 18h16',
+  }
 
   return (
     <div className="-mr-2 flex md:hidden">
-      <button type="submit" onClick={onToggle} className="btn-menu">
+      <button type="submit" onClick={onToggle} className="btn-svg">
         <span className="sr-only">Open main menu</span>
 
         <svg
@@ -18,19 +23,24 @@ export function MobileMenuButton(props) {
           stroke="currentColor"
           aria-hidden="true"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={shape} />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d={svgTemplates[shape]}
+          />
         </svg>
       </button>
     </div>
   )
 }
 
-MobileMenuButton.propTypes = {
+ButtonSVG.propTypes = {
   shape: PropTypes.string,
   onToggle: PropTypes.func,
 }
 
-MobileMenuButton.defaultProps = {
+ButtonSVG.defaultProps = {
   shape: '',
   onToggle: () => {},
 }
