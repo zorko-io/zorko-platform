@@ -1,12 +1,26 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import Spinner from '@web-portal-client/features/auth/components/Spinner'
 import {userLogin} from '@web-portal-client/features/auth/effects'
-import {selectLoginState} from '@web-portal-client/features/auth/selectors'
+import {
+  selectLoginState,
+  selectAuthError,
+  selectAuthToken,
+} from '@web-portal-client/features/auth/selectors'
 
 export function LoginPage() {
   const dispatch = useDispatch()
+  const history = useHistory()
   const isLogging = useSelector(selectLoginState)
+  const error = useSelector(selectAuthError)
+  const token = useSelector(selectAuthToken)
+
+  useEffect(() => {
+    if (!isLogging && !error && token) {
+      history.push('/home')
+    }
+  })
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -78,6 +92,7 @@ export function LoginPage() {
               <Spinner show={isLogging} />
               Sign in
             </button>
+            {error && <div>Invalid password or email</div>}
           </div>
         </form>
       </div>

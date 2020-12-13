@@ -12,6 +12,7 @@ export function AppContainer() {
   const token = useSelector(selectAuthToken)
 
   useEffect(() => {
+    // todo: add token validation (place for keycloack)
     if (location.pathname !== '/login' && !token) {
       history.push('/login')
     } else {

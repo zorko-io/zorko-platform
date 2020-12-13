@@ -8,7 +8,6 @@ import {MobileMenu} from './MobileMenu'
 
 export function NavBar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
-  const [isLogged, setIsLogged] = useState(false)
 
   return (
     <nav className="bg-gray-800">
@@ -26,10 +25,7 @@ export function NavBar() {
             />
           </div>
           <div className="flex items-center space-x-1">
-            <LoginButton
-              label={isLogged ? 'Logout' : 'Login'}
-              onClick={() => setIsLogged(!isLogged)}
-            />
+            <LoginButton />
             <MobileMenuButton
               shape={showMobileMenu ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
               onToggle={() => setShowMobileMenu(!showMobileMenu)}
