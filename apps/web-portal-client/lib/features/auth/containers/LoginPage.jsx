@@ -1,9 +1,13 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
-import {userLogin} from '@web-portal-client/features/auth/slices/authActions'
+import {useSelector, useDispatch} from 'react-redux'
+import Spinner from '@web-portal-client/features/auth/components/Spinner'
+import {userLogin} from '@web-portal-client/features/auth/effects'
+import {selectLoginState} from '@web-portal-client/features/auth/selectors'
 
 export function LoginPage() {
   const dispatch = useDispatch()
+  const isLogging = useSelector(selectLoginState)
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full    space-y-8">
@@ -64,12 +68,14 @@ export function LoginPage() {
           <div>
             <button
               type="button"
+              disabled={isLogging}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={() => {
                 dispatch(userLogin())
               }}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3" />
+              <Spinner show={isLogging} />
               Sign in
             </button>
           </div>

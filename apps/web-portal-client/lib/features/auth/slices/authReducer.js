@@ -6,6 +6,7 @@ export const initialState = {
     name: null,
   },
   logging: false,
+  logged: false,
   error: null,
 }
 
@@ -16,6 +17,7 @@ const authReducer = {
   login: (state, action) => {
     state.user = {...action.payload}
     state.logging = false
+    state.logged = true
   },
   logout: (state) => {
     state = initialState

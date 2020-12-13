@@ -1,5 +1,9 @@
 import client from './client'
 
-export const login = (params) => {
-  return client.auth.login(params)
+export const login = async (params) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(client.auth.login(params))
+    }, 5000)
+  })
 }
