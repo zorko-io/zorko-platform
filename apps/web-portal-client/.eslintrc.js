@@ -26,7 +26,9 @@ module.exports = {
       alias: {
         map: [
           ['@util-validation', '../../packages/util-validation'],
-          ['@util-web-api-client', '../../packages/util-web-api-client']
+          ['@util-web-api-client', '../../packages/util-web-api-client'],
+          ['@web-portal-client/api', './api'],
+          ['@web-portal-client/features', './lib/features']
         ],
         extensions: ['.ts', '.js', '.jsx', '.json', '.mjs']
       },
