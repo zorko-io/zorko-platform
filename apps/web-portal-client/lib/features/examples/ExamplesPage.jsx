@@ -4,7 +4,7 @@ import {HeaderLayout} from '../components/layout/HeaderLayout'
 import {SidebarLayout} from '../components/layout/SidebarLayout'
 import {ContentLayout} from '../components/layout/ContentLayout'
 
-export function App() {
+export function ExamplesPage() {
   return (
     <Layout
       renderHeader={() => <HeaderLayout />}
@@ -14,6 +14,6 @@ export function App() {
   )
 }
 
-App.propTypes = {}
+ExamplesPage.propTypes = {}
 
-App.defaultProps = {}
+ExamplesPage.defaultProps = {}
