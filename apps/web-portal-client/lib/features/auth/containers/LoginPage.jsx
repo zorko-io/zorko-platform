@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
-import Spinner from '../components/Spinner'
+import Spinner from '../../../components/Spinner'
 import {userLogin} from '../effects'
 import {selectLoginState, selectAuthError, selectAuthToken} from '../selectors'
 
