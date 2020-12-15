@@ -1,6 +1,6 @@
 import React from 'react'
 import {useDispatch} from 'react-redux'
-import {userLogout} from '@web-portal-client/features/auth/effects'
+import {userLogout} from '../../features/auth/effects'
 
 export function LoginButton() {
   const dispatch = useDispatch()

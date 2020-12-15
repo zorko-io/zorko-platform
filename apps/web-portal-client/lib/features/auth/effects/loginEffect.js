@@ -1,5 +1,5 @@
-import * as api from '@web-portal-client/api'
-import {logging, login, error} from '@web-portal-client/features/auth/slices'
+import * as api from '../../../../api'
+import {logging, login, error} from '../slices'
 
 export const userLogin = (params) => async (dispatch) => {
   try {

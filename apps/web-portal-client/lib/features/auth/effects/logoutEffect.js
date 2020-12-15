@@ -1,4 +1,4 @@
-import {logout} from '@web-portal-client/features/auth/slices'
+import {logout} from '../slices'
 
 export const userLogout = () => (dispatch) => {
   dispatch(logout())

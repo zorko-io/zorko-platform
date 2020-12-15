@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
 import {Switch, Route, Redirect, useHistory, useLocation} from 'react-router-dom'
 import {useSelector} from 'react-redux'
-import {LoginPage} from '@web-portal-client/features/auth/containers/LoginPage'
-import {selectAuthToken} from '@web-portal-client/features/auth/selectors'
+import {LoginPage} from '../features/auth/containers/LoginPage'
+import {selectAuthToken} from '../features/auth/selectors'
 import {HomePage} from '../components/HomePage'
 import {App} from './App'
 

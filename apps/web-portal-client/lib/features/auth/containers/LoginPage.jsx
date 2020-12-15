@@ -1,13 +1,9 @@
 import React, {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
-import Spinner from '@web-portal-client/features/auth/components/Spinner'
-import {userLogin} from '@web-portal-client/features/auth/effects'
-import {
-  selectLoginState,
-  selectAuthError,
-  selectAuthToken,
-} from '@web-portal-client/features/auth/selectors'
+import Spinner from '../components/Spinner'
+import {userLogin} from '../effects'
+import {selectLoginState, selectAuthError, selectAuthToken} from '../selectors'
 
 export function LoginPage() {
   const dispatch = useDispatch()
