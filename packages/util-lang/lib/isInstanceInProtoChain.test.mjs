@@ -6,7 +6,3 @@ test('async - parses valid value', async (t) => {
 
   t.assert(isInstanceInProtoChain({}, Object), true)
 })
-
-
-
-
