@@ -53,7 +53,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.mjs'],
     alias: {
       "@util-validation": path.resolve(__dirname, '../../packages/util-validation'),
-      "@util-web-api-client": path.resolve(__dirname, '../../packages/util-web-api-client'),
+      "@util-web-api-client": path.resolve(__dirname, '../../packages/util-web-api-client')
     }
   },
   devServer: {

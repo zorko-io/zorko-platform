@@ -1,6 +1,23 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
+import Spinner from '../../../components/Spinner'
+import {userLogin} from '../effects'
+import {selectLoginState, selectAuthError, selectAuthToken} from '../selectors'
 
 export function LoginPage() {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const isLogging = useSelector(selectLoginState)
+  const error = useSelector(selectAuthError)
+  const token = useSelector(selectAuthToken)
+
+  useEffect(() => {
+    if (!isLogging && !error && token) {
+      history.push('/home')
+    }
+  })
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full    space-y-8">
@@ -14,7 +31,7 @@ export function LoginPage() {
             Sign in to your account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -60,12 +77,19 @@ export function LoginPage() {
 
           <div>
             <button
-              type="submit"
+              type="button"
+              disabled={isLogging}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={() => {
+                // todo: pass email and passwoord to action as parameter dispatch(userLogin(params))
+                dispatch(userLogin())
+              }}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3" />
+              <Spinner show={isLogging} />
               Sign in
             </button>
+            {error && <div>Invalid password or email</div>}
           </div>
         </form>
       </div>
