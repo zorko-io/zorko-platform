@@ -2,7 +2,7 @@ import React from 'react'
 
 export function UserProfile() {
   return (
-    <aside className="md:w-1/4  md:ml-4 mt-4 ">
+    <aside className="md:ml-4 mt-4 ">
       <div className="flex md:block">
         <div className="flex-shrink-0">
           <img

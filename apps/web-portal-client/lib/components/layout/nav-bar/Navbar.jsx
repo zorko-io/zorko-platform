@@ -6,7 +6,7 @@ import {LoginButton} from './LoginButton'
 import {MobileMenuButton} from './MobileMenuButton'
 import {MobileMenu} from './MobileMenu'
 
-export function NavBar() {
+export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
 
   return (
