@@ -27,7 +27,7 @@ export function NavBar() {
           <div className="flex items-center space-x-1">
             <LoginButton />
             <MobileMenuButton
-              shape={showMobileMenu ? 'crossShape' : 'sandwichShape'}
+              shape={showMobileMenu ? 'cross' : 'sandwich'}
               onToggle={() => setShowMobileMenu(!showMobileMenu)}
             />
           </div>
