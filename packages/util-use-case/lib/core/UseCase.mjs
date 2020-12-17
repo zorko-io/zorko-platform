@@ -34,6 +34,15 @@ export class UseCase {
   }
 
   /**
+   * Define validation rules for input params
+   * @type {Object | null}
+   */
+
+  get rules() {
+    return null
+  }
+
+  /**
    * Triggers use case's business logic
    * @param {Object} params - input parameters to execute a use case
    * @returns {Promise<*>} - result of use case
