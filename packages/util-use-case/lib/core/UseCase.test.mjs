@@ -7,6 +7,7 @@ test('create UseCase with default context', async (t) => {
   const useCase = new UseCase()
 
   t.deepEqual(useCase.context, {})
+  t.is(useCase.rules, null)
   t.assert(useCase)
 })
 
