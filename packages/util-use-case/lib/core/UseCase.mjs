@@ -3,12 +3,18 @@
 import {NotYetImplementedError} from '@zorko-io/util-error'
 import assert from 'assert'
 
+/**
+ *  Core UseCase, designed for encapsulation of
+ *  various business logic
+ */
+
 export class UseCase {
 
   #context = null
 
   /**
-   *
+   * Makes sure that context is defined and attach it
+   * to the instance
    * @param {C} context - context for the use case
    */
 
