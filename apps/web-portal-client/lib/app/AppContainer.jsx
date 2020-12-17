@@ -4,7 +4,6 @@ import {useSelector} from 'react-redux'
 import {LoginPage} from '../features/auth/containers'
 import {selectAuthToken} from '../features/auth/selectors'
 import {HomePage} from '../components/HomePage'
-import {LoginPage} from '../components/LoginPage'
 import {ExamplesPage} from '../features/examples/ExamplesPage'
 
 export function AppContainer() {
@@ -12,14 +11,14 @@ export function AppContainer() {
   const history = useHistory()
   const token = useSelector(selectAuthToken)
 
-  useEffect(() => {
+  /*   useEffect(() => {
     // todo: add token validation (place for keycloack)
     if (location.pathname !== '/login' && !token) {
       history.push('/login')
     } else {
       // todo: implement login with token
     }
-  })
+  }) */
 
   return (
     <Switch>

@@ -8,8 +8,6 @@ import {MobileMenu} from './MobileMenu'
 
 export function NavBar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
-  const crossShape = 'M6 18L18 6M6 6l12 12'
-  const sandwichShape = 'M6 18L18 6M6 6l12 12'
 
   return (
     <nav className="bg-gray-800">
@@ -29,7 +27,7 @@ export function NavBar() {
           <div className="flex items-center space-x-1">
             <LoginButton />
             <MobileMenuButton
-              shape={showMobileMenu ? sandwichShape : crossShape}
+              shape={showMobileMenu ? 'crossShape' : 'sandwichShape'}
               onToggle={() => setShowMobileMenu(!showMobileMenu)}
             />
           </div>

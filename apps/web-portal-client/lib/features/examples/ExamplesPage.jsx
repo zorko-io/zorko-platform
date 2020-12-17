@@ -1,12 +1,10 @@
 import React from 'react'
-import {Logo} from '../../components/nav-bar/Logo'
+import {NavBar} from '../../components/nav-bar/'
 
 export function ExamplesPage() {
   return (
     <div id="examples">
-      <div className="sticky bg-gray-800 flex py-2 pl-2">
-        <Logo />
-      </div>
+      <NavBar />
 
       <div className="w-full max-w-8xl mx-auto">
         <div className="lg:flex">

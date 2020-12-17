@@ -4,6 +4,11 @@ import './mobileMenuButton.css'
 
 export function MobileMenuButton(props) {
   const {shape, onToggle} = props
+  const template = {
+    "crossShape" :'M6 18L18 6M6 6l12 12'
+    "sandwichShape": 'M6 18L18 6M6 6l12 12'
+  }
+
 
   return (
     <div className="-mr-2 flex md:hidden">
