@@ -23,17 +23,18 @@ export class UseCaseWithValidation extends UseCase {
     assert(context.origin, 'Should have an origin defined')
     assert(context.createValidator, 'Should have validator creator defined')
 
-    super(context);
+    super(context)
   }
 
   async run(params) {
-    const { origin } = this.context
-    const rules = await origin.rules(params)
+    const {origin} = this.context
+
+    const rules = await this.rules(params)
 
     if (rules) {
       const {error, result} = await this._validate(params, rules)
 
-      if (!error){
+      if (!error) {
         return origin.run(result)
       }
 
@@ -43,12 +44,38 @@ export class UseCaseWithValidation extends UseCase {
     return origin.run(params)
   }
 
-  async _validate(params, rules) {
-     if (!this.#validator)  {
-       // TODO: gh-55 - it will cause a bug within dynamyc validation rules
-       this.#validator = this.context.createValidator(rules)
-     }
+  async rules(params = null) {
+    const {origin} = this.context
+    let rules = origin.constructor.rules
 
-     return this.#validator.parse(params)
+    if (!rules) {
+      return origin.rules(params)
+    }
+
+    return rules
+  }
+
+  async _validate(params, rules) {
+    const validator = this._createValidator(rules)
+
+    return validator.parse(params)
+  }
+
+  _createValidator(rules) {
+    const hasStaticRules = Boolean(
+      this.context.origin.constructor.rules
+    )
+
+    if (hasStaticRules && this.#validator) {
+      return this.#validator
+    }
+
+    const validator = this.context.createValidator(rules)
+
+    if (hasStaticRules){
+      this.#validator = validator
+    }
+
+    return validator
   }
 }

@@ -10,6 +10,8 @@ import assert from 'assert'
 
 export class UseCase {
 
+  static rules = null
+
   #context = null
 
   /**
@@ -33,7 +35,7 @@ export class UseCase {
   }
 
   /**
-   * Returns rules for input validation,
+   * Returns dynamic rules for input validation,
    * exact rules maybe generated based on input params
    * @params {Object|null} params - input parameters to validate
    * @return {Object|null} rules - return rules,
