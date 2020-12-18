@@ -5,7 +5,13 @@ import assert from 'assert'
 export class UseCaseWithValidation extends UseCase {
 
   /**
-   * Enhance
+   * @type {Validator|null}
+   */
+
+  #validator = null
+
+  /**
+   * Enhance use case with input validation check
    * @param {Object} context - use case context
    * @param {UseCase} context.origin - original use case, without validation
    * @param {Function} context.createValidator - validator factory function
@@ -21,6 +27,27 @@ export class UseCaseWithValidation extends UseCase {
   }
 
   async run(params) {
-    return this.context.origin.run(params)
+    const { origin } = this.context
+    const rules = await origin.rules(params)
+
+    if (rules) {
+      const {error, result} = await this._validate(params, rules)
+
+      if (!error){
+        return origin.run(result)
+      }
+
+      throw error
+    }
+
+    return origin.run(params)
+  }
+
+  async _validate(params, rules) {
+     if (!this.#validator)  {
+       this.#validator = this.context.createValidator(rules)
+     }
+
+     return this.#validator.parse(params)
   }
 }

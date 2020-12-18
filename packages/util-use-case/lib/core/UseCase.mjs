@@ -5,7 +5,7 @@ import assert from 'assert'
 
 /**
  *  Core UseCase, designed for encapsulation of
- *  various business logic
+ *  business logic in your project
  */
 
 export class UseCase {
@@ -13,8 +13,7 @@ export class UseCase {
   #context = null
 
   /**
-   * Makes sure that context is defined and attach it
-   * to the instance
+   * @constructor
    * @param {C} context - context for the use case
    */
 
@@ -24,7 +23,7 @@ export class UseCase {
   }
 
   /**
-   * Use case context, used to store dynamic dependencies and
+   * Returns use case context, used to store dynamic dependencies and
    * config options, aka snapshot from constructor params
    * @type {C}
    */
@@ -34,7 +33,7 @@ export class UseCase {
   }
 
   /**
-   * Define validation rules for input validation,
+   * Returns rules for input validation,
    * exact rules maybe generated based on input params
    * @params {Object|null} params - input parameters to validate
    * @return {Object|null} rules - return rules,
