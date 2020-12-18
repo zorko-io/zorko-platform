@@ -4,6 +4,7 @@ import {UseCase} from './UseCase'
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
 test('create UseCase with default context', async (t) => {
+  t.is(UseCase.rules, null)
   const useCase = new UseCase()
 
   t.deepEqual(useCase.context, {})
