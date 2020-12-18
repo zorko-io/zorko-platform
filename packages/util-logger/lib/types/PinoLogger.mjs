@@ -1,5 +1,5 @@
 import pino from 'pino'
-import {Logger} from '../..'
+import {CoreLogger} from '../..'
 
 /**
  * @todo #1:45m/DEV Experimenting to send logs in elastic search
@@ -8,7 +8,7 @@ import {Logger} from '../..'
  *
  */
 
-export class PinoLogger extends Logger {
+export class PinoLogger extends CoreLogger {
   #pino = null
 
   /**
