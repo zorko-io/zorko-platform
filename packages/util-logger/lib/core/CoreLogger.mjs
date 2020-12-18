@@ -5,7 +5,7 @@ import {NotYetImplementedError} from '@zorko-io/util-error'
  * @interface
  */
 
-export class Logger {
+export class CoreLogger {
   trace(payload) {
     throw new NotYetImplementedError()
   }

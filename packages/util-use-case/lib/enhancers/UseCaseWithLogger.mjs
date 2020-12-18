@@ -3,21 +3,29 @@ import assert from 'assert'
 
 export class UseCaseWithLogger extends UseCase {
 
+  /**
+   * @type {CoreLogger}
+   */
+
   #log = null
 
   /**
    * Enhance use case with default logging
-   * @param {{log: MockLogger, origin: UseCaseWithValidation}} context - use case context
-   * @param {UseCase} context.origin - original use case, without validation
-   * @param {Logger} context.log - logger
-   * @param {String} context.name - use case name
+   *
+   * @typedef UseCaseWithLoggerContext
+   * @property {CoreLogger} log - logger
+   * @property {UseCase} origin - original use case
+   * @property {String} name - original use case's name
+   *
+   * @param {UseCaseWithLoggerContext} context - use case context
    */
 
-  constructor(context= {}) {
+  constructor(context) {
+    super(context);
+
     assert(context.name, 'Should have an use case name defined')
     assert(context.origin, 'Should have an origin defined')
     assert(context.log, 'Should have validator log')
-    super(context);
 
     this.#log = context.log.logger(context.name)
   }

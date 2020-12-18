@@ -10,7 +10,7 @@ import {UseCaseWithLogger} from '../enhancers/UseCaseWithLogger.mjs'
  * @params {Object} context - use case context
  * @params {Object} deps - function's dependencies
  * @params {Object} deps.createValidator - validator factory function
- * @params {Logger} [deps.log] - logger
+ * @params {CoreLogger} [deps.log] - logger
  * @returns {UseCase} - enhanced instance of passed class with various decorators over it
  */
 
