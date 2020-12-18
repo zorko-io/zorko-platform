@@ -45,6 +45,7 @@ export class UseCaseWithValidation extends UseCase {
 
   async _validate(params, rules) {
      if (!this.#validator)  {
+       // TODO: gh-55 - it will cause a bug within dynamyc validation rules
        this.#validator = this.context.createValidator(rules)
      }
 
