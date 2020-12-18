@@ -34,11 +34,14 @@ export class UseCase {
   }
 
   /**
-   * Define validation rules for input params
-   * @type {Object | null}
+   * Define validation rules for input validation,
+   * exact rules maybe generated based on input params
+   * @params {Object|null} params - input parameters to validate
+   * @return {Object|null} rules - return rules,
+   * concrete rules depends from validation engine used in project
    */
 
-  get rules() {
+  async rules(params = null) {
     return null
   }
 
