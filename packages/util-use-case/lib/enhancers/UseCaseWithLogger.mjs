@@ -10,7 +10,7 @@ export class UseCaseWithLogger extends UseCase {
   #log = null
 
   /**
-   * Enhance use case with default logging
+   * Enhance use case with logging
    *
    * @typedef UseCaseWithLoggerContext
    * @property {CoreLogger} log - logger
@@ -27,19 +27,29 @@ export class UseCaseWithLogger extends UseCase {
     assert(context.origin, 'Should have an origin defined')
     assert(context.log, 'Should have validator log')
 
-    this.#log = context.log.logger(context.name)
+    this.#log = context.log.child(context.name)
   }
 
   async run(params) {
     const log = this.#log
 
+    // TODO: gh-55 measure execution time, pass params and results to logger
+
     log.trace('Start use case execution')
 
-    const result = await this.context.origin.run(params);
+    try {
+      const result = await this.context.origin.run(params);
 
-    log.trace('Finish use case execution')
+      log.info('Finish use case execution')
 
+      return result
 
-    return result
+    } catch (error){
+      // TODO: gh-55 log error
+
+      log.error('Issues with running use case')
+
+      throw error
+    }
   }
 }

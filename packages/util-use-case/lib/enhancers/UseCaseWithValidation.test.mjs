@@ -35,7 +35,6 @@ test.beforeEach((t) => {
   t.context = {origin, params, result, rules, createValidator, validator}
 })
 
-
 test('create UseCase with default context', async (t) => {
   const {createValidator, origin, result, params} = t.context
 
