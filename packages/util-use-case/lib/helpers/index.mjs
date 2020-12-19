@@ -1,2 +1,2 @@
 export * from './createUseCase'
-export * from './runUseCase'
+export * from './makeRunner'

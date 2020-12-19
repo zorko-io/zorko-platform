@@ -1,9 +1,9 @@
 /**
- * Triggers use case
+ * Create a function to wrap execution of use case
  */
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
-/* eslint-disable no-unused-vars */
-async function runUseCase() {
+
+async function makeRunner(useCase, context, deps) {
    throw new NotYetImplementedError()
 }
