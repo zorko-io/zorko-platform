@@ -5,7 +5,9 @@ import {createUseCase} from './createUseCase'
 import {MockLogger} from '@zorko-io/util-logger'
 import {createValidator} from '@zorko-io/util-validation'
 
-function toUseCaseParams() {
+// TODO: gh-55 move to http adapters, introduce runner adapter concept
+
+function toUseCaseParams(...args) {
   return null
 }
 
