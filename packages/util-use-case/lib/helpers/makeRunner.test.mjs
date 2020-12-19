@@ -1,8 +1,8 @@
 import test from '@zorko-io/tool-test-harness'
-import {createUseCase} from './createUseCase'
 import {UseCase} from '../core'
+import {makeRunner} from './makeRunner'
 
-test(' UseCase', (t) => {
+test('run simple UseCase with defaults', async (t) => {
 
   const rules = { name: 'required'}
 
@@ -10,7 +10,9 @@ test(' UseCase', (t) => {
     static rules = rules
   }
 
-  const useCase = createUseCase(MockUseCase, {})
+  const runner = makeRunner(MockUseCase)
 
-  t.assert(useCase)
+  await runner({})
+
+  t.assert(runner)
 })
