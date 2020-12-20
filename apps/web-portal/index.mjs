@@ -1,2 +1,9 @@
-// TODO: gh-55 start tiny express server with one use case for demo propose
+import {WebPortalExpressApp} from './lib'
+import {config} from './config.mjs'
 
+const app = new WebPortalExpressApp({
+  config
+})
+
+
+app.startAndAttach()

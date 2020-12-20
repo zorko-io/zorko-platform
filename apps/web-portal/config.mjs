@@ -13,3 +13,9 @@
  * generate all confme file as a post-install task directly in app directory
  *
  */
+
+export const config = {
+  http: {
+    port: 7777
+  }
+}

@@ -2,7 +2,7 @@
   "name": "@zorko-io/{__NAME__}",
   "type": "module",
   "version": "1.0.0",
-  "main": "index.mjs",
+  "main": "WebPortalExpressApp.mjs",
   "devDependencies": {
     "@zorko-io/tool-test-harness": "1.0.0"
   },
