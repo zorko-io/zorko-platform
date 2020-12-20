@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 export function Sidebar(props) {
   const {description, items} = props
@@ -25,13 +26,13 @@ export function Sidebar(props) {
                 {props.children ||
                   items.map((item) => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         className="px-3 py-2 transition-colors duration-200 relative block hover:text-gray-900 text-gray-500"
-                        href={item.link}
+                        to={item.link}
                       >
                         <span className="rounded-md absolute inset-0 bg-cyan-50 opacity-0"></span>
                         <span className="relative">{item.name}</span>
-                      </a>
+                      </Link>
                     </li>
                   ))}
               </ul>
