@@ -1,0 +1,20 @@
+import {makeRunner} from '@zorko-io/util-use-case'
+import express from 'express'
+
+// TODO: gh-55 refactor and move to use-cases utils or util-endpoint
+
+export function appEndpoint(app, path, defineEndpoints) {
+    const router = express.Router()
+
+    const endpoints = defineEndpoints({
+      makeRunner
+    })
+
+    if (endpoints.list){
+      router.get('/list', (req, res) => {
+        res.send('return list here')
+      })
+    }
+
+    app.use(path, router)
+}

@@ -1,5 +1,7 @@
 import assert from 'assert'
 import express from 'express'
+import {appEndpoint} from './appEndpoint.mjs'
+import {makePreview} from './preview/makePreview.mjs'
 
 // TODO: gh-55 handle process start/stop, wire with logger, etc
 export class WebPortalExpressApp {
@@ -22,17 +24,11 @@ export class WebPortalExpressApp {
     this.#config = context.config
     this.#http = express()
 
-    this.initUseCases()
+    this.initEndpoints()
   }
 
-  initUseCases() {
-    const router = express.Router()
-
-    router.get('/', (req, res) => {
-       res.send('boom')
-    })
-
-    this.#http.use('/previews', router)
+  initEndpoints() {
+    appEndpoint(this.#http, '/previews', makePreview)
   }
 
   startAndAttach () {
