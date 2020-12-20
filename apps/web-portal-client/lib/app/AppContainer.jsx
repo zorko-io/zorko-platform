@@ -3,8 +3,8 @@ import {Switch, Route, Redirect, useHistory, useLocation} from 'react-router-dom
 import {useSelector} from 'react-redux'
 import {LoginPage} from '../features/auth/containers'
 import {selectAuthToken} from '../features/auth/selectors'
-import {HomePage} from '../components/HomePage'
-import {ExamplesPage} from '../features/examples/ExamplesPage'
+import {HomePage} from '../components'
+import {ExamplesPage} from '../features/examples/components'
 
 export function AppContainer() {
   const location = useLocation()
