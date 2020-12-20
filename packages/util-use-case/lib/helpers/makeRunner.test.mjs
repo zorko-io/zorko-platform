@@ -4,10 +4,14 @@ import {makeRunner} from './makeRunner'
 
 test('run simple UseCase with defaults', async (t) => {
 
-  const rules = { name: 'required'}
+  // const rules = { name: 'required'}
 
   class MockUseCase extends UseCase {
-    static rules = rules
+
+    async run (params) {
+      return {params}
+    }
+
   }
 
   const runner = makeRunner(MockUseCase)

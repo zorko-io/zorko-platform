@@ -4,24 +4,12 @@
 import {createUseCase} from './createUseCase'
 import {MockLogger} from '@zorko-io/util-logger'
 import {createValidator} from '@zorko-io/util-validation'
-
-// TODO: gh-55 move to http adapters, introduce runner adapter concept
-
-function toUseCaseParams(...args) {
-  return null
-}
-
-function toUseCaseContext() {
-  return null
-}
-
-function mapResultToHttp(data) {
-  return {...data}
-}
-
-function mapErrorToHttp(error, deps) {
-  return error
-}
+import {
+  mapErrorToHttp,
+  mapResultToHttp,
+  toUseCaseContext,
+  toUseCaseParams
+} from '../adapters/http'
 
 /**
  * Returns function with encapsulated use case, ready to run with proper params
@@ -59,9 +47,9 @@ export function makeRunner(useCaseClass, deps = {
       const params = toParams(...args)
 
       const result = await useCase.run(params)
-      handleResult(result, ...args)
+      handleResult(...[result, ...args])
     } catch (error) {
-      deps.handleError(error, ...args, {log: deps.log})
+      deps.handleError(...[error, ...args, {log: deps.log}])
     }
   }
 }
