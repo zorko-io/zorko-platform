@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export function Layout(props) {
   const {navbarRender, sidebarRender, headerRender, contentRender} = props
@@ -16,4 +17,18 @@ export function Layout(props) {
       </div>
     </div>
   )
+}
+
+Layout.propTypes = {
+  navbarRender: PropTypes.func,
+  sidebarRender: PropTypes.func,
+  headerRender: PropTypes.func,
+  contentRender: PropTypes.func,
+}
+
+Layout.defaultProps = {
+  navbarRender: () => {},
+  sidebarRender: () => {},
+  headerRender: () => {},
+  contentRender: () => {},
 }

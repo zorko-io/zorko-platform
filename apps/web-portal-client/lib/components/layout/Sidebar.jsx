@@ -1,8 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import {Link} from 'react-router-dom'
 
 export function Sidebar(props) {
-  const {description, items} = props
+  const {description, items, children} = props
   return (
     <div
       id="sidebar"
@@ -12,7 +14,7 @@ export function Sidebar(props) {
         id="navWrapper"
         className="h-full overflow-y-auto scrolling-touch lg:h-auto lg:block lg:relative lg:sticky lg:bg-transparent overflow-hidden lg:top-18 bg-white mr-24 lg:mr-0"
       >
-        <div className="hidden lg:block h-12 pointer-events-none absolute inset-x-0 z-10 bg-gradient-to-b from-white"></div>
+        <div className="hidden lg:block h-12 pointer-events-none absolute inset-x-0 z-10 bg-gradient-to-b from-white" />
         <nav
           id="nav"
           className="px-1 pt-6 overflow-y-auto font-medium text-base sm:px-3 xl:px-5 lg:text-sm pb-10 lg:pt-10 lg:pb-16 sticky?lg:h-(screen-18)"
@@ -23,14 +25,14 @@ export function Sidebar(props) {
                 {description}
               </h5>
               <ul>
-                {props.children ||
+                {children ||
                   items.map((item) => (
                     <li key={item.name}>
                       <Link
                         className="px-3 py-2 transition-colors duration-200 relative block hover:text-gray-900 text-gray-500"
                         to={item.link}
                       >
-                        <span className="rounded-md absolute inset-0 bg-cyan-50 opacity-0"></span>
+                        <span className="rounded-md absolute inset-0 bg-cyan-50 opacity-0" />
                         <span className="relative">{item.name}</span>
                       </Link>
                     </li>
@@ -42,4 +44,22 @@ export function Sidebar(props) {
       </div>
     </div>
   )
+}
+
+Sidebar.propTypes = {
+  description: PropTypes.string,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      link: PropTypes.string,
+      active: PropTypes.bool,
+    })
+  ),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+}
+
+Sidebar.defaultProps = {
+  description: '',
+  items: [{}],
+  children: null,
 }

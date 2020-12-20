@@ -4,6 +4,7 @@ import {Switch, Route} from 'react-router-dom'
 import {Content, Header, Sidebar, Navbar, Layout} from '../../../components/layout'
 import ApiExample from './ApiExample'
 import ValidatorExample from './ValidatorExample'
+
 export function ExamplesPage() {
   return (
     <Layout
@@ -31,7 +32,3 @@ export function ExamplesPage() {
     />
   )
 }
-
-ExamplesPage.propTypes = {}
-
-ExamplesPage.defaultProps = {}

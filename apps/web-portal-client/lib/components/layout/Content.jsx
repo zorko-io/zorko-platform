@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export function Content(props) {
   const {innerContentRender} = props
@@ -9,4 +10,12 @@ export function Content(props) {
       </div>
     </main>
   )
+}
+
+Content.propTypes = {
+  innerContentRender: PropTypes.func,
+}
+
+Content.defaultProps = {
+  innerContentRender: () => {},
 }

@@ -17,7 +17,7 @@ export function HomePage() {
       contentRender={() => (
         <Content
           innerContentRender={() => (
-            <React.Fragment>
+            <>
               <Card />
               <Card />
               <Card />
@@ -25,7 +25,7 @@ export function HomePage() {
               <Card />
               <Card />
               <Card />
-            </React.Fragment>
+            </>
           )}
         />
       )}
