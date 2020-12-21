@@ -17,8 +17,8 @@ export function Navbar() {
             <Logo />
             <DesktopMenu
               items={[
-                {desc: 'Home', link: '#', active: true},
-                {desc: 'Product', link: '#'},
+                {desc: 'Home', link: '/home', active: true},
+                {desc: 'Examples', link: '/example'},
                 {desc: 'Teams', link: '#'},
                 {desc: 'About', link: '#'},
               ]}
@@ -35,8 +35,8 @@ export function Navbar() {
       </div>
       <MobileMenu
         items={[
-          {desc: 'Home', link: '#', active: true},
-          {desc: 'Product', link: '#'},
+          {desc: 'Home', link: '/home', active: true},
+          {desc: 'Examples', link: '/example'},
           {desc: 'Teams', link: '#'},
           {desc: 'About', link: '#'},
         ]}
