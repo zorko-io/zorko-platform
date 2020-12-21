@@ -45,7 +45,7 @@ export class UseCaseWithLogger extends UseCase {
       return result
 
     } catch (error){
-      // TODO: gh-55 log error
+      // TODO: gh-55 log error for json format
 
       log.error('Issues with running use case')
 

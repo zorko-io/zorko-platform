@@ -8,6 +8,6 @@ For Example
 
 ```
 
-// TODO: gh-55
+// TODO: gh-55 provide simpl tutorial and explanation of utils to use
 
 ```

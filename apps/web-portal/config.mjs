@@ -1,5 +1,4 @@
-// TODO: use logger config here to check solution with env config
-
+// TODO: provide configuration definition with confme
 /**
  * idea to have a 'util-confme'
  *

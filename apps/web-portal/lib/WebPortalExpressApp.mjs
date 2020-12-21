@@ -24,6 +24,7 @@ export class WebPortalExpressApp {
     this.#config = context.config
     this.#http = express()
 
+    // TODO: gh-55 - re-integrate with endpoints as entity from utils
     this.initEndpoints()
   }
 

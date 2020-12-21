@@ -14,3 +14,27 @@ export function mapResultToHttp(result, req, res) {
 
 export function mapErrorToHttp() {
 }
+
+
+// TODO: gh-55 do proper class and interface, cover with unit tests
+//
+// class RunnerArgumentsAdapter {
+//
+//
+//   toParams() {
+//
+//   }
+//
+//   toContext() {
+//
+//   }
+//
+//   toResult() {
+//
+//   }
+//
+//   toError() {
+//
+//   }
+//
+// }

@@ -43,17 +43,21 @@ export function makeRunner(useCaseClass, deps) {
   return async function useCaseRunner(...args) {
     try {
       const {create, toContext, toParams, log, validate, handleResult} = deps
+      // TODO: gh-55 provide defaults, separate selector from adapter
       const context = toContext(...args)
       const useCase = create(useCaseClass, context, {
         log,
         createValidator: validate
       })
 
+      // TODO: gh-55 provide defaults, separate selector from adapter
       const params = toParams(...args)
 
       const result = await useCase.run(params)
+      // TODO: gh-55 provide default sucess handling and json serialization
       handleResult(...[result, ...args])
     } catch (error) {
+      // TODO: gh-55 provide default error handling and json serialization or errors
       deps.handleError(...[error, ...args, {log: deps.log}])
     }
   }
