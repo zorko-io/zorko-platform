@@ -2,8 +2,8 @@ import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 
 import {Content, Header, Sidebar, Navbar, Layout} from '../../../components/layout'
-import ApiExample from './ApiExample'
-import ValidatorExample from './ValidatorExample'
+import {ApiExample} from './ApiExample'
+import {ValidatorExample} from './ValidatorExample'
 
 export function ExamplesPage() {
   return (
