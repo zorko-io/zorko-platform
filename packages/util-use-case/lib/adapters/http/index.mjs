@@ -16,7 +16,7 @@ export function mapErrorToHttp() {
 }
 
 
-// TODO: gh-55 do proper class and interface, cover with unit tests
+// TODO: gh-55 do proper class and interface, provide todos
 //
 // class RunnerArgumentsAdapter {
 //

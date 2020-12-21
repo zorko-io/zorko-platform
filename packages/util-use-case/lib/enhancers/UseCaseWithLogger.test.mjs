@@ -4,7 +4,7 @@ import {UseCaseWithLogger} from './UseCaseWithLogger'
 import {UseCase} from '../core'
 import {CoreLogger} from '@zorko-io/util-logger'
 
-// TODO: gh-55 check constructor asserts
+// TODO: gh-80 check constructor asserts
 
 test('create UseCase with custom logger', async (t) => {
   const log = sinon.createStubInstance(CoreLogger)

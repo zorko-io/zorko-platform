@@ -33,7 +33,7 @@ export class UseCaseWithLogger extends UseCase {
   async run(params) {
     const log = this.#log
 
-    // TODO: gh-55 measure execution time, pass params and results to logger
+    // TODO: gh-80 measure execution time, pass params and results to logger
 
     log.trace('Start use case execution')
 
@@ -45,7 +45,7 @@ export class UseCaseWithLogger extends UseCase {
       return result
 
     } catch (error){
-      // TODO: gh-55 log error for json format
+      // TODO:  gh-80 log error for json format
 
       log.error('Issues with running use case')
 
