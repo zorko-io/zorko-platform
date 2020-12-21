@@ -11,9 +11,7 @@ export function appEndpoint(app, path, defineEndpoints) {
     })
 
     if (endpoints.list){
-      router.get('/list', (req, res) => {
-        res.send('return list here')
-      })
+      router.get('/list', endpoints.list)
     }
 
     app.use(path, router)
