@@ -25,7 +25,7 @@ import {
  * @returns {Function} - closure with use case ready to execution
  */
 
-export function makeRunner(useCaseClass, deps = {
+const DEFAULT_DEPS = {
   create: createUseCase,
   toParams: toUseCaseParams,
   toContext: toUseCaseContext,
@@ -33,9 +33,14 @@ export function makeRunner(useCaseClass, deps = {
   handleResult: mapResultToHttp,
   handleError: mapErrorToHttp,
   log: new MockLogger()
-}) {
-  return async function useCaseRunner(...args) {
+}
 
+
+export function makeRunner(useCaseClass, deps) {
+
+  deps = { ...DEFAULT_DEPS, ...deps}
+
+  return async function useCaseRunner(...args) {
     try {
       const {create, toContext, toParams, log, validate, handleResult} = deps
       const context = toContext(...args)

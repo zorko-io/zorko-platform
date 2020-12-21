@@ -1,22 +1,16 @@
 // TODO: gh-55 move to http adapters, introduce runner adapter concept
 
-export function toUseCaseParams(...args) {
-  console.log({name: 'toUseCaseParams', args})
+export function toUseCaseParams() {
   return {}
 }
 
-export function toUseCaseContext(...args) {
-  console.log({name: 'toUseCaseContext',args})
-
+export function toUseCaseContext() {
   return {}
 }
 
-export function mapResultToHttp(...args) {
-  console.log({name: 'mapResultToHttp',args})
-
-  return {}
+export function mapResultToHttp(result, req, res) {
+  res.send(result)
 }
 
-export function mapErrorToHttp(...args) {
-  console.log({name: 'mapErrorToHttp',args})
+export function mapErrorToHttp() {
 }
