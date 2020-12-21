@@ -3,7 +3,7 @@ import {createClient} from '@util-web-api-client'
 
 const client = createClient()
 
-export default function ApiExample() {
+export function ApiExample() {
   const [login, setLogin] = useState(null)
   const [previews, setPreviews] = useState([])
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {createValidator} from '@util-validation'
 
-export default function ValidatorExample() {
+export function ValidatorExample() {
   const rules = {
     name: 'required',
     email: ['required', 'email'],
