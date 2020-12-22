@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import Spinner from '../../../components/Spinner'
 import {userLogin} from '../effects'
 import {selectLoginState, selectAuthError, selectAuthToken} from '../selectors'
+import {ApiContext} from '../../../context'
 
 export function LoginPage() {
   const dispatch = useDispatch()
@@ -11,7 +12,7 @@ export function LoginPage() {
   const isLogging = useSelector(selectLoginState)
   const error = useSelector(selectAuthError)
   const token = useSelector(selectAuthToken)
-
+  const {api} = useContext(ApiContext)
   useEffect(() => {
     if (!isLogging && !error && token) {
       history.push('/home')
@@ -82,7 +83,7 @@ export function LoginPage() {
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={() => {
                 // todo: pass email and passwoord to action as parameter dispatch(userLogin(params))
-                dispatch(userLogin())
+                dispatch(userLogin({}, api))
               }}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3" />
