@@ -22,10 +22,10 @@ export function AppContainer() {
 
   return (
     <Switch>
-      <Route path="/" exact render={() => <Redirect to="/example" />} />
-      <Route path="/example" exact render={() => <ExamplesPage />} />
-      <Route path="/login" exact render={() => <LoginPage />} />
-      <Route path="/home" exact render={() => <HomePage />} />
+      <Route path="/example" render={() => <ExamplesPage />} />
+      <Route path="/login" render={() => <LoginPage />} />
+      <Route path="/home" render={() => <HomePage />} />
+      <Route path="/" render={() => <Redirect to="/example" />} />
     </Switch>
   )
 }

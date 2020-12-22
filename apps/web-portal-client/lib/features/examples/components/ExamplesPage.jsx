@@ -23,8 +23,8 @@ export function ExamplesPage() {
         <Content
           innerContentRender={() => (
             <Switch>
-              <Route path="/example/api" exact render={() => <ApiExample />} />
-              <Route path="/example/validator" exact render={() => <ValidatorExample />} />
+              <Route path="/example/validator" render={() => <ValidatorExample />} />
+              <Route path="/example/api" render={() => <ApiExample />} />
             </Switch>
           )}
         />
