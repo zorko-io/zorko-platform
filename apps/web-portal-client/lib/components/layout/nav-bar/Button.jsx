@@ -8,7 +8,7 @@ export function Button(props) {
 
   return (
     <button type="button" className="btn-general" onClick={onclick}>
-      {label}
+      {children || label}
     </button>
   )
 }

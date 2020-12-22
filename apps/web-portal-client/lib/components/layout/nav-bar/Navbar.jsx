@@ -40,11 +40,11 @@ export function Navbar() {
                 handleLogout()
               }}
             />
-            <div className="-mr-2 flex md:hidden"></div>
-            <Button onclick={() => setShowMobileMenu(!showMobileMenu)}>
-              <Image shape={showMobileMenu ? 'cross' : 'sandwich'} />
-            </Button>
-            <div />
+            <div className="-mr-2 flex md:hidden">
+              <Button onclick={() => setShowMobileMenu(!showMobileMenu)}>
+                <Image shape={showMobileMenu ? 'cross' : 'sandwich'} />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
