@@ -11,14 +11,14 @@ export function AppContainer() {
   const history = useHistory()
   const token = useSelector(selectAuthToken)
 
-  useEffect(() => {
+  /*   useEffect(() => {
     // todo: add token validation (place for keycloack)
     if (location.pathname !== '/login' && !token) {
       history.push('/login')
     } else {
       // todo: implement login with token
     }
-  })
+  }) */
 
   return (
     <Switch>
