@@ -3,8 +3,8 @@ import {Switch, Route, Redirect, useHistory, useLocation} from 'react-router-dom
 import {useSelector} from 'react-redux'
 import {LoginPage} from '../features/auth/containers'
 import {selectAuthToken} from '../features/auth/selectors'
-import {HomePage} from '../components/HomePage'
-import {App} from './App'
+import {HomePage} from '../components'
+import {ExamplesPage} from '../features/examples/components'
 
 export function AppContainer() {
   const location = useLocation()
@@ -22,10 +22,10 @@ export function AppContainer() {
 
   return (
     <Switch>
-      <Route path="/" exact render={() => <Redirect to="/example" />} />
-      <Route path="/example" exact render={() => <App />} />
-      <Route path="/login" exact render={() => <LoginPage />} />
-      <Route path="/home" exact render={() => <HomePage />} />
+      <Route path="/example" render={() => <ExamplesPage />} />
+      <Route path="/login" render={() => <LoginPage />} />
+      <Route path="/home" render={() => <HomePage />} />
+      <Route path="/" render={() => <Redirect to="/example" />} />
     </Switch>
   )
 }

@@ -4,6 +4,10 @@ import './mobileMenuButton.css'
 
 export function MobileMenuButton(props) {
   const {shape, onToggle} = props
+  const svgTemplates = {
+    cross: 'M6 18L18 6M6 6l12 12',
+    sandwich: 'M4 6h16M4 12h16M4 18h16',
+  }
 
   return (
     <div className="-mr-2 flex md:hidden">
@@ -18,7 +22,12 @@ export function MobileMenuButton(props) {
           stroke="currentColor"
           aria-hidden="true"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={shape} />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d={svgTemplates[shape]}
+          />
         </svg>
       </button>
     </div>

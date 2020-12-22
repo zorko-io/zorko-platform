@@ -6,10 +6,8 @@ import {LoginButton} from './LoginButton'
 import {MobileMenuButton} from './MobileMenuButton'
 import {MobileMenu} from './MobileMenu'
 
-export function NavBar() {
+export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
-  const crossShape = 'M6 18L18 6M6 6l12 12'
-  const sandwichShape = 'M6 18L18 6M6 6l12 12'
 
   return (
     <nav className="bg-gray-800">
@@ -19,8 +17,8 @@ export function NavBar() {
             <Logo />
             <DesktopMenu
               items={[
-                {desc: 'Home', link: '#', active: true},
-                {desc: 'Product', link: '#'},
+                {desc: 'Home', link: '/home', active: true},
+                {desc: 'Examples', link: '/example'},
                 {desc: 'Teams', link: '#'},
                 {desc: 'About', link: '#'},
               ]}
@@ -29,7 +27,7 @@ export function NavBar() {
           <div className="flex items-center space-x-1">
             <LoginButton />
             <MobileMenuButton
-              shape={showMobileMenu ? sandwichShape : crossShape}
+              shape={showMobileMenu ? 'cross' : 'sandwich'}
               onToggle={() => setShowMobileMenu(!showMobileMenu)}
             />
           </div>
@@ -37,8 +35,8 @@ export function NavBar() {
       </div>
       <MobileMenu
         items={[
-          {desc: 'Home', link: '#', active: true},
-          {desc: 'Product', link: '#'},
+          {desc: 'Home', link: '/home', active: true},
+          {desc: 'Examples', link: '/example'},
           {desc: 'Teams', link: '#'},
           {desc: 'About', link: '#'},
         ]}
