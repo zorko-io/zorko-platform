@@ -31,7 +31,7 @@ test.beforeEach((t) => {
 })
 
 
-// TODO: gh-55 cover with unit tests
+// TODO: gh-55 cover with unit tests, with defaults and subbed deps
 test.serial('run with defaults', async (t) => {
   const {run, result, req, res} = t.context
 
@@ -45,7 +45,7 @@ test.serial('run with defaults', async (t) => {
   t.deepEqual(actual, result)
 })
 
-test.serial('run with  params', async (t) => {
+test.serial('run with params', async (t) => {
   const {run, result, res, req, params} = t.context
 
   const runner = makeRunner(UseCaseWithStub, {

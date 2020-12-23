@@ -37,6 +37,7 @@ const DEFAULT_DEPS = {
 
 export function makeRunner(useCaseClass, deps) {
 
+  const originalDeps = deps
   deps = { ...DEFAULT_DEPS, ...deps}
 
   return async function useCaseRunner(...args) {
@@ -44,7 +45,10 @@ export function makeRunner(useCaseClass, deps) {
       const {create, toContext, toParams, log, validate, toResult} = deps
       // TODO: gh-55 provide defaults, separate selector from adapter, pass deps to use case context
       const context = toContext(...args)
-      const useCase = create(useCaseClass, context, {
+      const useCase = create(useCaseClass, {
+        ...originalDeps,
+        ...context
+      }, {
         log,
         createValidator: validate
       })
