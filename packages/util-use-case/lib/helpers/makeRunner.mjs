@@ -8,7 +8,6 @@ import {
   mapErrorToHttp,
   mapResultToHttp,
   toUseCaseContext,
-  toUseCaseParams
 } from '../adapters/http'
 
 /**
@@ -19,7 +18,7 @@ import {
  * @params {Object} [deps.validate] - validator builder function
  * @params {Object} [deps.toParams] - parameters builder function
  * @params {Object} [deps.toContext] - context builder function
- * @params {Object} [deps.handleResult] - handle successful result
+ * @params {Object} [deps.toResult] - handle successful result
  * @params {Object} [deps.handleError] - handle error
  * @params {CoreLogger} [deps.log] - core logger
  * @returns {Function} - closure with use case ready to execution
@@ -27,10 +26,10 @@ import {
 
 const DEFAULT_DEPS = {
   create: createUseCase,
-  toParams: toUseCaseParams,
+  toParams: () => ({}),
   toContext: toUseCaseContext,
   validate: createValidator,
-  handleResult: mapResultToHttp,
+  toResult: mapResultToHttp,
   handleError: mapErrorToHttp,
   log: new MockLogger()
 }
@@ -42,8 +41,8 @@ export function makeRunner(useCaseClass, deps) {
 
   return async function useCaseRunner(...args) {
     try {
-      const {create, toContext, toParams, log, validate, handleResult} = deps
-      // TODO: gh-55 provide defaults, separate selector from adapter
+      const {create, toContext, toParams, log, validate, toResult} = deps
+      // TODO: gh-55 provide defaults, separate selector from adapter, pass deps to use case context
       const context = toContext(...args)
       const useCase = create(useCaseClass, context, {
         log,
@@ -54,8 +53,8 @@ export function makeRunner(useCaseClass, deps) {
       const params = toParams(...args)
 
       const result = await useCase.run(params)
-      // TODO: gh-55 provide default sucess handling and json serialization
-      handleResult(...[result, ...args])
+      // TODO: gh-55 provide default success handling and json serialization
+      return toResult(...[result, ...args])
     } catch (error) {
       // TODO: gh-55 provide default error handling and json serialization or errors
       deps.handleError(...[error, ...args, {log: deps.log}])

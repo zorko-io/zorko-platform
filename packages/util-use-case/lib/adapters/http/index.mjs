@@ -10,6 +10,7 @@ export function toUseCaseContext() {
 
 export function mapResultToHttp(result, req, res) {
   res.send(result)
+  return result;
 }
 
 export function mapErrorToHttp() {
