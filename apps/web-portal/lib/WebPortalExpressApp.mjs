@@ -1,7 +1,6 @@
 import assert from 'assert'
 import express from 'express'
-import {appEndpoint} from './appEndpoint.mjs'
-import {makePreview} from './preview/makePreview.mjs'
+import * as RestApiV1 from './rest-api-v1'
 
 // TODO: gh-80 handle process start/stop, wire with logger, etc
 export class WebPortalExpressApp {
@@ -25,11 +24,14 @@ export class WebPortalExpressApp {
     this.#http = express()
 
     // TODO: gh-80 - re-integrate with endpoints as entity from utils
-    this.initEndpoints()
+    this.initRoutes()
   }
 
-  initEndpoints() {
-    appEndpoint(this.#http, '/previews', makePreview)
+  initRoutes() {
+    this.#http('/api/v1', RestApiV1.route({
+      config: this.#config,
+      createRouter: () => express.Route()
+    }))
   }
 
   startAndAttach () {
