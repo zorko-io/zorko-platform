@@ -11,7 +11,7 @@ import {Image} from '../../Image'
 import {ImageShapes} from '../../ImageShapes'
 
 export function Navbar() {
-  const [shouldShowMobileMenu, setShouldShowMobileMenu] = useState(false)
+  const [shouldShowMobileMenu, toggleMobileMenu] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -40,7 +40,7 @@ export function Navbar() {
           <div className="flex items-center space-x-1">
             <Button label="login" handleClick={handleLogout} />
             <div className="-mr-2 flex md:hidden">
-              <Button handleClick={() => setShouldShowMobileMenu(!shouldShowMobileMenu)}>
+              <Button handleClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
                 <Image shape={shouldShowMobileMenu ? ImageShapes.cross : ImageShapes.sandwich} />
               </Button>
             </div>
