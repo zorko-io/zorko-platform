@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Button, Image, imageShapes} from '../../../components/layout/nav-bar'
+import {Button, Image, ImageShapes} from '../../../components'
 
 export function ButtonsExample() {
   return (
@@ -12,13 +12,13 @@ export function ButtonsExample() {
       <div>
         <h1>Mobile menu button with cross</h1>
         <Button>
-          <Image shape={imageShapes.cross} />
+          <Image shape={ImageShapes.cross} />
         </Button>
       </div>
       <div>
         <h1>Mobile menu button with sandwich</h1>
         <Button>
-          <Image shape={imageShapes.sandwich} />
+          <Image shape={ImageShapes.sandwich} />
         </Button>
       </div>
     </div>
