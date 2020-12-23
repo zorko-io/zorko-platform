@@ -1,16 +1,16 @@
 import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
+import {userLogout} from '../../../features/auth/effects'
 
 import {Logo} from './Logo'
 import {DesktopMenu} from './DesktopMenu'
 import {Button} from './Button'
 import {Image} from './Image'
+import {imageShapes} from './ImageShapes'
 import {MobileMenu} from './MobileMenu'
 
-import {useDispatch} from 'react-redux'
-import {userLogout} from '../../../features/auth/effects'
-
 export function Navbar() {
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [shouldShowMobileMenu, setShouldShowMobileMenu] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -34,15 +34,10 @@ export function Navbar() {
             />
           </div>
           <div className="flex items-center space-x-1">
-            <Button
-              label="login"
-              onclick={() => {
-                handleLogout()
-              }}
-            />
+            <Button label="login" handleClick={handleLogout} />
             <div className="-mr-2 flex md:hidden">
-              <Button onclick={() => setShowMobileMenu(!showMobileMenu)}>
-                <Image shape={showMobileMenu ? 'cross' : 'sandwich'} />
+              <Button handleClick={() => setShouldShowMobileMenu(!shouldShowMobileMenu)}>
+                <Image shape={shouldShowMobileMenu ? imageShapes.cross : imageShapes.sandwich} />
               </Button>
             </div>
           </div>
@@ -55,7 +50,7 @@ export function Navbar() {
           {desc: 'Teams', link: '#'},
           {desc: 'About', link: '#'},
         ]}
-        isShown={showMobileMenu}
+        isShown={shouldShowMobileMenu}
       />
     </nav>
   )
