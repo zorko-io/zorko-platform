@@ -2,22 +2,35 @@ import React, {useContext, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import Spinner from '../../../components/Spinner'
-import {userLogin} from '../effects'
 import {selectLoginState, selectAuthError, selectAuthToken} from '../selectors'
 import {ApiContext} from '../../../context'
+import {error, logging, login} from '../slices'
 
 export function LoginPage() {
   const dispatch = useDispatch()
   const history = useHistory()
   const isLogging = useSelector(selectLoginState)
-  const error = useSelector(selectAuthError)
+  const loginError = useSelector(selectAuthError)
   const token = useSelector(selectAuthToken)
   const {api} = useContext(ApiContext)
   useEffect(() => {
-    if (!isLogging && !error && token) {
+    if (!isLogging && !loginError && token) {
       history.push('/home')
     }
   })
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    dispatch(logging())
+    api.auth
+      .login()
+      .then((result) => {
+        dispatch(login(result))
+      })
+      .catch((err) => {
+        dispatch(error(err))
+      })
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -81,9 +94,9 @@ export function LoginPage() {
               type="button"
               disabled={isLogging}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={() => {
+              onClick={(event) => {
                 // todo: pass email and passwoord to action as parameter dispatch(userLogin(params))
-                dispatch(userLogin({}, api))
+                handleSubmit(event)
               }}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3" />
