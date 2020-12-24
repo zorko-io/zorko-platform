@@ -9,20 +9,22 @@ import {UseCaseWithLogger} from '../enhancers/UseCaseWithLogger.mjs'
  * @params {ObjectConstructor} - class for particular use case, should be a UseCase or it's subclass
  * @params {Object} context - use case context
  * @params {Object} deps - function's dependencies
- * @params {Object} deps.createValidator - validator factory function
+ * @params {Object} [deps.createValidator] - validator factory function
  * @params {CoreLogger} [deps.log] - logger
+ * @params {CoreLogger} [deps.provideUseCaseDeps] - provide origin's dependencies
  * @returns {UseCase} - enhanced instance of passed class with various decorators over it
  */
 
 export function createUseCase(useCase, context, deps = {
   createValidator,
-  log: new MockLogger()
+  log: new MockLogger(),
+  provideUseCaseDeps: () => {}
 }){
 
   return new UseCaseWithLogger({
     name: useCase.name,
     origin: new UseCaseWithValidation({
-      origin: new useCase(context),
+      origin: new useCase(context, deps.provideUseCaseDeps()),
       createValidator: deps.createValidator
     }),
     log: deps.log
