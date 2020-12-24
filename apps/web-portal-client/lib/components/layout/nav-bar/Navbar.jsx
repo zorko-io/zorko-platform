@@ -1,20 +1,33 @@
 import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
+import {userLogout} from '../../../features/auth/effects'
 
-import {Logo} from './Logo'
-import {DesktopMenu} from './DesktopMenu'
-import {LoginButton} from './LoginButton'
-import {MobileMenuButton} from './MobileMenuButton'
 import {MobileMenu} from './MobileMenu'
+import {DesktopMenu} from './DesktopMenu'
+
+import {Logo} from '../../Logo'
+import {Button} from '../../Button'
+import {Image} from '../../Image'
+import {ImageShapes} from '../../ImageShapes'
 
 export function Navbar() {
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [shouldShowMobileMenu, toggleMobileMenu] = useState(false)
+
+  const dispatch = useDispatch()
+
+  function handleLogout() {
+    dispatch(userLogout())
+  }
 
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Logo />
+            <div className="w-44">
+              <Logo />
+            </div>
+
             <DesktopMenu
               items={[
                 {desc: 'Home', link: '/home', active: true},
@@ -25,11 +38,12 @@ export function Navbar() {
             />
           </div>
           <div className="flex items-center space-x-1">
-            <LoginButton />
-            <MobileMenuButton
-              shape={showMobileMenu ? 'cross' : 'sandwich'}
-              onToggle={() => setShowMobileMenu(!showMobileMenu)}
-            />
+            <Button label="login" handleClick={handleLogout} />
+            <div className="-mr-2 flex md:hidden">
+              <Button handleClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
+                <Image shape={shouldShowMobileMenu ? ImageShapes.cross : ImageShapes.sandwich} />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -40,7 +54,7 @@ export function Navbar() {
           {desc: 'Teams', link: '#'},
           {desc: 'About', link: '#'},
         ]}
-        isShown={showMobileMenu}
+        isShown={shouldShowMobileMenu}
       />
     </nav>
   )
