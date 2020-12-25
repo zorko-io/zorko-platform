@@ -9,6 +9,13 @@ import {
   toError as toError_
 } from '../adapters'
 
+const DEFAULT_OPTIONS = {
+  toParams: () => ({}),
+  toContext: (req) => req && req.session ? req.session.context : {},
+  toResult: toResult_,
+  toError: toError_
+}
+
 /**
  * Returns function with encapsulated use case, ready to run with proper params
  * @params {ObjectConstructor} - class for particular use case, should be a UseCase or it's subclass
@@ -24,13 +31,6 @@ import {
  * @params {CoreLogger} [deps.log] - core logger
  * @returns {Function} - closure with use case ready to execution
  */
-
-const DEFAULT_OPTIONS = {
-  toParams: () => ({}),
-  toContext: (req) => req && req.session ? req.session.context : {},
-  toResult: toResult_,
-  toError: toError_
-}
 
 export function makeRunner(useCaseClass, options, deps = {
   log: new MockLogger(),

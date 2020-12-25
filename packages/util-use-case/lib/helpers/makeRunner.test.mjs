@@ -140,5 +140,59 @@ test.serial('integration - with custom use case and throwing validation error',
     }, 'should send proper payload')
   })
 
+test('stubs - happy path to run with all custom options and dependencies', async (t) => {
+  let {res, req, result, params, context} = t.context
+
+  const toParams = sinon.stub()
+  const toContext = sinon.stub()
+  const toResult = sinon.stub()
+  const toError = sinon.stub()
+
+  toParams.returns(params)
+  toContext.returns(context)
+  toResult.returns(result)
+
+  const useCase = new UseCaseWithStub(context)
+
+  const createValidator = sinon.stub()
+  const createUseCase = sinon.stub().returns(useCase)
+  const log = new MockLogger()
+  const provideUseCaseDeps = sinon.stub().returns()
+
+  const runner = makeRunner(UseCaseWithStub, {
+    toParams,
+    toContext,
+    toResult,
+    toError
+  }, {
+    log,
+    createValidator,
+    createUseCase,
+    provideUseCaseDeps
+  })
+
+  const actual = await runner(req, res)
+
+  t.assert(createUseCase.calledOnce, 'should create use case')
+  t.is(createUseCase.firstCall.args[0], UseCaseWithStub)
+  t.is(createUseCase.firstCall.args[1], context)
+  t.deepEqual(createUseCase.firstCall.args[2], {
+    createValidator,
+    log,
+    provideUseCaseDeps
+  })
+
+  t.assert(toParams, 'should convert params')
+  t.is(toParams.firstCall.args[0], req)
+  t.is(toParams.firstCall.args[1], res)
+
+  t.assert(toResult.calledOnce, 'should convert result')
+  t.is(toResult.firstCall.args[0], result)
+  t.is(toResult.firstCall.args[1], req)
+  t.is(toResult.firstCall.args[2], res)
+
+  t.deepEqual(actual, result)
+})
+
 // TODO: gh-55 - stubbed tests
 
