@@ -11,19 +11,19 @@ class UseCaseWithStub extends UseCase {
   static stubContext = sinon.stub()
 
   constructor(context = {}) {
-    super();
+    super()
 
     UseCaseWithStub.stubContext(context)
   }
 
-  async run (params) {
+  async run(params) {
     return UseCaseWithStub.stubRun(params)
   }
 }
 
 test.beforeEach((t) => {
-  const params = { limit: '10'}
-  const result = { data: { result: 'aaaa'}}
+  const params = {limit: '10'}
+  const result = {data: {result: 'aaaa'}, status: 1}
   const context = {somedata: 'blblblb'}
   const deps = {
     log: new MockLogger(),
@@ -38,7 +38,7 @@ test.beforeEach((t) => {
     }
   }
   const res = {
-    send : () => {}
+    send: sinon.stub()
   }
 
   let run = sinon.stub().withArgs(params).returns(Promise.resolve(result))
@@ -52,37 +52,63 @@ test.beforeEach((t) => {
   }
 })
 
-// TODO: gh-55 cover with unit tests, with defaults and subbed deps
-test.serial('with custom use case and defaults', async (t) => {
-  const {run, result, req, res} = t.context
+test.serial('integration - with custom use case and defaults',
+  async (t) => {
+    const {run, result, req, res} = t.context
 
 
-  const runner = makeRunner(UseCaseWithStub)
+    const runner = makeRunner(UseCaseWithStub)
 
-  const actual = await runner(req, res)
+    const actual = await runner(req, res)
 
-  t.assert(run.calledOnce)
-  t.deepEqual(run.firstCall.args[0], {})
-  t.deepEqual(actual, result)
-})
-
-test.serial('with custom use case and params, context', async (t) => {
-  const {run, result, res, req, params, checkContext, context} = t.context
-
-  const runner = makeRunner(UseCaseWithStub, {
-    toParams: (req) => ({...req.query}),
-    toContext: (req) => (req.session.context)
+    t.assert(run.calledOnce)
+    t.deepEqual(run.firstCall.args[0], {})
+    t.deepEqual(actual, result)
   })
 
-  const actual = await runner(req, res)
+test.serial('integration - with custom use case, params, context',
+  async (t) => {
+    const {run, result, res, req, params, checkContext, context} = t.context
 
-  t.deepEqual(actual, result)
+    const runner = makeRunner(UseCaseWithStub, {
+      toParams: (req) => ({...req.query}),
+      toContext: (req) => (req.session.context)
+    })
 
-  t.assert(run.calledOnce)
-  t.deepEqual(run.firstCall.args[0], params)
+    const actual = await runner(req, res)
 
-  t.assert(checkContext.calledOnce)
-  t.deepEqual(checkContext.firstCall.args[0], context)
+    t.deepEqual(actual, result)
 
+    t.assert(run.calledOnce)
+    t.deepEqual(run.firstCall.args[0], params)
 
-})
+    t.assert(checkContext.calledOnce)
+    t.deepEqual(checkContext.firstCall.args[0], context)
+  })
+
+test.serial('integration - with custom use case and throwing core error',
+  async (t) => {
+    let {res, req} = t.context
+    const err = new Error('Boom!')
+
+    UseCaseWithStub.stubRun = sinon.stub().returns(Promise.reject(err))
+
+    const runner = makeRunner(UseCaseWithStub, {
+      toParams: (req) => ({...req.query}),
+      toContext: (req) => (req.session.context)
+    })
+
+    await runner(req, res)
+
+    t.assert(res.send.calledOnce, 'should call once')
+    t.deepEqual(res.send.firstCall.args[0], {
+      status : 0,
+      error  : {
+        name    : 'ServerError',
+        message : 'Please, contact your system administrator!'
+      }
+    }, 'should call with args')
+  })
+
+// TODO: gh-55 - add user validation and stubbed tests
+

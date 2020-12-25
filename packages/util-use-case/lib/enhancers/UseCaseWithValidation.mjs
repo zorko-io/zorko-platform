@@ -32,7 +32,7 @@ export class UseCaseWithValidation extends UseCase {
     const rules = await this.rules(params)
 
     if (rules) {
-      const {error, result} = await this._validate(params, rules)
+      const {error, result} = await this.#validate(params, rules)
 
       if (!error) {
         return origin.run(result)
@@ -55,13 +55,13 @@ export class UseCaseWithValidation extends UseCase {
     return rules
   }
 
-  async _validate(params, rules) {
-    const validator = this._createValidator(rules)
+   #validate = async (params, rules) => {
+    const validator = this.#createValidator(rules)
 
     return validator.parse(params)
   }
 
-  _createValidator(rules) {
+  #createValidator = (rules) => {
     const hasStaticRules = Boolean(
       this.context.origin.constructor.rules
     )

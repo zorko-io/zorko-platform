@@ -18,4 +18,14 @@ export class ValidationError extends UserFacedError {
   get message() {
     return this.#message
   }
+
+  toJSON() {
+    const original = super.toJSON()
+
+    return {
+      ...original,
+      errors: this.errors
+    }
+  }
+
 }
