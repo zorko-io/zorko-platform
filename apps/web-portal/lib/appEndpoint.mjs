@@ -1,7 +1,7 @@
 import {makeRunner} from '@zorko-io/util-use-case'
 import express from 'express'
 
-// TODO: gh-55 refactor and move to use-cases utils or util-endpoint
+// TODO: gh-80 refactor and move to use-cases utils or util-endpoint
 
 export function appEndpoint(app, path, defineEndpoints) {
     const router = express.Router()
