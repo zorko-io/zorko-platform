@@ -24,8 +24,7 @@ export class ValidationError extends UserFacedError {
 
     return {
       ...original,
-      errors: this.errors
+      errors: this.errors,
     }
   }
-
 }

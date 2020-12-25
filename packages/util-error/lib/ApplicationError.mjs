@@ -10,7 +10,7 @@ export class ApplicationError extends Error {
   toJSON() {
     return {
       name: this.name,
-      message: this.message
+      message: this.message,
     }
   }
 }
