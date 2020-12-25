@@ -27,7 +27,7 @@ export class UseCaseWithLogger extends UseCase {
     assert(context.origin, 'Should have an origin defined')
     assert(context.log, 'Should have validator log')
 
-    this.#log = context.log.child(context.name)
+    this.#log = context.log.child({useCase: context.name})
   }
 
   async run(params) {

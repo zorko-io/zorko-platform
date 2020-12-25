@@ -3,7 +3,7 @@ import express from 'express'
 import {appEndpoint} from './appEndpoint.mjs'
 import {makePreview} from './preview/makePreview.mjs'
 
-// TODO: gh-55 handle process start/stop, wire with logger, etc
+// TODO: gh-80 handle process start/stop, wire with logger, etc
 export class WebPortalExpressApp {
 
   /**

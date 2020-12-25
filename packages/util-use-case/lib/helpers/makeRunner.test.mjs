@@ -5,6 +5,7 @@ import sinon from 'sinon'
 import {MockLogger} from '@zorko-io/util-logger'
 import {createValidator as createValidator_} from '@zorko-io/util-validation'
 import {createUseCase as createUseCase_} from './createUseCase.mjs'
+import {ValidationError} from '@zorko-io/util-error'
 
 class UseCaseWithStub extends UseCase {
   static stubRun = sinon.stub()
@@ -93,22 +94,47 @@ test.serial('integration - with custom use case and throwing core error',
 
     UseCaseWithStub.stubRun = sinon.stub().returns(Promise.reject(err))
 
-    const runner = makeRunner(UseCaseWithStub, {
-      toParams: (req) => ({...req.query}),
-      toContext: (req) => (req.session.context)
-    })
+    const runner = makeRunner(UseCaseWithStub)
 
     await runner(req, res)
 
     t.assert(res.send.calledOnce, 'should call once')
     t.deepEqual(res.send.firstCall.args[0], {
-      status : 0,
-      error  : {
-        name    : 'ServerError',
-        message : 'Please, contact your system administrator!'
+      status: 0,
+      error: {
+        name: 'ServerError',
+        message: 'Please, contact your system administrator!'
       }
-    }, 'should call with args')
+    }, 'should send proper payload')
   })
 
-// TODO: gh-55 - add user validation and stubbed tests
+
+test.serial('integration - with custom use case and throwing validation error',
+  async (t) => {
+    let {res, req} = t.context
+    const message = 'Boom!'
+    const errors = {
+      'field1': 'value1'
+    }
+
+    const err = new ValidationError({errors, message})
+
+    UseCaseWithStub.stubRun = sinon.stub().returns(Promise.reject(err))
+
+    const runner = makeRunner(UseCaseWithStub)
+
+    await runner(req, res)
+
+    t.assert(res.send.calledOnce, 'should call once')
+    t.deepEqual(res.send.firstCall.args[0], {
+      status: 0,
+      error: {
+        name: err.name,
+        message,
+        errors
+      }
+    }, 'should send proper payload')
+  })
+
+// TODO: gh-55 - stubbed tests
 
