@@ -56,11 +56,7 @@ export function makeRunner(useCaseClass, options, deps = {
       const result = await useCase.run(params)
       return toResult(...[result, ...args])
     } catch (err) {
-      const error = options.toError(...[err, ...args, {log: deps.log}])
-
-      if (error) {
-        throw error
-      }
+      options.toError(...[err, ...args, {log: deps.log}])
     }
   }
 }
