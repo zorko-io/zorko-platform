@@ -24,8 +24,8 @@ class UseCaseWithStub extends UseCase {
 
 test.beforeEach((t) => {
   const params = {limit: '10'}
-  const result = {data: {result: 'aaaa'}, status: 1}
-  const context = {somedata: 'blblblb'}
+  const result = {data: {result: 'foo'}, status: 1}
+  const context = {some: 'boo'}
   const deps = {
     log: new MockLogger(),
     createValidator: createValidator_,
@@ -65,6 +65,10 @@ test.serial('integration - with custom use case and defaults',
     t.assert(run.calledOnce)
     t.deepEqual(run.firstCall.args[0], {})
     t.deepEqual(actual, result)
+
+    t.assert(res.send.calledOnce, 'should send data')
+    t.deepEqual(res.send.firstCall.args[0], result, 'should send proper payload')
+
   })
 
 test.serial('integration - with custom use case, params, context',
