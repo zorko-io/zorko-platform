@@ -1,4 +1,5 @@
 import test from '@zorko-io/tool-test-harness'
+import _ from 'lodash'
 import {UseCase} from '../core'
 import {makeRunner} from './makeRunner'
 import sinon from 'sinon'
@@ -24,7 +25,7 @@ class UseCaseWithStub extends UseCase {
 
 test.beforeEach((t) => {
   const params = {limit: '10'}
-  const result = {data: {result: 'foo'}, status: 1}
+  const result = {data: {result: 'foo'}}
   const context = {some: 'boo'}
   const deps = {
     log: new MockLogger(),
@@ -42,7 +43,11 @@ test.beforeEach((t) => {
     send: sinon.stub()
   }
 
-  let run = sinon.stub().withArgs(params).returns(Promise.resolve(result))
+  let run = sinon.stub()
+    .withArgs(params)
+    .returns(
+      Promise.resolve(_.cloneDeep(result))
+    )
   let checkContext = sinon.stub()
 
   UseCaseWithStub.stubRun = run
@@ -56,19 +61,19 @@ test.beforeEach((t) => {
 test.serial('integration - with custom use case and defaults',
   async (t) => {
     const {run, result, req, res} = t.context
-
-
     const runner = makeRunner(UseCaseWithStub)
-
     const actual = await runner(req, res)
 
     t.assert(run.calledOnce)
     t.deepEqual(run.firstCall.args[0], {})
-    t.deepEqual(actual, result)
+    t.deepEqual(actual, {...result, status: 1})
 
     t.assert(res.send.calledOnce, 'should send data')
-    t.deepEqual(res.send.firstCall.args[0], result, 'should send proper payload')
-
+    t.deepEqual(
+      res.send.firstCall.args[0],
+      {...result, status: 1},
+      'should send proper payload'
+    )
   })
 
 test.serial('integration - with custom use case, params, context',
@@ -82,7 +87,7 @@ test.serial('integration - with custom use case, params, context',
 
     const actual = await runner(req, res)
 
-    t.deepEqual(actual, result)
+    t.deepEqual(actual, {...result, status: 1})
 
     t.assert(run.calledOnce)
     t.deepEqual(run.firstCall.args[0], params)
@@ -147,10 +152,11 @@ test.serial('stubs - happy path to run with all custom options and dependencies'
   const toContext = sinon.stub()
   const toResult = sinon.stub()
   const toError = sinon.stub()
+  const convertedResult = {...result, status: 1}
 
   toParams.returns(params)
   toContext.returns(context)
-  toResult.returns(result)
+  toResult.returns(convertedResult)
 
   const useCase = new UseCaseWithStub(context)
 
@@ -187,11 +193,11 @@ test.serial('stubs - happy path to run with all custom options and dependencies'
   t.is(toParams.firstCall.args[1], res)
 
   t.assert(toResult.calledOnce, 'should convert result')
-  t.is(toResult.firstCall.args[0], result)
+  t.deepEqual(toResult.firstCall.args[0], result)
   t.is(toResult.firstCall.args[1], req)
   t.is(toResult.firstCall.args[2], res)
 
-  t.deepEqual(actual, result)
+  t.deepEqual(actual, convertedResult)
 })
 
 test.serial('stubs - check error scenario', async (t) => {

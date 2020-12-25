@@ -14,5 +14,8 @@
     "lint": "eslint --ext .mjs,.cjs lib",
     "clean": "yarn run clean:node-modules",
     "clean:node-modules": "rimraf node_modules"
+  },
+  "dependencies": {
+    "lodash": "^4.17.20"
   }
 }
