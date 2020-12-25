@@ -32,7 +32,7 @@ export class WebPortalExpressApp {
       RestApiV1.route({
         config: this.#config,
         createRouter: () => express.Router(),
-        makeRunner
+        makeRunner,
       })
     )
   }
