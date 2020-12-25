@@ -1,6 +1,7 @@
 import assert from 'assert'
 import express from 'express'
 import * as RestApiV1 from './rest-api-v1'
+import {makeRunner} from '@zorko-io/util-use-case'
 
 // TODO: gh-80 handle process start/stop, wire with logger, etc
 export class WebPortalExpressApp {
@@ -26,11 +27,12 @@ export class WebPortalExpressApp {
   }
 
   initRoutes() {
-    this.#http(
+    this.#http.use(
       '/api/v1',
       RestApiV1.route({
         config: this.#config,
-        createRouter: () => express.Route(),
+        createRouter: () => express.Router(),
+        makeRunner
       })
     )
   }
