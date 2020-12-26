@@ -8,7 +8,7 @@ To run unit/integration test we use [Ava](https://github.com/avajs/ava)
 
 Useful ava resources:
 
-* [Accets API](https://github.com/avajs/ava/blob/master/docs/03-assertions.md)
+* [Assert API](https://github.com/avajs/ava/blob/master/docs/03-assertions.md)
 * [Docs](https://github.com/avajs/ava/tree/master/docs)
 
 

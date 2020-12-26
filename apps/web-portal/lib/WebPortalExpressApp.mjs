@@ -27,6 +27,7 @@ export class WebPortalExpressApp {
   }
 
   initRoutes() {
+    // TODO: gh-80 - init middleware
     this.#http.use(
       '/api/v1',
       RestApiV1.route({
