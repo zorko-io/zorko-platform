@@ -1,5 +1,4 @@
-// TODO: use logger config here to check solution with env config
-
+// TODO: provide configuration definition with confme
 /**
  * idea to have a 'util-confme'
  *
@@ -13,3 +12,9 @@
  * generate all confme file as a post-install task directly in app directory
  *
  */
+
+export const config = {
+  http: {
+    port: 7777
+  }
+}

@@ -6,7 +6,6 @@ import store from './store'
 import {AppContainer} from './app/AppContainer'
 import './index.css'
 
-// TODO: gh-23 Add Login page as component here
 ReactDOM.render(
   <HashRouter>
     <Provider store={store}>

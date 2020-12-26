@@ -1,0 +1,23 @@
+{
+  "name": "@zorko-io/web-portal",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "devDependencies": {
+    "@zorko-io/tool-test-harness": "1.0.0",
+    "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "start": "node --experimental-modules --es-module-specifier-resolution=node .",
+    "start:debug": "nodemon --watch ../../packages --watch ./lib --experimental-modules --es-module-specifier-resolution=node --inspect .",
+    "test": "echo \"No tests yet, need to add api integration tests\"",
+    "test:watch": "tth --watch",
+    "test:coverage": "tth --coverage",
+    "lint": "eslint --ext .mjs,.cjs lib",
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

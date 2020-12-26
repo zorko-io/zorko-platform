@@ -6,4 +6,11 @@ export class ApplicationError extends Error {
   get name() {
     return this.constructor.name
   }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+    }
+  }
 }

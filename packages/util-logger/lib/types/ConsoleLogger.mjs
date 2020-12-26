@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import {Logger} from '../core'
+import {CoreLogger} from '../core'
 
 /**
  * Mostly for debugging proposes
  */
 
-export class ConsoleLogger extends Logger {
+export class ConsoleLogger extends CoreLogger {
   #console = null
 
   constructor(log) {

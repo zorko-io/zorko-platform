@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
-import {Logger} from '../..'
+import {CoreLogger} from '../..'
 
-// TODO: move to 'test-helper-utils' and wrap in stubs
-
-export class MockLogger extends Logger {
+export class MockLogger extends CoreLogger {
   info(...args) {}
 
   fatal(...args) {}
