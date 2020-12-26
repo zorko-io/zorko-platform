@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {HashRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
-import {ApiProvider} from './context'
+import {AppProvider} from './context'
 import store from './store'
 import {AppContainer} from './app/AppContainer'
 import './index.css'
@@ -11,9 +11,9 @@ import './index.css'
 ReactDOM.render(
   <HashRouter>
     <Provider store={store}>
-      <ApiProvider>
+      <AppProvider>
         <AppContainer />
-      </ApiProvider>
+      </AppProvider>
     </Provider>
   </HashRouter>,
   document.getElementById('app')

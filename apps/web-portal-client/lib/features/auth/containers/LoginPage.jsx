@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import Spinner from '../../../components/Spinner'
 import {selectLoginState, selectAuthError, selectAuthToken} from '../selectors'
-import {ApiContext} from '../../../context'
+import {AppContext} from '../../../context'
 import {error, logging, login} from '../slices'
 
 export function LoginPage() {
@@ -12,7 +12,7 @@ export function LoginPage() {
   const isLogging = useSelector(selectLoginState)
   const loginError = useSelector(selectAuthError)
   const token = useSelector(selectAuthToken)
-  const {api} = useContext(ApiContext)
+  const {api} = useContext(AppContext)
   useEffect(() => {
     if (!isLogging && !loginError && token) {
       history.push('/home')
