@@ -3,7 +3,7 @@ import express from 'express'
 import * as RestApiV1 from './rest-api-v1'
 import {makeRunner} from '@zorko-io/util-use-case'
 
-// TODO: gh-80 handle process start/stop, wire with logger, etc
+// TODO: gh-80 handle process start/stop, wire with logger...
 export class WebPortalExpressApp {
   /**
    * @type {Express}
