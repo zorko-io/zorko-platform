@@ -12,6 +12,14 @@ test('async - parses valid value', async (t) => {
 
   class Alien {}
 
-  t.assert(isTypeInProtoChain(SubBase, Base), true)
-  t.assert(isTypeInProtoChain(Alien, Base), false)
+  //t.true(isTypeInProtoChain(Base, Base))
+  t.true(isTypeInProtoChain(LevelOneBase, Base))
+  t.true(isTypeInProtoChain(SubBase, LevelOneBase))
+  t.true(isTypeInProtoChain(SubBase, Base))
+
+  t.false(isTypeInProtoChain(Base, LevelOneBase))
+  t.false(isTypeInProtoChain(Base, SubBase))
+  t.false(isTypeInProtoChain(LevelOneBase, SubBase))
+
+  t.false(isTypeInProtoChain(Alien, Base))
 })
