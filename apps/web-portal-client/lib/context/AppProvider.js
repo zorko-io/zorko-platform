@@ -9,7 +9,7 @@ export function AppProvider(props) {
 }
 
 AppProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.shape({})),
+  children: PropTypes.shape({}),
 }
 
 AppProvider.defaultProps = {
