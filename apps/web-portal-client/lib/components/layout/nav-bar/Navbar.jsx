@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
-import {logout} from '../../../features/auth/slices'
+import {useAuth} from '../../../features/auth/hooks'
 import {MobileMenu} from './MobileMenu'
 import {DesktopMenu} from './DesktopMenu'
 import {Logo} from '../../Logo'
@@ -10,11 +9,10 @@ import {ImageShapes} from '../../ImageShapes'
 
 export function Navbar() {
   const [shouldShowMobileMenu, toggleMobileMenu] = useState(false)
-
-  const dispatch = useDispatch()
+  const {logout} = useAuth()
 
   function handleLogout() {
-    dispatch(logout())
+    logout()
   }
 
   return (
