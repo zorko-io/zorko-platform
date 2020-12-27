@@ -1,16 +1,11 @@
 import React, {useEffect} from 'react'
-import {useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import Spinner from '../../../components/Spinner'
-import {selectLoginState, selectAuthError, selectAuthToken} from '../selectors'
 import {useAuth} from '../hooks'
 
 export function LoginPage() {
   const history = useHistory()
-  const isLogging = useSelector(selectLoginState)
-  const loginError = useSelector(selectAuthError)
-  const token = useSelector(selectAuthToken)
-  const auth = useAuth()
+  const {login, isLogging, loginError, token} = useAuth()
   useEffect(() => {
     if (!isLogging && !loginError && token) {
       history.push('/home')
@@ -82,7 +77,7 @@ export function LoginPage() {
               onClick={(event) => {
                 // todo: pass email and passwoord to action as parameter dispatch(userLogin(params))
                 event.preventDefault()
-                auth.login()
+                login()
               }}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3" />

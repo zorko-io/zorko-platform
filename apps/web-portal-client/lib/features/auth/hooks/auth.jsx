@@ -1,7 +1,8 @@
 import {useContext} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {error, logging, login} from '../slices'
 import {AppContext} from '../../../context'
+import {selectAuthError, selectAuthToken, selectLoginState} from '../selectors'
 
 export function useAuth() {
   const dispatch = useDispatch()
@@ -19,5 +20,8 @@ export function useAuth() {
           dispatch(error(err))
         })
     },
+    isLogging: useSelector(selectLoginState),
+    loginError: useSelector(selectAuthError),
+    token: useSelector(selectAuthToken),
   }
 }

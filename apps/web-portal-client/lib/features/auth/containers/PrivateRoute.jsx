@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Route, Redirect} from 'react-router-dom'
-import {useSelector} from 'react-redux'
-import {selectAuthToken} from '../selectors'
+import {useAuth} from '../hooks'
 
 export function PrivateRoute({children, ...rest}) {
-  const token = useSelector(selectAuthToken)
+  const {token} = useAuth()
   return (
     <Route
       // eslint-disable-next-line react/jsx-props-no-spreading
