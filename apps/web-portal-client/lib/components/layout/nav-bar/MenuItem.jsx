@@ -25,6 +25,7 @@ export function MenuItem(props) {
 }
 
 test
+test2
 
 MenuItem.propTypes = {
   '': PropTypes.func,
