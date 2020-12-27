@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {useContext, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {error, logging, login, logout} from '../slices'
 import {AppContext} from '../../../context'
@@ -9,7 +9,7 @@ export function useAuth() {
   const {api} = useContext(AppContext)
 
   return {
-    login: () => {
+    login: useCallback(() => {
       dispatch(logging())
       api.auth
         .login()
@@ -19,12 +19,12 @@ export function useAuth() {
         .catch((err) => {
           dispatch(error(err))
         })
-    },
-    logout: () => {
+    }, [dispatch]),
+    logout: useCallback(() => {
       dispatch(logout())
-    },
-    inProcess: useSelector(selectLoginState),
+    }, [dispatch]),
+    isLogginInProgress: useSelector(selectLoginState),
     error: useSelector(selectAuthError),
-    loggedIn: useSelector(selectAuthToken),
+    hasToken: Boolean(useSelector(selectAuthToken)),
   }
 }

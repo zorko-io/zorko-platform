@@ -4,13 +4,13 @@ import {Route, Redirect} from 'react-router-dom'
 import {useAuth} from '../hooks'
 
 export function PrivateRoute({children, ...rest}) {
-  const {loggedIn} = useAuth()
+  const {hasToken} = useAuth()
   return (
     <Route
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
       render={({location}) => {
-        return loggedIn ? children : <Redirect to={{pathname: '/login', state: {from: location}}} />
+        return hasToken ? children : <Redirect to={{pathname: '/login', state: {from: location}}} />
       }}
     />
   )
