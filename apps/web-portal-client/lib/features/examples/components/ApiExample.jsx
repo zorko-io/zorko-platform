@@ -1,17 +1,16 @@
-import React, {useEffect, useState} from 'react'
-import {createClient} from '@util-web-api-client'
-
-const client = createClient()
+import React, {useEffect, useState, useContext} from 'react'
+import {AppContext} from '../../../context'
 
 export function ApiExample() {
   const [login, setLogin] = useState(null)
   const [previews, setPreviews] = useState([])
+  const {api} = useContext(AppContext)
 
   useEffect(() => {
-    client.auth.login().then((res) => {
+    api.auth.login().then((res) => {
       setLogin(res)
     })
-    client.preview.findAll({offset: 0, limit: 10}).then((res) => {
+    api.preview.findAll({offset: 0, limit: 10}).then((res) => {
       setPreviews(res.items)
     })
   }, [])
