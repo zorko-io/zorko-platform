@@ -8,11 +8,11 @@ export function PrivateRoute({children, ...rest}) {
   const token = useSelector(selectAuthToken)
   return (
     <Route
-      // eslint-disable-next-line
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
-      render={({location}) =>
-        token ? children : <Redirect to={{pathname: '/login', state: {from: location}}} />
-      } // eslint-disable-line
+      render={({location}) => {
+        return token ? children : <Redirect to={{pathname: '/login', state: {from: location}}} />
+      }}
     />
   )
 }
