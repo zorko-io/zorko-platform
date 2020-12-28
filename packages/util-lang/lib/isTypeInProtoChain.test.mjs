@@ -1,25 +1,40 @@
 import test from '@zorko-io/tool-test-harness'
 import {isTypeInProtoChain} from './isTypeInProtoChain.mjs'
 
-test('async - parses valid value', async (t) => {
-  // TODO: gh-82 fix existing test, provide few more use cases
+/*
+A2
+|
+A1 -> A3     B
+|
+A
+*/
 
-  class Base {}
+class A {}
 
-  class LevelOneBase extends Base {}
+class A1 extends A {}
+class A2 extends A {}
+class A3 extends A1 {}
 
-  class SubBase extends LevelOneBase {}
+class B {}
 
-  class Alien {}
-
-  //t.true(isTypeInProtoChain(Base, Base))
-  t.true(isTypeInProtoChain(LevelOneBase, Base))
-  t.true(isTypeInProtoChain(SubBase, LevelOneBase))
-  t.true(isTypeInProtoChain(SubBase, Base))
-
-  t.false(isTypeInProtoChain(Base, LevelOneBase))
-  t.false(isTypeInProtoChain(Base, SubBase))
-  t.false(isTypeInProtoChain(LevelOneBase, SubBase))
-
-  t.false(isTypeInProtoChain(Alien, Base))
+test('should return true, because A1.prototype has A.prototype in his prototype chain', (t) => {
+  t.true(isTypeInProtoChain(A1, A))
+})
+test('should return true, because A.prototype doesnt have A1.prototype in his prototype chain', (t) => {
+  t.false(isTypeInProtoChain(A, A1))
+})
+test('should return true, because A2.prototype has A.prototype in his prototype chain', (t) => {
+  t.true(isTypeInProtoChain(A2, A))
+})
+test('should return true, because A2.prototype doesnt have A3.prototype in his prototype chain', (t) => {
+  t.false(isTypeInProtoChain(A2, A3))
+})
+test('should return true, because A3.prototype doesnt have A2.prototype in his prototype chain', (t) => {
+  t.false(isTypeInProtoChain(A3, A2))
+})
+test('should return true, because A.prototype doesnt have B.prototype in his prototype chain', (t) => {
+  t.false(isTypeInProtoChain(A, B))
+})
+test('should return true, because B.prototype doesnt have A.prototype in his prototype chain', (t) => {
+  t.false(isTypeInProtoChain(B, A))
 })

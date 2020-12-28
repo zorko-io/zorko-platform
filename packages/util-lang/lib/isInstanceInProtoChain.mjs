@@ -6,6 +6,5 @@
  */
 
 export function isInstanceInProtoChain(instance, ancestor) {
-  // TODO: gh-82 Provide an implementation
   return instance instanceof ancestor
 }
