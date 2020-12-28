@@ -11,10 +11,6 @@ export function Navbar() {
   const [shouldShowMobileMenu, toggleMobileMenu] = useState(false)
   const {logout} = useAuth()
 
-  function handleLogout() {
-    logout()
-  }
-
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,7 +30,7 @@ export function Navbar() {
             />
           </div>
           <div className="flex items-center space-x-1">
-            <Button label="login" handleClick={handleLogout} />
+            <Button label="login" handleClick={logout} />
             <div className="-mr-2 flex md:hidden">
               <Button handleClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
                 <Image shape={shouldShowMobileMenu ? ImageShapes.cross : ImageShapes.sandwich} />
