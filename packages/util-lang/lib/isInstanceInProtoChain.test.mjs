@@ -23,34 +23,13 @@ const a3 = new A3()
 class B {}
 const b = new B()
 
-test('should return true because a has A.prototype in his prototype chain', (t) => {
-  t.true(isInstanceInProtoChain(a, A))
-})
-
-test('should return true because a1 has A.prototype in his prototype chain', (t) => {
-  t.true(isInstanceInProtoChain(a1, A))
-})
-
-test('should return false, because a doesnt have A1.proptotype in his prototype chain', (t) => {
-  t.false(isInstanceInProtoChain(a, A1))
-})
-
-test('should return true, because a2 has A.proptotype in his prototype chain', (t) => {
-  t.true(isInstanceInProtoChain(a2, A))
-})
-
-test('should return false, because a2 doesnt have A3.proptotype in his prototype chain', (t) => {
-  t.false(isInstanceInProtoChain(a2, A3))
-})
-
-test('should return false, because a3 doesnt have A2.proptotype in his prototype chain', (t) => {
-  t.false(isInstanceInProtoChain(a3, A2))
-})
-
-test('should return false, because a doesnt have B.proptotype in his prototype chain', (t) => {
-  t.false(isInstanceInProtoChain(a, B))
-})
-
-test('should return false, because b doesnt have A.proptotype in his prototype chain', (t) => {
-  t.false(isInstanceInProtoChain(b, A))
+test('Check instance in prototype chain', (t) => {
+  t.true(isInstanceInProtoChain(a, A), 'should return true')
+  t.true(isInstanceInProtoChain(a1, A), 'should return true')
+  t.false(isInstanceInProtoChain(a, A1), 'should return false,')
+  t.true(isInstanceInProtoChain(a2, A), 'should return true,')
+  t.false(isInstanceInProtoChain(a2, A3), 'should return false')
+  t.false(isInstanceInProtoChain(a3, A2), 'should return false')
+  t.false(isInstanceInProtoChain(a, B), 'should return false')
+  t.false(isInstanceInProtoChain(b, A), 'should return false')
 })
