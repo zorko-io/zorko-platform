@@ -37,6 +37,9 @@ export function toResult(result, req, res, deps= {}) {
  */
 
 export function toError (error, req, res, deps = {log: new MockLogger()}) {
+  // TODO: Map Errors to HTTP statuses
+  // use error hierarchy to granular map for HTTP errors
+  // label: tech-debt
   if (error instanceof ValidationError) {
     res.send({
       status: 0,
