@@ -5,8 +5,8 @@ import {MockClientApi} from './mock'
 import {AxiosClientApi} from './axios'
 
 export const ClientTypes = {
-  AXIOS: 'axios',
-  MOCK: 'mock',
+  Axios: 'axios',
+  Mock: 'mock',
 }
 
 /**
@@ -15,11 +15,10 @@ export const ClientTypes = {
  * @return {MockClientApi}
  */
 
-// TODO: replace with real implementation when server is ready
-export function createClient(configs = {type: ClientTypes.MOCK}) {
+export function createClient(configs = {type: ClientTypes.Mock}) {
   const {type} = configs
 
-  if (ClientTypes.MOCK === type) {
+  if (ClientTypes.Mock === type) {
     return new MockClientApi()
   }
 
