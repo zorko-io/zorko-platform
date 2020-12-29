@@ -2,5 +2,6 @@
 
 Portal to host visualization content
 
-
-// TODO: gh-80 provide documentation
+// TODO: Provide a basic documentation for web-portal
+// - add instruction to start/stop
+// label: documentation

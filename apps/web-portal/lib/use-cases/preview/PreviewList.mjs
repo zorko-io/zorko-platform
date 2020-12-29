@@ -1,7 +1,8 @@
 import {UseCase} from '@zorko-io/util-use-case'
 
+// TODO: Provide implementation for PreviewList
+// label: enhancement
 export class PreviewList extends UseCase {
-  // TODO: gh-80 - provide an implementation
 
   async run(params) {
     return {
