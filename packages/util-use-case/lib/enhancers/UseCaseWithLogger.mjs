@@ -39,6 +39,13 @@ export class UseCaseWithLogger extends UseCase {
 
     log.trace('Start use case execution')
 
+    // TODO: UseCaseWithLogger - Measure execution time
+    // - use json payload
+    // - pass params and results to logger,
+    // - handle error scenario (try/catch)
+    // - cover with unit tests
+    // label: tech-dept
+
     try {
       const result = await this.context.origin.run(params);
 
