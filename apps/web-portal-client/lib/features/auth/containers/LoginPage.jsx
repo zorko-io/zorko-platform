@@ -1,21 +1,14 @@
-import React, {useEffect} from 'react'
-import {useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import React from 'react'
+import {Redirect} from 'react-router-dom'
 import Spinner from '../../../components/Spinner'
-import {selectLoginState, selectAuthError, selectAuthToken} from '../selectors'
 import {useAuth} from '../hooks'
 
 export function LoginPage() {
-  const history = useHistory()
-  const isLogging = useSelector(selectLoginState)
-  const loginError = useSelector(selectAuthError)
-  const token = useSelector(selectAuthToken)
-  const auth = useAuth()
-  useEffect(() => {
-    if (!isLogging && !loginError && token) {
-      history.push('/home')
-    }
-  })
+  const {login, isLogginInProgress, error, hasToken} = useAuth()
+
+  if (!isLogginInProgress && !error && hasToken) {
+    return <Redirect to="/home" />
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -77,19 +70,15 @@ export function LoginPage() {
           <div>
             <button
               type="button"
-              disabled={isLogging}
+              disabled={isLogginInProgress}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={(event) => {
-                // todo: pass email and passwoord to action as parameter dispatch(userLogin(params))
-                event.preventDefault()
-                auth.login()
-              }}
+              onClick={login}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3" />
-              <Spinner show={isLogging} />
+              <Spinner show={isLogginInProgress} />
               Sign in
             </button>
-            {loginError && <div>Invalid password or email</div>}
+            {error && <div>Invalid password or email</div>}
           </div>
         </form>
       </div>

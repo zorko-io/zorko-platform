@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
-import {logout} from '../../../features/auth/slices'
+import {useAuth} from '../../../features/auth/hooks'
 import {MobileMenu} from './MobileMenu'
 import {DesktopMenu} from './DesktopMenu'
 import {Logo} from '../../Logo'
@@ -10,12 +9,7 @@ import {ImageShapes} from '../../ImageShapes'
 
 export function Navbar() {
   const [shouldShowMobileMenu, toggleMobileMenu] = useState(false)
-
-  const dispatch = useDispatch()
-
-  function handleLogout() {
-    dispatch(logout())
-  }
+  const {logout} = useAuth()
 
   return (
     <nav className="bg-gray-800">
@@ -36,7 +30,7 @@ export function Navbar() {
             />
           </div>
           <div className="flex items-center space-x-1">
-            <Button label="login" handleClick={handleLogout} />
+            <Button label="login" handleClick={logout} />
             <div className="-mr-2 flex md:hidden">
               <Button handleClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
                 <Image shape={shouldShowMobileMenu ? ImageShapes.cross : ImageShapes.sandwich} />
