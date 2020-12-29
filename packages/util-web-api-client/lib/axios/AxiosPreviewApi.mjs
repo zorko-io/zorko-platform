@@ -3,7 +3,6 @@ import {PreviewApi} from '../core'
 
 export class AxiosPreviewApi extends PreviewApi {
   /**
-   * // TODO: gh-53 provide axios implementation
    * @param http - Axios instance
    */
 

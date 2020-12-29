@@ -9,6 +9,7 @@ A1 -> A3     B
 A
 */
 
+
 class A {}
 
 class A1 extends A {}

@@ -11,6 +11,7 @@ A
 class A {}
 const a = new A()
 
+
 class A1 extends A {}
 const a1 = new A1()
 
