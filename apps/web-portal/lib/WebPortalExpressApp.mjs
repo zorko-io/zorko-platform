@@ -3,6 +3,10 @@ import express from 'express'
 import * as RestApiV1 from './rest-api-v1'
 import {makeRunner} from '@zorko-io/util-use-case'
 
+// TODO: Handle process start/stop
+// - add logging
+// - replace console.log
+// label: enhancement
 export class WebPortalExpressApp {
   /**
    * @type {Express}
