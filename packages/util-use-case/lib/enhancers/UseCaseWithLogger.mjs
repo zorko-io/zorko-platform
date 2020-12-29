@@ -9,6 +9,10 @@ export class UseCaseWithLogger extends UseCase {
 
   #log = null
 
+  // TODO: UseCaseWithLogger - check constructor asserts
+  // add unit tests to check constructor asserts
+  // label: tech-dept
+
   /**
    * Enhance use case with logging
    *
@@ -33,10 +37,14 @@ export class UseCaseWithLogger extends UseCase {
   async run(params) {
     const log = this.#log
 
-    // TODO: gh-80 measure execution time, pass params and results to logger
-
     log.trace('Start use case execution')
 
+    // TODO: UseCaseWithLogger - Measure execution time
+    // - use json payload
+    // - pass params and results to logger,
+    // - handle error scenario (try/catch)
+    // - cover with unit tests
+    // label: tech-dept
     try {
       const result = await this.context.origin.run(params);
 
@@ -45,8 +53,6 @@ export class UseCaseWithLogger extends UseCase {
       return result
 
     } catch (error){
-      // TODO:  gh-80 log error for json format
-
       log.error('Issues with running use case')
 
       throw error

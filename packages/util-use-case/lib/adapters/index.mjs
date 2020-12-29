@@ -1,3 +1,10 @@
+import {MockLogger} from '@zorko-io/util-logger'
+import {ValidationError} from '@zorko-io/util-error'
+
+// TODO: toResult cover with unit-tests
+// - add unit tests
+// - extract to separate file
+// label: tech-debt
 /**
  * Passes result to response as json,
  * @param result - use case result to convert
@@ -6,12 +13,8 @@
  * @param {Object} [deps] - dependencies
  * @return {*} - converted result, the same what we send over response
  */
-import {MockLogger} from '@zorko-io/util-logger'
-import {ValidationError} from '@zorko-io/util-error'
-
 // eslint-disable-next-line no-unused-vars
 export function toResult(result, req, res, deps= {}) {
-  // TODO: gh-80 sends as json, or streaming
   result.status = 1
 
   res.send(result)
@@ -19,6 +22,10 @@ export function toResult(result, req, res, deps= {}) {
   return result;
 }
 
+// TODO: toError cover with unit-tests
+// - add unit tests
+// - extract to separate file
+// label: tech-debt
 /**
  * Passes result to response as json,
  * @param {Error}error - error to convert
@@ -30,7 +37,6 @@ export function toResult(result, req, res, deps= {}) {
  */
 
 export function toError (error, req, res, deps = {log: new MockLogger()}) {
-  // TODO: gh-80 actually it should check for UserFacedError and then granular map for HTTP errors
   if (error instanceof ValidationError) {
     res.send({
       status: 0,
