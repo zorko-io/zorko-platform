@@ -7,7 +7,7 @@ business logic
 For Example
 
 ```
-
-// TODO: gh-80 provide simpl tutorial and explanation of utils to use
+// TODO: Provide basic docs util-use-case
+// labels: documentation
 
 ```

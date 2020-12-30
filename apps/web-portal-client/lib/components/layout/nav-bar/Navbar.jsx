@@ -1,10 +1,7 @@
 import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
-import {userLogout} from '../../../features/auth/effects'
-
+import {useAuth} from '../../../features/auth/hooks'
 import {MobileMenu} from './MobileMenu'
 import {DesktopMenu} from './DesktopMenu'
-
 import {Logo} from '../../Logo'
 import {Button} from '../../Button'
 import {Image} from '../../Image'
@@ -12,12 +9,11 @@ import {ImageShapes} from '../../ImageShapes'
 
 export function Navbar() {
   const [shouldShowMobileMenu, toggleMobileMenu] = useState(false)
+  const {logout} = useAuth()
 
-  const dispatch = useDispatch()
-
-  function handleLogout() {
-    dispatch(userLogout())
-  }
+  // TODO: DesktopMenu/MobileMenu
+  // use 'children' instead of 'items'
+  // labels: tech-debt
 
   return (
     <nav className="bg-gray-800">
@@ -38,7 +34,7 @@ export function Navbar() {
             />
           </div>
           <div className="flex items-center space-x-1">
-            <Button label="login" handleClick={handleLogout} />
+            <Button label="login" handleClick={logout} />
             <div className="-mr-2 flex md:hidden">
               <Button handleClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
                 <Image shape={shouldShowMobileMenu ? ImageShapes.cross : ImageShapes.sandwich} />

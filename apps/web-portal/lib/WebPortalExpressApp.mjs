@@ -3,7 +3,10 @@ import express from 'express'
 import * as RestApiV1 from './rest-api-v1'
 import {makeRunner} from '@zorko-io/util-use-case'
 
-// TODO: gh-80 handle process start/stop, wire with logger...
+// TODO: Handle process start/stop
+// - add logging
+// - replace console.log
+// label: enhancement
 export class WebPortalExpressApp {
   /**
    * @type {Express}
@@ -27,7 +30,9 @@ export class WebPortalExpressApp {
   }
 
   initRoutes() {
-    // TODO: gh-80 - init middleware
+    // TODO Add Middlewares
+    //  add 'standard' middlewares
+    //  labels: enhancement
     this.#http.use(
       '/api/v1',
       RestApiV1.route({

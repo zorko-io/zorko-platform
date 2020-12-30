@@ -1,13 +1,6 @@
 import pino from 'pino'
 import {CoreLogger} from '../..'
 
-/**
- * @todo #1:45m/DEV Experimenting to send logs in elastic search
- *  look in https://github.com/pinojs/pino-elasticsearch,
- *  write you findings
- *
- */
-
 export class PinoLogger extends CoreLogger {
   #pino = null
 

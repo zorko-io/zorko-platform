@@ -12,6 +12,11 @@ We choose to build our client on top of React + [Redux Tooltip](https://redux-to
 
 Application consist within  `Features` each feature may has next layers
 
+// TODO Update web-portal-client readme with Hooks
+//  - [] replace effects with hooks
+//  - [] add 'hooks' folder not only to feature, but as a root folder too
+//  labels: documentation
+
 1. `Slices` -  provides reducer and actions to manipulate within particular feature state slice
 1. `Selectors` - provides access to data required by a feature related to it's state slice
 1. `Effects` - contains interactions with side effects
