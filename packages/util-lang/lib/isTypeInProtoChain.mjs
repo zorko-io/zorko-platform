@@ -6,6 +6,5 @@
  */
 
 export function isTypeInProtoChain(source, destination) {
-  // TODO: gh-82 Provide an implementation
-  console.log({source, destination})
+  return source.prototype instanceof destination
 }
