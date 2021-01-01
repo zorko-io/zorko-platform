@@ -20,7 +20,7 @@ export function Navbar() {
             <Menu layout={DesktopLayout}>
               <MenuItem name="Home" link="/home" />
               <MenuItem name="Examples" link="/example" />
-              <MenuItem name="Teams" link="#" />
+              <MenuItem name="Teams" link="/team" />
             </Menu>
           </div>
           <div className="flex items-center space-x-1">
@@ -36,7 +36,8 @@ export function Navbar() {
       <Menu layout={MobileLayout} isShown={showMobileMenu}>
         <MenuItem name="Home" link="/home" />
         <MenuItem name="Examples" link="/example" />
-        <MenuItem name="Teams" link="#" />
+        <MenuItem name="Teams" link="/team" />
+        <MenuItem name="Contacts" link="/contacts" />
       </Menu>
     </nav>
   )

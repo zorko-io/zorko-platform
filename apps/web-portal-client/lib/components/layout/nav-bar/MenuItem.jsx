@@ -5,8 +5,8 @@ import className from 'classnames'
 
 export function MenuItem({name, link, isMobile}) {
   const usualCSS = className({
-    'text-gray-200 hover:text-black hover:bg-gray-200 block text-base': !isMobile,
-    'text-gray-300 hover:text-white hover:bg-gray-700 text-sm': isMobile,
+    'text-gray-200 hover:text-black hover:bg-gray-200 text-sm': !isMobile,
+    'text-gray-300 hover:text-white hover:bg-gray-700 block text-base': isMobile,
   })
 
   const activeCSS = className('px-3 py-2 rounded-md font-medium', {
@@ -15,7 +15,7 @@ export function MenuItem({name, link, isMobile}) {
   })
 
   return (
-    <NavLink key={name} to={link} className={usualCSS} activeClassName={activeCSS}>
+    <NavLink to={link} key={name} className={usualCSS} activeClassName={activeCSS}>
       {name}
     </NavLink>
   )

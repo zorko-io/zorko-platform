@@ -9,7 +9,7 @@ export function Menu({layout: Layout, isShown, children}) {
       renderItems={() =>
         React.Children.map(children, (child) =>
           React.cloneElement(child, {
-            isMobile: Layout == MobileLayout,
+            isMobile: Layout === MobileLayout,
           })
         )
       }
