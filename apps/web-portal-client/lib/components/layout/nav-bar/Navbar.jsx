@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import {useAuth} from '../../../features/auth/hooks'
-import {MobileMenu} from './MobileMenu'
-import {DesktopMenu} from './DesktopMenu'
-import {Logo} from '../../Logo'
-import {Button} from '../../Button'
-import {Image} from '../../Image'
-import {ImageShapes} from '../../ImageShapes'
+
+import {LoginButton} from './LoginButton'
+import {MobileMenuButton} from './MobileMenuButton'
+import {DesktopLayout, MobileLayout} from './MenuLayouts'
+import {Logo} from './Logo'
+import {Menu} from './Menu'
+import {MenuItem} from './MenuItem'
 
 export function Navbar() {
   const [shouldShowMobileMenu, toggleMobileMenu] = useState(false)
@@ -20,18 +20,13 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <div className="w-44">
-              <Logo />
-            </div>
+            <Logo />
 
-            <DesktopMenu
-              items={[
-                {desc: 'Home', link: '/home', active: true},
-                {desc: 'Examples', link: '/example'},
-                {desc: 'Teams', link: '#'},
-                {desc: 'About', link: '#'},
-              ]}
-            />
+            <Menu layout={DesktopLayout}>
+              <MenuItem name="Home" link="/home" />
+              <MenuItem name="Examples" link="/example" />
+              <MenuItem name="Teams" link="/team" />
+            </Menu>
           </div>
           <div className="flex items-center space-x-1">
             <Button label="login" handleClick={logout} />
@@ -43,15 +38,13 @@ export function Navbar() {
           </div>
         </div>
       </div>
-      <MobileMenu
-        items={[
-          {desc: 'Home', link: '/home', active: true},
-          {desc: 'Examples', link: '/example'},
-          {desc: 'Teams', link: '#'},
-          {desc: 'About', link: '#'},
-        ]}
-        isShown={shouldShowMobileMenu}
-      />
+
+      <Menu layout={MobileLayout} isShown={showMobileMenu}>
+        <MenuItem name="Home" link="/home" />
+        <MenuItem name="Examples" link="/example" />
+        <MenuItem name="Teams" link="/team" />
+        <MenuItem name="Contacts" link="/contacts" />
+      </Menu>
     </nav>
   )
 }
