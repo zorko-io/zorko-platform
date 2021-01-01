@@ -1,4 +1,5 @@
 import React from 'react'
+import className from 'classnames'
 
 export function DesktopLayout(props) {
   const {renderItems} = props

@@ -1,15 +1,14 @@
 import React, {useState} from 'react'
 
-import {Logo} from './Logo'
-import {DesktopMenu} from './MenuLayouts'
 import {LoginButton} from './LoginButton'
 import {MobileMenuButton} from './MobileMenuButton'
-import {MobileMenu} from './menu/MobileMenu'
 import {DesktopLayout, MobileLayout} from './MenuLayouts'
+import {Logo} from './Logo'
+import {Menu} from './Menu'
+import {MenuItem} from './MenuItem'
 
 export function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
-  const [activeItemMenu, setActiveItemMenu] = useState('/home')
 
   return (
     <nav className="bg-gray-800">
@@ -19,14 +18,9 @@ export function Navbar() {
             <Logo />
 
             <Menu layout={DesktopLayout}>
-              <MenuItem
-                desc="Home"
-                link="/home"
-                activeItem={activeItemMenu}
-                onChange={setActiveItemMenu}
-              />
-              <MenuItem desc="Examples" link="/example" />
-              <MenuItem desc="Teams" link="#" />
+              <MenuItem name="Home" link="/home" />
+              <MenuItem name="Examples" link="/example" />
+              <MenuItem name="Teams" link="#" />
             </Menu>
           </div>
           <div className="flex items-center space-x-1">
@@ -39,15 +33,10 @@ export function Navbar() {
         </div>
       </div>
 
-      <Menu
-        layout="mobile"
-        activeItem={activeItemMenu}
-        onChange={setActiveItemMenu}
-        isShown={showMobileMenu}
-      >
-        <MenuItem desc="Home" link="/home" />
-        <MenuItem desc="Examples" link="/example" />
-        <MenuItem desc="Teams" link="#" />
+      <Menu layout={MobileLayout} isShown={showMobileMenu}>
+        <MenuItem name="Home" link="/home" />
+        <MenuItem name="Examples" link="/example" />
+        <MenuItem name="Teams" link="#" />
       </Menu>
     </nav>
   )
