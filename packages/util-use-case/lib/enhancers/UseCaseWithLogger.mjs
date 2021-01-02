@@ -1,8 +1,7 @@
-import {UseCase} from '../core'
 import assert from 'assert'
+import {UseCase} from '../core'
 
 export class UseCaseWithLogger extends UseCase {
-
   /**
    * @type {CoreLogger}
    */
@@ -25,7 +24,7 @@ export class UseCaseWithLogger extends UseCase {
    */
 
   constructor(context) {
-    super(context);
+    super(context)
 
     assert(context.name, 'Should have an use case name defined')
     assert(context.origin, 'Should have an origin defined')
@@ -39,22 +38,20 @@ export class UseCaseWithLogger extends UseCase {
 
     log.trace('Start use case execution')
 
-    // TODO: UseCaseWithLogger - Measure execution time
-    // - use json payload
-    // - pass params and results to logger,
-    // - handle error scenario (try/catch)
-    // - cover with unit tests
-    // label: tech-dept
-
+    const startTime = new Date()
+    const payload = {
+      useCase: this.context.name,
+      params,
+    }
     try {
-      const result = await this.context.origin.run(params);
-
+      const result = await this.context.origin.run(params)
       log.info('Finish use case execution')
+      log.debug({...payload, result, runtime: new Date().getTime() - startTime})
 
       return result
-
-    } catch (error){
+    } catch (error) {
       log.error('Issues with running use case')
+      log.debug({...payload, error, runtime: new Date().getTime() - startTime})
 
       throw error
     }
