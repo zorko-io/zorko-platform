@@ -12,17 +12,12 @@ We choose to build our client on top of React + [Redux Tooltip](https://redux-to
 
 Application consist within  `Features` each feature may has next layers
 
-// TODO Update web-portal-client readme with Hooks
-//  - [] replace effects with hooks
-//  - [] add 'hooks' folder not only to feature, but as a root folder too
-//  labels: documentation
-
 1. `Slices` -  provides reducer and actions to manipulate within particular feature state slice
-1. `Selectors` - provides access to data required by a feature related to it's state slice
-1. `Effects` - contains interactions with side effects
-1. `Middlewares` - Redux middleware, main propose is to listen for app action flow and to some additional actions
-1. `Components` - 'dummy' components, which has no relations for `Slices` and `Selectors`
-1. `Containers` - components used by external features, usually use `Selectors` and Redux Actions
+2. `Selectors` - provides access to data required by a feature related to it's state slice
+3. `Hooks` - contains interactions with side effects and state management
+4. `Middlewares` - Redux middleware, main propose is to listen for app action flow and to some additional actions
+5. `Components` - 'dummy' components, which has no relations for `Slices` and `Selectors`
+6. `Containers` - components used by external features, usually use `Selectors` and Redux Actions
 
 ### Features
 
@@ -36,7 +31,7 @@ Each feature may contains its own `Slices`, `Selector`, `Components` and `Contai
   |-components/
   |-containers/
   |-slices/
-  |-effects/
+  |-hooks/
   |-selectors/
 ```
 
@@ -48,7 +43,7 @@ so refer to particular sub-folder instead
 import {MyComponent} from '../features/myFeature/components'
 import {MyContainer} from '../features/myFeature/containers'
 import {selectSomeFeatureData} from '../features/myFeature/selectors'
-import {doSomeFeatureEffect} from '../features/myFeature/effects'
+import {useSomeFeatureHook} from '../features/myFeature/hooks'
 
 ```
 
@@ -72,21 +67,19 @@ Example: usage of slice
 import {reducer, specsRemoveSuccess } from './slices'
 
 ```
-### Effects
+### Hooks
 
-Effects in that projects are [redux-thunk](https://github.com/reduxjs/redux-thunk) functions which trigger side effects.
-Like API calls, timers etc.  In case of middleware, put it here too
+Hooks in that projects are [react-hook](https://reactjs.org/docs/hooks-custom.html) custom hooks which trigger side effects (API calls, timers, etc.).
+Also, hooks provide access to redux store and application context. In case of middleware, put it here too
 
-Naming  `{someName}Effect.js`,  `{someName}Middleware.js`
+Naming  `use{SomeName}.jsx`
 
 For example:
 
 ```
-|-effects/
-  |-index.js                   // exports all actions and 'reducer' for current slice
-  |-openSpecEffect.js          // main reducer for current slice
-  |-editSpecEffect.js          // all actions creators (no any think actions here)
-  |-someMiddleware.js          // some middleware
+|-hooks/
+  |-index.jsx                 // exports all hooks for current slice
+  |-useEditSpec.jsx           // hook that contains functionality related to editing the specification
 ```
 
 ### Selectors
@@ -129,10 +122,6 @@ For example:
   |-LoginButton.jsx
 ```
 
-We are encourage use hooks for mapping within the store, see
-
-* [Hooks](https://react-redux.js.org/next/api/hooks#hooks)
-
 
 ### Project Structure
 
@@ -143,6 +132,7 @@ We are encourage use hooks for mapping within the store, see
 * `components/` - all reusable react components
 * `features/` - application's features
 * `store/` - contains functions/objects to build Redux store instance
+* `hooks/` - contains common application hooks 
 
 > Other folder in 'src' are not welcome
 
@@ -183,6 +173,7 @@ Example:
             |-index.jsx
     |-otherFeature/
 |-store/
+|-hooks/
  ...
  AppContainer.jsx
  index.jsx
