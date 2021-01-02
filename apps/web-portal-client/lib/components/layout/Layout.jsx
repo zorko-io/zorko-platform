@@ -2,33 +2,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 export function Layout(props) {
-  const {navbarRender, sidebarRender, headerRender, contentRender} = props
+  const {headerRender, sidebarRender, contentRender} = props
   return (
     <div>
-      {navbarRender()}
-
+      {headerRender()}
       <div className="max-w-7xl mx-auto md:flex">
         {sidebarRender()}
-
-        <div className="block divide-y w-full px-2">
-          {headerRender()}
-          {contentRender()}
-        </div>
+        {contentRender()}
       </div>
     </div>
   )
 }
 
 Layout.propTypes = {
-  navbarRender: PropTypes.func,
-  sidebarRender: PropTypes.func,
   headerRender: PropTypes.func,
+  sidebarRender: PropTypes.func,
   contentRender: PropTypes.func,
 }
 
 Layout.defaultProps = {
-  navbarRender: () => {},
-  sidebarRender: () => {},
   headerRender: () => {},
+  sidebarRender: () => {},
   contentRender: () => {},
 }

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {MobileLayout} from './MenuLayouts'
 
 export function Menu({layout: Layout, isShown, children}) {
-  console.log(Layout)
   return (
     <Layout
       renderItems={() =>
