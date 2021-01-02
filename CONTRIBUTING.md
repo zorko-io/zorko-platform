@@ -43,6 +43,10 @@ use cases, should allow easy to add and modify approach for use cases.
 
 Allows calling use cases from outside only over message bus
 
+To operate with each use case, managers operates with `UseCase` interface
+
+For more info look at `util-use-case` [docs](./packages/util-use-case/README.md)
+
 
 #### Apps
 
