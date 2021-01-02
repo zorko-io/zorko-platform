@@ -38,7 +38,7 @@ export class UseCaseWithLogger extends UseCase {
 
     log.trace('Start use case execution')
 
-    const startTime = new Date()
+    const startTime = new Date().getTime()
     const payload = {
       useCase: this.context.name,
       params,
