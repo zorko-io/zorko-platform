@@ -1,9 +1,31 @@
-import test from '@zorko-io/tool-test-harness'
 import sinon from 'sinon'
+import {AssertionError} from 'assert'
+import test from '@zorko-io/tool-test-harness'
 import {CoreLogger} from '@zorko-io/util-logger'
 import {ApplicationError} from '@zorko-io/util-error'
 import {UseCaseWithLogger} from './UseCaseWithLogger'
 import {UseCase} from '../core'
+
+test('create UseCase custom logger without origin', async (t) => {
+  const log = sinon.createStubInstance(CoreLogger)
+  const origin = sinon.createStubInstance(UseCase)
+  const name = 'TestUseCase'
+
+  await (async () => new UseCaseWithLogger({log, name}))().catch((err) => {
+    t.assert(err instanceof AssertionError)
+    t.deepEqual(err.message, 'Should have an origin defined')
+  })
+
+  await (async () => new UseCaseWithLogger({origin, name}))().catch((err) => {
+    t.assert(err instanceof AssertionError)
+    t.deepEqual(err.message, 'Should have validator log')
+  })
+
+  await (async () => new UseCaseWithLogger({origin, log}))().catch((err) => {
+    t.assert(err instanceof AssertionError)
+    t.deepEqual(err.message, 'Should have an use case name defined')
+  })
+})
 
 test('create UseCase with custom logger and runtime tracking', async (t) => {
   const log = sinon.createStubInstance(CoreLogger)
