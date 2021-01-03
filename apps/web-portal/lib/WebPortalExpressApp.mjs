@@ -1,18 +1,18 @@
 import assert from 'assert'
 import express from 'express'
-import * as RestApiV1 from './rest-api-v1'
 import {makeRunner} from '@zorko-io/util-use-case'
+import logger from './logger'
+import * as RestApiV1 from './rest-api-v1'
 
-// TODO: Handle process start/stop
-// - add logging
-// - replace console.log
-// label: enhancement
 export class WebPortalExpressApp {
   /**
    * @type {Express}
    */
 
+  #app = null
+
   #http = null
+
   #config = null
 
   /**
@@ -25,6 +25,7 @@ export class WebPortalExpressApp {
 
     this.#config = context.config
     this.#http = express()
+    this.#app = express()
 
     this.initRoutes()
   }
@@ -44,8 +45,14 @@ export class WebPortalExpressApp {
   }
 
   startAndAttach() {
-    this.#http.listen(this.#config.http.port, () => {
-      console.log('Server started')
+    this.#app = this.#http.listen(this.#config.http.port, () => {
+      logger.info('Server started')
     })
+  }
+
+  stop() {
+    if (!this.#app) return
+    logger.info('Server stopped')
+    this.#app.close()
   }
 }
