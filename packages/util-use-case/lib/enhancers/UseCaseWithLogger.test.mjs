@@ -1,6 +1,7 @@
 import test from '@zorko-io/tool-test-harness'
 import sinon from 'sinon'
 import {CoreLogger} from '@zorko-io/util-logger'
+import {ApplicationError} from '@zorko-io/util-error'
 import {UseCaseWithLogger} from './UseCaseWithLogger'
 import {UseCase} from '../core'
 
@@ -26,28 +27,26 @@ test('create UseCase with custom logger and runtime tracking', async (t) => {
   t.is(actual, result)
 
   t.assert(origin.run.calledOnce)
-  t.assert(log.debug.calledOnce)
+  t.assert(log.info.calledOnce)
 
   t.deepEqual(log.trace.firstCall.args[0], 'Start use case execution')
 
-  const debugPayload = log.debug.firstCall.args[0]
-  t.deepEqual(debugPayload.useCase, name)
-  t.deepEqual(debugPayload.params, params)
-  t.deepEqual(debugPayload.result, result)
-  t.assert(debugPayload.runtime > 0)
+  const debugPayload = log.info.firstCall.args[0]
+  t.deepEqual(debugPayload.useCase, name, 'should pass use case name')
+  t.deepEqual(debugPayload.params, params, 'should pass use case params')
+  t.deepEqual(debugPayload.result, result, 'should pass use case result')
+  t.assert(debugPayload.runtime > 0, 'should pass use case runtime')
 
   t.assert(log.trace.calledBefore(origin.run))
-
-  t.deepEqual(log.info.firstCall.args[0], 'Finish use case execution')
   t.assert(log.info.calledAfter(origin.run))
 })
 
-test('create UseCase with custom logger and runtime tracking. Error case', async (t) => {
+test('create UseCase with custom logger and runtime tracking. ApplicationError case', async (t) => {
   const log = sinon.createStubInstance(CoreLogger)
   const origin = sinon.createStubInstance(UseCase)
   const params = {name: 'bbb'}
   const name = 'TestUseCase'
-  const error = {code: 'CUSTOM_ERROR', message: 'Error message', stack: 'test stacktrace'}
+  const error = new ApplicationError('ApplicationError test message')
 
   log.child.returns(log)
 
@@ -64,14 +63,46 @@ test('create UseCase with custom logger and runtime tracking. Error case', async
   })
 
   t.assert(origin.run.calledOnce)
-  t.assert(log.debug.calledOnce)
-  t.deepEqual(log.error.firstCall.args[0], 'Issues with running use case')
+  t.assert(log.warn.calledOnce, 'should pass call warn log once')
 
-  const debugPayload = log.debug.firstCall.args[0]
-  t.deepEqual(debugPayload.useCase, name)
-  t.deepEqual(debugPayload.params, params)
-  t.deepEqual(debugPayload.error, error)
-  t.assert(debugPayload.runtime > 0)
+  const debugPayload = log.warn.firstCall.args[0]
+  t.deepEqual(debugPayload.useCase, name, 'should pass AppError use case name')
+  t.deepEqual(debugPayload.params, params, 'should pass AppError use case params')
+  t.deepEqual(debugPayload.error, error, 'should pass AppError use case error')
+  t.assert(typeof debugPayload.runtime === 'number', 'should pass AppError use case runtime')
+
+  t.assert(log.trace.calledBefore(origin.run))
+})
+
+test('create UseCase with custom logger and runtime tracking. Non ApplicationError case', async (t) => {
+  const log = sinon.createStubInstance(CoreLogger)
+  const origin = sinon.createStubInstance(UseCase)
+  const params = {name: 'bbb'}
+  const name = 'TestUseCase'
+  const error = new Error('ApplicationError test message')
+
+  log.child.returns(log)
+
+  origin.run.withArgs(params).returns(Promise.reject(error))
+
+  const useCase = new UseCaseWithLogger({
+    origin,
+    log,
+    name,
+  })
+
+  await useCase.run(params).catch((err) => {
+    t.assert(err)
+  })
+
+  t.assert(origin.run.calledOnce)
+  t.assert(log.error.calledOnce, 'should pass call warn log once')
+
+  const debugPayload = log.error.firstCall.args[0]
+  t.deepEqual(debugPayload.useCase, name, 'should pass Non AppError use case name')
+  t.deepEqual(debugPayload.params, params, 'should pass Non AppError use case params')
+  t.deepEqual(debugPayload.error, error, 'should pass Non AppError use case error')
+  t.assert(typeof debugPayload.runtime === 'number', 'should pass Non AppError use case runtime')
 
   t.assert(log.trace.calledBefore(origin.run))
 })

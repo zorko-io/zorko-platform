@@ -1,4 +1,6 @@
 import assert from 'assert'
+import {ApplicationError} from '@zorko-io/util-error'
+import {isTypeInProtoChain} from '@zorko-io/util-lang'
 import {UseCase} from '../core'
 
 export class UseCaseWithLogger extends UseCase {
@@ -45,14 +47,15 @@ export class UseCaseWithLogger extends UseCase {
     }
     try {
       const result = await this.context.origin.run(params)
-      log.info('Finish use case execution')
-      log.debug({...payload, result, runtime: new Date().getTime() - startTime})
+      log.info({...payload, result, runtime: new Date().getTime() - startTime})
 
       return result
     } catch (error) {
-      log.error('Issues with running use case')
-      log.debug({...payload, error, runtime: new Date().getTime() - startTime})
-
+      if (error instanceof ApplicationError) {
+        log.warn({...payload, error, runtime: new Date().getTime() - startTime})
+      } else {
+        log.error({...payload, error, runtime: new Date().getTime() - startTime})
+      }
       throw error
     }
   }
