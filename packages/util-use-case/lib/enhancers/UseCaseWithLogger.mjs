@@ -1,6 +1,5 @@
 import assert from 'assert'
 import {ApplicationError} from '@zorko-io/util-error'
-import {isTypeInProtoChain} from '@zorko-io/util-lang'
 import {UseCase} from '../core'
 
 export class UseCaseWithLogger extends UseCase {
