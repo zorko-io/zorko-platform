@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import {useAuth} from '../../features/auth/hooks'
 
-import {Menu, MenuItem, DesktopLayout, MobileLayout} from './main-menu'
+import {MenuItem, DesktopMenu, MobileMenu} from './main-menu'
 
 import {Logo} from '../Logo'
 import {Button} from '../Button'
@@ -20,11 +20,11 @@ export function Header() {
           <div className="flex items-center">
             <Logo />
 
-            <Menu layout={DesktopLayout}>
+            <DesktopMenu>
               <MenuItem name="Home" link="/home" />
               <MenuItem name="Examples" link="/example" />
               <MenuItem name="Teams" link="/team" />
-            </Menu>
+            </DesktopMenu>
           </div>
           <div className="flex items-center space-x-1">
             <Button label="login" handleClick={logout} />
@@ -37,12 +37,12 @@ export function Header() {
         </div>
       </div>
 
-      <Menu layout={MobileLayout} isShown={shouldShowMobileMenu}>
+      <MobileMenu isShown={shouldShowMobileMenu}>
         <MenuItem name="Home" link="/home" />
         <MenuItem name="Examples" link="/example" />
         <MenuItem name="Teams" link="/team" />
         <MenuItem name="Contacts" link="/contacts" />
-      </Menu>
+      </MobileMenu>
     </nav>
   )
 }

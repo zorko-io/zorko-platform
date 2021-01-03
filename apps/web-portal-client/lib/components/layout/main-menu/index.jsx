@@ -1,3 +1,3 @@
-export * from './Menu'
-export * from './MenuLayouts'
+export * from './DesktopMenu'
+export * from './MobileMenu'
 export * from './MenuItem'
