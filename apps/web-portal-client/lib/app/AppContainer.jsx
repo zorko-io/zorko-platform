@@ -14,10 +14,7 @@ export function AppContainer() {
         <HomePage />
       </PrivateRoute>
       <Route path="/login" render={() => <LoginPage />} />
-      <Route path="/home" render={() => <HomePage />} />
-      <Route path="/team" render={() => <HomePage />} />
-      <Route path="/contacts" render={() => <HomePage />} />
-      <Route path="/" render={() => <Redirect to="/example" />} />
+      <Route path="/" render={() => <Redirect to="/login" />} />
     </Switch>
   )
 }
