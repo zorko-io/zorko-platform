@@ -23,7 +23,6 @@ export function Header() {
             <DesktopMenu>
               <MenuItem name="Home" link="/home" />
               <MenuItem name="Examples" link="/example" />
-              <MenuItem name="Teams" link="/team" />
             </DesktopMenu>
           </div>
           <div className="flex items-center space-x-1">
@@ -40,8 +39,6 @@ export function Header() {
       <MobileMenu isShown={shouldShowMobileMenu}>
         <MenuItem name="Home" link="/home" />
         <MenuItem name="Examples" link="/example" />
-        <MenuItem name="Teams" link="/team" />
-        <MenuItem name="Contacts" link="/contacts" />
       </MobileMenu>
     </nav>
   )
