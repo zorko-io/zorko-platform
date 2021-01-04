@@ -1,15 +1,13 @@
 version: "3.1"
 
 services:
-  nginx-router:
-    networks: { default: { aliases: [ 'zorko-io.local' ] } }
-    build: { context: ./apps/nginx-router}
-    restart: always
-    ports: ['80:80']
+#  nginx-router:
+#    networks: { default: { aliases: [ 'zorko-io.local' ] } }
+#    build: { context: ./dev-ops/nginx-router}
+#    restart: always
+#    ports: ['80:80']
   web-portal:
-    image: node:14.15.3
-    command: sh -c "yarn install --frozen-lockfile && cd apps/web-portal && yarn start:debug"
-
+    networks: { default: { aliases: [ 'zorko-io.backend' ] } }
+    build: ./dev-ops/backend
+    restart: always
     ports: ['7777:7777']
-    working_dir: /app
-    volumes: ['./:/app']
