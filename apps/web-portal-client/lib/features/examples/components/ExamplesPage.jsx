@@ -5,6 +5,7 @@ import {Content, Header, Sidebar, Navbar, Layout} from '../../../components/layo
 import {ApiExample} from './ApiExample'
 import {ValidatorExample} from './ValidatorExample'
 import {ButtonsExample} from './ButtonsExample'
+import {DialogExample} from './DialogExample'
 
 export function ExamplesPage() {
   return (
@@ -17,6 +18,7 @@ export function ExamplesPage() {
             {name: 'API', link: '/example/api', active: true},
             {name: 'Validator', link: '/example/validator'},
             {name: 'Buttons', link: '/example/buttons'},
+            {name: 'Dialog', link: '/example/dialog'},
           ]}
         />
       )}
@@ -28,6 +30,7 @@ export function ExamplesPage() {
               <Route path="/example/validator" render={() => <ValidatorExample />} />
               <Route path="/example/api" render={() => <ApiExample />} />
               <Route path="/example/buttons" render={() => <ButtonsExample />} />
+              <Route path="/example/dialog" render={() => <DialogExample />} />
             </Switch>
           )}
         />
