@@ -2,7 +2,7 @@ import React from 'react'
 
 export function Card() {
   return (
-    <div className="flex-auto mx-4 my-4 w-80">
+    <div className="flex-auto mx-4 my-4 w-72">
       <img className="w-full" src="https://graphsketch.com/images/blank.png" alt="" />
 
       <div>Lorem ipsum dolor sit.</div>

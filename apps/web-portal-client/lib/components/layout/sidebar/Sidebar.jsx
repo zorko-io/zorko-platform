@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {Link} from 'react-router-dom'
-
-export function Sidebar(props) {
-  const {description, items, children} = props
+export function Sidebar({title, children}) {
   return (
     <div
       id="sidebar"
@@ -22,22 +19,9 @@ export function Sidebar(props) {
           <ul>
             <li className="mt-8">
               <h5 className="px-3 mb-3 lg:mb-3 uppercase tracking-wide font-semibold text-sm lg:text-xs text-gray-900">
-                {description}
+                {title}
               </h5>
-              <ul>
-                {children ||
-                  items.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        className="px-3 py-2 transition-colors duration-200 relative block hover:text-gray-900 text-gray-500"
-                        to={item.link}
-                      >
-                        <span className="rounded-md absolute inset-0 bg-cyan-50 opacity-0" />
-                        <span className="relative">{item.name}</span>
-                      </Link>
-                    </li>
-                  ))}
-              </ul>
+              <ul>{children}</ul>
             </li>
           </ul>
         </nav>
@@ -47,19 +31,11 @@ export function Sidebar(props) {
 }
 
 Sidebar.propTypes = {
-  description: PropTypes.string,
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      link: PropTypes.string,
-      active: PropTypes.bool,
-    })
-  ),
+  title: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 }
 
 Sidebar.defaultProps = {
-  description: '',
-  items: [{}],
+  title: '',
   children: null,
 }
