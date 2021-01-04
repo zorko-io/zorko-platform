@@ -1,8 +1,8 @@
-import {UseCase} from '../core'
 import assert from 'assert'
+import {ApplicationError} from '@zorko-io/util-error'
+import {UseCase} from '../core'
 
 export class UseCaseWithLogger extends UseCase {
-
   /**
    * @type {CoreLogger}
    */
@@ -25,7 +25,7 @@ export class UseCaseWithLogger extends UseCase {
    */
 
   constructor(context) {
-    super(context);
+    super(context)
 
     assert(context.name, 'Should have an use case name defined')
     assert(context.origin, 'Should have an origin defined')
@@ -39,23 +39,22 @@ export class UseCaseWithLogger extends UseCase {
 
     log.trace('Start use case execution')
 
-    // TODO: UseCaseWithLogger - Measure execution time
-    // - use json payload
-    // - pass params and results to logger,
-    // - handle error scenario (try/catch)
-    // - cover with unit tests
-    // label: tech-dept
-
+    const startTime = new Date().getTime()
+    const payload = {
+      useCase: this.context.name,
+      params,
+    }
     try {
-      const result = await this.context.origin.run(params);
-
-      log.info('Finish use case execution')
+      const result = await this.context.origin.run(params)
+      log.info({...payload, result, runtime: new Date().getTime() - startTime})
 
       return result
-
-    } catch (error){
-      log.error('Issues with running use case')
-
+    } catch (error) {
+      if (error instanceof ApplicationError) {
+        log.warn({...payload, error, runtime: new Date().getTime() - startTime})
+      } else {
+        log.error({...payload, error, runtime: new Date().getTime() - startTime})
+      }
       throw error
     }
   }
