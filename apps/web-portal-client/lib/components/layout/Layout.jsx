@@ -21,7 +21,7 @@ Layout.propTypes = {
 }
 
 Layout.defaultProps = {
-  headerRender: () => {},
-  sidebarRender: () => {},
-  contentRender: () => {},
+  headerRender: () => null,
+  sidebarRender: () => null,
+  contentRender: () => null,
 }

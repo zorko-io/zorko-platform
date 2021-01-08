@@ -10,6 +10,7 @@ export function PrivateRoute({children, ...rest}) {
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
       render={({location}) => {
+        console.log('hasToken ', hasToken)
         return hasToken ? children : <Redirect to={{pathname: '/login', state: {from: location}}} />
       }}
     />
