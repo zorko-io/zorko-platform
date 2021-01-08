@@ -1,7 +1,7 @@
 import assert from 'assert'
 import express from 'express'
 import {makeRunner} from '@zorko-io/util-use-case'
-import logger from './logger'
+import {MockLogger} from '@zorko-io/util-logger'
 import * as RestApiV1 from './rest-api-v1'
 
 export class WebPortalExpressApp {
@@ -15,17 +15,25 @@ export class WebPortalExpressApp {
 
   #config = null
 
+  #process = null
+
+  #logger = null
+
   /**
    * @param {Object} context
    * @param {Object} context.config - app config
+   * @param {Object} context.process - process
+   * @param {Object} context.logger - app logger
    */
 
-  constructor(context = {}) {
-    assert(context.config, 'Should have an app config defined')
+  constructor(context = {process, logger: new MockLogger()}) {
+    const {config, process, logger} = context
+    assert(config, 'Should have an app config defined')
 
-    this.#config = context.config
+    this.#config = config
+    this.#logger = logger
+    this.#process = process
     this.#http = express()
-    this.#app = express()
 
     this.initRoutes()
   }
@@ -44,15 +52,46 @@ export class WebPortalExpressApp {
     )
   }
 
+  /**
+   * @property {startAndAttach}
+   */
   startAndAttach() {
+    this.#process.on('SIGTERM', async () => {
+      this.#logger.info('SIGTERM signal catched')
+      this.stop()
+    })
+
+    this.#process.on('SIGINT', async () => {
+      this.#logger.info('SIGINT signal catched')
+      this.stop()
+    })
+
+    this.#process.on('unhandledRejection', (error) => {
+      this.#logger.fatal({
+        type: 'UnhandledRejection',
+        error: error.stack,
+      })
+    })
+
+    this.#process.on('uncaughtException', (error) => {
+      this.#logger.fatal({
+        type: 'UncaughtException',
+        error: error.stack,
+      })
+    })
+
     this.#app = this.#http.listen(this.#config.http.port, () => {
-      logger.info('Server started')
+      this.#logger.info('Server started')
     })
   }
 
+  /**
+   * @property {stop}
+   */
   stop() {
     if (!this.#app) return
-    logger.info('Server stopped')
+    this.#logger.info('Server stopped')
     this.#app.close()
+    this.#process.exit(0)
   }
 }
