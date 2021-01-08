@@ -11,20 +11,31 @@ test('create UseCase custom logger without origin', async (t) => {
   const origin = sinon.createStubInstance(UseCase)
   const name = 'TestUseCase'
 
-  await (async () => new UseCaseWithLogger({log, name}))().catch((err) => {
-    t.assert(err instanceof AssertionError)
-    t.deepEqual(err.message, 'Should have an origin defined')
-  })
+  const noOriginError = t.throws(
+    () => {
+      new UseCaseWithLogger({log, name})
+    },
+    {instanceOf: AssertionError}
+  )
+  t.deepEqual(noOriginError.message, 'Should have an origin defined')
 
-  await (async () => new UseCaseWithLogger({origin, name}))().catch((err) => {
-    t.assert(err instanceof AssertionError)
-    t.deepEqual(err.message, 'Should have validator log')
-  })
+  const noLogError = t.throws(
+    () => {
+      new UseCaseWithLogger({origin, name})
+    },
+    {instanceOf: AssertionError}
+  )
+  t.assert(noLogError instanceof AssertionError)
+  t.deepEqual(noLogError.message, 'Should have validator log')
 
-  await (async () => new UseCaseWithLogger({origin, log}))().catch((err) => {
-    t.assert(err instanceof AssertionError)
-    t.deepEqual(err.message, 'Should have an use case name defined')
-  })
+  const noNameError = t.throws(
+    () => {
+      new UseCaseWithLogger({origin, log})
+    },
+    {instanceOf: AssertionError}
+  )
+  t.assert(noNameError instanceof AssertionError)
+  t.deepEqual(noNameError.message, 'Should have an use case name defined')
 })
 
 test('create UseCase with custom logger and runtime tracking', async (t) => {
