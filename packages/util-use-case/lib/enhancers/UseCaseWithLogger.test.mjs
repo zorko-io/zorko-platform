@@ -25,7 +25,6 @@ test('create UseCase custom logger without origin', async (t) => {
     },
     {instanceOf: AssertionError}
   )
-  t.assert(noLogError instanceof AssertionError)
   t.deepEqual(noLogError.message, 'Should have validator log')
 
   const noNameError = t.throws(
@@ -34,7 +33,6 @@ test('create UseCase custom logger without origin', async (t) => {
     },
     {instanceOf: AssertionError}
   )
-  t.assert(noNameError instanceof AssertionError)
   t.deepEqual(noNameError.message, 'Should have an use case name defined')
 })
 
