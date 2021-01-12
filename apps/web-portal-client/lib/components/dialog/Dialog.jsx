@@ -9,7 +9,7 @@ import {ImageShapes} from '../ImageShapes'
 
 export function Dialog({open, onClose, children}) {
   if (!open) {
-    return <></>
+    return null
   }
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-smoke-light flex">
