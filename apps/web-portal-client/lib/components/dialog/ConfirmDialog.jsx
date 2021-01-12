@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {Dialog} from './Dialog'
-import {Button} from './Button'
+import {Button} from '../Button'
+//import {Button} from './Button'
 
 export function ConfirmDialog({children, title, open, onClose, onConfirm}) {
   if (!open) return <></>
@@ -12,20 +13,22 @@ export function ConfirmDialog({children, title, open, onClose, onConfirm}) {
       <h2 className="text-xl">{title}</h2>
       <div className="py-5">{children}</div>
       <div className="flex justify-end">
-        <div className="p-1">
-          <Button onClick={() => onClose()} className="bg-secondary hover:bg-secondary-light">
-            No
-          </Button>
-        </div>
-        <div className="p-1">
+        <div className="p-1 w-1/5 flex">
           <Button
-            onClick={() => {
+            label="No"
+            addClasses="bg-smooth-green hover:bg-smooth-green-light flex-auto"
+            handleClick={() => onClose()}
+          />
+        </div>
+        <div className="p-1 w-1/5 flex">
+          <Button
+            label="Yes"
+            addClasses="bg-smooth-green hover:bg-smooth-green-light flex-auto"
+            handleClick={() => {
               onClose()
               onConfirm()
             }}
-          >
-            Yes
-          </Button>
+          />
         </div>
       </div>
     </Dialog>

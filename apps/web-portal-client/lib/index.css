@@ -10,16 +10,4 @@ body {
 @tailwind utilities;
 
 @layer utilities {
-  .bg-primary {
-    background-color: #463f3f;
-  }
-  .bg-primary-light {
-    background-color: #8e8888;
-  }
-  .bg-secondary {
-    background-color: #965d3e;
-  }
-  .bg-secondary-light {
-    background-color: #d88b61;
-  }
 }
