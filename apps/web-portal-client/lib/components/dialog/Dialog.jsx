@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {IconButton} from './IconButton'
-import {ExitIcon} from './ExitIcon'
+import {Button} from '../Button'
+import {Image} from '../Image'
+import {ImageShapes} from '../ImageShapes'
+//import {IconButton} from './IconButton'
+//import {ExitIcon} from './ExitIcon'
 
 export function Dialog({open, onClose, children}) {
   if (!open) {
@@ -13,9 +16,12 @@ export function Dialog({open, onClose, children}) {
       <div className="relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg">
         <div>{children}</div>
         <span className="absolute top-0 right-0 p-4">
-          <IconButton onClick={() => onClose()}>
-            <ExitIcon />
-          </IconButton>
+          <Button
+            handleClick={() => onClose()}
+            addClasses="text-black bg-white hover:bg-gray-200 rounded-full"
+          >
+            <Image shape={ImageShapes.cross} />
+          </Button>
         </span>
       </div>
     </div>
