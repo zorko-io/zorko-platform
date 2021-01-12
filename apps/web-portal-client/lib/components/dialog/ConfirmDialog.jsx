@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import {Dialog} from './Dialog'
 import {Button} from '../Button'
-//import {Button} from './Button'
 
 export function ConfirmDialog({children, title, open, onClose, onConfirm}) {
   if (!open) return <></>
@@ -44,5 +43,9 @@ ConfirmDialog.propTypes = {
 }
 
 ConfirmDialog.defaultProps = {
-  '': () => {},
+  children: null,
+  title: '',
+  open: true,
+  onClose: () => {},
+  onConfirm: () => {},
 }

@@ -4,8 +4,6 @@ import PropTypes from 'prop-types'
 import {Button} from '../Button'
 import {Image} from '../Image'
 import {ImageShapes} from '../ImageShapes'
-//import {IconButton} from './IconButton'
-//import {ExitIcon} from './ExitIcon'
 
 export function Dialog({open, onClose, children}) {
   if (!open) {
@@ -35,5 +33,7 @@ Dialog.propTypes = {
 }
 
 Dialog.defaultProps = {
-  '': () => {},
+  children: null,
+  open: true,
+  onClose: () => {},
 }
