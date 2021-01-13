@@ -22,8 +22,8 @@ export class WebPortalExpressApp {
   /**
    * @param {Object} context
    * @param {Object} context.config - app config
-   * @param {Object} context.process - process
-   * @param {Object} context.logger - app logger
+   * @param {EventEmitter} context.process - web portal application process
+   * @param {CoreLogger} context.logger - application logger
    */
 
   constructor(context = {process, logger: new MockLogger()}) {
@@ -53,7 +53,8 @@ export class WebPortalExpressApp {
   }
 
   /**
-   * @property {startAndAttach}
+   * @method Starts all necessary application's component and attach it's execution to current process
+   * @return {undefined}
    */
   startAndAttach() {
     this.#process.on('SIGTERM', async () => {
@@ -86,7 +87,8 @@ export class WebPortalExpressApp {
   }
 
   /**
-   * @property {stop}
+   * @method Stop execution of the current process
+   * @return {undefined}
    */
   stop() {
     if (!this.#app) return
