@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {childrenPropTypes} from '../../utils/childrenPropTypes'
 
 import {Button} from '../Button'
 import {Image} from '../Image'
@@ -27,7 +28,7 @@ export function Dialog({open, onClose, children}) {
 }
 
 Dialog.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  children: childrenPropTypes,
   open: PropTypes.bool,
   onClose: PropTypes.func,
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import {childrenPropTypes} from '../../../utils/childrenPropTypes'
 
 export function DesktopMenu({children}) {
   return (
@@ -10,7 +10,7 @@ export function DesktopMenu({children}) {
 }
 
 DesktopMenu.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  children: childrenPropTypes,
 }
 
 DesktopMenu.defaultProps = {

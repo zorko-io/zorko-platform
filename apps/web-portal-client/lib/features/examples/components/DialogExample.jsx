@@ -10,7 +10,7 @@ export function DialogExample() {
 
   return (
     <div>
-      <Button aria-label="delete" noClick={() => setConfirmOpen(true)}>
+      <Button aria-label="delete" onClick={() => setConfirmOpen(true)}>
         Open Confirm Dialog
       </Button>
       <ConfirmDialog

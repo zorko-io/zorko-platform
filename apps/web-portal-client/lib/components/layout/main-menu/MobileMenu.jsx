@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import className from 'classnames'
+import {childrenPropTypes} from '../../../utils/childrenPropTypes'
 
 export function MobileMenu({isShown, children}) {
   return (
@@ -19,7 +20,7 @@ export function MobileMenu({isShown, children}) {
 
 MobileMenu.propTypes = {
   isShown: PropTypes.bool,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  children: childrenPropTypes,
 }
 
 MobileMenu.defaultProps = {

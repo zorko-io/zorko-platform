@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {childrenPropTypes} from '../../utils/childrenPropTypes'
 
 import {Dialog} from './Dialog'
 import {Button} from '../Button'
@@ -16,14 +17,14 @@ export function ConfirmDialog({children, title, open, onClose, onConfirm}) {
           <Button
             label="No"
             addClasses="bg-smooth-green hover:bg-smooth-green-light flex-auto"
-            onCLick={() => onClose()}
+            onClick={() => onClose()}
           />
         </div>
         <div className="p-1 w-1/5 flex">
           <Button
             label="Yes"
             addClasses="bg-smooth-green hover:bg-smooth-green-light flex-auto"
-            onCLick={() => {
+            onClick={() => {
               onClose()
               onConfirm()
             }}
@@ -35,7 +36,7 @@ export function ConfirmDialog({children, title, open, onClose, onConfirm}) {
 }
 
 ConfirmDialog.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  children: childrenPropTypes,
   title: PropTypes.string,
   open: PropTypes.bool,
   onClose: PropTypes.func,

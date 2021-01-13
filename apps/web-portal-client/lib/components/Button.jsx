@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {childrenPropTypes} from '../utils/childrenPropTypes'
 
 import './button.css'
 
@@ -17,7 +18,7 @@ Button.propTypes = {
   addClasses: PropTypes.string,
   label: PropTypes.string,
   onClick: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  children: childrenPropTypes,
 }
 
 Button.defaultProps = {
