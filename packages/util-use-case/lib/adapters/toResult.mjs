@@ -1,4 +1,4 @@
-export function toResult(result, req, res, deps = {}) {
+export function toResult(result, req, res) {
   result.status = 1
 
   res.send(result)

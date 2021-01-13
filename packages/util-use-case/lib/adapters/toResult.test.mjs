@@ -3,15 +3,14 @@ import sinon from 'sinon'
 
 import {toResult} from './toResult'
 
-const result = {}
-const req = {}
-const res = {send: sinon.stub()}
-const deps = {}
+test('Basic happy path', (t) => {
+  const result = {}
+  const req = {}
+  const res = {send: sinon.stub()}
 
-const toResultReturns = toResult(result, req, res, deps)
+  const actual = toResult(result, req, res)
 
-test('Test toResult func', (t) => {
-  t.assert(result.status === 1, 'Added new prop status 1')
-  t.assert(res.send.calledOnceWith(result), 'res.send has been called with result')
-  t.assert(toResultReturns === result, 'toResult returns result')
+  t.assert(result.status === 1, 'Result should get prop status = 1')
+  t.assert(res.send.calledOnceWith(result), 'res.send should been called with arg result')
+  t.assert(actual === result, 'toResult should return result object')
 })
