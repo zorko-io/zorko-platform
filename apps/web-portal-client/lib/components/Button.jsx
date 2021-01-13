@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import './button.css'
 
 export function Button(props) {
-  const {label, handleClick, children, addClasses} = props
+  const {label, onClick, children, addClasses} = props
 
   return (
-    <button type="button" className={`btn-general ${addClasses}`} onClick={handleClick}>
+    <button type="button" className={`btn-general ${addClasses}`} onClick={onClick}>
       {children || label}
     </button>
   )
@@ -16,13 +16,13 @@ export function Button(props) {
 Button.propTypes = {
   addClasses: PropTypes.string,
   label: PropTypes.string,
-  handleClick: PropTypes.func,
+  onClick: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 }
 
 Button.defaultProps = {
   addClasses: '',
   label: '',
-  handleClick: () => {},
+  onClick: () => {},
   children: null,
 }

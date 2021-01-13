@@ -16,14 +16,14 @@ export function ConfirmDialog({children, title, open, onClose, onConfirm}) {
           <Button
             label="No"
             addClasses="bg-smooth-green hover:bg-smooth-green-light flex-auto"
-            handleClick={() => onClose()}
+            onCLick={() => onClose()}
           />
         </div>
         <div className="p-1 w-1/5 flex">
           <Button
             label="Yes"
             addClasses="bg-smooth-green hover:bg-smooth-green-light flex-auto"
-            handleClick={() => {
+            onCLick={() => {
               onClose()
               onConfirm()
             }}

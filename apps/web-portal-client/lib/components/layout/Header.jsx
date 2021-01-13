@@ -26,9 +26,9 @@ export function Header() {
             </DesktopMenu>
           </div>
           <div className="flex items-center space-x-1">
-            <Button label="logout" handleClick={logout} />
+            <Button label="logout" onClick={logout} />
             <div className="-mr-2 flex md:hidden">
-              <Button handleClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
+              <Button onClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
                 <Image shape={shouldShowMobileMenu ? ImageShapes.cross : ImageShapes.sandwich} />
               </Button>
             </div>
