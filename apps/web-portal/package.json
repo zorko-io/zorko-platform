@@ -20,6 +20,7 @@
   "dependencies": {
     "@types/express": "^4.17.10",
     "confme": "^1.1.0",
+    "@types/express": "^4.17.10",
     "express": "^4.17.1"
   }
 }
