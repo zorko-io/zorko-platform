@@ -7,8 +7,6 @@ COPY . .
 
 RUN yarn install --frozen-lockfile
 
-#WORKDIR /zorko-platform/apps/web-portal
+WORKDIR /zorko-platform/apps/web-portal
 
-#CMD ["yarn", "start"]
-
-RUN echo "hellp world"
+CMD ["yarn", "start:debug"]

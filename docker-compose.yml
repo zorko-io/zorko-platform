@@ -1,5 +1,7 @@
 version: "3.1"
 
+# TODO: manually test with at least web-portal
+
 services:
 #  nginx-router:
 #    networks: { default: { aliases: [ 'zorko-io.local' ] } }
@@ -10,4 +12,4 @@ services:
     networks: { default: { aliases: [ 'zorko-io.backend' ] } }
     build: ./dev-ops/backend
     restart: always
-    ports: ['7777:7777']
+    ports: ['7777:7777', '9229:9229']
