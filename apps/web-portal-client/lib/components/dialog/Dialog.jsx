@@ -17,7 +17,7 @@ export function Dialog({open, onClose, children}) {
         <span className="absolute top-0 right-0 p-4">
           <Button
             onClick={() => onClose()}
-            addClasses="text-black bg-white hover:bg-gray-200 rounded-full"
+            cssClass="text-black bg-white hover:bg-gray-200 rounded-full"
           >
             <Image shape={ImageShapes.cross} />
           </Button>

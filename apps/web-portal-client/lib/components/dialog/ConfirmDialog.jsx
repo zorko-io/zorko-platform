@@ -6,7 +6,7 @@ import {Dialog} from './Dialog'
 import {Button} from '../Button'
 
 export function ConfirmDialog({children, title, open, onClose, onConfirm}) {
-  if (!open) return <></>
+  if (!open) return null
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -16,14 +16,14 @@ export function ConfirmDialog({children, title, open, onClose, onConfirm}) {
         <div className="p-1 w-1/5 flex">
           <Button
             label="No"
-            addClasses="bg-smooth-green hover:bg-smooth-green-light flex-auto"
+            cssClass="bg-smooth-green hover:bg-smooth-green-light flex-auto"
             onClick={() => onClose()}
           />
         </div>
         <div className="p-1 w-1/5 flex">
           <Button
             label="Yes"
-            addClasses="bg-smooth-green hover:bg-smooth-green-light flex-auto"
+            cssClass="bg-smooth-green hover:bg-smooth-green-light flex-auto"
             onClick={() => {
               onClose()
               onConfirm()

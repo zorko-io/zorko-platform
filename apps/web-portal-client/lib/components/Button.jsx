@@ -5,24 +5,24 @@ import {childrenPropTypes} from '../utils/childrenPropTypes'
 import './button.css'
 
 export function Button(props) {
-  const {label, onClick, children, addClasses} = props
+  const {label, onClick, children, cssClass} = props
 
   return (
-    <button type="button" className={`btn-general ${addClasses}`} onClick={onClick}>
+    <button type="button" className={`btn-general ${cssClass}`} onClick={onClick}>
       {children || label}
     </button>
   )
 }
 
 Button.propTypes = {
-  addClasses: PropTypes.string,
+  cssClass: PropTypes.string,
   label: PropTypes.string,
   onClick: PropTypes.func,
   children: childrenPropTypes,
 }
 
 Button.defaultProps = {
-  addClasses: '',
+  cssClass: '',
   label: '',
   onClick: () => {},
   children: null,
