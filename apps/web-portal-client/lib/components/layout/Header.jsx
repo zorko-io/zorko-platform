@@ -23,13 +23,12 @@ export function Header() {
             <DesktopMenu>
               <MenuItem name="Home" link="/home" />
               <MenuItem name="Examples" link="/example" />
-              <MenuItem name="Teams" link="/team" />
             </DesktopMenu>
           </div>
           <div className="flex items-center space-x-1">
-            <Button label="logout" handleClick={logout} />
+            <Button label="logout" onClick={logout} />
             <div className="-mr-2 flex md:hidden">
-              <Button handleClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
+              <Button onClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
                 <Image shape={shouldShowMobileMenu ? ImageShapes.cross : ImageShapes.sandwich} />
               </Button>
             </div>
@@ -40,8 +39,6 @@ export function Header() {
       <MobileMenu isShown={shouldShowMobileMenu}>
         <MenuItem name="Home" link="/home" />
         <MenuItem name="Examples" link="/example" />
-        <MenuItem name="Teams" link="/team" />
-        <MenuItem name="Contacts" link="/contacts" />
       </MobileMenu>
     </nav>
   )

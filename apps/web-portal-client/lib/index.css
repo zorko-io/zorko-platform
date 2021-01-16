@@ -4,7 +4,10 @@
 
 /* Disable scroll out of app*/
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 @tailwind utilities;
+
+@layer utilities {
+}
