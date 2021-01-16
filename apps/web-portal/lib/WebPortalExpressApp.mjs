@@ -3,6 +3,7 @@ import express from 'express'
 import {makeRunner} from '@zorko-io/util-use-case'
 import {MockLogger} from '@zorko-io/util-logger'
 import * as RestApiV1 from './rest-api-v1'
+import middlewares from './middlewares.js'
 
 export class WebPortalExpressApp {
   /**
@@ -39,9 +40,10 @@ export class WebPortalExpressApp {
   }
 
   initRoutes() {
-    // TODO Add Middlewares
-    //  add 'standard' middlewares
-    //  labels: enhancement
+    this.#http.use(middlewares.cors)
+    this.#http.use(middlewares.json)
+    this.#http.use(middlewares.urlencoded)
+
     this.#http.use(
       '/api/v1',
       RestApiV1.route({
