@@ -3,7 +3,7 @@ import express from 'express'
 import {makeRunner} from '@zorko-io/util-use-case'
 import {MockLogger} from '@zorko-io/util-logger'
 import * as RestApiV1 from './rest-api-v1'
-import middlewares from './middlewares.js'
+import {corsMiddleware, urlencoded, json} from './middlewares'
 
 export class WebPortalExpressApp {
   /**
@@ -40,16 +40,16 @@ export class WebPortalExpressApp {
   }
 
   initRoutes() {
-    this.#http.use(middlewares.cors)
-    this.#http.use(middlewares.json)
-    this.#http.use(middlewares.urlencoded)
+    this.#http.use(corsMiddleware)
+    this.#http.use(json)
+    this.#http.use(urlencoded)
 
     this.#http.use(
       '/api/v1',
       RestApiV1.route({
         config: this.#config,
         createRouter: () => express.Router(),
-        makeRunner,
+        makeRunner
       })
     )
   }
@@ -72,14 +72,14 @@ export class WebPortalExpressApp {
     this.#process.on('unhandledRejection', (error) => {
       this.#logger.fatal({
         type: 'UnhandledRejection',
-        error: error.stack,
+        error: error.stack
       })
     })
 
     this.#process.on('uncaughtException', (error) => {
       this.#logger.fatal({
         type: 'UncaughtException',
-        error: error.stack,
+        error: error.stack
       })
     })
 
