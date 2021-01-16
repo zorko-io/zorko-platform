@@ -20,5 +20,5 @@ export default {
     },
   }),
   urlencoded: bodyParser.urlencoded({extended: true}),
-  cors: cors({origin: '*'}), // Allow any origin because we DO NOT USE cookies and basic auth
+  cors: cors({origin: '*'}), // Allow any origin because NOT USE cookies and basic auth
 }
