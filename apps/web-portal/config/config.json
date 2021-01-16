@@ -1,5 +1,5 @@
 {
   "http": {
-    "port": "{{SERVER_PORT}}"
+    "port": "{{ZORKO_API_HTTP_PORT}}"
   }
 }
