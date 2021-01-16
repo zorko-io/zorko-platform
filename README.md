@@ -17,20 +17,13 @@ It contains from tree parts:
 1. yarn - 1.22.4 or later
 1. npx - 6.11.2
 
-### Install Dependencies
+### Build Images
 
-Just run `yarn`
+Run `./docker-build.sh`
 
 ### Start Project in Dev Mode
 
-> Docker and start in progress
-
-1. ~`docker-compose up`~
-1. `yarn test`
-1. ~`yarn start`~
-
-Yep, it's only support test for now ;-)
-
+Run `docker-compose up`
 
 ## Contribution
 
