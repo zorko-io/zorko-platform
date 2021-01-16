@@ -49,7 +49,7 @@ export class WebPortalExpressApp {
       RestApiV1.route({
         config: this.#config,
         createRouter: () => express.Router(),
-        makeRunner
+        makeRunner,
       })
     )
   }
@@ -72,14 +72,14 @@ export class WebPortalExpressApp {
     this.#process.on('unhandledRejection', (error) => {
       this.#logger.fatal({
         type: 'UnhandledRejection',
-        error: error.stack
+        error: error.stack,
       })
     })
 
     this.#process.on('uncaughtException', (error) => {
       this.#logger.fatal({
         type: 'UncaughtException',
-        error: error.stack
+        error: error.stack,
       })
     })
 
