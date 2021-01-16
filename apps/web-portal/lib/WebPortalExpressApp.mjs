@@ -41,7 +41,7 @@ export class WebPortalExpressApp {
 
   initRoutes() {
     this.#http.use(corsMiddleware)
-    this.#http.use(json)
+    this.#http.use(json())
     this.#http.use(urlencoded)
 
     this.#http.use(
