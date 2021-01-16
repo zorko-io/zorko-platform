@@ -10,6 +10,6 @@ services:
 #    ports: ['80:80']
   web-portal:
     networks: { default: { aliases: [ 'zorko-io.backend' ] } }
-    build: ./dev-ops/backend
+    build: dev-ops/common
     restart: always
     ports: ['7777:7777', '9229:9229']
