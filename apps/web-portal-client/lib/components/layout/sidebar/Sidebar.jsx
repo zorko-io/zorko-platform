@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {childrenPropTypes} from '../../../utils/childrenPropTypes'
 
 export function Sidebar({title, children}) {
   return (
@@ -32,7 +33,7 @@ export function Sidebar({title, children}) {
 
 Sidebar.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  children: childrenPropTypes,
 }
 
 Sidebar.defaultProps = {
