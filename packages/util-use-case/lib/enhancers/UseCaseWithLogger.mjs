@@ -9,10 +9,6 @@ export class UseCaseWithLogger extends UseCase {
 
   #log = null
 
-  // TODO: UseCaseWithLogger - check constructor asserts
-  // add unit tests to check constructor asserts
-  // label: tech-dept
-
   /**
    * Enhance use case with logging
    *
