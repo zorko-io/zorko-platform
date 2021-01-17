@@ -1,7 +1,7 @@
 import React from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
 
-import {Content, Sidebar, SidebarItem, Header, Layout} from '../../../components/layout'
+import {Content, Sidebar, SidebarItem, Layout} from '../../../components/layout'
 import {ApiExample} from './ApiExample'
 import {ValidatorExample} from './ValidatorExample'
 import {ButtonsExample} from './ButtonsExample'
@@ -10,7 +10,6 @@ import {DialogExample} from './DialogExample'
 export function ExamplesPage() {
   return (
     <Layout
-      headerRender={() => <Header />}
       sidebarRender={() => (
         <Sidebar title="Get started">
           <SidebarItem name="API" link="/example/api" />
