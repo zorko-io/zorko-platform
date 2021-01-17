@@ -63,6 +63,8 @@ module.exports = {
     inline: true,
     headers: {'Access-Control-Allow-Origin': '*'},
     historyApiFallback: true,
+    // TODO: Investigate security risk behind 'disableHostCheck'
+    disableHostCheck: true,
   },
   output: {
     globalObject: 'this',

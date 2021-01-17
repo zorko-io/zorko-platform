@@ -1,17 +1,19 @@
 version: "3.1"
 
-# TODO: manually test with at least web-portal
-
 services:
-# TODO: configure networks https://codingwithmanny.medium.com/create-an-nginx-reverse-proxy-with-docker-a1c0aa9078f1
-#  nginx-router:
-#    networks: { default: { aliases: [ 'zorko-io.local' ] } }
-#    build: { context: ./dev-ops/nginx-router}
-#    restart: always
-#    ports: ['80:80']
+  nginx-router:
+    networks: { default: { aliases: [ 'zorko-io.local' ] } }
+    build: { context: ./dev-ops/nginx-router}
+    restart: always
+    ports: ['80:80']
+    depends_on:
+      - web-portal
+      - web-portal-client
+    volumes:
+      - ./dev-ops/nginx-router/conf.d:/etc/nginx/conf.d
   web-portal:
     networks: { default: { aliases: [ 'zorko-io.backend' ] } }
-    image: zorko-common
+    build: { context: ./dev-ops/common}
     restart: always
     command: sh -c "cd ./apps/web-portal && yarn run start:debug"
     ports: ['7777:7777', '9229:9229']
@@ -20,7 +22,7 @@ services:
       - ./:/zorko-platform
   web-portal-client:
     networks: { default: { aliases: [ 'zorko-io.frontend' ] } }
-    image: zorko-common
+    build: { context: ./dev-ops/common}
     restart: always
     command: sh -c "cd ./apps/web-portal-client && yarn run start"
     ports: ['8086:8086']

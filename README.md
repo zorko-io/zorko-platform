@@ -17,13 +17,31 @@ It contains from tree parts:
 1. yarn - 1.22.4 or later
 1. npx - 6.11.2
 
+### Add project host name
+
+It's optional, add to you [host file](https://serverfault.com/questions/3646/how-do-i-setup-a-hosts-file-on-different-operating-systems)
+
+```
+# Zorko
+
+127.0.0.1 zorko-io.local
+
+```
+
 ### Build Images
 
-Run `./docker-build.sh`
+Run it once `docker-compose build`
+
+> First time, it will take time to pull and build all necessary images
 
 ### Start Project in Dev Mode
 
 Run `docker-compose up`
+
+It starts all necessary services, just open `http://zorko-io.local`
+
+
+
 
 ## Contribution
 
