@@ -4,15 +4,15 @@ import {childrenPropTypes} from '../utils/childrenPropTypes'
 
 import './button.css'
 
-export function Button(props) {
+export const Button = React.forwardRef((props, ref) => {
   const {label, onClick, children, cssClass} = props
 
   return (
-    <button type="button" className={`btn-general ${cssClass}`} onClick={onClick}>
+    <button type="button" ref={ref} className={`btn-general ${cssClass}`} onClick={onClick}>
       {children || label}
     </button>
   )
-}
+})
 
 Button.propTypes = {
   cssClass: PropTypes.string,

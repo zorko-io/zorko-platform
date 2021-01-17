@@ -6,7 +6,9 @@ import {ExamplesPage} from '../features/examples/components'
 
 export function AppContainer() {
   return (
-    <Switch>
+    <Route path="/" render={() => <ExamplesPage />} />
+
+    /*     <Switch>
       <PrivateRoute path="/example">
         <ExamplesPage />
       </PrivateRoute>
@@ -15,7 +17,7 @@ export function AppContainer() {
       </PrivateRoute>
       <Route path="/login" render={() => <LoginPage />} />
       <Route path="/" render={() => <Redirect to="/login" />} />
-    </Switch>
+    </Switch> */
   )
 }
 

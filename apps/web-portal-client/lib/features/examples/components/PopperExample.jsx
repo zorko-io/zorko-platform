@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import {usePopper} from 'react-popper'
 import className from 'classnames'
 
-export function PopoverExample() {
+import {Button} from '../../../components/Button'
+
+export function PopperExample() {
   const [open, toggleOpen] = useState(false)
 
   const [referenceElement, setReferenceElement] = useState(null)
@@ -19,15 +21,14 @@ export function PopoverExample() {
 
   return (
     <>
-      <button
+      <Button
+        label="Popper"
         type="button"
         ref={setReferenceElement}
         onClick={() => {
           toggleOpen(!open)
         }}
-      >
-        Reference element
-      </button>
+      />
 
       <div
         ref={setPopperElement}
