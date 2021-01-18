@@ -3,7 +3,7 @@ version: "3.1"
 services:
   nginx-router:
     networks: { default: { aliases: [ 'zorko-io.local' ] } }
-    build: { context: ./dev-ops/nginx-router}
+    image: zorko-proxy:latest
     restart: always
     ports: ['80:80']
     depends_on:
@@ -13,19 +13,21 @@ services:
       - ./dev-ops/nginx-router/conf.d:/etc/nginx/conf.d
   web-portal:
     networks: { default: { aliases: [ 'zorko-io.backend' ] } }
-    build: { context: ./dev-ops/common}
+    image: zorko-common:latest
     restart: always
     command: sh -c "cd ./apps/web-portal && yarn run start:debug"
     ports: ['7777:7777', '9229:9229']
-    working_dir: /zorko-platform
     volumes:
-      - ./:/zorko-platform
+      - ./apps/web-portal:/zorko-platform/apps/web-portal
+      - ./packages:/zorko-platform/packages
+      - ./tools:/zorko-platform/tools
   web-portal-client:
     networks: { default: { aliases: [ 'zorko-io.frontend' ] } }
-    build: { context: ./dev-ops/common}
+    image: zorko-common:latest
     restart: always
     command: sh -c "cd ./apps/web-portal-client && yarn run start"
     ports: ['8086:8086']
-    working_dir: /zorko-platform
     volumes:
-      - ./:/zorko-platform
+      - ./apps/web-portal-client:/zorko-platform/apps/web-portal-client
+      - ./packages:/zorko-platform/packages
+      - ./tools:/zorko-platform/tools
