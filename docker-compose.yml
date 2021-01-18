@@ -1,15 +1,33 @@
 version: "3.1"
 
-# TODO: manually test with at least web-portal
-
 services:
-#  nginx-router:
-#    networks: { default: { aliases: [ 'zorko-io.local' ] } }
-#    build: { context: ./dev-ops/nginx-router}
-#    restart: always
-#    ports: ['80:80']
+  nginx-router:
+    networks: { default: { aliases: [ 'zorko-io.local' ] } }
+    image: zorko-proxy:latest
+    restart: always
+    ports: ['80:80']
+    depends_on:
+      - web-portal
+      - web-portal-client
+    volumes:
+      - ./dev-ops/nginx-router/conf.d:/etc/nginx/conf.d
   web-portal:
     networks: { default: { aliases: [ 'zorko-io.backend' ] } }
-    build: ./dev-ops/backend
+    image: zorko-common:latest
     restart: always
+    command: sh -c "cd ./apps/web-portal && yarn run start:debug"
     ports: ['7777:7777', '9229:9229']
+    volumes:
+      - ./apps/web-portal:/zorko-platform/apps/web-portal
+      - ./packages:/zorko-platform/packages
+      - ./tools:/zorko-platform/tools
+  web-portal-client:
+    networks: { default: { aliases: [ 'zorko-io.frontend' ] } }
+    image: zorko-common:latest
+    restart: always
+    command: sh -c "cd ./apps/web-portal-client && yarn run start"
+    ports: ['8086:8086']
+    volumes:
+      - ./apps/web-portal-client:/zorko-platform/apps/web-portal-client
+      - ./packages:/zorko-platform/packages
+      - ./tools:/zorko-platform/tools
