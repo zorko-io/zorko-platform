@@ -2,12 +2,11 @@ import React from 'react'
 
 import {UserProfile} from './UserProfile'
 import {Card} from './Card'
-import {Content, Sidebar, Header, Layout} from './layout'
+import {Content, Sidebar, Layout} from './layout'
 
 export function HomePage() {
   return (
     <Layout
-      headerRender={() => <Header />}
       sidebarRender={() => (
         <Sidebar>
           <UserProfile />
