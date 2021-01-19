@@ -15,10 +15,7 @@ export function Dialog({open, onClose, children}) {
       <div className="relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg">
         <div>{children}</div>
         <span className="absolute top-0 right-0 p-4">
-          <Button
-            onClick={() => onClose()}
-            cssClass="text-black bg-white hover:bg-gray-200 rounded-full"
-          >
+          <Button onClick={() => onClose()}>
             <Image shape={ImageShapes.cross} />
           </Button>
         </span>

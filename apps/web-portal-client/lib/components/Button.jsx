@@ -1,28 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import className from 'classnames'
+
 import {childrenPropTypes} from '../utils/childrenPropTypes'
 
 import './button.css'
 
 export function Button(props) {
-  const {label, onClick, children, cssClass} = props
+  const {label, onClick, children, type} = props
 
   return (
-    <button type="button" className={`btn-general ${cssClass}`} onClick={onClick}>
+    <button
+      type="button"
+      className={className({
+        'btn-default': type === 'default',
+        'btn-primary': type === 'primary',
+      })}
+      onClick={onClick}
+    >
       {children || label}
     </button>
   )
 }
 
 Button.propTypes = {
-  cssClass: PropTypes.string,
+  type: PropTypes.string,
   label: PropTypes.string,
   onClick: PropTypes.func,
   children: childrenPropTypes,
 }
 
 Button.defaultProps = {
-  cssClass: '',
+  type: 'default',
   label: '',
   onClick: () => {},
   children: null,
