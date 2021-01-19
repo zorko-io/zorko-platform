@@ -1,4 +1,4 @@
-import preview from './preview.mjs'
+import preview from './preview'
 
 // TODO: Provide helpers/utilities for Rest API
 // - jsdocs
@@ -6,10 +6,10 @@ import preview from './preview.mjs'
 // - document and approach to build routes, extract helpers if needed
 // label: dev-prep
 export function route(deps) {
-   const router = deps.createRouter()
-   const controller = preview(deps)
+  const router = deps.createRouter()
+  const controller = preview(deps)
 
-   router.get('/previews', controller.list)
+  router.get('/previews', controller.list)
 
-   return router
+  return router
 }
