@@ -5,9 +5,6 @@ import {MockLogger} from '@zorko-io/util-logger'
 import * as RestApiV1 from './rest-api-v1'
 import {corsMiddleware, urlencoded, json} from './middlewares'
 
-
-// TODO: Test Task Creation
-
 // TODO: Another Test Task Creation
 
 export class WebPortalExpressApp {
