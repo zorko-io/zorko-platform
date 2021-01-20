@@ -9,10 +9,10 @@ export class AxiosClientApi extends ClientApi {
 
   #preview = null
 
-  constructor() {
+  constructor(options) {
     super()
     const instance = axios.create({
-      baseURL: 'http://localhost:7777/',
+      baseURL: options.baseURL,
       timeout: 1000,
     })
 

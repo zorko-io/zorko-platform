@@ -24,13 +24,13 @@ test.afterEach((t) => {
   processStub.restore()
 })
 
-test.serial('Get Preview List', async (t) => {
+test.serial('Auth. Login', async (t) => {
   const {client} = t.context
-  const {data, status} = await client.preview.findAll()
+  const {data, status} = await client.auth.login({email: 'example@gmail.com', password: 'password'})
 
   t.deepEqual(status, 200)
-  t.deepEqual(data.total, 2)
-  t.deepEqual(data.pagesLeft, 0)
-  t.deepEqual(data.items.length, 2)
-  t.assert(Array.isArray(data.items), 'Response should contain items list')
+  t.assert(data.token, 'Should return token')
+  t.assert(data.email, 'Should return email')
+  t.assert(data.userName, 'Should return user name')
+  t.assert(data.status === 1, 'Response status should be equal to 1')
 })

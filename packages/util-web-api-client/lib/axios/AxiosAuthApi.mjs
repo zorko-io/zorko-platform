@@ -13,6 +13,6 @@ export class AxiosAuthApi extends AuthApi {
   }
 
   async login(params) {
-    this.#http.post(params)
+    return this.#http.post('/api/v1/auth/login', params)
   }
 }

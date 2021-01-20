@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node --experimental-modules --es-module-specifier-resolution=node .",
     "start:debug": "nodemon --watch ../../packages --watch ./lib --experimental-modules --es-module-specifier-resolution=node --inspect .",
-    "test": "tth",
+    "test": "ava --concurrency 1",
     "test:watch": "tth --watch",
     "test:coverage": "tth --coverage",
     "lint": "eslint --ext .mjs,.cjs lib",

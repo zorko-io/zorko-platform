@@ -1,4 +1,5 @@
 import preview from './preview'
+import auth from './auth'
 
 // TODO: Provide helpers/utilities for Rest API
 // - jsdocs
@@ -7,9 +8,11 @@ import preview from './preview'
 // label: dev-prep
 export function route(deps) {
   const router = deps.createRouter()
-  const controller = preview(deps)
+  const previewController = preview(deps)
+  const authController = auth(deps)
 
-  router.get('/previews', controller.list)
+  router.get('/previews', previewController.list)
+  router.post('/auth/login', authController.login)
 
   return router
 }
