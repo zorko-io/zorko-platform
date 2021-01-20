@@ -1,7 +1,12 @@
 # web-portal
 
-Portal to host visualization content
+Provide a backend server (REST API) for hosting visualization content
 
-// TODO: Provide a basic documentation for web-portal
-// - add instruction to start/stop
-// label: documentation
+## Start Project in Dev Mode
+
+`yarn start:debug`
+
+## Start Project
+
+`yarn start`
+
