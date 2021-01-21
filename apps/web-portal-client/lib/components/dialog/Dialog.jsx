@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import {childrenPropTypes} from '../../utils/childrenPropTypes'
 
 import {Button} from '../Button'
-import {Image} from '../Image'
-import {ImageShapes} from '../ImageShapes'
+import {Image, ImageShapes} from '../Image'
 
 export function Dialog({open, onClose, children}) {
   if (!open) {

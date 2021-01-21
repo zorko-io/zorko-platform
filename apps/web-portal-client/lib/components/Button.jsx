@@ -6,6 +6,10 @@ import {childrenPropTypes} from '../utils/childrenPropTypes'
 
 import './button.css'
 
+export const ButtonTypes = {
+  Primary: 'primary',
+  Default: 'default',
+}
 export function Button(props) {
   const {label, onClick, children, type} = props
 
@@ -13,8 +17,8 @@ export function Button(props) {
     <button
       type="button"
       className={className({
-        'btn-default': type === 'default',
-        'btn-primary': type === 'primary',
+        'btn-default': type === ButtonTypes.Default,
+        'btn-primary': type === ButtonTypes.Primary,
       })}
       onClick={onClick}
     >
@@ -24,14 +28,14 @@ export function Button(props) {
 }
 
 Button.propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.oneOf(Object.values(ButtonTypes)),
   label: PropTypes.string,
   onClick: PropTypes.func,
   children: childrenPropTypes,
 }
 
 Button.defaultProps = {
-  type: 'default',
+  type: ButtonTypes.Default,
   label: '',
   onClick: () => {},
   children: null,
