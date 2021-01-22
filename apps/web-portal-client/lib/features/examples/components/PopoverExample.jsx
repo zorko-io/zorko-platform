@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
-import Tippy from '@tippy.js/react'
-import 'tippy.js/dist/tippy.css'
-import 'tippy.js/themes/light-border.css'
+import React from 'react'
 
 import {Popover} from '../../../components/Popover'
 import {Button} from '../../../components/Button'
 
-export function PopperExample() {
+export function PopoverExample() {
   return (
-    <Popover>
+    <Popover
+      title="Example Popover title"
+      text="This text was spacially made for example popover page!"
+    >
       {(visible, setVisible) => (
         <Button label="Popover example" onClick={() => setVisible(!visible)} />
       )}

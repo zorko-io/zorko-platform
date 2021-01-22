@@ -4,6 +4,8 @@ import Tippy from '@tippy.js/react'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/light-border.css'
 
+import {childrenPropTypes} from '../utils/childrenPropTypes'
+
 export function Popover({title, text, children}) {
   const [visible, setVisible] = useState(false)
 
@@ -20,23 +22,25 @@ export function Popover({title, text, children}) {
     <Tippy
       content={content}
       visible={visible}
-      arrow={true}
+      arrow
       animation="scale"
       duration={0}
       delay={[300, 0]}
       theme="light-border"
     >
-      <span>{children.prop(visible, setVisible)}</span>
+      <span>{children(visible, setVisible)}</span>
     </Tippy>
   )
 }
 
 Popover.propTypes = {
+  children: childrenPropTypes,
   title: PropTypes.string,
   text: PropTypes.string,
 }
 
 Popover.defaultProps = {
+  children: null,
   title: '',
   text: '',
 }
