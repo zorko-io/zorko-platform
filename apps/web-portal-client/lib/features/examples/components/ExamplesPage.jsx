@@ -6,8 +6,7 @@ import {ApiExample} from './ApiExample'
 import {ValidatorExample} from './ValidatorExample'
 import {ButtonsExample} from './ButtonsExample'
 import {DialogExample} from './DialogExample'
-import {PopperExample} from './PopperExample'
-import {TippyExample} from './TippyExample'
+import {PopoverExample} from './PopoverExample'
 
 export function ExamplesPage() {
   return (
@@ -31,19 +30,7 @@ export function ExamplesPage() {
               <Route path="/example/api" render={() => <ApiExample />} />
               <Route path="/example/buttons" render={() => <ButtonsExample />} />
               <Route path="/example/dialog" render={() => <DialogExample />} />
-              <Route
-                path="/example/popover"
-                render={() => (
-                  <div>
-                    <div className="m-2">
-                      <PopperExample />
-                    </div>
-                    <div className="m-2">
-                      <TippyExample />
-                    </div>
-                  </div>
-                )}
-              />
+              <Route path="/example/popover" render={() => <PopoverExample />} />
               <Route path="/example" render={() => <Redirect to="/example/popover" />} />
             </Switch>
           )}

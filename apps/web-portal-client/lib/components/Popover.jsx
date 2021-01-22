@@ -1,21 +1,18 @@
 import React, {useState} from 'react'
+import PropTypes from 'prop-types'
 import Tippy from '@tippy.js/react'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/light-border.css'
 
-import {Button} from '../../../components/Button'
-
-export function TippyExample() {
+export function Popover({title, text, children}) {
   const [visible, setVisible] = useState(false)
 
   const content = (
     <div>
       <div className="text-black opacity-75 font-semibold p-3 mb-0 border-b border-solid border-gray-200 uppercase rounded-t-lg">
-        popover title
+        {title}
       </div>
-      <div className="text-black p-3">
-        And here's some amazing content. It's very engaging. Right?
-      </div>
+      <div className="text-black p-3">{text}</div>
     </div>
   )
 
@@ -29,9 +26,17 @@ export function TippyExample() {
       delay={[300, 0]}
       theme="light-border"
     >
-      <span>
-        <Button label="Tippy" onClick={() => setVisible(!visible)} />
-      </span>
+      <span>{children.prop(visible, setVisible)}</span>
     </Tippy>
   )
+}
+
+Popover.propTypes = {
+  title: PropTypes.string,
+  text: PropTypes.string,
+}
+
+Popover.defaultProps = {
+  title: '',
+  text: '',
 }
