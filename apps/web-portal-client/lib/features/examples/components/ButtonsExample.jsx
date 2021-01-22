@@ -4,10 +4,14 @@ import {Button, Image, ImageShapes} from '../../../components'
 
 export function ButtonsExample() {
   return (
-    <div>
+    <div className="space-y-4">
       <div>
-        <h1>General button</h1>
-        <Button label="Example" />
+        <h1>General default button</h1>
+        <Button label="Defaul Button" />
+      </div>
+      <div>
+        <h1>General primary button</h1>
+        <Button label="Primary Button" type="primary" />
       </div>
       <div>
         <h1>Mobile menu button with cross</h1>

@@ -12,24 +12,16 @@ export function ConfirmDialog({children, title, open, onClose, onConfirm}) {
     <Dialog open={open} onClose={onClose}>
       <h2 className="text-xl">{title}</h2>
       <div className="py-5">{children}</div>
-      <div className="flex justify-end">
-        <div className="p-1 w-1/5 flex">
-          <Button
-            label="No"
-            cssClass="bg-smooth-green hover:bg-smooth-green-light flex-auto"
-            onClick={() => onClose()}
-          />
-        </div>
-        <div className="p-1 w-1/5 flex">
-          <Button
-            label="Yes"
-            cssClass="bg-smooth-green hover:bg-smooth-green-light flex-auto"
-            onClick={() => {
-              onClose()
-              onConfirm()
-            }}
-          />
-        </div>
+      <div className="flex justify-end space-x-4">
+        <Button label="No" onClick={() => onClose()} />
+        <Button
+          label="Yes"
+          type="primary"
+          onClick={() => {
+            onClose()
+            onConfirm()
+          }}
+        />
       </div>
     </Dialog>
   )
