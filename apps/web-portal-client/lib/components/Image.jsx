@@ -1,6 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+export const ImageShapes = {
+  cross: 'M6 18L18 6M6 6l12 12',
+  sandwich: 'M4 6h16M4 12h16M4 18h16',
+}
 export function Image(props) {
   const {shape} = props
 
@@ -19,9 +23,9 @@ export function Image(props) {
 }
 
 Image.propTypes = {
-  shape: PropTypes.string,
+  shape: PropTypes.oneOf(Object.values(ImageShapes)),
 }
 
 Image.defaultProps = {
-  shape: 'sandwich',
+  shape: ImageShapes.sandwich,
 }

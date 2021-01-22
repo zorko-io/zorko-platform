@@ -1,0 +1,5 @@
+{
+  "http": ["required", {"nested_object": {
+    "port": ["required", "positive_integer"]
+  }}]
+}
