@@ -13,10 +13,12 @@ export class AxiosPreviewApi extends PreviewApi {
   }
 
   async findById(id) {
-    return this.#http.get('/api/v1/previews')
+    const response = await this.#http.get(`/api/v1/previews/${id}`)
+    return response ? response.data : {status: 1}
   }
 
   async findAll(params) {
-    return this.#http.get('/api/v1/previews')
+    const response = await this.#http.get('/api/v1/previews')
+    return response ? response.data : {status: 1}
   }
 }

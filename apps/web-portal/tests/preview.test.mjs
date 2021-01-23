@@ -1,20 +1,8 @@
-import sinon from 'sinon'
 import test from '@zorko-io/tool-test-harness'
-import {createClient, ClientTypes} from '@zorko-io/util-web-api-client'
-import {MockLogger} from '@zorko-io/util-logger'
-import {WebPortalExpressApp} from '../lib'
-import {config} from '../config'
+import {setupAppContext} from './_helper'
 
 test.beforeEach((t) => {
-  const processStub = sinon.stub(process, 'exit')
-  const app = new WebPortalExpressApp({config, process, logger: new MockLogger()})
-  app.startAndAttach()
-  const client = createClient({
-    type: ClientTypes.Axios,
-    options: {
-      baseURL: `http://localhost:${config.http.port}`,
-    },
-  })
+  const {app, client, processStub} = setupAppContext()
   t.context = {app, client, processStub}
 })
 
@@ -26,11 +14,11 @@ test.afterEach((t) => {
 
 test.serial('Get Preview List', async (t) => {
   const {client} = t.context
-  const {data, status} = await client.preview.findAll()
+  const response = await client.preview.findAll()
 
-  t.deepEqual(status, 200)
-  t.deepEqual(data.total, 2)
-  t.deepEqual(data.pagesLeft, 0)
-  t.deepEqual(data.items.length, 2)
-  t.assert(Array.isArray(data.items), 'Response should contain items list')
+  t.deepEqual(response.total, 2)
+  t.deepEqual(response.pagesLeft, 0)
+  t.deepEqual(response.items.length, 2)
+  t.assert(response.status === 1, 'Response status should be equal to 1')
+  t.assert(Array.isArray(response.items), 'Response should contain items list')
 })
