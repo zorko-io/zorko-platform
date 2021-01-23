@@ -3,6 +3,7 @@ import {UseCase} from '@zorko-io/util-use-case'
 // TODO: Provide implementation for PreviewList
 // label: enhancement
 export class PreviewList extends UseCase {
+  // eslint-disable-next-line no-unused-vars
   async run(params) {
     return {
       total: 2,
