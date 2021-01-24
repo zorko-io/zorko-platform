@@ -1,8 +1,8 @@
 import sinon from 'sinon'
 import {MockLogger} from '@zorko-io/util-logger'
 import {ClientTypes, createClient} from '@zorko-io/util-web-api-client'
-import {WebPortalExpressApp} from '../lib'
-import {config} from '../config'
+import {WebPortalExpressApp} from '../../lib'
+import {config} from '../../config'
 
 /**
  *  setupAppContext initiate WebPortal application, axios client and making process stub for a test environment

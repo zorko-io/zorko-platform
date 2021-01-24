@@ -1,5 +1,5 @@
 import test from '@zorko-io/tool-test-harness'
-import {setupAppContext, tearDownAppContext} from './_helper'
+import {setupAppContext, tearDownAppContext} from './helpers'
 
 test.beforeEach(setupAppContext)
 test.afterEach(tearDownAppContext)
