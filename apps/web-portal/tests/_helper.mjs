@@ -8,12 +8,12 @@ import {config} from '../config'
  *  setupAppContext initiate WebPortal application, axios client and making process stub for a test environment
  *  and mixin them to the tests context
  *  @param {Object} t - tests context
- *  @return {undefined}
+ *  @return {Promise<undefined>}
  */
-export function setupAppContext(t) {
+export async function setupAppContext(t) {
   const processStub = sinon.stub(process, 'exit')
   const app = new WebPortalExpressApp({config, process, logger: new MockLogger()})
-  app.startAndAttach()
+  await app.startAndAttach()
   const client = createClient({
     type: ClientTypes.Axios,
     options: {
@@ -26,10 +26,10 @@ export function setupAppContext(t) {
 /**
  *  tearDownAppContext stop WebPortal application and restore process stub for a test environment
  *  @param {Object} t - tests context
- *  @return {undefined}
+ *  @return {Promise<undefined>}
  */
-export function tearDownAppContext(t) {
+export async function tearDownAppContext(t) {
   const {app, processStub} = t.context
-  app.stop()
+  await app.stop()
   processStub.restore()
 }

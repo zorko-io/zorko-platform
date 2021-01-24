@@ -56,17 +56,17 @@ export class WebPortalExpressApp {
 
   /**
    * @method Starts all necessary application's component and attach it's execution to current process
-   * @return {undefined}
+   * @return {Promise<undefined>}
    */
-  startAndAttach() {
+  async startAndAttach() {
     this.#process.on('SIGTERM', async () => {
       this.#logger.info('SIGTERM signal catched')
-      this.stop()
+      await this.stop()
     })
 
     this.#process.on('SIGINT', async () => {
       this.#logger.info('SIGINT signal catched')
-      this.stop()
+      await this.stop()
     })
 
     this.#process.on('unhandledRejection', (error) => {
@@ -90,9 +90,9 @@ export class WebPortalExpressApp {
 
   /**
    * @method Stop execution of the current process
-   * @return {undefined}
+   * @return {Promise<undefined>}
    */
-  stop() {
+  async stop() {
     if (!this.#app) return
     this.#logger.info('Server stopped')
     this.#app.close()
