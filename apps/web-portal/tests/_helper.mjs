@@ -4,6 +4,12 @@ import {ClientTypes, createClient} from '@zorko-io/util-web-api-client'
 import {WebPortalExpressApp} from '../lib'
 import {config} from '../config'
 
+/**
+ *  setupAppContext initiate WebPortal application, axios client and making process stub for a test environment
+ *  and mixin them to the tests context
+ *  @param {Object} t - tests context
+ *  @return {undefined}
+ */
 export function setupAppContext(t) {
   const processStub = sinon.stub(process, 'exit')
   const app = new WebPortalExpressApp({config, process, logger: new MockLogger()})
@@ -17,6 +23,11 @@ export function setupAppContext(t) {
   t.context = {app, client, processStub}
 }
 
+/**
+ *  tearDownAppContext stop WebPortal application and restore process stub for a test environment
+ *  @param {Object} t - tests context
+ *  @return {undefined}
+ */
 export function tearDownAppContext(t) {
   const {app, processStub} = t.context
   app.stop()
