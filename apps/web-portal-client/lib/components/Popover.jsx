@@ -6,7 +6,7 @@ import 'tippy.js/themes/light-border.css'
 
 import {childrenPropTypes} from '../utils/childrenPropTypes'
 
-export function Popover({title, text, children}) {
+export function Popover({title, text, duration, delay, children}) {
   const [visible, setVisible] = useState(false)
 
   const content = (
@@ -24,8 +24,8 @@ export function Popover({title, text, children}) {
       visible={visible}
       arrow
       animation="scale"
-      duration={0}
-      delay={[300, 0]}
+      duration={duration}
+      delay={delay}
       theme="light-border"
     >
       <span>{children(visible, setVisible)}</span>
@@ -34,12 +34,16 @@ export function Popover({title, text, children}) {
 }
 
 Popover.propTypes = {
+  duration: PropTypes.number,
+  delay: PropTypes.arrayOf(PropTypes.number),
   children: childrenPropTypes,
   title: PropTypes.string,
   text: PropTypes.string,
 }
 
 Popover.defaultProps = {
+  duration: 0,
+  delay: [300, 0],
   children: null,
   title: '',
   text: '',
