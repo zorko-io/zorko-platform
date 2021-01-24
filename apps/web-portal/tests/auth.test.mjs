@@ -1,16 +1,8 @@
 import test from '@zorko-io/tool-test-harness'
-import {setupAppContext} from './_helper'
+import {setupAppContext, tearDownAppContext} from './_helper'
 
-test.beforeEach((t) => {
-  const {app, client, processStub} = setupAppContext()
-  t.context = {app, client, processStub}
-})
-
-test.afterEach((t) => {
-  const {app, processStub} = t.context
-  app.stop()
-  processStub.restore()
-})
+test.beforeEach(setupAppContext)
+test.afterEach(tearDownAppContext)
 
 test.serial('Auth. Login', async (t) => {
   const {client} = t.context
