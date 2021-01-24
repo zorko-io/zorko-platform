@@ -6,6 +6,7 @@ import {ApiExample} from './ApiExample'
 import {ValidatorExample} from './ValidatorExample'
 import {ButtonsExample} from './ButtonsExample'
 import {DialogExample} from './DialogExample'
+import {PopoverExample} from './PopoverExample'
 
 export function ExamplesPage() {
   return (
@@ -16,6 +17,7 @@ export function ExamplesPage() {
           <SidebarItem name="Validator" link="/example/validator" />
           <SidebarItem name="Buttons" link="/example/buttons" />
           <SidebarItem name="Dialog" link="/example/dialog" />
+          <SidebarItem name="Popover" link="/example/popover" />
         </Sidebar>
       )}
       contentRender={() => (
@@ -27,7 +29,8 @@ export function ExamplesPage() {
               <Route path="/example/api" render={() => <ApiExample />} />
               <Route path="/example/buttons" render={() => <ButtonsExample />} />
               <Route path="/example/dialog" render={() => <DialogExample />} />
-              <Route path="/example" render={() => <Redirect to="/example/dialog" />} />
+              <Route path="/example/popover" render={() => <PopoverExample />} />
+              <Route path="/example" render={() => <Redirect to="/example/popover" />} />
             </Switch>
           )}
         />
