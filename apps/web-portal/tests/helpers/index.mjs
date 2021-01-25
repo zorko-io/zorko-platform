@@ -4,6 +4,10 @@ import {ClientTypes, createClient} from '@zorko-io/util-web-api-client'
 import {WebPortalExpressApp} from '../../lib'
 import {config} from '../../config'
 
+// TODO: improve port management for integration tests
+// label: tech-debt
+let {port} = config.http
+
 /**
  *  setupAppContext initiate WebPortal application, axios client and making process stub for a test environment
  *  and mixin them to the tests context
@@ -11,13 +15,22 @@ import {config} from '../../config'
  *  @return {Promise<undefined>}
  */
 export async function setupAppContext(t) {
+  port += 1
   const processStub = sinon.stub(process, 'exit')
-  const app = new WebPortalExpressApp({config, process, logger: new MockLogger()})
+  const app = new WebPortalExpressApp({
+    config: {
+      http: {
+        port,
+      },
+    },
+    process,
+    logger: new MockLogger(),
+  })
   await app.startAndAttach()
   const client = createClient({
     type: ClientTypes.Axios,
     options: {
-      baseURL: `http://localhost:${config.http.port}`,
+      baseURL: `http://localhost:${port}`,
     },
   })
   t.context = {app, client, processStub}
