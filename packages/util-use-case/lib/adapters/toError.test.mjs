@@ -9,8 +9,9 @@ test('Happy path If error is instance of ValidationError', (t) => {
   const error = new ValidationError()
   const req = {}
   const res = {send: sinon.stub()}
+  const deps = {log: {fatal: sinon.stub()}}
 
-  toError(error, req, res)
+  toError(error, req, res, deps)
 
   t.assert(
     res.send.calledOnceWith({
@@ -18,6 +19,11 @@ test('Happy path If error is instance of ValidationError', (t) => {
       error: error.toJSON(),
     }),
     'Should send this object if error instance of ValidationError'
+  )
+
+  t.assert(
+    deps.log.fatal.notCalled,
+    'log.fatal should not called if error is instance of ValidationError'
   )
 
   // t.assert(deps.log instanceof MockLogger, 'Deps should have prop log whitch istanceof MockLogger')
