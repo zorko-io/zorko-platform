@@ -10,4 +10,6 @@ const app = new WebPortalExpressApp({
   config,
 })
 
-app.startAndAttach()
+;(async () => {
+  await app.startAndAttach()
+})()

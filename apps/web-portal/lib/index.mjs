@@ -1,1 +1,1 @@
-export * from './WebPortalExpressApp.mjs'
+export * from './WebPortalExpressApp'
