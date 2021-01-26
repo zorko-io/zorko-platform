@@ -1,7 +1,6 @@
 import test from '@zorko-io/tool-test-harness'
 import sinon from 'sinon'
 
-import {MockLogger} from '@zorko-io/util-logger'
 import {ValidationError} from '@zorko-io/util-error'
 import {toError} from './toError'
 
@@ -23,10 +22,8 @@ test('Happy path If error is instance of ValidationError', (t) => {
 
   t.assert(
     deps.log.fatal.notCalled,
-    'log.fatal should not called if error is instance of ValidationError'
+    'log.fatal should not been called if error is instance of ValidationError'
   )
-
-  // t.assert(deps.log instanceof MockLogger, 'Deps should have prop log whitch istanceof MockLogger')
 })
 
 test('Happy path if error is NOT instance of ValidationError', (t) => {
@@ -45,7 +42,7 @@ test('Happy path if error is NOT instance of ValidationError', (t) => {
       ERROR_STACK: error.stack,
     }),
 
-    'Should be called with this argument if error is NOT instance of ValidationError'
+    'Should been called with this argument if error is NOT instance of ValidationError'
   )
 
   t.assert(
