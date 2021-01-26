@@ -3,6 +3,9 @@ import {Vega} from 'react-vega'
 import spec from './spec'
 
 export function VegaExample() {
+  function handleHover(...args) {
+    //some functionality
+  }
   const signalListeners = {hover: handleHover}
 
   const barData = {
@@ -16,10 +19,6 @@ export function VegaExample() {
       {category: 'G', amount: 19},
       {category: 'H', amount: 87},
     ],
-  }
-
-  function handleHover(...args) {
-    console.log(args)
   }
 
   return <Vega spec={spec} data={barData} signalListeners={signalListeners} />
