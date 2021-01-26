@@ -7,7 +7,7 @@
  * @return {*} - converted result, the same what we send over response
  */
 
-export function toResult(result, req, res, deps = {}) {
+export function toResult(result, req, res) {
   result.status = 1
 
   res.send(result)
