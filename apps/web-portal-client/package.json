@@ -29,7 +29,10 @@
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "redux": "^4.0.5"
+    "react-vega": "^7.4.2",
+    "redux": "^4.0.5",
+    "vega": "^5.19.1",
+    "vega-lite": "^4.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
