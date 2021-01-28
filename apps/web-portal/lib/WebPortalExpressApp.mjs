@@ -20,6 +20,8 @@ export class WebPortalExpressApp {
 
   #logger = null
 
+  #expressLogger = null
+
   /**
    * @param {Object} context
    * @param {Object} context.config - app config
@@ -27,12 +29,13 @@ export class WebPortalExpressApp {
    * @param {CoreLogger} context.logger - application logger
    */
 
-  constructor(context = {process, logger: new MockLogger()}) {
-    const {config, process, logger} = context
+  constructor(context = {process, logger: new MockLogger(), expressLogger: {}}) {
+    const {config, process, logger, expressLogger} = context
     assert(config, 'Should have an app config defined')
 
     this.#config = config
     this.#logger = logger
+    this.#expressLogger = expressLogger
     this.#process = process
     this.#http = express()
 
@@ -40,6 +43,7 @@ export class WebPortalExpressApp {
   }
 
   initRoutes() {
+    this.#http.use(this.#expressLogger.expressPino)
     this.#http.use(corsMiddleware)
     this.#http.use(json())
     this.#http.use(urlencoded)
