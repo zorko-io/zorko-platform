@@ -1,7 +1,7 @@
 import assert from 'assert'
 import express from 'express'
 import {makeRunner} from '@zorko-io/util-use-case'
-import {MockLogger} from '@zorko-io/util-logger'
+import {MockLogger, MockExpressLogger} from '@zorko-io/util-logger'
 import * as RestApiV1 from './rest-api-v1'
 import {corsMiddleware, urlencoded, json} from './middlewares'
 
@@ -27,9 +27,10 @@ export class WebPortalExpressApp {
    * @param {Object} context.config - app config
    * @param {EventEmitter} context.process - web portal application process
    * @param {CoreLogger} context.logger - application logger
+   * @param {CoreLogger} context.expressLogger - application http logger
    */
 
-  constructor(context = {process, logger: new MockLogger(), expressLogger: {}}) {
+  constructor(context = {process, logger: new MockLogger(), expressLogger: new MockExpressLogger()}) {
     const {config, process, logger, expressLogger} = context
     assert(config, 'Should have an app config defined')
 

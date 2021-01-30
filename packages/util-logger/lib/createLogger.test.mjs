@@ -3,6 +3,9 @@ import {createLogger} from './createLogger'
 
 test('creates with defaults', (t) => {
   let logger = createLogger()
+  console.log('!!!!!!!!!!!!!', logger)
+  console.log('111111111111111', createLogger())
+  console.log('2222222222222', logger === createLogger())
 
   t.is(logger, createLogger())
 })
