@@ -15,7 +15,7 @@ export class PinoLogger extends CoreLogger {
 
     if (!log) {
       const defaults = {
-        prettyPrint: {colorize: true},
+        prettyPrint: { colorize: true,  translateTime: 'yyyy-mm-dd HH:MM:ss.l' },
         redact: {
           paths: [
             'msg.*.data.password',
