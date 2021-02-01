@@ -1,7 +1,8 @@
 import pino from 'pino'
 import expressPino from 'express-pino-logger'
+import {CoreExpressLogger} from '../..'
 
-export class PinoExpressLogger {
+export class PinoExpressLogger extends CoreExpressLogger {
   #expressPino = null
 
   /**
@@ -9,6 +10,8 @@ export class PinoExpressLogger {
    * @param {Object} [context]
    */
   constructor(context= {}) {
+    super()
+
     const defaults = {
       level: context.level || 'info',
       prettyPrint: {

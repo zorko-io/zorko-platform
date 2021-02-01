@@ -27,7 +27,7 @@ export class WebPortalExpressApp {
    * @param {Object} context.config - app config
    * @param {EventEmitter} context.process - web portal application process
    * @param {CoreLogger} context.logger - application logger
-   * @param {CoreLogger} context.expressLogger - application http logger
+   * @param {CoreExpressLogger} context.expressLogger - application http logger
    */
 
   constructor(context = {process, logger: new MockLogger(), expressLogger: new MockExpressLogger()}) {
