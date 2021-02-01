@@ -1,3 +1,7 @@
-.btn-general {
-  @apply bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-gray-700  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white;
+.btn-primary {
+  @apply bg-smooth-green text-white hover:bg-smooth-green-light inline-flex flex-1 items-center justify-center p-2 rounded-md focus:outline-none;
+}
+
+.btn-default {
+  @apply bg-gray-800 text-white hover:bg-gray-700 inline-flex flex-1 items-center justify-center p-2 rounded-md focus:outline-none;
 }

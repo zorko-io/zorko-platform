@@ -12,15 +12,17 @@ export const ClientTypes = {
 /**
  * @param {Object} configs - client configs
  * @param {String} configs.type ['axios'] - control implementation 'mock' or 'axios'
+ * @param {Object} configs.options - API client options
+ * @param {String} configs.options.baseURL - application base url for an API client
  * @return {MockClientApi}
  */
 
 export function createClient(configs = {type: ClientTypes.Mock}) {
-  const {type} = configs
+  const {type, options} = configs
 
   if (ClientTypes.Mock === type) {
     return new MockClientApi()
   }
 
-  return new AxiosClientApi()
+  return new AxiosClientApi(options)
 }

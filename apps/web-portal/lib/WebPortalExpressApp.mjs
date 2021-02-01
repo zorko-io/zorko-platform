@@ -3,6 +3,7 @@ import express from 'express'
 import {makeRunner} from '@zorko-io/util-use-case'
 import {MockLogger} from '@zorko-io/util-logger'
 import * as RestApiV1 from './rest-api-v1'
+import {corsMiddleware, urlencoded, json} from './middlewares'
 
 export class WebPortalExpressApp {
   /**
@@ -39,9 +40,10 @@ export class WebPortalExpressApp {
   }
 
   initRoutes() {
-    // TODO Add Middlewares
-    //  add 'standard' middlewares
-    //  labels: enhancement
+    this.#http.use(corsMiddleware)
+    this.#http.use(json())
+    this.#http.use(urlencoded)
+
     this.#http.use(
       '/api/v1',
       RestApiV1.route({
@@ -54,17 +56,17 @@ export class WebPortalExpressApp {
 
   /**
    * @method Starts all necessary application's component and attach it's execution to current process
-   * @return {undefined}
+   * @return {Promise<undefined>}
    */
-  startAndAttach() {
+  async startAndAttach() {
     this.#process.on('SIGTERM', async () => {
       this.#logger.info('SIGTERM signal catched')
-      this.stop()
+      await this.stop()
     })
 
     this.#process.on('SIGINT', async () => {
       this.#logger.info('SIGINT signal catched')
-      this.stop()
+      await this.stop()
     })
 
     this.#process.on('unhandledRejection', (error) => {
@@ -88,9 +90,9 @@ export class WebPortalExpressApp {
 
   /**
    * @method Stop execution of the current process
-   * @return {undefined}
+   * @return {Promise<undefined>}
    */
-  stop() {
+  async stop() {
     if (!this.#app) return
     this.#logger.info('Server stopped')
     this.#app.close()

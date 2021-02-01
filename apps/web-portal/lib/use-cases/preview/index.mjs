@@ -1,1 +1,1 @@
-export * from './PreviewList.mjs'
+export * from './PreviewList'

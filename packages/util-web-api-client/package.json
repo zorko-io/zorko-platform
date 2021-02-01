@@ -13,5 +13,8 @@
     "lint": "eslint --ext .mjs,.cjs lib",
     "clean": "yarn run clean:node-modules",
     "clean:node-modules": "rimraf node_modules"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
   }
 }

@@ -6,8 +6,7 @@ import {MenuItem, DesktopMenu, MobileMenu} from './main-menu'
 
 import {Logo} from '../Logo'
 import {Button} from '../Button'
-import {Image} from '../Image'
-import {ImageShapes} from '../ImageShapes'
+import {Image, ImageShapes} from '../Image'
 
 export function Header() {
   const [shouldShowMobileMenu, toggleMobileMenu] = useState(false)
