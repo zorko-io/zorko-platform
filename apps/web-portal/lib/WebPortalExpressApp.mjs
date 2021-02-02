@@ -30,7 +30,13 @@ export class WebPortalExpressApp {
    * @param {CoreExpressLogger} context.expressLogger - application http logger
    */
 
-  constructor(context = {process, logger: new MockLogger(), expressLogger: new MockExpressLogger()}) {
+  constructor(
+    context = {
+      process,
+      logger: new MockLogger(),
+      expressLogger: new MockExpressLogger(),
+    }
+  ) {
     const {config, process, logger, expressLogger} = context
     assert(config, 'Should have an app config defined')
 
