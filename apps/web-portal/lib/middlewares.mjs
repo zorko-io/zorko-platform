@@ -28,7 +28,7 @@ export const urlencoded = bodyParser.urlencoded({extended: true})
 // label: enhancement
 export const corsMiddleware = cors({origin: '*'}) // Allow any origin because NOT USE cookies and basic auth
 
-export const expressPino = function(logger) {
+export const expressPino = function (logger) {
   return ExpressPino({
     logger,
     serializers: {
