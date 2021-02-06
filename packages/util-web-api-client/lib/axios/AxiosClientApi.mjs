@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
-import uuid from 'uuid'
+import {v4 as uuid} from 'uuid'
 import {ClientApi} from '../core'
 import {AxiosAuthApi} from './AxiosAuthApi'
 import {AxiosPreviewApi} from './AxiosPreviewApi'
@@ -17,7 +17,7 @@ export class AxiosClientApi extends ClientApi {
       timeout: 1000,
     })
     instance.interceptors.request.use(request => {
-      request.headers['X-Trace-Id'] = uuid.v4()
+      request.headers['X-Trace-Id'] = uuid()
       return request
     })
 

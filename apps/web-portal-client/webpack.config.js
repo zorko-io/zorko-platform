@@ -14,6 +14,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|mjs|jsx|ts|tsx)$/,
+        type: 'javascript/auto',
         exclude: [path.resolve(__dirname, 'node_modules')],
         use: {
           loader: 'babel-loader',
