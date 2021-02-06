@@ -3,7 +3,7 @@ import express from 'express'
 import {makeRunner} from '@zorko-io/util-use-case'
 import {MockLogger} from '@zorko-io/util-logger'
 import * as RestApiV1 from './rest-api-v1'
-import {corsMiddleware, urlencoded, json} from './middlewares'
+import {corsMiddleware, urlencoded, json, expressPino} from './middlewares'
 
 export class WebPortalExpressApp {
   /**
@@ -27,7 +27,12 @@ export class WebPortalExpressApp {
    * @param {CoreLogger} context.logger - application logger
    */
 
-  constructor(context = {process, logger: new MockLogger()}) {
+  constructor(
+    context = {
+      process,
+      logger: new MockLogger(),
+    }
+  ) {
     const {config, process, logger} = context
     assert(config, 'Should have an app config defined')
 
@@ -40,6 +45,7 @@ export class WebPortalExpressApp {
   }
 
   initRoutes() {
+    this.#http.use(expressPino(this.#logger))
     this.#http.use(corsMiddleware)
     this.#http.use(json())
     this.#http.use(urlencoded)
