@@ -45,6 +45,10 @@ if (args.watch) {
     options.push(`--timeout=${args.timeout}`)
   }
 
+  if (args.concurrency) {
+    options.push(`--concurrency=${args.concurrency}`)
+  }
+
   result = spawnSync('ava', options, {
     stdio: 'inherit',
   })
