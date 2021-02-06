@@ -1,9 +1,9 @@
 import assert from 'assert'
 import express from 'express'
 import {makeRunner} from '@zorko-io/util-use-case'
-import {MockLogger, MockExpressLogger} from '@zorko-io/util-logger'
+import {MockLogger} from '@zorko-io/util-logger'
 import * as RestApiV1 from './rest-api-v1'
-import {corsMiddleware, urlencoded, json} from './middlewares'
+import {corsMiddleware, urlencoded, json, expressPino} from './middlewares'
 
 export class WebPortalExpressApp {
   /**
@@ -20,29 +20,24 @@ export class WebPortalExpressApp {
 
   #logger = null
 
-  #expressLogger = null
-
   /**
    * @param {Object} context
    * @param {Object} context.config - app config
    * @param {EventEmitter} context.process - web portal application process
    * @param {CoreLogger} context.logger - application logger
-   * @param {CoreExpressLogger} context.expressLogger - application http logger
    */
 
   constructor(
     context = {
       process,
       logger: new MockLogger(),
-      expressLogger: new MockExpressLogger(),
     }
   ) {
-    const {config, process, logger, expressLogger} = context
+    const {config, process, logger} = context
     assert(config, 'Should have an app config defined')
 
     this.#config = config
     this.#logger = logger
-    this.#expressLogger = expressLogger
     this.#process = process
     this.#http = express()
 
@@ -50,7 +45,7 @@ export class WebPortalExpressApp {
   }
 
   initRoutes() {
-    this.#http.use(this.#expressLogger.expressPino)
+    this.#http.use(expressPino(this.#logger))
     this.#http.use(corsMiddleware)
     this.#http.use(json())
     this.#http.use(urlencoded)

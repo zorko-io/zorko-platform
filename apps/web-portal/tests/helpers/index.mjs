@@ -1,5 +1,5 @@
 import sinon from 'sinon'
-import {MockLogger, MockExpressLogger} from '@zorko-io/util-logger'
+import {MockLogger} from '@zorko-io/util-logger'
 import {ClientTypes, createClient} from '@zorko-io/util-web-api-client'
 import {WebPortalExpressApp} from '../../lib'
 import {config} from '../../config'
@@ -25,7 +25,6 @@ export async function setupAppContext(t) {
     },
     process,
     logger: new MockLogger(),
-    expressLogger: new MockExpressLogger(),
   })
   await app.startAndAttach()
   const client = createClient({
