@@ -20,6 +20,4 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Tests
-        env:
-          NODE_OPTIONS: '--experimental-modules --es-module-specifier-resolution=node'
         run: yarn test
