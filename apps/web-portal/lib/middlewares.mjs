@@ -1,4 +1,5 @@
 import cors from 'cors'
+import {v4 as uuid} from 'uuid'
 import bodyParser from 'body-parser'
 import ExpressPino from 'express-pino-logger'
 import {InvalidJsonError} from '@zorko-io/util-error'
@@ -35,6 +36,7 @@ export const expressPino = function (logger) {
       req: (req) => ({
         method: req.method,
         url: req.url,
+        traceID: req.headers['x-trace-id'] || uuid(),
       }),
       res: (res) => ({
         status: res.statusCode,
