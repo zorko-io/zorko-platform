@@ -1,6 +1,11 @@
 # End to End Testing
 
-// TODO: Provide basic E2E Simple Infra documentation
-// - how to stat app and run tests
-// label: documentation
+Provide an e2e testing based on `cypress` library
 
+## Run tests in a console env
+
+`yarn cy:run`
+
+## Run tests in a browser env
+
+`yarn cy:open`
