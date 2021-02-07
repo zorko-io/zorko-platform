@@ -26,9 +26,5 @@ jobs:
           NODE_OPTIONS: '--experimental-modules --es-module-specifier-resolution=node'
         run: yarn test
 
-      - name: Run Web Portal Server
-        run: yarn start
-        working-directory: ${{env.web-protal-dir}}
-
       - name: Run Cypress Tests
-        run: yarn cy:run
+        run: yarn ci

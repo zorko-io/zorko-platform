@@ -15,7 +15,9 @@
     "format": "prettier --config .prettierrc.json --write '**/lib/*.{cjs,mjs,js,jsx}'",
     "reset": "yarn run clean && yarn install",
     "clean": "lerna run clean --parallel && yarn run clean:node-modules",
-    "clean:node-modules": "rimraf node_modules"
+    "clean:node-modules": "rimraf node_modules",
+    "web-server": "yarn workspace @zorko-io/web-portal start",
+    "ci": "start-server-and-test web-server http://localhost:7777/api/v1 cy:run"
   },
   "engines": {
     "node": ">= 14.0.0"
@@ -41,6 +43,7 @@
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint-import-resolver-alias": "^1.1.2"
+    "eslint-import-resolver-alias": "^1.1.2",
+    "start-server-and-test": "^1.12.0"
   }
 }
