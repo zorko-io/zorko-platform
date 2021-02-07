@@ -4,6 +4,8 @@ jobs:
   test-matrix:
     name: Node Unit Test
     runs-on: ubuntu-latest
+    env:
+      web-protal-dir: 'apps/web-portal'
     strategy:
       matrix:
         node: [ 14 ]
@@ -23,3 +25,10 @@ jobs:
         env:
           NODE_OPTIONS: '--experimental-modules --es-module-specifier-resolution=node'
         run: yarn test
+
+      - name: Run Web Portal Server
+        run: yarn start
+        working-directory: ${{env.web-protal-dir}}
+
+      - name: Run Cypress Tests
+        run: yarn cy:run
