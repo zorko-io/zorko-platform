@@ -8,6 +8,7 @@
     "test:coverage": "lerna run test --stream -- --coverage",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
+    "cy:ci": "start-server-and-test 'yarn workspace @zorko-io/web-portal start' http://localhost:7777/api/v1 cy:run",
     "code": "yarn run format:check && yarn run lint",
     "lint": "lerna run lint",
     "audit": "yarn audit",
@@ -15,9 +16,7 @@
     "format": "prettier --config .prettierrc.json --write '**/lib/*.{cjs,mjs,js,jsx}'",
     "reset": "yarn run clean && yarn install",
     "clean": "lerna run clean --parallel && yarn run clean:node-modules",
-    "clean:node-modules": "rimraf node_modules",
-    "web-server": "yarn workspace @zorko-io/web-portal start",
-    "ci": "start-server-and-test web-server http://localhost:7777/api/v1 cy:run"
+    "clean:node-modules": "rimraf node_modules"
   },
   "engines": {
     "node": ">= 14.0.0"
@@ -39,11 +38,11 @@
     "eslint-plugin-prettier": "^3.1.4",
     "lerna": "^3.22.1",
     "prettier": "^2.1.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "start-server-and-test": "^1.12.0"
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "start-server-and-test": "^1.12.0"
+    "eslint-import-resolver-alias": "^1.1.2"
   }
 }

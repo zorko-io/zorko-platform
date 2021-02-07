@@ -4,8 +4,6 @@ jobs:
   test-matrix:
     name: Node Unit Test
     runs-on: ubuntu-latest
-    env:
-      web-protal-dir: 'apps/web-portal'
     strategy:
       matrix:
         node: [ 14 ]
@@ -26,5 +24,5 @@ jobs:
           NODE_OPTIONS: '--experimental-modules --es-module-specifier-resolution=node'
         run: yarn test
 
-      - name: Run Cypress Tests
-        run: yarn ci
+      - name: Run e2e tests
+        run: yarn cy:ci
