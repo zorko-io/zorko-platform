@@ -6,9 +6,10 @@
   "scripts": {
     "test": "lerna run test",
     "test:coverage": "lerna run test --stream -- --coverage",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open",
-    "cy:ci": "start-server-and-test 'yarn workspace @zorko-io/web-portal start' http://localhost:7777/api/v1 cy:run",
+    "cy:run:api": "cypress run --config integrationFolder=e2e/cypress/api,baseUrl=http://localhost:7777",
+    "cy:run:e2e": "cypress run --config integrationFolder=e2e/cypress/integration,baseUrl=http://localhost:8086",
+    "cy:api": "start-server-and-test 'yarn workspace @zorko-io/web-portal start' http://localhost:7777/api/v1 cy:run:api",
+    "cy:e2e": "start-server-and-test 'yarn workspace @zorko-io/web-portal-client start' http://localhost:8086 cy:run:e2e",
     "code": "yarn run format:check && yarn run lint",
     "lint": "lerna run lint",
     "audit": "yarn audit",

@@ -24,5 +24,5 @@ jobs:
           NODE_OPTIONS: '--experimental-modules --es-module-specifier-resolution=node'
         run: yarn test
 
-      - name: Run e2e tests
-        run: yarn cy:ci
+      - name: Run Cypress API Tests
+        run: yarn cy:api

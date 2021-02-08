@@ -1,11 +1,11 @@
-# End to End Testing
+# End-to-End Testing
 
 Provide an e2e testing based on `cypress` library
 
-## Run tests in a console env
+## Run API tests
 
-`yarn cy:run`
+`yarn cy:run:api`
 
-## Run tests in a browser env
+## Run Integration Tests
 
-`yarn cy:open`
+`yarn cy:run:e2e`
