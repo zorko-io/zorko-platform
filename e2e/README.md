@@ -2,10 +2,13 @@
 
 Provide an e2e testing based on `cypress` library
 
-## Run API tests
-
-`yarn cy:run:api`
 
 ## Run Integration Tests
 
-`yarn cy:run:e2e`
+`yarn cy:run`
+
+## Open Cypress Browser Runner For Integration Tests
+
+`yarn cy:run`
+
+To run the tests with the `cypress` browser runner it is necessary to run `web-portal-client`

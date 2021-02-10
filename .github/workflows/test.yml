@@ -23,6 +23,3 @@ jobs:
         env:
           NODE_OPTIONS: '--experimental-modules --es-module-specifier-resolution=node'
         run: yarn test
-
-      - name: Run Cypress API Tests
-        run: yarn cy:api
