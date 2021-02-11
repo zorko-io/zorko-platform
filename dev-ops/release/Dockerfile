@@ -12,7 +12,6 @@ COPY . .
 RUN yarn install --frozen-lockfile
 
 ###
-
 FROM common as frontend-builder
 
 WORKDIR /zorko-platform/apps/web-portal-client/
@@ -21,15 +20,12 @@ RUN yarn run build
 CMD ["ls", "build/"]
 
 ###
-
-# TODO: extend with proxy over backend-api
-FROM nginx:latest as frontend
-
-COPY ./conf.d/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=frontend-builder /zorko-platform/apps/web-portal-client/build/ /usr/share/nginx/html
+#FROM nginx:latest as frontend
+#
+#COPY ./conf.d/default.conf /etc/nginx/conf.d/default.conf
+#COPY --from=frontend-builder /zorko-platform/apps/web-portal-client/build/ /usr/share/nginx/html
 
 ###
-
 FROM common as backend-api
 
 WORKDIR /zorko-platform/apps/web-portal/
@@ -37,4 +33,6 @@ WORKDIR /zorko-platform/apps/web-portal/
 EXPOSE 7777
 CMD ["yarn", "start"]
 
-
+###
+FROM backend-api as standalone
+COPY --from=frontend-builder /zorko-platform/apps/web-portal-client/build/ /zorko-platform/apps/web-portal/public
