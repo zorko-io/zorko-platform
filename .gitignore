@@ -7,3 +7,5 @@ ava.config.cjs
 .env
 /apps/web-portal-client/build
 .DS_Store
+e2e/cypress/videos
+e2e/cypress/screenshots

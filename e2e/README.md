@@ -1,6 +1,14 @@
-# End to End Testing
+# End-to-End Testing
 
-// TODO: Provide basic E2E Simple Infra documentation
-// - how to stat app and run tests
-// label: documentation
+Provide an e2e testing based on `cypress` library
 
+
+## Run Integration Tests
+
+`yarn cy:run`
+
+## Open Cypress Browser Runner For Integration Tests
+
+`yarn cy:open`
+
+To run the tests with the `cypress` browser runner it is necessary to run `web-portal-client`
