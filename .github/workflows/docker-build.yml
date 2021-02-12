@@ -22,7 +22,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         env:
-          IMG_TAG: nesterone/zorko-standalone:${{ env.GITHUB_REF }}
+          IMG_TAG: nesterone/zorko-standalone:${{ github.ref }}
         with:
           context: ./
           file: ./dev-ops/release/Dockerfile
