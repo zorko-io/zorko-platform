@@ -28,7 +28,7 @@ jobs:
           file: ./dev-ops/release/Dockerfile
           push: true
           target: standalone
-          tags: ${{ IMG_TAG }}
+          tags: ${{ env.IMG_TAG }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
