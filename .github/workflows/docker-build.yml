@@ -26,7 +26,7 @@ jobs:
           file: ./dev-ops/release/Dockerfile
           push: true
           target: standalone
-          tags: "nesterone/zorko-standalone:br-$GITHUB_REF"
+          tags: nesterone/zorko-standalone:br-${{ GITHUB_REF }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
