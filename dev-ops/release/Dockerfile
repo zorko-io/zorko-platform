@@ -31,7 +31,7 @@ FROM common as backend-api
 WORKDIR /zorko-platform/apps/web-portal/
 # TODO: parametrize
 EXPOSE 7777
-CMD ["yarn", "start"]
+ENTRYPOINT ["node", "--experimental-modules", "--es-module-specifier-resolution=node", "."]
 
 ###
 FROM backend-api as standalone
