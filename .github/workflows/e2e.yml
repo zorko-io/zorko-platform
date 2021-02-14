@@ -20,6 +20,7 @@ jobs:
 
       - name: Cypress run
         run: yarn cy:ci
+        continue-on-error: true
 
       - uses: actions/upload-artifact@v1
         if: failure()
