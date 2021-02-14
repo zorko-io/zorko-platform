@@ -11,6 +11,7 @@ export function route(deps) {
   const previewController = preview(deps)
   const authController = auth(deps)
 
+  router.get('/', (req, res) => { res.status(200).send({}) })
   router.get('/previews', previewController.list)
   router.post('/auth/login', authController.login)
 
