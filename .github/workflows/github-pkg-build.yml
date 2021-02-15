@@ -29,7 +29,7 @@ jobs:
           file: ./dev-ops/release/Dockerfile
           push: true
           target: standalone
-          tags: ${{ env.IMG_TAG }}
+          tags: ghcr.io/${{ github.repository_owner }}/standalone:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
