@@ -13,6 +13,8 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          context: ./
+          file: ./dev-ops/release/Dockerfile
           registry: docker.pkg.github.com
           repository: ${{ github.repository }}
           tag_with_ref: true
