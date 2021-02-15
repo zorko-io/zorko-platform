@@ -25,7 +25,7 @@ jobs:
         env:
           IMG_TAG: nesterone/zorko-standalone:sha-${{ github.sha }}
         with:
-          context: ./
+          context: .
           file: ./dev-ops/release/Dockerfile
           push: true
           target: standalone
