@@ -6,7 +6,7 @@ import {selectAuthError, selectAuthToken, selectLoginState} from '../selectors'
 
 export function useAuth() {
   const dispatch = useDispatch()
-  const {api} = useContext(AppContext)
+  const {api, logger} = useContext(AppContext)
 
   return {
     login: useCallback(() => {
@@ -14,6 +14,7 @@ export function useAuth() {
       api.auth
         .login()
         .then((result) => {
+          logger.info('INFO')
           dispatch(login(result))
         })
         .catch((err) => {

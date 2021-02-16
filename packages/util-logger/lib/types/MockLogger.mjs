@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {CoreLogger} from '../..'
+import {CoreLogger} from '../core'
 
 export class MockLogger extends CoreLogger {
   info(...args) {}

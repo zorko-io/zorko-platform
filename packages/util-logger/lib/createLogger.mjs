@@ -28,9 +28,10 @@ export function createLogger(
     isPrettyPrint: false,
     type: LoggerTypes.Pino,
     shared: true,
+    config: {},
   }
 ) {
-  let {type, shared} = options
+  let {type, shared, config} = options
   let logger
 
   type = type || LoggerTypes.Pino
@@ -46,6 +47,7 @@ export function createLogger(
   if (type === LoggerTypes.Pino) {
     logger = new PinoLogger({
       isPrettyPrint: options.isPrettyPrint,
+      ...config
     })
   } else if (type === LoggerTypes.Console) {
     logger = new ConsoleLogger()
