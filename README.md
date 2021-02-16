@@ -19,10 +19,12 @@ It contains from tree parts:
 ### Run with docker
 
 ```
-docker run -p 80:7777 nesterone/zorko-standalone:latest
+docker run -p 5000:7777 nesterone/zorko-standalone:latest
 ```
 
 > `latest` - is a version which we build on each push to 'dev' branch
+
+open `http://localhost:5000` and have a fun ;-)
 
 
 ### Build Images
