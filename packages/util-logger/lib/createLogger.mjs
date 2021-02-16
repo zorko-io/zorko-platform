@@ -22,7 +22,7 @@ export function createLogger(options = {}) {
   shareCreated = shareCreated || true
 
   if (shareCreated) {
-    logger = cache[LoggerTypes.type]
+    logger = cache[type]
     if (logger) {
       return logger
     }
@@ -37,7 +37,7 @@ export function createLogger(options = {}) {
   }
 
   if (shareCreated) {
-    cache[LoggerTypes.type] = logger
+    cache[type] = logger
   }
 
   return logger
