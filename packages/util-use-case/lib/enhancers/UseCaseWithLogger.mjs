@@ -2,8 +2,6 @@ import assert from 'assert'
 import {ApplicationError} from '@zorko-io/util-error'
 import {UseCase} from '../core'
 
-// TODO: Test Task More test todos
-
 export class UseCaseWithLogger extends UseCase {
   /**
    * @type {CoreLogger}
@@ -29,9 +27,11 @@ export class UseCaseWithLogger extends UseCase {
     assert(context.origin, 'Should have an origin defined')
     assert(context.log, 'Should have validator log')
 
-    this.#log = context.log.child({useCase: context.name})
+    this.#log = context.log.child({
+      useCase: context.name
+    })
   }
-
+q
   async run(params) {
     const log = this.#log
 
