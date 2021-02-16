@@ -1,5 +1,5 @@
 version: "3.1"
-
+# TODO: gh-87 proper link to docker file with multiple contexts
 services:
   nginx-router:
     networks: { default: { aliases: [ 'zorko-io.local' ] } }

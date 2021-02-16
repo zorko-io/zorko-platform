@@ -1,4 +1,5 @@
 import assert from 'assert'
+import path from 'path'
 import express from 'express'
 import {makeRunner} from '@zorko-io/util-use-case'
 import {MockLogger} from '@zorko-io/util-logger'
@@ -50,6 +51,8 @@ export class WebPortalExpressApp {
     this.#http.use(json())
     this.#http.use(urlencoded)
 
+    // TODO: relay on config
+    this.#http.use('/', express.static(path.join(path.resolve(), 'public')))
     this.#http.use(
       '/api/v1',
       RestApiV1.route({
