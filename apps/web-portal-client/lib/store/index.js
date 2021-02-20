@@ -2,7 +2,7 @@ import {configureStore} from '@reduxjs/toolkit'
 import {logger} from '../logger'
 import authReducer from '../features/auth/slices'
 
-const loggerMiddleware = store => next => action => {
+const loggerMiddleware = () => (next) => (action) => {
   logger.info(action)
   return next(action)
 }
