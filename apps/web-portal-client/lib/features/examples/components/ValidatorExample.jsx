@@ -21,6 +21,5 @@ export function ValidatorExample() {
 
   const validator = createValidator(rules)
   const {error, result} = validator.parseSync(value)
-  result.z.a.a = 1
   return !error ? <div>{JSON.stringify(result)}</div> : <div>{error.message}</div>
 }
