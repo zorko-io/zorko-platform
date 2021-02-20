@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import className from 'classnames'
-import {childrenPropTypes} from '../../../utils/childrenPropTypes'
+import {childrenPropTypes} from '../../../utils'
 
 export function MobileMenu({isShown, children}) {
   return (

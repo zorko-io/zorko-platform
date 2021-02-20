@@ -12,7 +12,7 @@ export class LogApi {
    * @param {Array<Object>} logs - the list of logs
    * @returns {Promise<void>}
    */
-  async send(logs) {
+  async save(logs) {
     throw new NotYetImplementedError()
   }
 }

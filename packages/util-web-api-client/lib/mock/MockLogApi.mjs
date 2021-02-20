@@ -9,7 +9,7 @@ export class MockLogApi extends LogApi {
     this.#mock = mock
   }
 
-  async send(logs) {
+  async save(logs) {
     return undefined
   }
 }

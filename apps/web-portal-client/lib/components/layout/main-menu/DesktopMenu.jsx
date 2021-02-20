@@ -1,5 +1,5 @@
 import React from 'react'
-import {childrenPropTypes} from '../../../utils/childrenPropTypes'
+import {childrenPropTypes} from '../../../utils'
 
 export function DesktopMenu({children}) {
   return (

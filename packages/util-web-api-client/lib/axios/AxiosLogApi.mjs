@@ -12,7 +12,7 @@ export class AxiosLogApi extends LogApi {
     this.#http = http
   }
 
-  async send(logs) {
+  async save(logs) {
     const response = await this.#http.post(`/api/v1/log`, logs)
     return response ? response.data : {status: 1}
   }
