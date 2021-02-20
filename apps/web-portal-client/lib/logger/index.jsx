@@ -2,7 +2,8 @@ import {createLogger} from '@zorko-io/util-logger'
 import {MessageQueue} from '../utils'
 import {client} from '../api'
 
-const messageQueue = new MessageQueue(10)
+const LOGS_MAX_SIZE = 10
+const messageQueue = new MessageQueue(LOGS_MAX_SIZE)
 
 export const logger = createLogger({
   context: {
