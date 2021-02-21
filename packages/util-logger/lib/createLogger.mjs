@@ -17,9 +17,10 @@ const cache = {}
 /**
  * Creates Logger
  * @param {Object} options
- * @param {LoggerTypes} [options.type] - logger type, PINO by default
+ * @param {<LoggerTypes>} [options.type] - logger type, PINO by default
  * @param {Boolean} [options.isPrettyPrint] - turn on/off pretty print
  * @param {Boolean} [options.shared] - create a shared, singleton instance, true by default
+ * @param {Object} [options.context] - contain logger context
  * @returns {PinoLogger|MockLogger|ConsoleLogger|*}
  */
 
