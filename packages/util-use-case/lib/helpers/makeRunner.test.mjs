@@ -233,9 +233,9 @@ test.serial('stubs - check error scenario', async (t) => {
   t.assert(!toResult.calledOnce, 'should`t convert result')
   t.assert(toError.calledOnce, 'should convert error')
   t.is(toError.firstCall.args[0], error)
-  t.is(toError.firstCall.args[1], req)
-  t.is(toError.firstCall.args[2], res)
-  t.deepEqual(toError.firstCall.args[3], {
+  t.is(toError.firstCall.args[1][0], req)
+  t.is(toError.firstCall.args[1][1], res)
+  t.deepEqual(toError.firstCall.args[2], {
     log
   })
 })

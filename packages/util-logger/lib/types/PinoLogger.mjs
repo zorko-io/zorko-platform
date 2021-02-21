@@ -7,6 +7,7 @@ export class PinoLogger extends CoreLogger {
   /**
    * @constructor
    * @param {Object} [context]
+   * @param {Boolean} [context.isPrettyPrint] - enable/disable human readable output, disable by default
    * @param {Pino} [log] - pino instance usually from `pino.child`
    */
 
@@ -15,7 +16,6 @@ export class PinoLogger extends CoreLogger {
 
     if (!log) {
       const defaults = {
-        prettyPrint: { colorize: true,  translateTime: 'yyyy-mm-dd HH:MM:ss.l' },
         redact: {
           paths: [
             'msg.*.data.password',
@@ -28,7 +28,15 @@ export class PinoLogger extends CoreLogger {
           ],
           censor: '**SENSITIVE DATA**',
         },
+        // TODO: configure log level over env vars
         level: context.level || 'info',
+      }
+
+      if (context.isPrettyPrint) {
+        defaults.prettyPrint = {
+          colorize: true,
+          translateTime: 'yyyy-mm-dd HH:MM:ss.l'
+        }
       }
       log = pino(defaults)
     }

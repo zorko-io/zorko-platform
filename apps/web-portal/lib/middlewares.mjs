@@ -32,11 +32,14 @@ export const corsMiddleware = cors({origin: '*'}) // Allow any origin because NO
 export const expressPino = function (logger) {
   return ExpressPino({
     logger,
+    genReqId: function (req) {
+      return req.headers['x-trace-id'] || uuid()
+    },
     serializers: {
       req: (req) => ({
         method: req.method,
         url: req.url,
-        traceID: req.headers['x-trace-id'] || uuid(),
+        traceID: req.id,
       }),
       res: (res) => ({
         status: res.statusCode,

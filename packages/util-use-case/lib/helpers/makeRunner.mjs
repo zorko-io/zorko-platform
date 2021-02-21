@@ -11,9 +11,25 @@ import {
 
 const DEFAULT_OPTIONS = {
   toParams: () => ({}),
-  toContext: (req) => req && req.session ? req.session.context : {},
+  toContext: (req) => {
+    const context = req && req.session ? req.session.context : {}
+    const traceID = req.id
+
+    return {
+      ...context,
+      traceID,
+    }
+  } ,
   toResult: toResult_,
   toError: toError_
+}
+
+const DEFAULT_DEPS = {
+  log: new MockLogger(),
+  createValidator: createValidator_,
+  createUseCase: createUseCase_,
+  // TODO: move deps custom func to options as toDeps
+  provideUseCaseDeps: () => {}
 }
 
 /**
@@ -32,20 +48,25 @@ const DEFAULT_OPTIONS = {
  * @returns {Function} - closure with use case ready to execution
  */
 
-export function makeRunner(useCaseClass, options, deps = {
-  log: new MockLogger(),
-  createValidator: createValidator_,
-  createUseCase: createUseCase_,
-  provideUseCaseDeps: () => {}
-}) {
+export function makeRunner(useCaseClass, options, deps = {}) {
 
   options = { ...DEFAULT_OPTIONS, ...options}
+  deps = {...DEFAULT_DEPS, ...deps}
 
   return async function useCaseRunner(...args) {
+    const {toContext, toParams, toResult} = options
+    let {createUseCase, createValidator, log, provideUseCaseDeps} = deps
+    const context = toContext(...args)
+
+    log = log.child({module: 'makeRunner'})
+
+    if (context.traceID) {
+      log = log.child({
+        traceID: context.traceID
+      })
+    }
+
     try {
-      const {createUseCase, createValidator, log, provideUseCaseDeps} = deps
-      const {toContext, toParams, toResult} = options
-      const context = toContext(...args)
       const useCase = createUseCase(useCaseClass, context, {
         log,
         createValidator,
@@ -56,7 +77,7 @@ export function makeRunner(useCaseClass, options, deps = {
       const result = await useCase.run(params)
       return toResult(...[result, ...args])
     } catch (err) {
-      options.toError(...[err, ...args, {log: deps.log}])
+      options.toError(err, args, {log})
     }
   }
 }
