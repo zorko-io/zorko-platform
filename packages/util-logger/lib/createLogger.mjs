@@ -48,7 +48,7 @@ export function createLogger(
   if (type === LoggerTypes.Pino) {
     logger = new PinoLogger({
       isPrettyPrint: options.isPrettyPrint,
-      ...context
+      ...context,
     })
   } else if (type === LoggerTypes.Console) {
     logger = new ConsoleLogger()
