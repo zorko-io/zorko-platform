@@ -4,9 +4,13 @@ import {UserProfile} from './UserProfile'
 import {Card} from './Card'
 import {Content, Sidebar, Layout} from './layout'
 
+import {usePreviews} from '../features/home/hooks'
+
 // TODO: load previews from the server. Use api.preview.findAll
 // label: enhancement
 export function HomePage() {
+  const {previews} = usePreviews()
+
   return (
     <Layout
       sidebarRender={() => (
@@ -19,13 +23,7 @@ export function HomePage() {
           title="Visualization"
           innerContentRender={() => (
             <>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              <Card previews={previews} />
             </>
           )}
         />
