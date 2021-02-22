@@ -17,9 +17,10 @@ const cache = {}
 /**
  * Creates Logger
  * @param {Object} options
- * @param {LoggerTypes} [options.type] - logger type, PINO by default
+ * @param {<LoggerTypes>} [options.type] - logger type, PINO by default
  * @param {Boolean} [options.isPrettyPrint] - turn on/off pretty print
  * @param {Boolean} [options.shared] - create a shared, singleton instance, true by default
+ * @param {Object} [options.context] - contain logger context
  * @returns {PinoLogger|MockLogger|ConsoleLogger|*}
  */
 
@@ -28,9 +29,10 @@ export function createLogger(
     isPrettyPrint: false,
     type: LoggerTypes.Pino,
     shared: true,
+    context: {},
   }
 ) {
-  let {type, shared} = options
+  let {type, shared, context} = options
   let logger
 
   type = type || LoggerTypes.Pino
@@ -46,6 +48,7 @@ export function createLogger(
   if (type === LoggerTypes.Pino) {
     logger = new PinoLogger({
       isPrettyPrint: options.isPrettyPrint,
+      ...context,
     })
   } else if (type === LoggerTypes.Console) {
     logger = new ConsoleLogger()

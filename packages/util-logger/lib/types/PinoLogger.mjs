@@ -1,5 +1,5 @@
 import pino from 'pino'
-import {CoreLogger} from '../..'
+import {CoreLogger} from '../core'
 
 export class PinoLogger extends CoreLogger {
   #pino = null
@@ -30,6 +30,7 @@ export class PinoLogger extends CoreLogger {
         },
         // TODO: configure log level over env vars
         level: context.level || 'info',
+        browser: context.browser || null,
       }
 
       if (context.isPrettyPrint) {

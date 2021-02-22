@@ -4,7 +4,7 @@ import Tippy from '@tippy.js/react'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/themes/light-border.css'
 
-import {childrenPropTypes} from '../utils/childrenPropTypes'
+import {childrenPropTypes} from '../utils'
 
 export function Popover({title, text, duration, delay, children}) {
   const [visible, setVisible] = useState(false)
