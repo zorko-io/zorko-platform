@@ -11,7 +11,7 @@ export const usePreviews = () => {
         return {...state, isLoading: false, previews: action.payload}
       }
       case 'FETCH_FAILURE': {
-        return {...state, isLoading: false, isError: action.payload}
+        return {...state, isLoading: false, isError: true}
       }
       default:
         return state
@@ -38,8 +38,9 @@ export const usePreviews = () => {
           setTimeout(() => {
             dispatch({type: 'FETCH_SUCCESS', payload: result})
           }, 2000)
+          throw new Error()
         })
-        .catch((error) => dispatch({type: 'FETCH_FAILURE', payload: error}))
+        .catch(() => dispatch({type: 'FETCH_FAILURE'}))
     }
 
     return () => {

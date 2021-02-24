@@ -22,7 +22,7 @@ export function Card({item}) {
 }
 
 Card.propTypes = {
-  item: PropTypes.objectOf(PropTypes.object),
+  item: PropTypes.objectOf(PropTypes.oneOf(PropTypes.string, PropTypes.object)),
 }
 
 Card.defaultProps = {
