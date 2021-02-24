@@ -1,31 +1,51 @@
-import {useEffect, useState, useContext, useReducer} from 'react'
+import {useEffect, useContext, useReducer} from 'react'
 import {AppContext} from '../../../context'
 
 export const usePreviews = () => {
-  const [previews, setPreviews] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
+  const fetchPreviewsReducer = (state, action) => {
+    switch (action.type) {
+      case 'FETCH_INIT': {
+        return {...state, isLoading: true, isError: false}
+      }
+      case 'FETCH_SUCCESS': {
+        return {...state, isLoading: false, previews: action.payload}
+      }
+      case 'FETCH_FAILURE': {
+        return {...state, isLoading: false, isError: action.payload}
+      }
+      default:
+        return state
+    }
+  }
+
+  const [state, dispatch] = useReducer(fetchPreviewsReducer, {
+    previews: undefined,
+    isLoading: false,
+    isError: false,
+  })
 
   const {api} = useContext(AppContext)
 
   useEffect(() => {
-    const didCancel = false
+    let didCancel = false
 
     if (!didCancel) {
-      setIsLoading(true)
-      setIsError(false)
+      dispatch({type: 'FETCH_INIT'})
 
       api.preview
         .findAll()
         .then((result) => {
-          setPreviews(result)
-          setIsLoading(false)
+          setTimeout(() => {
+            dispatch({type: 'FETCH_SUCCESS', payload: result})
+          }, 2000)
         })
-        .catch((error) => setIsError(error))
+        .catch((error) => dispatch({type: 'FETCH_FAILURE', payload: error}))
     }
 
-    return () => (didCancel = true)
+    return () => {
+      didCancel = true
+    }
   }, [])
 
-  return {previews, isLoading, isError}
+  return state
 }

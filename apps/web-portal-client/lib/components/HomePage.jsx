@@ -26,8 +26,8 @@ export function HomePage() {
           innerContentRender={() => (
             <>
               <Spinner show={isLoading} />
-              {isError && <div>Something were wrong...</div>}
-              <Card previews={previews} />
+              {isError && <div>{isError}</div>}
+              {previews && previews.items.map((item) => <Card key={item.id} item={item} />)}
             </>
           )}
         />
