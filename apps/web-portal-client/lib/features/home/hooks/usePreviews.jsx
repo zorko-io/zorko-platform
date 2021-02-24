@@ -38,7 +38,6 @@ export const usePreviews = () => {
           setTimeout(() => {
             dispatch({type: 'FETCH_SUCCESS', payload: result})
           }, 2000)
-          throw new Error()
         })
         .catch(() => dispatch({type: 'FETCH_FAILURE'}))
     }
