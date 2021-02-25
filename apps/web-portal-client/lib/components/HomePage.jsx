@@ -1,17 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import Spinner from './Spinner'
 
 import {UserProfile} from './UserProfile'
-import {Card} from './Card'
+import {PreviewCard} from './PreviewCard'
 import {Content, Sidebar, Layout} from './layout'
 
 import {usePreviews} from '../features/home/hooks'
 
-// TODO: load previews from the server. Use api.preview.findAll
-// label: enhancement
 export function HomePage() {
-  const {previews, isLoading, isError} = usePreviews()
+  const [{previews}, {isLoading, isError, doFetchPreviews}] = usePreviews()
+
+  useEffect(() => doFetchPreviews(), [])
 
   return (
     <Layout
@@ -27,7 +27,15 @@ export function HomePage() {
             <>
               <Spinner show={isLoading} />
               {isError && <div>Something went wrong...</div>}
-              {previews && previews.items.map((item) => <Card key={item.id} item={item} />)}
+              {previews &&
+                previews.items.map((item) => (
+                  <PreviewCard
+                    key={item.id}
+                    title={item.title}
+                    author={item.author}
+                    cteatedAt={item.cteatedAt}
+                  />
+                ))}
             </>
           )}
         />

@@ -1,4 +1,4 @@
-import {useEffect, useContext, useReducer} from 'react'
+import {useContext, useReducer} from 'react'
 import {AppContext} from '../../../context'
 
 export const usePreviews = () => {
@@ -18,6 +18,8 @@ export const usePreviews = () => {
     }
   }
 
+  // TODO: extract as reusable reducer for HTTP calls
+  // label: tech-debt
   const [state, dispatch] = useReducer(fetchPreviewsReducer, {
     previews: undefined,
     isLoading: false,
@@ -26,26 +28,21 @@ export const usePreviews = () => {
 
   const {api} = useContext(AppContext)
 
-  useEffect(() => {
-    let didCancel = false
+  // TODO: extract as reusable doFetch function for HTTP calls
+  // label: tech-debt
+  const doFetchPreviews = () => {
+    dispatch({type: 'FETCH_INIT'})
 
-    if (!didCancel) {
-      dispatch({type: 'FETCH_INIT'})
+    api.preview
+      .findAll()
+      .then((result) => {
+        dispatch({type: 'FETCH_SUCCESS', payload: result})
+      })
+      .catch(() => dispatch({type: 'FETCH_FAILURE'}))
+  }
 
-      api.preview
-        .findAll()
-        .then((result) => {
-          setTimeout(() => {
-            dispatch({type: 'FETCH_SUCCESS', payload: result})
-          }, 2000)
-        })
-        .catch(() => dispatch({type: 'FETCH_FAILURE'}))
-    }
-
-    return () => {
-      didCancel = true
-    }
-  }, [])
-
-  return state
+  return [
+    {previews: state.previews},
+    {isLoading: state.isLoading, isError: state.isError, doFetchPreviews},
+  ]
 }
