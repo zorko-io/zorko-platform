@@ -1,0 +1,17 @@
+{
+  "name": "@zorko-io/util-config",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "WebPortalExpressApp.mjs",
+  "devDependencies": {
+    "@zorko-io/tool-test-harness": "1.0.0"
+  },
+  "scripts": {
+    "test": "tth",
+    "test:watch": "tth --watch",
+    "test:coverage": "tth --coverage",
+    "lint": "eslint --ext .mjs,.cjs lib",
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  }
+}
