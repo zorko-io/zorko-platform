@@ -21,7 +21,7 @@ export class ConfmeConfigDiscovery extends ConfigDiscovery {
   get schema() {
     return new FsConfigSchema({
       definition: this.#definition,
-      validation: this.#definition
+      validation: this.#validation
     });
   }
 

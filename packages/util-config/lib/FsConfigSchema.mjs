@@ -19,15 +19,17 @@ export class FsConfigSchema extends ConfigSchema {
   }
 
   get structure() {
-
-    let buffer = fs.readFileSync(this.#definition)
-    let string = buffer.toString()
-    let json = JSON.parse(string)
-    console.log({json})
-    return json;
+    return this.#readAsJson(this.#definition);
   }
 
   get validation() {
-    return fs.readFileSync(this.#validation).toJSON();
+    return this.#readAsJson(this.#validation);
   }
+
+  #readAsJson = (path) => {
+    let buffer = fs.readFileSync(path)
+    let string = buffer.toString()
+    return JSON.parse(string)
+  }
+
 }
