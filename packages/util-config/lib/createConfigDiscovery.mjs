@@ -1,5 +1,5 @@
-import {ConfmeConfigDiscovery} from './ConfmeConfigDiscovery.mjs'
-import {fromUrlToDirPath} from './fromUrlToDirPath.mjs'
+import {ConfmeConfigDiscovery} from './confme'
+import {fromUrlToDirPath} from './fromUrlToDirPath'
 
 const dir = fromUrlToDirPath(import.meta.url, '..')
 
