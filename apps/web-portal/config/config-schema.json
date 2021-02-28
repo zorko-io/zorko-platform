@@ -4,5 +4,9 @@
   }}],
   "logger": ["required", {"nested_object": {
     "isPrettyPrint": ["required", "boolean"]
+  }}],
+  "auth": ["required", {"nested_object": {
+    "secret": ["required", "string"],
+    "expiresIn": ["required", "positive_integer"]
   }}]
 }
