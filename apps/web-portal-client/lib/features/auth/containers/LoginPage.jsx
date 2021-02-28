@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Redirect} from 'react-router-dom'
 import Spinner from '../../../components/Spinner'
 import {useAuth} from '../hooks'
 
 export function LoginPage() {
   const {login, isLogginInProgress, error, hasToken} = useAuth()
+  const [email, setEmail] = useState(null)
+  const [password, setPassword] = useState(null)
 
   if (!isLogginInProgress && !error && hasToken) {
     return <Redirect to="/home" />
@@ -34,6 +36,9 @@ export function LoginPage() {
                 id="email-address"
                 name="email"
                 type="email"
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                }}
                 data-test-id="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -48,6 +53,9 @@ export function LoginPage() {
                 id="password"
                 name="password"
                 type="password"
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                }}
                 data-test-id="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -75,7 +83,9 @@ export function LoginPage() {
               disabled={isLogginInProgress}
               data-test-id="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={login}
+              onClick={() => {
+                login({password, email})
+              }}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3" />
               <Spinner show={isLogginInProgress} />

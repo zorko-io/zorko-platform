@@ -1,5 +1,6 @@
 import {useContext, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {BrowserKeys, BrowserStorage} from '../../../utils'
 import {error, logging, login, logout} from '../slices'
 import {AppContext} from '../../../context'
 import {selectAuthError, selectAuthToken, selectLoginState} from '../selectors'
@@ -9,18 +10,21 @@ export function useAuth() {
   const {api} = useContext(AppContext)
 
   return {
-    login: useCallback(() => {
+    login: (params) => {
       dispatch(logging())
-      api.auth
-        .login()
+      return api.auth
+        .login(params)
         .then((result) => {
+          BrowserStorage.setLocalStorageValue(BrowserKeys.UserToken, result.token)
           dispatch(login(result))
         })
         .catch((err) => {
+          BrowserStorage.removeLocalStorageValue(BrowserKeys.UserToken)
           dispatch(error(err))
         })
-    }, [dispatch]),
+    },
     logout: useCallback(() => {
+      BrowserStorage.removeLocalStorageValue(BrowserKeys.UserToken)
       dispatch(logout())
     }, [dispatch]),
     isLogginInProgress: useSelector(selectLoginState),
