@@ -1,22 +1,12 @@
 import {useEffect} from 'react'
-import {useHistory} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {useAuth} from '../features/auth/hooks'
-import {BrowserKeys, BrowserStorage} from '../utils'
 
 export function AuthBoundary(props) {
-  const history = useHistory()
-  const {login} = useAuth()
+  const {checkSession} = useAuth()
 
   useEffect(() => {
-    const lastPath = BrowserStorage.getLocalStorageValue(BrowserKeys.LastPath)
-    const token = BrowserStorage.getLocalStorageValue(BrowserKeys.UserToken)
-
-    if (token) {
-      login({token}).then(() => {
-        history.push(lastPath)
-      })
-    }
+    checkSession()
   }, [])
 
   return props.children
