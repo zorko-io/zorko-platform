@@ -9,9 +9,9 @@ import {Content, Sidebar, Layout} from './layout'
 import {usePreviews} from '../features/home/hooks'
 
 export function HomePage() {
-  const [{previews}, {isLoading, isError, doFetchPreviews}] = usePreviews()
+  const [{previews}, {isLoading, isError, doFetch}] = usePreviews()
 
-  useEffect(() => doFetchPreviews(), [])
+  useEffect(() => doFetch(), [])
 
   return (
     <Layout

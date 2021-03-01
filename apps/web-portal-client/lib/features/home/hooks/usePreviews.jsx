@@ -18,8 +18,6 @@ export const usePreviews = () => {
     }
   }
 
-  // TODO: extract as reusable reducer for HTTP calls
-  // label: tech-debt
   const [state, dispatch] = useReducer(fetchPreviewsReducer, {
     previews: undefined,
     isLoading: false,
@@ -30,7 +28,7 @@ export const usePreviews = () => {
 
   // TODO: extract as reusable doFetch function for HTTP calls
   // label: tech-debt
-  const doFetchPreviews = () => {
+  const doFetch = () => {
     dispatch({type: 'FETCH_INIT'})
 
     api.preview
@@ -41,8 +39,5 @@ export const usePreviews = () => {
       .catch(() => dispatch({type: 'FETCH_FAILURE'}))
   }
 
-  return [
-    {previews: state.previews},
-    {isLoading: state.isLoading, isError: state.isError, doFetchPreviews},
-  ]
+  return [{previews: state.previews}, {isLoading: state.isLoading, isError: state.isError, doFetch}]
 }
