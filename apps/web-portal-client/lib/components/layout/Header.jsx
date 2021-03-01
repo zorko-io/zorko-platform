@@ -17,8 +17,8 @@ export function Header() {
             <Logo />
 
             <DesktopMenu>
-              <MenuItem name="Home" link="/home" />
-              <MenuItem name="Examples" link="/example" />
+              <MenuItem name="Home" dataTestId="home" link="/home" />
+              <MenuItem name="Examples" dataTestId="example" link="/example" />
             </DesktopMenu>
           </div>
           <div className="flex items-center space-x-1">
