@@ -27,6 +27,7 @@ export const usePreviews = () => {
   const {api} = useContext(AppContext)
 
   // TODO: extract as reusable doFetch function for HTTP calls
+  // - add didCancel flag to generic useEffect hook
   // label: tech-debt
   const doFetch = () => {
     dispatch({type: 'FETCH_INIT'})
