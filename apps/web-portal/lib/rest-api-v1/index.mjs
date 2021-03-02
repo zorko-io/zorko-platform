@@ -13,6 +13,7 @@ export function route(deps) {
   const authController = auth(deps)
   const logController = log(deps)
 
+  router.get('/', (req, res) => { res.status(200).send({}) })
   router.get('/previews', previewController.list)
   router.post('/auth/login', authController.login)
   router.post('/log', logController.save)
