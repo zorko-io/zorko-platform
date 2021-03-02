@@ -4,21 +4,28 @@ import {ValidationError} from '@zorko-io/util-error'
 /**
  * Passes result to response as json,
  * @param {Error}error - error to convert
- * @param {Express.Request} req - request
- * @param {Express.Response} res - response
+ * @param {Object[]} args - arguments from express middleware like [req, res, next]
  * @param {Object} [deps] - dependencies
  * @param {CoreLogger} [deps.log] - logger instance
  * @return {*} - converted result, the same what we send over response
  */
 
-export function toError(error, req, res, deps = {log: new MockLogger()}) {
+export function toError(error, args, deps = {log: new MockLogger()}) {
+  const [req, res] = args
+  const log = deps.log
+
   if (error instanceof ValidationError) {
+    error = error.toJSON()
+
+    log.info({
+      error
+    })
+
     res.send({
       status: 0,
-      error: error.toJSON(),
+      error
     })
   } else {
-    const log = deps.log
 
     log.fatal({
       REQUEST_URL: req.url,

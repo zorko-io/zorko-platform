@@ -1,11 +1,13 @@
 import {createLogger} from '@zorko-io/util-logger'
 import {WebPortalExpressApp} from './lib'
-import {config} from './config'
+import {discoverConfig} from './config'
 
-const logger = createLogger({})
+const config = discoverConfig()
 
 const app = new WebPortalExpressApp({
-  logger,
+  logger: createLogger({
+    ...config.logger
+  }),
   process,
   config,
 })

@@ -21,11 +21,16 @@ export function createUseCase(useCase, context, deps = {
   provideUseCaseDeps: () => {}
 }){
 
+  const { log, createValidator} = deps
+
   return new UseCaseWithLogger({
     name: useCase.name,
     origin: new UseCaseWithValidation({
-      origin: new useCase(context, deps.provideUseCaseDeps()),
-      createValidator: deps.createValidator
+      origin: new useCase(context, {
+        log,
+        ...deps.provideUseCaseDeps()
+      }),
+      createValidator
     }),
-    log: deps.log
+    log,
   })}

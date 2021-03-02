@@ -2,10 +2,11 @@ import sinon from 'sinon'
 import {MockLogger} from '@zorko-io/util-logger'
 import {ClientTypes, createClient} from '@zorko-io/util-web-api-client'
 import {WebPortalExpressApp} from '../../lib'
-import {config} from '../../config'
+import {discoverConfig} from '../../config'
 
 // TODO: improve port management for integration tests
 // label: tech-debt
+const config  = discoverConfig()
 let {port} = config.http
 
 /**

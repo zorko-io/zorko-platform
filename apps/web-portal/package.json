@@ -24,6 +24,9 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-pino-logger": "^6.0.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "@zorko-io/util-use-case": "1.0.0",
+    "@zorko-io/util-logger": "1.0.0",
+    "@zorko-io/util-validation": "1.0.0"
   }
 }

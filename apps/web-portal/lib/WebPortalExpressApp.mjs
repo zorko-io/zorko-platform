@@ -1,6 +1,7 @@
 import assert from 'assert'
+import path from 'path'
 import express from 'express'
-import {makeRunner} from '@zorko-io/util-use-case'
+import {makeRunner as makeRunner_} from '@zorko-io/util-use-case'
 import {MockLogger} from '@zorko-io/util-logger'
 import * as RestApiV1 from './rest-api-v1'
 import {corsMiddleware, urlencoded, json, expressPino} from './middlewares'
@@ -41,21 +42,27 @@ export class WebPortalExpressApp {
     this.#process = process
     this.#http = express()
 
-    this.initRoutes()
+    this.initMiddleware()
   }
 
-  initRoutes() {
+  initMiddleware() {
     this.#http.use(expressPino(this.#logger))
     this.#http.use(corsMiddleware)
     this.#http.use(json())
     this.#http.use(urlencoded)
 
+    // TODO: relay on config
+    this.#http.use('/', express.static(path.join(path.resolve(), 'public')))
     this.#http.use(
       '/api/v1',
       RestApiV1.route({
         config: this.#config,
         createRouter: () => express.Router(),
-        makeRunner,
+        makeRunner: (clazz, options, deps = {}) =>
+          makeRunner_(clazz, options, {
+            log: this.#logger,
+            ...deps,
+          }),
       })
     )
   }

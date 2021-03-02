@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {childrenPropTypes} from '../../utils/childrenPropTypes'
+import {childrenPropTypes} from '../../utils'
 
 import {Dialog} from './Dialog'
 import {Button} from '../Button'

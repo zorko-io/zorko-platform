@@ -16,6 +16,16 @@ It contains from tree parts:
 1. yarn - 1.22.4 or later
 1. npx - 6.11.2
 
+### Run with docker
+
+```
+docker run -p 5000:7777 nesterone/zorko-standalone:latest
+```
+
+> `latest` - is a version which we build on each push to 'dev' branch
+
+open `http://localhost:5000` and have a fun ;-)
+
 
 ### Build Images
 

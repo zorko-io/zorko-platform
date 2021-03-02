@@ -1,5 +1,8 @@
 {
   "http": {
     "port": "{{ZORKO_API_HTTP_PORT}}"
+  },
+  "logger": {
+    "isPrettyPrint": "{{ZORKO_LOGGER_PRETTY_PRINT}}"
   }
 }
