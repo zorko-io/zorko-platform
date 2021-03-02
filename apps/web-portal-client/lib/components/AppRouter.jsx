@@ -4,7 +4,7 @@ import {useLocation} from 'react-router-dom'
 import {useAuth} from '../features/auth/hooks'
 import {appPersistentStorage} from '../utils'
 
-export function AuthRouter(props) {
+export function AppRouter(props) {
   const location = useLocation()
   const {checkSession} = useAuth()
   useEffect(() => {
@@ -18,10 +18,10 @@ export function AuthRouter(props) {
   return props.children
 }
 
-AuthRouter.propTypes = {
+AppRouter.propTypes = {
   children: PropTypes.shape({}),
 }
 
-AuthRouter.defaultProps = {
+AppRouter.defaultProps = {
   children: null,
 }
