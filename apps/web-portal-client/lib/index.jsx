@@ -6,7 +6,7 @@ import {AppProvider} from './context'
 import store from './store'
 import {AppContainer} from './app/AppContainer'
 import {ErrorBoundary} from './components/ErrorBoundary'
-import {AuthBoundary} from './components/AuthBoundary'
+import {AuthRouter} from './components/AuthRouter'
 import './index.css'
 
 ReactDOM.render(
@@ -14,9 +14,9 @@ ReactDOM.render(
     <Provider store={store}>
       <AppProvider>
         <ErrorBoundary>
-          <AuthBoundary>
+          <AuthRouter>
             <AppContainer />
-          </AuthBoundary>
+          </AuthRouter>
         </ErrorBoundary>
       </AppProvider>
     </Provider>

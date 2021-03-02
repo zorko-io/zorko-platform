@@ -1,8 +1,8 @@
 import {useContext, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
-import {BrowserKeys, BrowserStorage} from '../../../utils'
-import {error, logging, login, logout} from '../slices'
+import {appPersistentStorage} from '../../../utils'
+import * as Auth from '../slices'
 import {AppContext} from '../../../context'
 import {selectAuthError, selectAuthToken, selectLoginState} from '../selectors'
 
@@ -11,38 +11,38 @@ export function useAuth() {
   const {api} = useContext(AppContext)
   const history = useHistory()
 
-  const userLogin = (params) => {
-    dispatch(logging())
+  const login = (params) => {
+    dispatch(Auth.logging())
     return api.auth
       .login(params)
       .then((result) => {
-        BrowserStorage.setLocalStorageValue(BrowserKeys.UserToken, result.token)
-        dispatch(login(result))
+        appPersistentStorage.writeApiToken(result.token)
+        dispatch(Auth.login(result))
       })
       .catch((err) => {
-        BrowserStorage.removeLocalStorageValue(BrowserKeys.UserToken)
-        dispatch(error(err))
+        appPersistentStorage.cleanApiToken()
+        dispatch(Auth.error(err))
       })
   }
-  const userLogout = useCallback(() => {
-    BrowserStorage.removeLocalStorageValue(BrowserKeys.UserToken)
-    dispatch(logout())
+  const logout = useCallback(() => {
+    appPersistentStorage.cleanApiToken()
+    dispatch(Auth.logout())
   }, [dispatch])
 
   const checkSession = () => {
-    const lastPath = BrowserStorage.getLocalStorageValue(BrowserKeys.LastPath)
-    const token = BrowserStorage.getLocalStorageValue(BrowserKeys.UserToken)
+    const lastPath = appPersistentStorage.readLastRoutePath()
+    const token = appPersistentStorage.readApiToken()
 
     if (token) {
-      userLogin({token}).then(() => {
+      login({token}).then(() => {
         history.push(lastPath)
       })
     }
   }
 
   return {
-    userLogin,
-    userLogout,
+    login,
+    logout,
     checkSession,
     isLogginInProgress: useSelector(selectLoginState),
     error: useSelector(selectAuthError),

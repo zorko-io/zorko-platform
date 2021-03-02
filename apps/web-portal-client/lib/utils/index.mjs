@@ -1,3 +1,3 @@
 export * from './childrenPropTypes'
 export * from './MessageQueue'
-export * from './BrowserStorage'
+export * from './AppPersistentStorage'

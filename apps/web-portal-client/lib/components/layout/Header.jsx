@@ -7,7 +7,7 @@ import {Image, ImageShapes} from '../Image'
 
 export function Header() {
   const [shouldShowMobileMenu, toggleMobileMenu] = useState(false)
-  const {userLogout} = useAuth()
+  const {logout} = useAuth()
 
   return (
     <nav className="bg-gray-800">
@@ -22,7 +22,7 @@ export function Header() {
             </DesktopMenu>
           </div>
           <div className="flex items-center space-x-1">
-            <Button label="logout" onClick={userLogout} />
+            <Button label="logout" onClick={logout} />
             <div className="-mr-2 flex md:hidden">
               <Button onClick={() => toggleMobileMenu(!shouldShowMobileMenu)}>
                 <Image shape={shouldShowMobileMenu ? ImageShapes.cross : ImageShapes.sandwich} />
