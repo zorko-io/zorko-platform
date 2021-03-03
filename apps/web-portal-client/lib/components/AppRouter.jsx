@@ -1,14 +1,15 @@
-import {useEffect} from 'react'
+import {useEffect, useContext} from 'react'
 import PropTypes from 'prop-types'
 import {useLocation} from 'react-router-dom'
 import {useAuth} from '../features/auth/hooks'
-import {appPersistentStorage} from '../utils'
+import {AppContext} from '../context'
 
 export function AppRouter(props) {
   const location = useLocation()
+  const {appPersistentStorage} = useContext(AppContext)
   const {checkSession} = useAuth()
   useEffect(() => {
-    appPersistentStorage.writeLastRoutePath(location.pathname)
+    appPersistentStorage.lastRoutePath = location.pathname
   }, [location.pathname])
 
   useEffect(() => {

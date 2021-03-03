@@ -21,45 +21,39 @@ class AppPersistentStorage {
    * @method Write token to a local storage
    * @param {string} token - user JWT
    */
-  writeApiToken(token) {
-    this.#local.setItem(BrowserKeys.UserToken, token)
-  }
-
-  /**
-   * @method Clear token in a local storage
-   */
-  cleanApiToken() {
-    this.#local.removeItem(BrowserKeys.UserToken)
+  set apiToken(token) {
+    if (!token) {
+      this.#local.removeItem(BrowserKeys.UserToken)
+    } else {
+      this.#local.setItem(BrowserKeys.UserToken, token)
+    }
   }
 
   /**
    * @method Read token in a local storage
-   * @return {String}
+   * @return {string|null}
    */
-  readApiToken() {
+  get apiToken() {
     return this.#local.getItem(BrowserKeys.UserToken)
   }
 
   /**
    * @method Write last location path to a local storage
-   * @param {string} lastPath - last path of user location
+   * @param {string|null} lastPath - last path of user location
    */
-  writeLastRoutePath(lastPath) {
-    this.#local.setItem(BrowserKeys.LastPath, lastPath)
-  }
-
-  /**
-   * @method Remove last path from a local storage
-   */
-  cleanLastRoutePath() {
-    this.#local.removeItem(BrowserKeys.LastPath)
+  set lastRoutePath(lastPath) {
+    if (!lastPath) {
+      this.#local.removeItem(BrowserKeys.LastPath)
+    } else {
+      this.#local.setItem(BrowserKeys.LastPath, lastPath)
+    }
   }
 
   /**
    * @method Read a last path from a local storage
-   * @return {String}
+   * @return {string|null}
    */
-  readLastRoutePath() {
+  get lastRoutePath() {
     return this.#local.getItem(BrowserKeys.LastPath)
   }
 }
