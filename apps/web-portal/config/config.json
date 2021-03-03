@@ -4,5 +4,9 @@
   },
   "logger": {
     "isPrettyPrint": "{{ZORKO_LOGGER_PRETTY_PRINT}}"
+  },
+  "auth": {
+    "secret": "{{ZORKO_SECRET}}",
+    "expiresIn": "{{ZORKO_TOKEN_EXPIRES_IN}}"
   }
 }
