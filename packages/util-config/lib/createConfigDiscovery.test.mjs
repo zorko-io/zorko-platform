@@ -2,10 +2,10 @@ import test from '@zorko-io/tool-test-harness'
 import {createConfigDiscovery} from './createConfigDiscovery'
 import structure from '../config.json'
 import validation from '../config-schema.json'
-import path from 'path'
 import someOtherStructure from '../someconfigs/config.json'
 import someOtherValidation from '../someconfigs/config-schema.json'
-import {ConfmeConfigDiscovery} from './confme/index.mjs'
+import {ConfmeConfigDiscovery} from './confme'
+import {fromUrlToDirPath} from './fromUrlToDirPath'
 
 test('async - parses valid value', async (t) => {
   const discovery = createConfigDiscovery()
@@ -17,7 +17,7 @@ test('async - parses valid value', async (t) => {
 
 test('async - parses with specific folder', async (t) => {
   const discovery = createConfigDiscovery({
-    dir: path.resolve() + "/someconfigs"
+    dir: fromUrlToDirPath(import.meta.url, '../someconfigs')
   })
 
   t.true(discovery instanceof ConfmeConfigDiscovery)
