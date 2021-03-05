@@ -1,16 +1,18 @@
-import confme from 'confme'
+import confme_ from 'confme'
 import {ConfigDiscovery} from '../core/index.mjs'
 import {ConfmeConfigSchema} from './ConfmeConfigSchema.mjs'
 
 export class ConfmeConfigDiscovery extends ConfigDiscovery {
   #context = null
+  #confme = null
 
   /**
    * @param {ConfmeContext} context
    */
-  constructor(context = {}) {
+  constructor(context = {}, deps = {confme: confme_}) {
     super()
     this.#context = context
+    this.#confme = deps.confme
   }
 
   get schema() {
@@ -18,7 +20,7 @@ export class ConfmeConfigDiscovery extends ConfigDiscovery {
   }
 
   discover() {
-    return confme(
+    return this.#confme(
       this.#context.definition,
       this.#context.validation
     )
