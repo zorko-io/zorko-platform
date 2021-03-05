@@ -12,15 +12,15 @@ test('async - parses valid value', async (t) => {
 
   t.true(discovery instanceof ConfmeConfigDiscovery)
   t.deepEqual(discovery.schema.structure, structure)
-  t.deepEqual(discovery.schema.validation,validation )
+  t.deepEqual(discovery.schema.validation, validation)
 })
 
 test('async - parses with specific folder', async (t) => {
   const discovery = createConfigDiscovery({
-    dir: fromUrlToDirPath(import.meta.url, '../someconfigs')
+    dir: fromUrlToDirPath(import.meta.url, '../someconfigs'),
   })
 
   t.true(discovery instanceof ConfmeConfigDiscovery)
   t.deepEqual(discovery.schema.structure, someOtherStructure)
-  t.deepEqual(discovery.schema.validation,someOtherValidation )
+  t.deepEqual(discovery.schema.validation, someOtherValidation)
 })
