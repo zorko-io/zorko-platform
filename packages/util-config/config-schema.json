@@ -1,0 +1,9 @@
+{
+  "blobStorage": ["required", {"nested_object": {
+    "endPoint": ["required", "string"],
+    "port": ["required", "positive_integer"],
+    "useSSL": ["boolean"],
+    "accessKey": ["required", "string"],
+    "secretKey": ["required", "string"]
+  }}]
+}
