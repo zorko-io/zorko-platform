@@ -13,5 +13,9 @@
     "lint": "eslint --ext .mjs,.cjs lib",
     "clean": "yarn run clean:node-modules",
     "clean:node-modules": "rimraf node_modules"
+  },
+  "dependencies": {
+    "knex": "^0.95.1",
+    "sqlite3": "^5.0.2"
   }
 }
