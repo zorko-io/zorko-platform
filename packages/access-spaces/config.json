@@ -1,0 +1,6 @@
+{
+  "spaces": {
+    "dbType": "{{ZORKO_SPACES_DB_TYPE}}",
+    "file": "{{ZORKO_SPACES_DB_FILE}}"
+  }
+}

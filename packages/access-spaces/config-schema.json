@@ -1,0 +1,6 @@
+{
+  "spaces": ["required", {"nested_object": {
+    "dbType": ["required", "string"],
+    "file": ["required", "string"]
+  }}]
+}
