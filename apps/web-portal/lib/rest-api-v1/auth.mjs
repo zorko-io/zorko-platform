@@ -6,7 +6,7 @@ export default ({makeRunner}) => {
     login: makeRunner(AuthLogin, {
       toParams: (req) => ({...req.body}),
     }),
-    loginToken: makeRunner(AuthLoginToken, {
+    loginWithToken: makeRunner(AuthLoginToken, {
       toParams: (req) => ({...req.body}),
     }),
   }

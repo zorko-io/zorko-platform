@@ -4,7 +4,7 @@ import {apiToken} from '../utils'
 export class AuthLogin extends UseCase {
   static rules = {
     email: ['required', 'email'],
-    password: ['required', { min_length: 10 }],
+    password: 'required',
   }
 
   async run(params) {
