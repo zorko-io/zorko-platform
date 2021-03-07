@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react'
+import React, {useContext} from 'react'
+import {useFetchData} from '../hook'
 
 import Spinner from './Spinner'
 
@@ -6,12 +7,9 @@ import {UserProfile} from './UserProfile'
 import {PreviewCard} from './PreviewCard'
 import {Content, Sidebar, Layout} from './layout'
 
-import {usePreviews} from '../features/home/hooks'
-
 export function HomePage() {
-  const [{previews}, {isLoading, isError, doFetch}] = usePreviews()
-
-  useEffect(() => doFetch(), [])
+  const {api} = useContext(AppContext)
+  const {data: previews, isLoading, isError} = useFetchData(api.previews.findAll)
 
   return (
     <Layout
