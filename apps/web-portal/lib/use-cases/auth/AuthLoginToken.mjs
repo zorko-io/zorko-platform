@@ -1,13 +1,16 @@
 import {UseCase} from '@zorko-io/util-use-case'
 import {apiToken} from '../utils'
 
-export class AuthLogin extends UseCase {
+export class AuthLoginToken extends UseCase {
   static rules = {
-    email: ['required', 'email'],
-    password: ['required', { min_length: 10 }],
+    token: 'required',
   }
 
   async run(params) {
+    if (params.token) {
+      apiToken.verify(params.token)
+    }
+
     return {
       token: apiToken.sign(params),
       email: 'example@gmail.com',
