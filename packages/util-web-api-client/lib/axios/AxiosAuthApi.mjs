@@ -13,15 +13,11 @@ export class AxiosAuthApi extends AuthApi {
   }
 
   async login(params) {
-    let response;
-    try {
-      if (params.token) {
-        response = await this.#http.post('/api/v1/auth/login/token', params)
-      } else {
-        response = await this.#http.post('/api/v1/auth/login', params)
-      }
-    } catch(err) {
-      response = null;
+    let response
+    if (params.token) {
+      response = await this.#http.post('/api/v1/auth/login/token', params)
+    } else {
+      response = await this.#http.post('/api/v1/auth/login', params)
     }
     return response ? response.data : {status: 1}
   }

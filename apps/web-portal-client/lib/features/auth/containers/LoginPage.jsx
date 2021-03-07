@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Redirect} from 'react-router-dom'
+import className from 'classnames'
 import Spinner from '../../../components/Spinner'
 import {useAuth} from '../hooks'
 
@@ -91,7 +92,11 @@ export function LoginPage() {
               <Spinner show={isLogginInProgress} />
               Sign in
             </button>
-            {error && <div>Invalid password or email</div>}
+            {error && (
+              <div className={className('text-red-600', `${error ? 'visible' : 'invisible'}`)}>
+                Invalid password or email
+              </div>
+            )}
           </div>
         </form>
       </div>
