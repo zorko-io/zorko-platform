@@ -4,6 +4,8 @@ import className from 'classnames'
 import Spinner from '../../../components/Spinner'
 import {useAuth} from '../hooks'
 
+// TODO: implement form validation
+
 export function LoginPage() {
   const {login, isLogginInProgress, error, hasToken} = useAuth()
   const [email, setEmail] = useState(null)
@@ -93,7 +95,10 @@ export function LoginPage() {
               Sign in
             </button>
             {error && (
-              <div className={className('text-red-600', `${error ? 'visible' : 'invisible'}`)}>
+              <div
+                data-test-id="login-error"
+                className={className('text-red-600', `${error ? 'visible' : 'invisible'}`)}
+              >
                 Invalid password or email
               </div>
             )}
