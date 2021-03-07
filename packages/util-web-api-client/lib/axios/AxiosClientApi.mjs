@@ -4,12 +4,15 @@ import {v4 as uuid} from 'uuid'
 import {ClientApi} from '../core'
 import {AxiosAuthApi} from './AxiosAuthApi'
 import {AxiosPreviewApi} from './AxiosPreviewApi'
+import {AxiosSpecApi} from './AxiosSpecApi'
 import {AxiosLogApi} from './AxiosLogApi'
 
 export class AxiosClientApi extends ClientApi {
   #auth = null
 
   #preview = null
+
+  #spec = null
 
   #log = null
 
@@ -26,6 +29,7 @@ export class AxiosClientApi extends ClientApi {
 
     this.#auth = new AxiosAuthApi(instance)
     this.#preview = new AxiosPreviewApi(instance)
+    this.#spec = new AxiosSpecApi(instance)
     this.#log = new AxiosLogApi(instance)
   }
 
@@ -35,6 +39,10 @@ export class AxiosClientApi extends ClientApi {
 
   get preview() {
     return this.#preview
+  }
+
+  get spec() {
+    return this.#spec
   }
 
   get log() {
