@@ -1,5 +1,6 @@
 import {UseCase} from '@zorko-io/util-use-case'
 
+// TODO: integrate with an access layer
 export class SpecList extends UseCase {
   // eslint-disable-next-line no-unused-vars
   async run(params) {
@@ -13,19 +14,30 @@ export class SpecList extends UseCase {
           createdAt: '2021-03-07 21:14:00',
           spec: {
             "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "description": "A simple bar chart with embedded data.",
+            "description": "A simple pie chart with labels.",
             "data": {
               "values": [
-                {"a": "A", "b": 28}, {"a": "B", "b": 55}, {"a": "C", "b": 43},
-                {"a": "D", "b": 91}, {"a": "E", "b": 81}, {"a": "F", "b": 53},
-                {"a": "G", "b": 19}, {"a": "H", "b": 87}, {"a": "I", "b": 52}
+                {"category": "a", "value": 4},
+                {"category": "b", "value": 6},
+                {"category": "c", "value": 10},
+                {"category": "d", "value": 3},
+                {"category": "e", "value": 7},
+                {"category": "f", "value": 8}
               ]
             },
-            "mark": "bar",
             "encoding": {
-              "x": {"field": "a", "type": "nominal", "axis": {"labelAngle": 0}},
-              "y": {"field": "b", "type": "quantitative"}
-            }
+              "theta": {"field": "value", "type": "quantitative", "stack": true},
+              "color": {"field": "category", "type": "nominal", "legend": null}
+            },
+            "layer": [{
+              "mark": {"type": "arc", "outerRadius": 80}
+            }, {
+              "mark": {"type": "text", "radius": 90},
+              "encoding": {
+                "text": {"field": "category", "type": "nominal"}
+              }
+            }],
+            "view": {"stroke": null}
           }
         },
         {
@@ -58,6 +70,32 @@ export class SpecList extends UseCase {
                 "type": "quantitative"
               }
             }
+          }
+        },
+        {
+          id: '8ded2b31-6b57-4056-8c57-acc04366bf0f',
+          format: 'vega-lite',
+          createdAt: '2021-03-07 21:14:00',
+          spec: {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "description": "A simple radial chart with embedded data.",
+            "data": {
+              "values": [12, 23, 47, 6, 52, 19]
+            },
+            "layer": [{
+              "mark": {"type": "arc", "innerRadius": 20, "stroke": "#fff"}
+            },{
+              "mark": {"type": "text", "radiusOffset": 10},
+              "encoding": {
+                "text": {"field": "data", "type": "quantitative"}
+              }
+            }],
+            "encoding": {
+              "theta": {"field": "data", "type": "quantitative", "stack": true},
+              "radius": {"field": "data", "scale": {"type": "sqrt", "zero": true, "rangeMin": 20}},
+              "color": {"field": "data", "type": "nominal", "legend": null}
+            },
+            "view": {"stroke": null}
           }
         }
       ],

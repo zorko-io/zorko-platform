@@ -17,6 +17,7 @@ export function route(deps) {
 
   router.get('/', (req, res) => { res.status(200).send({}) })
   router.get('/previews', previewController.list)
+  router.get('/previews/:id', previewController.findById)
   router.get('/specs', specController.list)
   router.get('/specs/:id', specController.findById)
   router.post('/auth/login', authController.login)
