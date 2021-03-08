@@ -2,9 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
 
-export function SidebarItem({name, link}) {
+export function SidebarItem({name, link, dataTestId}) {
   return (
     <NavLink
+      data-test-id={dataTestId}
       className="px-3 py-2 transition-colors duration-200 relative block hover:text-gray-900 text-gray-400"
       activeClassName="underline text-gray-900"
       to={link}
@@ -18,9 +19,11 @@ export function SidebarItem({name, link}) {
 SidebarItem.propTypes = {
   name: PropTypes.string,
   link: PropTypes.string,
+  dataTestId: PropTypes.string,
 }
 
 SidebarItem.defaultProps = {
   name: '',
   link: '',
+  dataTestId: '',
 }

@@ -12,6 +12,8 @@ export function VegaLiteExample() {
   if (isLoading) return <>Data fetching...</>
 
   return specs.map((item) => (
-    <VegaLite key={item.id} spec={JSON.parse(JSON.stringify(item.spec))} />
+    <span key={item.id} data-test-id="vegaLiteItem">
+      <VegaLite spec={JSON.parse(JSON.stringify(item.spec))} />
+    </span>
   ))
 }
