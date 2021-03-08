@@ -7,10 +7,10 @@ export function useFetchData(callback) {
         return {...state, isLoading: true, isError: false}
       }
       case 'FETCH_SUCCESS': {
-        return {...state, isLoading: false, data: action.payload}
+        return {...state, isLoading: false, isError: false, data: action.payload}
       }
       case 'FETCH_FAILURE': {
-        return {...state, isLoading: false, isError: true}
+        return {...state, isLoading: false, isError: action.payload}
       }
       default:
         return state
@@ -31,15 +31,16 @@ export function useFetchData(callback) {
     if (!didCancel) {
       callback()
         .then((result) => {
+          console.log(result)
           if (!didCancel) dispatch({type: 'FETCH_SUCCESS', payload: result})
         })
-        .catch(() => {
-          if (!didCancel) dispatch({type: 'FETCH_FAILURE'})
+        .catch((error) => {
+          if (!didCancel) dispatch({type: 'FETCH_FAILURE', payload: error})
         })
     }
 
     return () => (didCancel = true)
   }, [])
 
-  return {data: state.data, isLoading, isError}
+  return state
 }

@@ -1,5 +1,6 @@
 import React, {useContext} from 'react'
 import {useFetchData} from '../hook'
+import {AppContext} from '../context'
 
 import Spinner from './Spinner'
 
@@ -9,7 +10,9 @@ import {Content, Sidebar, Layout} from './layout'
 
 export function HomePage() {
   const {api} = useContext(AppContext)
-  const {data: previews, isLoading, isError} = useFetchData(api.previews.findAll)
+
+  const {data: previews, isLoading, isError} = useFetchData(api.preview.findAll)
+  //console.log('previews: ' + previews, 'error: ' + isError, 'loading: ' + isLoading)
 
   return (
     <Layout
@@ -24,7 +27,7 @@ export function HomePage() {
           innerContentRender={() => (
             <>
               <Spinner show={isLoading} />
-              {isError && <div>Something went wrong...</div>}
+              {isError && <div>ERROR: {isError.message}</div>}
               {previews &&
                 previews.items.map((item) => (
                   <PreviewCard

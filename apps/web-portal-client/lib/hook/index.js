@@ -1,1 +1,1 @@
-export * from './createApiFetchHook'
+export * from './useFetchData'
