@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {useFetchData} from '../hook'
+import {useFetchData} from '../hooks'
 import {AppContext} from '../context'
 
 import Spinner from './Spinner'
