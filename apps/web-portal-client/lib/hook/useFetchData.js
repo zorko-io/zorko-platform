@@ -1,7 +1,7 @@
 import {useEffect, useReducer} from 'react'
 
 export function useFetchData(request) {
-  const fetchPreviewsReducer = (state, action) => {
+  const fetchDataReducer = (state, action) => {
     switch (action.type) {
       case 'FETCH_INIT': {
         return {...state, isLoading: true, isError: false}
@@ -17,8 +17,8 @@ export function useFetchData(request) {
     }
   }
 
-  const [state, dispatch] = useReducer(fetchPreviewsReducer, {
-    previews: undefined,
+  const [state, dispatch] = useReducer(fetchDataReducer, {
+    data: undefined,
     isLoading: false,
     isError: false,
   })
