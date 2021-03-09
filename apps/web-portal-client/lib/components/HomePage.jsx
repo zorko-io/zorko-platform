@@ -10,9 +10,7 @@ import {Content, Sidebar, Layout} from './layout'
 
 export function HomePage() {
   const {api} = useContext(AppContext)
-
-  const {data: previews, isLoading, isError} = useFetchData(api.preview.findAll)
-  //console.log('previews: ' + previews, 'error: ' + isError, 'loading: ' + isLoading)
+  const {data: previews, isLoading, isError} = useFetchData(api.preview.findAll())
 
   return (
     <Layout
@@ -23,11 +21,11 @@ export function HomePage() {
       )}
       contentRender={() => (
         <Content
-          title="Visualization"
+          title="Previews"
           innerContentRender={() => (
             <>
               <Spinner show={isLoading} />
-              {isError && <div>ERROR: {isError.message}</div>}
+              {isError && isError.message}
               {previews &&
                 previews.items.map((item) => (
                   <PreviewCard

@@ -1,6 +1,6 @@
 import {useEffect, useReducer} from 'react'
 
-export function useFetchData(callback) {
+export function useFetchData(request) {
   const fetchPreviewsReducer = (state, action) => {
     switch (action.type) {
       case 'FETCH_INIT': {
@@ -29,9 +29,8 @@ export function useFetchData(callback) {
     dispatch({type: 'FETCH_INIT'})
 
     if (!didCancel) {
-      callback()
+      request
         .then((result) => {
-          console.log(result)
           if (!didCancel) dispatch({type: 'FETCH_SUCCESS', payload: result})
         })
         .catch((error) => {
@@ -39,7 +38,9 @@ export function useFetchData(callback) {
         })
     }
 
-    return () => (didCancel = true)
+    return () => {
+      didCancel = true
+    }
   }, [])
 
   return state
