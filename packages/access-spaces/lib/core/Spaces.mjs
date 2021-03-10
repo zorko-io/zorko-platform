@@ -17,7 +17,7 @@ export class Spaces {
    * @param {Object} query
    * @param {String} query.owner
    * @throws {NotFoundError}
-   * @return {Promise<Space>}
+   * @return {Promise<Space[]>}
    */
 
   async findBy(query) {
