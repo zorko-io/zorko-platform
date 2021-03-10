@@ -1,6 +1,6 @@
 import {useEffect, useReducer} from 'react'
 
-export function useFetchData(request) {
+export function useFetchData(callback) {
   const fetchDataReducer = (state, action) => {
     switch (action.type) {
       case 'FETCH_INIT': {
@@ -29,7 +29,7 @@ export function useFetchData(request) {
     dispatch({type: 'FETCH_INIT'})
 
     if (!didCancel) {
-      request
+      callback()
         .then((result) => {
           if (!didCancel) dispatch({type: 'FETCH_SUCCESS', payload: result})
         })

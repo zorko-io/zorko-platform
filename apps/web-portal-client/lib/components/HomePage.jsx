@@ -10,7 +10,7 @@ import {Content, Sidebar, Layout} from './layout'
 
 export function HomePage() {
   const {api} = useContext(AppContext)
-  const {data: previews, isLoading, isError} = useFetchData(api.preview.findAll())
+  const {data: previews, isLoading, isError} = useFetchData(() => api.preview.findAll())
 
   return (
     <Layout
