@@ -5,7 +5,7 @@ export default ({makeRunner}) => {
     list: makeRunner(SpecList, {
       toParams: (req) => ({...req.query}),
     }),
-    findById: makeRunner(SpecById, {
+    read: makeRunner(SpecById, {
       toParams: (req) => ({...req.params}),
     }),
   }

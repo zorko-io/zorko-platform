@@ -5,7 +5,7 @@ export default ({makeRunner}) => {
     list: makeRunner(PreviewList, {
       toParams: (req) => ({...req.query}),
     }),
-    findById: makeRunner(PreviewById, {
+    read: makeRunner(PreviewById, {
       toParams: (req) => ({...req.params}),
     }),
   }
