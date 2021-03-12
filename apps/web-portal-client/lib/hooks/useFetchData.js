@@ -1,4 +1,4 @@
-import {useEffect, useReducer} from 'react'
+import {useEffect, useReducer, useRef} from 'react'
 
 export function useFetchData(callback) {
   const fetchDataReducer = (state, action) => {
@@ -23,25 +23,24 @@ export function useFetchData(callback) {
     isError: false,
   })
 
+  const isMounted = useRef(false)
+
   useEffect(() => {
-    let didCancel = false
-
-    dispatch({type: 'FETCH_INIT'})
-
-    if (!didCancel) {
-      callback()
-        .then((result) => {
-          if (!didCancel) dispatch({type: 'FETCH_SUCCESS', payload: result})
-        })
-        .catch((error) => {
-          if (!didCancel) dispatch({type: 'FETCH_FAILURE', payload: error})
-        })
-    }
-
-    return () => {
-      didCancel = true
-    }
+    isMounted.current = true
+    return () => (isMounted.current = false)
   }, [])
 
-  return state
+  function doFetch() {
+    dispatch({type: 'FETCH_INIT'})
+
+    callback()
+      .then((result) => {
+        if (isMounted.current) dispatch({type: 'FETCH_SUCCESS', payload: result})
+      })
+      .catch((error) => {
+        if (isMounted.current) dispatch({type: 'FETCH_FAILURE', payload: error})
+      })
+  }
+
+  return [state, doFetch]
 }

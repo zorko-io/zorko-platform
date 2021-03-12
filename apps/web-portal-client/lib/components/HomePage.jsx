@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {useFetchData} from '../hooks'
 import {AppContext} from '../context'
 
@@ -10,7 +10,11 @@ import {Content, Sidebar, Layout} from './layout'
 
 export function HomePage() {
   const {api} = useContext(AppContext)
-  const {data: previews, isLoading, isError} = useFetchData(() => api.preview.findAll())
+  const [{data: previews, isLoading, isError}, doFetch] = useFetchData(() => api.preview.findAll())
+
+  useEffect(() => {
+    doFetch()
+  }, [])
 
   return (
     <Layout
