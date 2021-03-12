@@ -25,7 +25,7 @@ export class MongoSpace extends Space {
 
   async describe() {
     return {
-      id: this.#context,
+      id: this.#context.id,
       owner: this.#context.owner,
       name: this.#context.name
     }

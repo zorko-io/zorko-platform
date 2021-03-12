@@ -24,6 +24,25 @@ export class Spaces {
       throw new NotYetImplementedError()
   }
 
+  /**
+   *
+   * @param {String} id - unique space ID
+   * @throws {NotFoundError}
+   * @return {Promise<Space>}
+   */
 
+  async get(id) {
+    throw new NotYetImplementedError()
+  }
+
+  /**
+   *
+   * @param {String} id - unique space ID
+   * @return {Promise<void>}
+   */
+
+  async remove(id) {
+    throw new NotYetImplementedError()
+  }
 
 }

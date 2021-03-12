@@ -2,6 +2,7 @@ import assert from 'assert'
 import {Spaces} from '../core'
 import {MongoSpacesPromisifyIterator} from './MongoSpacesPromisifyIterator'
 import {MongoSpace} from './MongoSpace'
+import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
 
 export class MongoSpaces extends Spaces {
 
@@ -36,6 +37,8 @@ export class MongoSpaces extends Spaces {
 
   // TODO: probably return new space...
   async allocateSpaceIfNotExists(owner) {
+    assert(owner)
+
     // TODO: check for if not exists, and other error handling
     let name = `${MongoSpaces.COLLECTION_NAME}.${owner}.default`
     const result = await this.#collection.insertOne({owner, name })
@@ -61,6 +64,34 @@ export class MongoSpaces extends Spaces {
       log: this.#log,
       createSpace: this.#createMongoSpace
     })
+  }
+
+  async get(id) {
+    assert(id)
+
+    // TODO: handle errors
+    const doc = await this.#collection.findOne({ _id: id})
+
+    if(!doc) {
+      throw new NotFoundError(`Can't find space by #id=${id}`)
+    }
+
+    console.log({DOC: doc, id})
+
+    return this.#createMongoSpace(doc)
+  }
+
+  async remove(id) {
+    assert(id)
+
+    // TODO: handle errors
+    const {value} =  await this.#collection.findOneAndDelete({ _id: id})
+
+    // TODO: handle corner cases
+
+    // console.log({DOOOOOOCCCC: doc})
+
+    await this.#db.collection(value.name).drop()
   }
 
 
