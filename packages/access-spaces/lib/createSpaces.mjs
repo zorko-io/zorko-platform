@@ -28,9 +28,17 @@ export async function createSpaces (config, deps = {log : new MockLogger()}) {
 
       let db = client.db()
 
+      // TODO: what if it's already exists ??
+      let collection = await db.createCollection(MongoSpaces.name, {
+        validator: {
+          $jsonSchema: MongoSpaces.schema
+        }
+      })
+
       spaces = new MongoSpaces({}, {
         db,
-        log
+        log,
+        collection
       })
 
       return spaces
