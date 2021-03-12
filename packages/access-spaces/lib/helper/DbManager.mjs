@@ -24,6 +24,7 @@ export class DbManager {
       this.#log.debug('Connection established')
 
       return {
+        dbType: 'mongodb',
         uri
       }
 

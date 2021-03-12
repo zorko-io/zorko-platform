@@ -2,23 +2,60 @@ import {configDiscovery} from './configDiscovery'
 import createKnex from 'knex'
 import {MockLogger} from '@zorko-io/util-logger'
 import {KnexLogger} from './knex'
+import mongo from 'mongodb'
+import {MongoSpaces} from './mongo/MongoSpaces'
 
-export function createSpaces (config, deps = {log : new MockLogger()}) {
+export async function createSpaces (config, deps = {log : new MockLogger()}) {
   if (!config) {
     config = configDiscovery.discover()
   }
 
   const {log} = deps
+  const {dbType, uri} = config
+  let spaces = null
 
-  const knex = createKnex({
-    client: config.spaces.dbType,
-    connection: {
-      filename: config.spaces.file
-    },
-    log: new KnexLogger(log)
-  });
+  if (dbType === 'mongodb') {
 
-  console.log({knex})
+    let client
 
-  return {}
+    try{
+      client = new  mongo.MongoClient(uri, {
+        useUnifiedTopology:true,
+        useNewUrlParser: true
+      })
+
+      await client.connect()
+
+      let db = client.db()
+
+      spaces = new MongoSpaces({}, {
+        db,
+        log
+      })
+
+      return spaces
+
+    } catch (error) {
+      // TODO: throw ResourceAccess error
+      if (client) {
+        await client.close()
+      }
+    }
+  } else {
+    // just experimentation
+    const knex = createKnex({
+      client: config.dbType,
+      connection: {
+        filename: config.file
+      },
+      log: new KnexLogger(log)
+    });
+
+    log.info({knex})
+  }
+
+
+
+
+  return spaces
 }

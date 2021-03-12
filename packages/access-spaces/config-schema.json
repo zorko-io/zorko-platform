@@ -1,6 +1,14 @@
 {
-  "spaces": ["required", {"nested_object": {
-    "dbType": ["required", "string"],
-    "file": ["required", "string"]
-  }}]
+  "dbType": [
+    "required",
+    {
+      "one_of": [
+        "mongodb"
+      ]
+    }
+  ],
+  "uri": [
+    "required",
+    "string"
+  ]
 }

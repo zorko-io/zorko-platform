@@ -1,17 +1,45 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper'
-// import {createSpaces} from './createSpaces.mjs'
+import {createSpaces} from './createSpaces.mjs'
+import {Space} from './core'
 
 setupDb(test)
 
 test('async - parses valid value', async (t) => {
-  // const spaces = createSpaces()
-  // const spaces = {}
+  const {db} = t.context
+  const spaces = await createSpaces(db, {log : console})
 
-  const {uri} = t.context.db
+  t.truthy(spaces)
 
-  console.log({uri})
+  const owner = 'joe'
 
-  t.truthy(uri)
+  let cursor = spaces.iterate({owner})
 
+  let hasNext = await cursor.hasNext()
+
+  t.false(hasNext)
+
+  await spaces.allocateSpaceIfNotExists('joe')
+
+  cursor = spaces.iterate({owner})
+
+  hasNext = await cursor.hasNext()
+
+  t.true(hasNext)
+
+  let space = await cursor.next()
+
+  t.true(space instanceof Space)
+
+
+  let description = await space.describe()
+
+  t.is(description.name, 'spaces.joe.default')
+  t.is(description.owner, 'joe')
+  t.truthy(description.id)
+
+
+  hasNext = await cursor.hasNext()
+
+  t.false(hasNext)
 })

@@ -8,7 +8,7 @@ export class Spaces {
    * @return {Promise<Space>}
    */
 
-  async allocateNewSpace(owner) {
+  async allocateSpaceIfNotExists(owner) {
     throw new NotYetImplementedError()
   }
 
@@ -17,11 +17,11 @@ export class Spaces {
    * @param {Object} query
    * @param {String} query.owner
    * @throws {NotFoundError}
-   * @return {Promise<Space[]>}
+   * @return {PromisifyIterator<Space>}
    */
 
-  async findBy(query) {
-    throw new NotYetImplementedError()
+   iterate(query) {
+      throw new NotYetImplementedError()
   }
 
 
