@@ -1,9 +1,9 @@
 import assert from 'assert'
 import {Spaces} from '../core'
-import {MongoCursorIterator} from './MongoCursorIterator.mjs'
+import {MongoCursorIterator} from './MongoCursorIterator'
 import {MongoSpace} from './MongoSpace'
 import {NotFoundError} from '@zorko-io/util-error'
-import {AsyncIterable} from '../util'
+import {toIterable} from '@zorko-io/util-lang'
 
 export class MongoSpaces extends Spaces {
 
@@ -74,7 +74,7 @@ export class MongoSpaces extends Spaces {
       owner: query.owner
     })
 
-    return new AsyncIterable(
+    return toIterable(
       new MongoCursorIterator({
         cursor
       },{

@@ -19,7 +19,6 @@ test.serial('allocate, get and remove - with happy path', async (t) => {
   const space = await spaces.get(allocatedSpaceProps.id)
   const spaceProps = space.properties
 
-
   t.deepEqual(spaceProps, allocatedSpaceProps)
 
   await spaces.remove(allocatedSpaceProps.id)
@@ -54,9 +53,7 @@ test.serial('allocate new and iterate with happy path', async (t) => {
   t.truthy(spaces)
 
   const owner = 'joe'
-
   const justCreated = await spaces.allocateSpaceIfNotExists(owner)
-
   const iterable = spaces.iterate({owner})
 
   let results = []
