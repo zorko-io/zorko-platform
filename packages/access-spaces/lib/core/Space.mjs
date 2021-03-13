@@ -4,14 +4,15 @@ import {NotYetImplementedError} from '@zorko-io/util-error'
 export class Space {
 
   /**
-   * @typedef SpaceDescription
+   * Returns spaces details, doesn't changes once created
+   * @typedef SpaceProperties
    * @property {String} id
    * @property {String} owner
    * @property {String} name
    *
-   * @return {Promise<SpaceDescription>}
+   * @returns {SpaceProperties}
    */
-  async describe() {
+  get properties () {
     throw new NotYetImplementedError()
   }
 

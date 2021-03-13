@@ -23,7 +23,7 @@ export class MongoSpace extends Space {
     this.#log= deps.log
   }
 
-  async describe() {
+  get properties() {
     return {
       id: this.#context.id,
       owner: this.#context.owner,
