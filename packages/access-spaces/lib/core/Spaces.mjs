@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {NotYetImplementedError} from '@zorko-io/util-error/lib/index.mjs'
+import {NotYetImplementedError} from '@zorko-io/util-error'
 
 export class Spaces {
 
@@ -17,7 +17,7 @@ export class Spaces {
    * @param {Object} query
    * @param {String} query.owner
    * @throws {NotFoundError}
-   * @return {PromisifyIterator<Space>}
+   * @return {AsyncIterable<Space>}
    */
 
    iterate(query) {

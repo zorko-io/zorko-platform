@@ -1,8 +1,9 @@
 import assert from 'assert'
 import {Spaces} from '../core'
-import {MongoSpacesPromisifyIterator} from './MongoSpacesPromisifyIterator'
+import {MongoCursorIterator} from './MongoCursorIterator.mjs'
 import {MongoSpace} from './MongoSpace'
 import {NotFoundError} from '@zorko-io/util-error'
+import {AsyncIterable} from '../util'
 
 export class MongoSpaces extends Spaces {
 
@@ -61,7 +62,8 @@ export class MongoSpaces extends Spaces {
 
 
     // TODO: handle errors, find better way to find insert results
-    // TODO: make a distinguish between name and location of target collection
+    // - make a distinguish between name and location of target collection
+    // - add validation schema
     await this.#db.createCollection(doc.name)
 
     return this.#createMongoSpace(doc)
@@ -72,12 +74,12 @@ export class MongoSpaces extends Spaces {
       owner: query.owner
     })
 
-    return new MongoSpacesPromisifyIterator({
-      cursor
-    }, {
-      log: this.#log,
-      createSpace: this.#createMongoSpace
-    })
+    return new AsyncIterable(
+      new MongoCursorIterator({
+        cursor
+      },{
+      wrapValue: this.#createMongoSpace
+    }))
   }
 
   async get(id) {
