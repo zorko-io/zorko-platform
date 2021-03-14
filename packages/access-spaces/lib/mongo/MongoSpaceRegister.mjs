@@ -1,13 +1,13 @@
 import assert from 'assert'
-import {Spaces} from '../core'
+import {SpaceRegister} from '../core'
 import {MongoCursorIterator} from './MongoCursorIterator'
 import {MongoSpace} from './MongoSpace'
 import {NotFoundError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
 
-export class MongoSpaces extends Spaces {
+export class MongoSpaceRegister extends SpaceRegister {
 
-  static name = 'spaces'
+  static name = 'spaces.register'
 
   static schema = {
     bsonType: "object",
@@ -55,7 +55,7 @@ export class MongoSpaces extends Spaces {
     assert(owner)
 
     // TODO: check for if not exists, and other error handling
-    let name = `${MongoSpaces.name}.${owner}.default`
+    let name = `${MongoSpaceRegister.name}.${owner}.default`
     const result = await this.#collection.insertOne({owner, name })
 
     const doc = result.ops.pop()

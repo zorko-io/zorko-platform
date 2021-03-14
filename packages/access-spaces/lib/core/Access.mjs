@@ -1,32 +1,30 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
-export class Spaces {
+/**
+ * @interface
+ */
 
-  /**
-   * @param {String} owner
-   * @return {Promise<Space>}
-   */
+export class Access {
 
-  async allocateSpaceIfNotExists(owner) {
+  get properties () {
     throw new NotYetImplementedError()
   }
 
   /**
    *
-   * @param {Object} query
-   * @param {String} query.owner
+   * @param {Q} query
    * @throws {NotFoundError}
-   * @return {AsyncIterable<Space>}
+   * @return {AsyncIterable<T>}
    */
 
-   iterate(query) {
-      throw new NotYetImplementedError()
+  iterate(query) {
+    throw new NotYetImplementedError()
   }
 
   /**
    *
-   * @param {String} id - unique space ID
+   * @param {String} id - unique  ID
    * @throws {NotFoundError}
    * @return {Promise<Space>}
    */
@@ -37,7 +35,7 @@ export class Spaces {
 
   /**
    *
-   * @param {String} id - unique space ID
+   * @param {String} id - unique  ID
    * @return {Promise<void>}
    */
 

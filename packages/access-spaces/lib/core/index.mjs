@@ -1,3 +1,2 @@
-export * from './Spaces'
+export * from './SpaceRegister'
 export * from './Space'
-export * from './PromisifyIterator.mjs'

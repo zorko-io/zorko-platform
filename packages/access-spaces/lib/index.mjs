@@ -1,1 +1,1 @@
-export * from './createSpaces'
+export * from './createSpaceRegister'

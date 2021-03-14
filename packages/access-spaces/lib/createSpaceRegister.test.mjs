@@ -1,11 +1,11 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper'
-import {createSpaces} from './createSpaces.mjs'
+import {createSpaceRegister} from './createSpaceRegister.mjs'
 import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
 
 setupDb(test, async (t) => {
   const {db} = t.context
-  t.context.spaces = await createSpaces(db, {log: console})
+  t.context.spaces = await createSpaceRegister(db, {log: console})
 })
 
 test.serial('allocate, get and remove - with happy path', async (t) => {
