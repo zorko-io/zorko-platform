@@ -21,7 +21,6 @@ export function route(deps) {
   router.get('/specs', specController.list)
   router.get('/specs/:id', specController.read)
   router.post('/auth/login', authController.login)
-  router.post('/auth/login/token', authController.loginWithToken)
   router.post('/log', logController.save)
 
   return router

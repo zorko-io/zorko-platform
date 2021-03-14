@@ -3,11 +3,29 @@ import {apiToken} from '../utils'
 
 export class AuthLogin extends UseCase {
   static rules = {
-    email: ['required', 'email'],
-    password: 'required',
+    credentials: [{
+      or: [{
+        nested_object: {
+          password: ['required'],
+          email: ['required', 'email']
+        }
+      }, {
+        nested_object: {
+          token: ['required']
+        }
+      }]
+    }, 'required']
   }
 
+
   async run(params) {
+    // eslint-disable-next-line no-unused-vars
+    const {credentials: { token, password, email }} = params
+
+    if (token) {
+      apiToken.verify(token)
+    }
+
     return {
       token: apiToken.sign(params),
       email: 'example@gmail.com',
