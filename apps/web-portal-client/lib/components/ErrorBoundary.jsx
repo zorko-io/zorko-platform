@@ -32,9 +32,9 @@ export class ErrorBoundary extends Component {
 ErrorBoundary.contextType = AppContext
 
 ErrorBoundary.defaultProps = {
-  children: childrenPropTypes,
+  children: null,
 }
 
 ErrorBoundary.propTypes = {
-  children: null,
+  children: childrenPropTypes,
 }
