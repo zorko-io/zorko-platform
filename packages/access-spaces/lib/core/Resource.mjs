@@ -1,18 +1,14 @@
-import {Access} from './Access'
+/* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
-export class Resource extends Access {
+/**
+ * @implements ResourceProperties
+ */
+
+export class Resource {
 
   /**
    * Returns spaces details, doesn't changes once created
-   * @typedef ResourceProperties
-   * @property {String} id
-   * @property {String} permission
-   * @property {String} name
-   * @property {String} [preview]
-   * @property {Object} content
-   *
-   *
    * @returns {ResourceProperties}
    */
 
@@ -20,5 +16,23 @@ export class Resource extends Access {
     throw new NotYetImplementedError()
   }
 
+  /**
+   * Iterate over folder content, if not a folder then throws an exception
+   * @param {Object} query
+   * @throws {NotFoundError}
+   * @return {AsyncIterable<Resource>}
+   */
+
+  iterate(query) {
+    throw new NotYetImplementedError()
+  }
+
+  /**
+   * @returns {Content}
+   */
+
+  open () {
+    throw new NotYetImplementedError()
+  }
 
 }

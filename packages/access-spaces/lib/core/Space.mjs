@@ -6,11 +6,6 @@ export class Space extends Access {
 
   /**
    * Returns spaces details, doesn't changes once created
-   * @typedef SpaceProperties
-   * @property {String} id
-   * @property {String} owner
-   * @property {String} name
-   *
    * @returns {SpaceProperties}
    */
   get properties () {
@@ -24,7 +19,7 @@ export class Space extends Access {
    * @param {Object} content
    *
    */
-  add(path,name, content) {
+  async add(path,name, content) {
     throw new NotYetImplementedError()
   }
 
