@@ -2,10 +2,28 @@ import {UseCase} from '@zorko-io/util-use-case'
 import {apiToken} from '../utils'
 
 export class AuthLogin extends UseCase {
-  // eslint-disable-next-line no-unused-vars
+  static rules = {
+    credentials: [{
+      or: [{
+        nested_object: {
+          password: ['required'],
+          email: ['required', 'email']
+        }
+      }, {
+        nested_object: {
+          token: ['required']
+        }
+      }]
+    }, 'required']
+  }
+
+
   async run(params) {
-    if (params.token) {
-      apiToken.verify(params.token)
+    // eslint-disable-next-line no-unused-vars
+    const {credentials: { token, password, email }} = params
+
+    if (token) {
+      apiToken.verify(token)
     }
 
     return {
