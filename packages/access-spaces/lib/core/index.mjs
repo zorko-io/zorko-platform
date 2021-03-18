@@ -1,2 +1,6 @@
 export * from './SpaceRegister'
 export * from './Space'
+export * from './Resource'
+export * from './Content'
+export * from './Vizualization'
+export * from './DataReference'

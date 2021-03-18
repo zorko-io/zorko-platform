@@ -4,10 +4,11 @@ import {MongoCursorIterator} from './MongoCursorIterator'
 import {MongoSpace} from './MongoSpace'
 import {NotFoundError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
+import {MongoContent} from './MongoContent.mjs'
 
 export class MongoSpaceRegister extends SpaceRegister {
 
-  static name = 'spaces.register'
+  static name = 'register'
 
   static schema = {
     bsonType: "object",
@@ -55,16 +56,23 @@ export class MongoSpaceRegister extends SpaceRegister {
     assert(owner)
 
     // TODO: check for if not exists, and other error handling
-    let name = `${MongoSpaceRegister.name}.${owner}.default`
-    const result = await this.#collection.insertOne({owner, name })
+    let resourceCollectionName = `${MongoSpace.name}.${owner}.default`
+    let contentCollectionName = `${MongoContent.name}.${owner}.default`
+
+    const result = await this.#collection.insertOne({
+      owner,
+      name: resourceCollectionName
+    })
 
     const doc = result.ops.pop()
+
+
 
 
     // TODO: handle errors, find better way to find insert results
     // - make a distinguish between name and location of target collection
     // - add validation schema
-    await this.#db.createCollection(doc.name)
+    await this.#db.createCollection(resourceCollectionName)
 
     return this.#createMongoSpace(doc)
   }

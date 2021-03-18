@@ -70,3 +70,21 @@ test.serial('allocate new and iterate with happy path', async (t) => {
   t.deepEqual(joeSpaceProperties, justCreated.properties)
 })
 
+test.serial('add new resource with happy path', async (t) => {
+  const {spaces} = t.context
+  const space = await spaces.allocateSpaceIfNotExists('joe')
+
+  const resource = await space.add({
+    path: '/',
+    name: 'Bar Char',
+    preview: 'url/to/preview/here',
+    mime: 'application/json+vega-lite',
+    content: {
+       spec : {},
+    }
+  })
+
+  t.truthy(resource)
+
+})
+

@@ -24,7 +24,7 @@ export class SpaceRegister {
    * @return {AsyncIterable<Space>}
    */
 
-   iterate(query) {
+  iterate(query) {
       throw new NotYetImplementedError()
   }
 

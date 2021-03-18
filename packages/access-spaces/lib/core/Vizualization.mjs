@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
-import {Content} from './Content'
+import {ContentItem} from './ContentItem'
 
-export class Visualization extends Content {
+export class Visualization extends ContentItem {
 
   /**
    * @return {VisualizationProperties}
