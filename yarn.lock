@@ -8310,9 +8310,9 @@ livr-extra-rules@^1.2.1:
   integrity sha512-F2y79mEzvqQ/ypP/LI1K+XaKMvHvMWlEDQ5+fh/F/w907sZOn6s2D6AMagU0ulAAY0P/PTefd05/P+xBOdvZdw==
 
 livr@^2.3.1:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/livr/-/livr-2.3.2.tgz#55a452f5ced4b660c9736d2e8b0ffe8332fdeecc"
-  integrity sha512-yraN+wRkyITHCtSsckIg5r7NxbYRqx1P8tvwo9N+Apeju/kSiWizINnigQIgmEMeBH4JNtbiUXwBCfWDUKM9Rg==
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/livr/-/livr-2.3.3.tgz#db9fdf2486ac7d0aec618cc32b052e046896e3c1"
+  integrity sha512-I39Zwf2c9XH3rOGRlIMIq04K0bQltYss3U+SUAP1T6zbZvPdDQVgRU2Cpw4P3CaPYJdqPdC20vnbK8N8yWcrHQ==
 
 load-json-file@^1.0.0:
   version "1.1.0"
