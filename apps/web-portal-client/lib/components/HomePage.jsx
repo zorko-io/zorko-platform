@@ -1,11 +1,8 @@
 import React, {useEffect} from 'react'
-
 import Spinner from './Spinner'
-
 import {UserProfile} from './UserProfile'
 import {PreviewCard} from './PreviewCard'
 import {Content, Sidebar, Layout} from './layout'
-
 import {usePreviews} from '../features/home/hooks'
 
 export function HomePage() {

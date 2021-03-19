@@ -21,7 +21,7 @@ export function toError(error, args, deps = {log: new MockLogger()}) {
       error
     })
 
-    res.send({
+    res.status(400).send({
       status: 0,
       error
     })

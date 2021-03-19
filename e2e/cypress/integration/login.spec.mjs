@@ -1,9 +1,26 @@
 describe('Logging In', function () {
   const email = 'email@example.com'
+  const invalidEmail = 'invalid email string'
   const password = 'password123'
 
   beforeEach(function () {
     cy.visit('/login')
+  })
+
+  it('fail login on invalid email', function () {
+    cy.get('[data-test-id="login-error"]').should('not.exist')
+    cy.get('[data-test-id="email"]').type(invalidEmail)
+    cy.get('[data-test-id="password"]').type(password)
+    cy.get('[data-test-id="submit"]').click()
+    cy.get('[data-test-id="login-error"]').should('be.visible')
+  })
+
+  it('fail login with empty password', function () {
+    cy.reload()
+    cy.get('[data-test-id="login-error"]').should('not.exist')
+    cy.get('[data-test-id="email"]').type(email)
+    cy.get('[data-test-id="submit"]').click()
+    cy.get('[data-test-id="login-error"]').should('be.visible')
   })
 
   it('redirects to /home on success', function () {

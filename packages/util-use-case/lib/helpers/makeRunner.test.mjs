@@ -40,7 +40,8 @@ test.beforeEach((t) => {
     }
   }
   const res = {
-    send: sinon.stub()
+    status: sinon.stub().returns({send: sinon.stub()}),
+    send: sinon.stub(),
   }
 
   let run = sinon.stub()
@@ -134,8 +135,9 @@ test.serial('integration - with custom use case and throwing validation error',
 
     await runner(req, res)
 
-    t.assert(res.send.calledOnce, 'should call once')
-    t.deepEqual(res.send.firstCall.args[0], {
+    t.assert(res.status.calledOnce, 'should call once')
+    t.assert(res.status().send, 'should call once')
+    t.deepEqual(res.status().send.firstCall.args[0], {
       status: 0,
       error: {
         name: err.name,

@@ -14,13 +14,13 @@ export function ExamplesPage() {
     <Layout
       sidebarRender={() => (
         <Sidebar title="Get started">
-          <SidebarItem name="API" link="/example/api" />
-          <SidebarItem name="Validator" link="/example/validator" />
-          <SidebarItem name="Buttons" link="/example/buttons" />
-          <SidebarItem name="Dialog" link="/example/dialog" />
-          <SidebarItem name="Popover" link="/example/popover" />
-          <SidebarItem name="VegaLite" link="/example/vega-lite" />
-          <SidebarItem name="Vega" link="/example/vega" />
+          <SidebarItem dataTestId="apiExampleBtn" name="API" link="/example/api" />
+          <SidebarItem dataTestId="validExampleBtn" name="Validator" link="/example/validator" />
+          <SidebarItem dataTestId="buttonsExampleBtn" name="Buttons" link="/example/buttons" />
+          <SidebarItem dataTestId="dialogExampleBtn" name="Dialog" link="/example/dialog" />
+          <SidebarItem dataTestId="popoverExampleBtn" name="Popover" link="/example/popover" />
+          <SidebarItem dataTestId="vegaLiteExampleBtn" name="VegaLite" link="/example/vega-lite" />
+          <SidebarItem dataTestId="vegaExampleBtn" name="Vega" link="/example/vega" />
         </Sidebar>
       )}
       contentRender={() => (
