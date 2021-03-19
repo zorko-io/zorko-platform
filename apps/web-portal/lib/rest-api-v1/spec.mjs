@@ -1,11 +1,11 @@
-import {SpecList, SpecById} from '../use-cases/spec'
+import {SpecList, SpecRead} from '../use-cases/spec'
 
 export default ({makeRunner}) => {
   return {
     list: makeRunner(SpecList, {
       toParams: (req) => ({...req.query}),
     }),
-    read: makeRunner(SpecById, {
+    read: makeRunner(SpecRead, {
       toParams: (req) => ({...req.params}),
     }),
   }

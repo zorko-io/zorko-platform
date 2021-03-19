@@ -5,26 +5,26 @@ import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
 
 setupDb(test, async (t) => {
   const {db} = t.context
-  t.context.spaces = await createSpaceRegister(db, {log: console})
+  t.context.register = await createSpaceRegister(db, {log: console})
 })
 
 test.serial('allocate, get and remove - with happy path', async (t) => {
-  const {spaces} = t.context
-  const allocatedSpace = await spaces.allocateSpaceIfNotExists('joe')
+  const {register} = t.context
+  const allocatedSpace = await register.add('joe')
 
   t.truthy(allocatedSpace)
 
   const allocatedSpaceProps = allocatedSpace.properties
 
-  const space = await spaces.get(allocatedSpaceProps.id)
+  const space = await register.get(allocatedSpaceProps.id)
   const spaceProps = space.properties
 
   t.deepEqual(spaceProps, allocatedSpaceProps)
 
-  await spaces.remove(allocatedSpaceProps.id)
+  await register.remove(allocatedSpaceProps.id)
 
   await t.throwsAsync(async () => {
-    await spaces.get(allocatedSpaceProps.id)
+    await register.get(allocatedSpaceProps.id)
   }, {
     instanceOf: NotFoundError,
     message: `Can't find space by #id=${allocatedSpaceProps.id}`
@@ -33,10 +33,10 @@ test.serial('allocate, get and remove - with happy path', async (t) => {
 })
 
 test.serial('iterate on empty and should not fail on second call', async (t) => {
-  const {spaces} = t.context
+  const {register} = t.context
   const owner = 'joe'
 
-  let iterable = spaces.iterate({owner})
+  let iterable = register.iterate({owner})
 
   let result = await iterable[Symbol.asyncIterator]().next()
 
@@ -48,13 +48,13 @@ test.serial('iterate on empty and should not fail on second call', async (t) => 
 })
 
 test.serial('allocate new and iterate with happy path', async (t) => {
-  const {spaces} = t.context
+  const {register} = t.context
 
-  t.truthy(spaces)
+  t.truthy(register)
 
   const owner = 'joe'
-  const justCreated = await spaces.allocateSpaceIfNotExists(owner)
-  const iterable = spaces.iterate({owner})
+  const justCreated = await register.add(owner)
+  const iterable = register.iterate({owner})
 
   let results = []
 
@@ -71,8 +71,8 @@ test.serial('allocate new and iterate with happy path', async (t) => {
 })
 
 test.serial('add new resource with happy path', async (t) => {
-  const {spaces} = t.context
-  const space = await spaces.allocateSpaceIfNotExists('joe')
+  const {register} = t.context
+  const space = await register.add('joe')
 
   const resource = await space.add({
     path: '/',
@@ -80,11 +80,29 @@ test.serial('add new resource with happy path', async (t) => {
     preview: 'url/to/preview/here',
     mime: 'application/json+vega-lite',
     content: {
-       spec : {},
+       spec : {
+         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+         "description": "A simple bar chart with embedded data.",
+         "data": {
+           "values": [
+             {"a": "A", "b": 28}, {"a": "B", "b": 55}, {"a": "C", "b": 43},
+             {"a": "D", "b": 91}, {"a": "E", "b": 81}, {"a": "F", "b": 53},
+             {"a": "G", "b": 19}, {"a": "H", "b": 87}, {"a": "I", "b": 52}
+           ]
+         },
+         "mark": "bar",
+         "encoding": {
+           "x": {"field": "a", "type": "nominal", "axis": {"labelAngle": 0}},
+           "y": {"field": "b", "type": "quantitative"}
+         }
+       },
     }
   })
 
   t.truthy(resource)
+
+
+  t.deepEqual(resource.properties, {})
 
 })
 

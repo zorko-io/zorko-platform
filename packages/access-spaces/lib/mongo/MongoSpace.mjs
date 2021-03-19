@@ -3,26 +3,10 @@ import {Space} from '../core'
 
 export class MongoSpace extends Space {
 
-  static name = 'resources'
+  static prefix = 'space'
 
-  static schema = {
-    bsonType: "object",
-    required: [ "name", "parent"],
-    properties: {
-      name: {
-        bsonType: "string",
-        description: "must be a string and is required"
-      },
-      parent: {
-        bsonType: "string",
-        description: "Id of parent resource"
-      },
-      ancestors: {
-        bsonType: ["array"],
-        uniqueItems: true,
-        description: "list of inner resources"
-      }
-    }
+  static toCollectionName = (owner, space) => {
+    return `${MongoSpace.prefix}.${owner}.${space}`
   }
 
   #context = null
@@ -51,5 +35,9 @@ export class MongoSpace extends Space {
       owner: this.#context.owner,
       name: this.#context.name
     }
+  }
+
+  async add(path, name, content) {
+
   }
 }

@@ -8,7 +8,7 @@ import {NotYetImplementedError} from '@zorko-io/util-error'
 export class Resource {
 
   /**
-   * Returns spaces details, doesn't changes once created
+   * Returns register details, doesn't changes once created
    * @returns {ResourceProperties}
    */
 

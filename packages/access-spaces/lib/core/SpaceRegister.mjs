@@ -2,17 +2,19 @@
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
 /**
- * It manages all spaces allocated by tenants in the system
+ * It manages all register allocated by tenants in the system
  */
 
 export class SpaceRegister {
 
   /**
-   * @param {String} owner
+   * Allocate new space if not exists
+   * @param {String} owner -  space owner
+   * @param {String} name - name of space
    * @return {Promise<Space>}
    */
 
-  async allocateSpaceIfNotExists(owner) {
+  async add(owner) {
     throw new NotYetImplementedError()
   }
 

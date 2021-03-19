@@ -5,7 +5,7 @@ import {Access} from './Access'
 export class Space extends Access {
 
   /**
-   * Returns spaces details, doesn't changes once created
+   * Returns register details, doesn't changes once created
    * @returns {SpaceProperties}
    */
   get properties () {
