@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
-import {ContentItem} from './ContentItem'
+import {Content} from '../core/Content.mjs'
 
-export class Visualization extends ContentItem {
+export class VisualizationContent extends Content {
+
+
+  static mineTypes = ['application/json+vega-lite']
 
   /**
    * @return {VisualizationProperties}

@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
-import {ContentItem} from './ContentItem'
+import {Access} from './Access.mjs'
 
-export class DataReference extends ContentItem {
+/**
+ * Common props for all content
+ */
 
-  /**
-   * @return {DataReferenceProperties}
-   */
+export class ContentAccess extends Access {
 
   get properties () {
     throw new NotYetImplementedError()

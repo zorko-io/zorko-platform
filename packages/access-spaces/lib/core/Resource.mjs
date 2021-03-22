@@ -27,11 +27,11 @@ export class Resource {
     throw new NotYetImplementedError()
   }
 
-  /**
+  /** Returns content
    * @returns {Content}
    */
 
-  open () {
+  async open () {
     throw new NotYetImplementedError()
   }
 

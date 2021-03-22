@@ -13,13 +13,17 @@ export class Space extends Access {
   }
 
   /**
-   *
-   * @param {String} path
-   * @param {String} name
-   * @param {Object} content
-   *
+   * @param {Object} params
+   * @param {String} params.path
+   * @param {String} params.name
+   * @param {Object} params.content
+   * @param {String} [params.mime]
+   * @param {String} [params.permission]
+   * @param {String} [params.preview]
+   * @return {Promise<Resource>}
    */
-  async add(path,name, content) {
+
+  async add(params) {
     throw new NotYetImplementedError()
   }
 

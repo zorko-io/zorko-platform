@@ -11,6 +11,10 @@ export class Access {
     throw new NotYetImplementedError()
   }
 
+  async add () {
+    throw new NotYetImplementedError()
+  }
+
   /**
    *
    * @param {Q} query

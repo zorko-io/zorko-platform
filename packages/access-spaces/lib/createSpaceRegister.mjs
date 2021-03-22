@@ -3,7 +3,7 @@ import createKnex from 'knex'
 import {MockLogger} from '@zorko-io/util-logger'
 import {KnexLogger} from './knex'
 import mongo from 'mongodb'
-import {MongoSpaceRegister} from './mongo/MongoSpaceRegister.mjs'
+import {MongoSpaceRegister} from './mongo'
 
 export async function createSpaceRegister (config, deps = {log : new MockLogger()}) {
   if (!config) {

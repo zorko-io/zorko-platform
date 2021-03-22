@@ -1,3 +1,4 @@
+import assert from 'assert'
 import {Resource} from '../core/index.mjs'
 
 export class MongoResource extends Resource {
@@ -15,11 +16,32 @@ export class MongoResource extends Resource {
         description: "Id of parent resource"
       },
       content: {
-        bsonType: "object",
-        description: "Resource Content"
+        bsonType: "string",
+        description: "Content Id"
       }
     }
   }
 
+  #doc = null
 
+  constructor(context={}) {
+    super()
+
+    assert(context)
+    assert(context.doc)
+
+    this.#doc = context.doc
+  }
+
+
+  get properties() {
+    return {
+      id: this.#doc._id.toString(),
+      name: this.#doc.name,
+      path: `${this.#doc.parent}${this.#doc.name}`,
+      mime: this.#doc.mime,
+      preview: this.#doc.preview,
+      content: this.#doc.content
+    }
+  }
 }

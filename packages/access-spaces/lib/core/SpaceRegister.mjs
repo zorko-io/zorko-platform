@@ -14,7 +14,7 @@ export class SpaceRegister {
    * @return {Promise<Space>}
    */
 
-  async add(owner) {
+  async add(owner, name) {
     throw new NotYetImplementedError()
   }
 
@@ -48,6 +48,17 @@ export class SpaceRegister {
    */
 
   async remove(id) {
+    throw new NotYetImplementedError()
+  }
+
+
+  /**
+   * Allocate content search session
+   * @param {Object} scope - specify spaces to search over
+   * @return {@return Promise{ContentSearch}}
+   */
+
+   startContentSearch(scope) {
     throw new NotYetImplementedError()
   }
 

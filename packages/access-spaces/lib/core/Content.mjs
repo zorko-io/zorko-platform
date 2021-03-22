@@ -1,14 +1,26 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
-import {Access} from './Access.mjs'
 
 /**
- * Common props for all content
+ * Common props for all content items
  */
 
-export class Content extends Access {
+export class Content {
 
   get properties () {
+    throw new NotYetImplementedError()
+  }
+
+  /**
+   *
+   * @param {PropertiesMap} map
+   */
+
+  parametrize (map) {
+    throw new NotYetImplementedError()
+  }
+
+  findUsage() {
     throw new NotYetImplementedError()
   }
 
