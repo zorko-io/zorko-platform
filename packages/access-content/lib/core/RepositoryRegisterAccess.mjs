@@ -12,7 +12,7 @@ export class RepositoryRegisterAccess extends Access {
    * Allocate new space if not exists
    * @param {String} owner -  space owner
    * @param {String} name - name of space
-   * @return {Promise<Repository>}
+   * @return {Promise<RepositoryAccess>}
    */
 
   async add(owner, name) {
@@ -24,7 +24,7 @@ export class RepositoryRegisterAccess extends Access {
    * @param {Object} query
    * @param {String} query.owner
    * @throws {NotFoundError}
-   * @return {AsyncIterable<Repository>}
+   * @return {AsyncIterable<RepositoryAccess>}
    */
 
   iterate(query) {
@@ -33,9 +33,9 @@ export class RepositoryRegisterAccess extends Access {
 
   /**
    *
-   * @param {String} id - unique Repository ID
+   * @param {String} id - unique RepositoryAccess ID
    * @throws {NotFoundError}
-   * @return {Promise<Repository>}
+   * @return {Promise<RepositoryAccess>}
    */
 
   async get(id) {
