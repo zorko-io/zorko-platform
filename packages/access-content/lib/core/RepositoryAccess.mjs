@@ -2,11 +2,11 @@
 import {NotYetImplementedError} from '@zorko-io/util-error'
 import {Access} from './Access'
 
-export class Space extends Access {
+export class RepositoryAccess extends Access {
 
   /**
    * Returns register details, doesn't changes once created
-   * @returns {SpaceProperties}
+   * @returns {RepositoryProperties}
    */
   get properties () {
     throw new NotYetImplementedError()

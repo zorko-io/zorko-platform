@@ -3,9 +3,9 @@ import createKnex from 'knex'
 import {MockLogger} from '@zorko-io/util-logger'
 import {KnexLogger} from './knex'
 import mongo from 'mongodb'
-import {MongoSpaceRegister} from './mongo'
+import {MongoRepositoryRegisterAccess} from './mongo'
 
-export async function createSpaceRegister (config, deps = {log : new MockLogger()}) {
+export async function createRepositoryRegister(config, deps = {log : new MockLogger()}) {
   if (!config) {
     config = configDiscovery.discover()
   }
@@ -29,13 +29,13 @@ export async function createSpaceRegister (config, deps = {log : new MockLogger(
       let db = client.db()
 
       // TODO: what if it's already exists ??
-      let collection = await db.createCollection(MongoSpaceRegister.name, {
+      let collection = await db.createCollection(MongoRepositoryRegisterAccess.name, {
         validator: {
-          $jsonSchema: MongoSpaceRegister.schema
+          $jsonSchema: MongoRepositoryRegisterAccess.schema
         }
       })
 
-      spaces = new MongoSpaceRegister({}, {
+      spaces = new MongoRepositoryRegisterAccess({}, {
         db,
         log,
         collection

@@ -1,12 +1,12 @@
 import assert from 'assert'
-import {SpaceRegister} from '../core'
+import {RepositoryRegisterAccess} from '../core'
 import {MongoCursorIterator} from './MongoCursorIterator'
-import {MongoSpace} from './MongoSpace'
+import {MongoRepositoryAccess} from './MongoRepositoryAccess.mjs'
 import {NotFoundError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
 import {MongoContentAccess} from './MongoContentAccess.mjs'
 
-export class MongoSpaceRegister extends SpaceRegister {
+export class MongoRepositoryRegisterAccess extends RepositoryRegisterAccess {
 
   static name = 'register'
 
@@ -56,7 +56,7 @@ export class MongoSpaceRegister extends SpaceRegister {
     assert(owner)
 
     // TODO: check for if not exists, and other error handling
-    let spaceCollectionName = MongoSpace.toCollectionName(owner,name)
+    let spaceCollectionName = MongoRepositoryAccess.toCollectionName(owner,name)
 
     const result = await this.#collection.insertOne({
       owner,
@@ -73,7 +73,7 @@ export class MongoSpaceRegister extends SpaceRegister {
     // - add validation schema
 
     await this.#db.createCollection(spaceCollectionName)
-    const res = await this.#db.createCollection(contentCollectionName)
+    await this.#db.createCollection(contentCollectionName)
 
     return this.#createMongoSpace(doc)
   }
@@ -116,7 +116,7 @@ export class MongoSpaceRegister extends SpaceRegister {
 
 
   #createMongoSpace = (doc) => {
-    return new MongoSpace({
+    return new MongoRepositoryAccess({
       id: doc._id,
       name: doc.name,
       owner: doc.owner

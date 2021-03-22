@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
+import {Access} from './Access'
 
 /**
  * It manages all register allocated by tenants in the system
  */
 
-export class SpaceRegister {
+export class RepositoryRegisterAccess extends Access {
 
   /**
    * Allocate new space if not exists
    * @param {String} owner -  space owner
    * @param {String} name - name of space
-   * @return {Promise<Space>}
+   * @return {Promise<Repository>}
    */
 
   async add(owner, name) {
@@ -23,7 +24,7 @@ export class SpaceRegister {
    * @param {Object} query
    * @param {String} query.owner
    * @throws {NotFoundError}
-   * @return {AsyncIterable<Space>}
+   * @return {AsyncIterable<Repository>}
    */
 
   iterate(query) {
@@ -32,9 +33,9 @@ export class SpaceRegister {
 
   /**
    *
-   * @param {String} id - unique space ID
+   * @param {String} id - unique Repository ID
    * @throws {NotFoundError}
-   * @return {Promise<Space>}
+   * @return {Promise<Repository>}
    */
 
   async get(id) {
@@ -43,7 +44,7 @@ export class SpaceRegister {
 
   /**
    *
-   * @param {String} id - unique space ID
+   * @param {String} id - unique Repository ID
    * @return {Promise<void>}
    */
 
@@ -54,8 +55,8 @@ export class SpaceRegister {
 
   /**
    * Allocate content search session
-   * @param {Object} scope - specify spaces to search over
-   * @return {@return Promise{ContentSearch}}
+   * @param {Object} scope - specify Repository to search over
+   * @return Promise{ContentSearch}
    */
 
    startContentSearch(scope) {

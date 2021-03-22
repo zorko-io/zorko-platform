@@ -2,14 +2,14 @@
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
 /**
- * @implements ResourceProperties
+ * @implements RepositoryResourceProperties
  */
 
-export class Resource {
+export class RepositoryResource {
 
   /**
    * Returns register details, doesn't changes once created
-   * @returns {ResourceProperties}
+   * @returns {RepositoryResourceProperties}
    */
 
   get properties () {
@@ -20,7 +20,7 @@ export class Resource {
    * Iterate over folder content, if not a folder then throws an exception
    * @param {Object} query
    * @throws {NotFoundError}
-   * @return {AsyncIterable<Resource>}
+   * @return {AsyncIterable<RepositoryResource>}
    */
 
   iterate(query) {

@@ -1,5 +1,5 @@
 /**
- * @typedef ResourceProperties
+ * @typedef RepositoryResourceProperties
  * @property {String} id
  * @property {String} permission
  * @property {Boolean} isFolder
@@ -11,7 +11,7 @@
 */
 
 /**
- * @typedef SpaceProperties
+ * @typedef RepositoryProperties
  * @property {String} id
  * @property {String} owner
  * @property {String} name

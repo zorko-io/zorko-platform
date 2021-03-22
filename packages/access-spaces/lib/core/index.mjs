@@ -1,6 +1,0 @@
-export * from './SpaceRegister'
-export * from './Space'
-export * from './Resource'
-export * from './ContentAccess.mjs'
-export * from '../content/VizualizationContent.mjs'
-export * from '../content/DataReferenceContent.mjs'

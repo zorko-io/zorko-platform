@@ -1,14 +1,14 @@
 import assert from 'assert'
-import {Space} from '../core'
-import {MongoResource} from './MongoResource.mjs'
+import {RepositoryAccess} from '../core'
+import {MongoRepositoryResource} from './MongoRepositoryResource.mjs'
 import {MongoContentAccess} from './MongoContentAccess.mjs'
 
-export class MongoSpace extends Space {
+export class MongoRepositoryAccess extends RepositoryAccess {
 
   static prefix = 'space'
 
   static toCollectionName = (owner, space) => {
-    return `${MongoSpace.prefix}.${owner}.${space}`
+    return `${MongoRepositoryAccess.prefix}.${owner}.${space}`
   }
 
   #context = null
@@ -31,7 +31,7 @@ export class MongoSpace extends Space {
     this.#db = deps.db
     this.#log= deps.log
 
-    let name = MongoSpace.toCollectionName(
+    let name = MongoRepositoryAccess.toCollectionName(
       this.#context.owner,
       this.#context.name
     )
@@ -73,7 +73,7 @@ export class MongoSpace extends Space {
 
     const doc = result.ops.pop()
 
-    return new MongoResource({
+    return new MongoRepositoryResource({
       doc
     })
 
