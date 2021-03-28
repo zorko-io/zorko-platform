@@ -2,14 +2,16 @@ import {configDiscovery} from './configDiscovery'
 import {MockLogger} from '@zorko-io/util-logger'
 import mongo from 'mongodb'
 import {MongoRegisterAccess} from './mongo'
-import {createRepositoryAccess} from './createRepositoryAccess'
 import {ApplicationError, ResourceAccessError} from '@zorko-io/util-error'
+import {createRepositoryAccess} from './createRepositoryAccess'
 import {createContentAccess} from './createContentAccess'
 import {createContent} from './createContent'
+import {createResourceAccess} from './createResourceAccess'
 
 const DEFAULT_DEPS = {
   log: new MockLogger(),
   createRepositoryAccess,
+  createResourceAccess,
   createContentAccess,
   createContent
 }
@@ -60,7 +62,7 @@ export async function createRepositoryRegister(config, deps = {}) {
         if (error.codeName === 'NamespaceExists') {
           log.info(`Collection #name=${MongoRegisterAccess.name} was already created, skipping...`)
         } else {
-          throw error
+          throw new ResourceAccessError(error.message)
         }
       }
 

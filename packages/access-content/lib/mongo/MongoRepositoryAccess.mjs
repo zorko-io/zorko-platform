@@ -31,7 +31,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     assert(deps.log)
     assert(deps.db)
     assert(deps.createContentAccess)
-    assert(deps.createRepositoryAccess)
+    assert(deps.createResourceAccess)
 
     this.#deps = deps
     this.#context = context
@@ -74,7 +74,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
 
     const doc = result.ops.pop()
 
-    return this.#createRepositoryAccess({doc})
+    return this.#createResourceAccess({doc})
   }
 
   #createContentAccess = () => {
@@ -82,8 +82,8 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     return deps.createContentAccess({doc: this.#context}, deps)
   }
 
-  #createRepositoryAccess = (options) => {
+  #createResourceAccess = (options) => {
     let deps = this.#deps;
-    return deps.createRepositoryAccess(options, deps)
+    return deps.createResourceAccess(options, deps)
   }
 }

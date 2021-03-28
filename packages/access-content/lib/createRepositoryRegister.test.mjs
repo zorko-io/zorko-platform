@@ -112,9 +112,6 @@ test.serial('add new resource with happy path', async (t) => {
     preview: resource.preview
   })
 
-
-  console.log({RESOURCE: actual.properties})
-
   t.truthy(actual)
   t.truthy(actual.properties.id)
 
