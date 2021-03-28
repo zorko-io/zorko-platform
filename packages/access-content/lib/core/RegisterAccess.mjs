@@ -6,7 +6,7 @@ import {Access} from './Access'
  * It manages all register allocated by tenants in the system
  */
 
-export class RepositoryRegisterAccess extends Access {
+export class RegisterAccess extends Access {
 
   /**
    * Allocate new space if not exists
@@ -24,7 +24,7 @@ export class RepositoryRegisterAccess extends Access {
    * @param {Object} query
    * @param {String} query.owner
    * @throws {NotFoundError}
-   * @return {AsyncIterable<RepositoryAccess>}
+   * @return {AsyncIterable<Partial<RepositoryProperties>>}
    */
 
   iterate(query) {
@@ -52,7 +52,6 @@ export class RepositoryRegisterAccess extends Access {
     throw new NotYetImplementedError()
   }
 
-
   /**
    * Allocate content search session
    * @param {Object} scope - specify Repository to search over
@@ -60,6 +59,14 @@ export class RepositoryRegisterAccess extends Access {
    */
 
    startContentSearch(scope) {
+    throw new NotYetImplementedError()
+  }
+
+  /**
+   * Import new repository
+   * @param {ReadableStream} stream
+   */
+  ingestContent(scope, stream){
     throw new NotYetImplementedError()
   }
 

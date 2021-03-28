@@ -1,33 +1,38 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper'
-import {createRepositoryRegister} from './createRepositoryRegister.mjs'
-import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
+import {createRepositoryRegister} from './createRepositoryRegister'
+import {NotFoundError} from '@zorko-io/util-error'
 
 setupDb(test, async (t) => {
   const {db} = t.context
-  t.context.register = await createRepositoryRegister(db, {log: console})
+  try{
+    t.context.register = await createRepositoryRegister(db)
+  } catch (err){
+    console.error(`Can't create repo register`, err)
+    throw err
+  }
 })
 
 test.serial('allocate, get and remove - with happy path', async (t) => {
   const {register} = t.context
-  const allocatedSpace = await register.add('joe')
+  const repository = await register.add('joe')
 
-  t.truthy(allocatedSpace)
+  t.truthy(repository)
 
-  const allocatedSpaceProps = allocatedSpace.properties
+  const props = repository.properties
 
-  const space = await register.get(allocatedSpaceProps.id)
+  const space = await register.get(props.id)
   const spaceProps = space.properties
 
-  t.deepEqual(spaceProps, allocatedSpaceProps)
+  t.deepEqual(spaceProps, props)
 
-  await register.remove(allocatedSpaceProps.id)
+  await register.remove(props.id)
 
   await t.throwsAsync(async () => {
-    await register.get(allocatedSpaceProps.id)
+    await register.get(props.id)
   }, {
     instanceOf: NotFoundError,
-    message: `Can't find space by #id=${allocatedSpaceProps.id}`
+    message: `Can't find repo by #id=${props.id}`
   })
 
 })
@@ -72,7 +77,7 @@ test.serial('allocate new and iterate with happy path', async (t) => {
 
 test.serial('add new resource with happy path', async (t) => {
   const {register} = t.context
-  const space = await register.add('joe')
+  const repository = await register.add('joe')
   const resource = {
     path: '/',
     name: 'Bar Char',
@@ -99,13 +104,16 @@ test.serial('add new resource with happy path', async (t) => {
     }
   }
 
-  const actual = await space.add({
+  const actual = await repository.add({
     path: resource.path,
     name: resource.name,
     content,
     mime: resource.mime,
     preview: resource.preview
   })
+
+
+  console.log({RESOURCE: actual.properties})
 
   t.truthy(actual)
   t.truthy(actual.properties.id)

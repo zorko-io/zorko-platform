@@ -1,26 +1,47 @@
 import {configDiscovery} from './configDiscovery'
-import createKnex from 'knex'
 import {MockLogger} from '@zorko-io/util-logger'
-import {KnexLogger} from './knex'
 import mongo from 'mongodb'
-import {MongoRepositoryRegisterAccess} from './mongo'
+import {MongoRegisterAccess} from './mongo'
+import {createRepositoryAccess} from './createRepositoryAccess'
+import {ApplicationError, ResourceAccessError} from '@zorko-io/util-error'
+import {createContentAccess} from './createContentAccess'
+import {createContent} from './createContent'
 
-export async function createRepositoryRegister(config, deps = {log : new MockLogger()}) {
+const DEFAULT_DEPS = {
+  log: new MockLogger(),
+  createRepositoryAccess,
+  createContentAccess,
+  createContent
+}
+
+/**
+ * Create Content Repository Register
+ * @param {Object} config
+ * @param {Object} deps
+ * @return {Promise<RegisterAccess>}
+ */
+
+export async function createRepositoryRegister(config, deps = {}) {
+  deps = {
+    ...deps,
+    ...DEFAULT_DEPS
+  }
+
   if (!config) {
     config = configDiscovery.discover()
   }
 
-  const {log} = deps
   const {dbType, uri} = config
-  let spaces = null
+  const {log} = deps
+  let register = null
 
   if (dbType === 'mongodb') {
 
     let client
 
-    try{
-      client = new  mongo.MongoClient(uri, {
-        useUnifiedTopology:true,
+    try {
+      client = new mongo.MongoClient(uri, {
+        useUnifiedTopology: true,
         useNewUrlParser: true
       })
 
@@ -28,42 +49,37 @@ export async function createRepositoryRegister(config, deps = {log : new MockLog
 
       let db = client.db()
 
-      // TODO: what if it's already exists ??
-      let collection = await db.createCollection(MongoRepositoryRegisterAccess.name, {
-        validator: {
-          $jsonSchema: MongoRepositoryRegisterAccess.schema
+      try {
+        await db.createCollection(MongoRegisterAccess.name, {
+          validator: {
+            $jsonSchema: MongoRegisterAccess.schema
+          }
+        })
+      } catch (error) {
+
+        if (error.codeName === 'NamespaceExists') {
+          log.info(`Collection #name=${MongoRegisterAccess.name} was already created, skipping...`)
+        } else {
+          throw error
         }
+      }
+
+      register = new MongoRegisterAccess({}, {
+        ...deps,
+        db
       })
 
-      spaces = new MongoRepositoryRegisterAccess({}, {
-        db,
-        log,
-        collection
-      })
-
-      return spaces
 
     } catch (error) {
       // TODO: throw ResourceAccess error
       if (client) {
         await client.close()
       }
+      if (!(error instanceof ApplicationError)) {
+        throw new ResourceAccessError(error.message)
+      }
     }
-  } else {
-    // just experimentation
-    const knex = createKnex({
-      client: config.dbType,
-      connection: {
-        filename: config.file
-      },
-      log: new KnexLogger(log)
-    });
-
-    log.info({knex})
   }
 
-
-
-
-  return spaces
+  return register
 }

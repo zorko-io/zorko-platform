@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
 
-/**
- * @implements RepositoryResourceProperties
- */
-
-export class RepositoryResource {
+export class ResourceAccess {
 
   /**
    * Returns register details, doesn't changes once created
@@ -20,7 +16,7 @@ export class RepositoryResource {
    * Iterate over folder content, if not a folder then throws an exception
    * @param {Object} query
    * @throws {NotFoundError}
-   * @return {AsyncIterable<RepositoryResource>}
+   * @return {AsyncIterable<Partial<RepositoryResourceProperties>>}
    */
 
   iterate(query) {

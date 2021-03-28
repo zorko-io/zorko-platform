@@ -1,5 +1,5 @@
-export * from './MongoRepositoryRegisterAccess.mjs'
+export * from './MongoRegisterAccess.mjs'
 export * from './MongoRepositoryAccess.mjs'
-export * from './MongoRepositoryResource.mjs'
+export * from './MongoResourceAccess.mjs'
 export * from './MongoContentAccess.mjs'
 

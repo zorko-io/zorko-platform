@@ -1,12 +1,15 @@
 import assert from 'assert'
-import {RepositoryRegisterAccess} from '../core'
+import {RegisterAccess} from '../core'
 import {MongoCursorIterator} from './MongoCursorIterator'
-import {MongoRepositoryAccess} from './MongoRepositoryAccess.mjs'
+import {MongoRepositoryAccess} from './MongoRepositoryAccess'
 import {NotFoundError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
-import {MongoContentAccess} from './MongoContentAccess.mjs'
+import {MongoContentAccess} from './MongoContentAccess'
+import mongo from 'mongodb'
 
-export class MongoRepositoryRegisterAccess extends RepositoryRegisterAccess {
+const toObjectId = (id) => mongo.ObjectId(id)
+
+export class MongoRegisterAccess extends RegisterAccess {
 
   static name = 'register'
 
@@ -29,6 +32,7 @@ export class MongoRepositoryRegisterAccess extends RepositoryRegisterAccess {
   #log = null
   #context = null
   #collection = null
+  #deps = null
 
   /**
    *
@@ -39,16 +43,18 @@ export class MongoRepositoryRegisterAccess extends RepositoryRegisterAccess {
 
   constructor(context = {}, deps) {
     super()
-    const {log, db, collection} = deps
+    const {log, db,} = deps
 
-    assert(context)
-    assert(log)
-    assert(db)
+    assert(context, 'should have context')
+    assert(log,'should have a log')
+    assert(db, 'should have a db')
 
+    this.#deps = deps
     this.#context = context
     this.#db = db
-    this.#log = log
-    this.#collection = collection
+    this.#log = deps.log
+    // this.#log = log.child({class:this.constructor.name})
+    this.#collection = this.#db.collection(MongoRegisterAccess.name)
   }
 
   // TODO: probably return new space...
@@ -56,11 +62,11 @@ export class MongoRepositoryRegisterAccess extends RepositoryRegisterAccess {
     assert(owner)
 
     // TODO: check for if not exists, and other error handling
-    let spaceCollectionName = MongoRepositoryAccess.toCollectionName(owner,name)
+    let repositoryCollectionName = MongoRepositoryAccess.toCollectionName(owner,name)
 
     const result = await this.#collection.insertOne({
       owner,
-      name: spaceCollectionName
+      name: repositoryCollectionName
     })
 
     const doc = result.ops.pop()
@@ -72,10 +78,10 @@ export class MongoRepositoryRegisterAccess extends RepositoryRegisterAccess {
     // - make a distinguish between name and location of target collection
     // - add validation schema
 
-    await this.#db.createCollection(spaceCollectionName)
+    await this.#db.createCollection(repositoryCollectionName)
     await this.#db.createCollection(contentCollectionName)
 
-    return this.#createMongoSpace(doc)
+    return this.#createRepositoryAccess({doc})
   }
 
    iterate(query) {
@@ -87,7 +93,7 @@ export class MongoRepositoryRegisterAccess extends RepositoryRegisterAccess {
       new MongoCursorIterator({
         cursor
       },{
-      wrapValue: this.#createMongoSpace
+      wrapValue: this.#createRepositoryAccess
     }))
   }
 
@@ -95,35 +101,26 @@ export class MongoRepositoryRegisterAccess extends RepositoryRegisterAccess {
     assert(id)
 
     // TODO: handle errors
-    const doc = await this.#collection.findOne({ _id: id})
+    const doc = await this.#collection.findOne({ _id: toObjectId(id)})
 
     if(!doc) {
-      throw new NotFoundError(`Can't find space by #id=${id}`)
+      throw new NotFoundError(`Can't find repo by #id=${id}`)
     }
 
-    return this.#createMongoSpace(doc)
+    return this.#createRepositoryAccess({doc})
   }
 
   async remove(id) {
     assert(id)
 
     // TODO: handle errors
-    const {value} =  await this.#collection.findOneAndDelete({ _id: id})
+    const {value} =  await this.#collection.findOneAndDelete({ _id: toObjectId(id)})
 
     // TODO: handle corner cases
     await this.#db.collection(value.name).drop()
   }
 
-
-  #createMongoSpace = (doc) => {
-    return new MongoRepositoryAccess({
-      id: doc._id,
-      name: doc.name,
-      owner: doc.owner
-    }, {
-      db: this.#db,
-      log: this.#log
-    })
+  #createRepositoryAccess = (options) => {
+    return this.#deps.createRepositoryAccess(options, this.#deps)
   }
-
 }

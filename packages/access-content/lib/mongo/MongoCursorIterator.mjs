@@ -25,7 +25,7 @@ export class MongoCursorIterator {
     }
 
     const doc = await cursor.next()
-    const value = this.#wrapValue ? this.#wrapValue(doc) : doc
+    const value = this.#wrapValue ? this.#wrapValue({doc}) : doc
 
     return {
       value

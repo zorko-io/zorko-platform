@@ -1,7 +1,7 @@
 import assert from 'assert'
-import {RepositoryResource} from '../core/index.mjs'
+import {ResourceAccess} from '../core/index.mjs'
 
-export class MongoRepositoryResource extends RepositoryResource {
+export class MongoResourceAccess extends ResourceAccess {
 
   static schema = {
     bsonType: "object",
