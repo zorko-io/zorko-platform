@@ -11,13 +11,11 @@ import {MongoVisualizationContent} from './mongo/MongoVisualizationContent'
  * @return {MongoVisualizationContent}
  */
 
-export function createContent (options, deps) {
-
-    // TODO: check mime type and then create a content
-  // if (doc.mime === 'application/json+vega-lite') {
-    return new MongoVisualizationContent({
-        doc: options.doc
-    },deps)
-  // }
-
+export function createContent(options, deps) {
+  return new MongoVisualizationContent(
+    {
+      doc: options.doc,
+    },
+    deps
+  )
 }

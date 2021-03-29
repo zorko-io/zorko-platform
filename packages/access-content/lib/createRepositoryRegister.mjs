@@ -13,7 +13,11 @@ const DEFAULT_DEPS = {
   createRepositoryAccess,
   createResourceAccess,
   createContentAccess,
-  createContent
+  createContent,
+}
+
+const SUPPORTED_DB_TYPES = {
+  Mongo: 'mongodb',
 }
 
 /**
@@ -26,7 +30,7 @@ const DEFAULT_DEPS = {
 export async function createRepositoryRegister(config, deps = {}) {
   deps = {
     ...deps,
-    ...DEFAULT_DEPS
+    ...DEFAULT_DEPS,
   }
 
   if (!config) {
@@ -37,14 +41,13 @@ export async function createRepositoryRegister(config, deps = {}) {
   const {log} = deps
   let register = null
 
-  if (dbType === 'mongodb') {
-
+  if (dbType === SUPPORTED_DB_TYPES.Mongo) {
     let client
 
     try {
       client = new mongo.MongoClient(uri, {
         useUnifiedTopology: true,
-        useNewUrlParser: true
+        useNewUrlParser: true,
       })
 
       await client.connect()
@@ -54,11 +57,10 @@ export async function createRepositoryRegister(config, deps = {}) {
       try {
         await db.createCollection(MongoRegisterAccess.name, {
           validator: {
-            $jsonSchema: MongoRegisterAccess.schema
-          }
+            $jsonSchema: MongoRegisterAccess.schema,
+          },
         })
       } catch (error) {
-
         if (error.codeName === 'NamespaceExists') {
           log.info(`Collection #name=${MongoRegisterAccess.name} was already created, skipping...`)
         } else {
@@ -66,14 +68,14 @@ export async function createRepositoryRegister(config, deps = {}) {
         }
       }
 
-      register = new MongoRegisterAccess({}, {
-        ...deps,
-        db
-      })
-
-
+      register = new MongoRegisterAccess(
+        {},
+        {
+          ...deps,
+          db,
+        }
+      )
     } catch (error) {
-      // TODO: throw ResourceAccess error
       if (client) {
         await client.close()
       }
@@ -81,6 +83,9 @@ export async function createRepositoryRegister(config, deps = {}) {
         throw new ResourceAccessError(error.message)
       }
     }
+  } else {
+    let supportedTypes = Object.values(SUPPORTED_DB_TYPES).join(',')
+    throw new ResourceAccessError(`Not supported DB type, allowed ${supportedTypes}`)
   }
 
   return register

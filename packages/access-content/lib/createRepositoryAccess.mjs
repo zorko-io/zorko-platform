@@ -12,10 +12,6 @@ import {MongoRepositoryAccess} from './mongo'
  * @return {RepositoryAccess}
  */
 
-export function createRepositoryAccess (options, deps={}) {
-
-    return new MongoRepositoryAccess(
-      options,
-      deps
-    )
+export function createRepositoryAccess(options, deps = {}) {
+  return new MongoRepositoryAccess(options, deps)
 }

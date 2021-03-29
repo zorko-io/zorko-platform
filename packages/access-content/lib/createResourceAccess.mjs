@@ -12,8 +12,10 @@ import {MongoResourceAccess} from './mongo'
  */
 
 export function createResourceAccess(options, deps) {
-
-    return new MongoResourceAccess({
-        doc: options.doc
-    }, deps);
+  return new MongoResourceAccess(
+    {
+      doc: options.doc,
+    },
+    deps
+  )
 }

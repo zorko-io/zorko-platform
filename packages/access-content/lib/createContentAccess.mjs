@@ -11,9 +11,11 @@ import {MongoContentAccess} from './mongo'
  * @return {MongoVisualizationContent}
  */
 
-export function createContentAccess (options, deps) {
-
-    return new MongoContentAccess({
-        doc: options.doc
-    }, deps);
+export function createContentAccess(options, deps) {
+  return new MongoContentAccess(
+    {
+      doc: options.doc,
+    },
+    deps
+  )
 }

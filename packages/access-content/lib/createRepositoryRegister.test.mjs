@@ -5,9 +5,9 @@ import {NotFoundError} from '@zorko-io/util-error'
 
 setupDb(test, async (t) => {
   const {db} = t.context
-  try{
+  try {
     t.context.register = await createRepositoryRegister(db)
-  } catch (err){
+  } catch (err) {
     console.error(`Can't create repo register`, err)
     throw err
   }
@@ -28,13 +28,15 @@ test.serial('allocate, get and remove - with happy path', async (t) => {
 
   await register.remove(props.id)
 
-  await t.throwsAsync(async () => {
-    await register.get(props.id)
-  }, {
-    instanceOf: NotFoundError,
-    message: `Can't find repo by #id=${props.id}`
-  })
-
+  await t.throwsAsync(
+    async () => {
+      await register.get(props.id)
+    },
+    {
+      instanceOf: NotFoundError,
+      message: `Can't find repo by #id=${props.id}`,
+    }
+  )
 })
 
 test.serial('iterate on empty and should not fail on second call', async (t) => {
@@ -82,26 +84,32 @@ test.serial('add new resource with happy path', async (t) => {
     path: '/',
     name: 'Bar Char',
     preview: 'url/to/preview/here',
-    mime: 'application/json+vega-lite'
+    mime: 'application/json+vega-lite',
   }
 
   const content = {
-    spec : {
-      "schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "description": "A simple bar chart with embedded data.",
-      "data": {
-        "values": [
-          {"a": "A", "b": 28}, {"a": "B", "b": 55}, {"a": "C", "b": 43},
-          {"a": "D", "b": 91}, {"a": "E", "b": 81}, {"a": "F", "b": 53},
-          {"a": "G", "b": 19}, {"a": "H", "b": 87}, {"a": "I", "b": 52}
-        ]
+    spec: {
+      schema: 'https://vega.github.io/schema/vega-lite/v5.json',
+      description: 'A simple bar chart with embedded data.',
+      data: {
+        values: [
+          {a: 'A', b: 28},
+          {a: 'B', b: 55},
+          {a: 'C', b: 43},
+          {a: 'D', b: 91},
+          {a: 'E', b: 81},
+          {a: 'F', b: 53},
+          {a: 'G', b: 19},
+          {a: 'H', b: 87},
+          {a: 'I', b: 52},
+        ],
       },
-      "mark": "bar",
-      "encoding": {
-        "x": {"field": "a", "type": "nominal", "axis": {"labelAngle": 0}},
-        "y": {"field": "b", "type": "quantitative"}
-      }
-    }
+      mark: 'bar',
+      encoding: {
+        x: {field: 'a', type: 'nominal', axis: {labelAngle: 0}},
+        y: {field: 'b', type: 'quantitative'},
+      },
+    },
   }
 
   const actual = await repository.add({
@@ -109,7 +117,7 @@ test.serial('add new resource with happy path', async (t) => {
     name: resource.name,
     content,
     mime: resource.mime,
-    preview: resource.preview
+    preview: resource.preview,
   })
 
   t.truthy(actual)
@@ -122,4 +130,3 @@ test.serial('add new resource with happy path', async (t) => {
 
   t.true(typeof actual.properties.content == 'string')
 })
-

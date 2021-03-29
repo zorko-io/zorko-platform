@@ -1,9 +1,7 @@
 export class AsyncIterable {
-
   #it = null
 
   constructor(iterator) {
-
     this.#it = iterator
   }
 

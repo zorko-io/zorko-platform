@@ -1,13 +1,10 @@
 import assert from 'assert'
 import {RegisterAccess} from '../core'
-import {MongoCursorIterator} from './MongoCursorIterator'
+import {MongoCursorIterator, toObjectId} from './util'
 import {MongoRepositoryAccess} from './MongoRepositoryAccess'
 import {NotFoundError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
 import {MongoContentAccess} from './MongoContentAccess'
-import mongo from 'mongodb'
-
-const toObjectId = (id) => mongo.ObjectId(id)
 
 export class MongoRegisterAccess extends RegisterAccess {
 
@@ -53,13 +50,13 @@ export class MongoRegisterAccess extends RegisterAccess {
     this.#context = context
     this.#db = db
     this.#log = deps.log
-    // this.#log = log.child({class:this.constructor.name})
+    this.#log = log.child({class:this.constructor.name})
     this.#collection = this.#db.collection(MongoRegisterAccess.name)
   }
 
-  // TODO: probably return new space...
   async add(owner, name = 'default') {
     assert(owner)
+    assert(name)
 
     // TODO: check for if not exists, and other error handling
     let repositoryCollectionName = MongoRepositoryAccess.toCollectionName(owner,name)
