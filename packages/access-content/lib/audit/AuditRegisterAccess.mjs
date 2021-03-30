@@ -1,8 +1,8 @@
 import assert from 'assert'
-import {Access} from '../core'
+import {RegisterAccess} from '../core'
 
 // TODO: 'access-content' provide an audit layer before integration
-export class AuditRegisterAccess extends Access {
+export class AuditRegisterAccess extends RegisterAccess {
 
   #origin = null
   #log = null

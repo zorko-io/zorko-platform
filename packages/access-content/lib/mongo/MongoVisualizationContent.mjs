@@ -1,6 +1,5 @@
 import {Content} from '../core/Content'
 
-// TODO: we probably don't need db specific contents hierarchies
 export class MongoVisualizationContent extends Content {
 
   #doc = null

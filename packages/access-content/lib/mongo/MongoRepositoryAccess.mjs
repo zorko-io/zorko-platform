@@ -26,7 +26,8 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     super();
 
     assert(context.doc)
-    // TODO: add permissions
+    // TODO: 'access-content', repository, add permissions
+    // label: tech-debt
 
     assert(deps.log)
     assert(deps.db)
@@ -53,9 +54,9 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     }
   }
 
-
   async add(params) {
-    // TODO: need to check path on existence and uniq names in that folder
+    // TODO: 'access-content', need to check path on existence and uniq names in that folder
+    // label: tech-debt
 
     const contentAccess = this.#createContentAccess()
 

@@ -7,6 +7,7 @@ import {createRepositoryAccess} from './createRepositoryAccess'
 import {createContentAccess} from './createContentAccess'
 import {createContent} from './createContent'
 import {createResourceAccess} from './createResourceAccess'
+import {AuditRegisterAccess} from './audit'
 
 const DEFAULT_DEPS = {
   log: new MockLogger(),
@@ -27,7 +28,7 @@ const SUPPORTED_DB_TYPES = {
  * @return {Promise<RegisterAccess>}
  */
 
-export async function createRepositoryRegister(config, deps = {}) {
+export async function createRegister(config, deps = {}) {
   deps = {
     ...deps,
     ...DEFAULT_DEPS,
@@ -88,5 +89,5 @@ export async function createRepositoryRegister(config, deps = {}) {
     throw new ResourceAccessError(`Not supported DB type, allowed ${supportedTypes}`)
   }
 
-  return register
+  return new AuditRegisterAccess({origin: register}, deps)
 }

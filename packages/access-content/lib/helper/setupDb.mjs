@@ -1,6 +1,6 @@
 import {DbManager} from './DbManager'
 
-// TODO: move to test harness package
+// TODO: DB tests, move to test harness package
 export function setupDb(test, beforeEach = async () => {}) {
   const manager = new DbManager()
 

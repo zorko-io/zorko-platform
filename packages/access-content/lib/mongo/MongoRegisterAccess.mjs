@@ -58,9 +58,9 @@ export class MongoRegisterAccess extends RegisterAccess {
     assert(owner)
     assert(name)
 
-    // TODO: check for if not exists, and other error handling
     let repositoryCollectionName = MongoRepositoryAccess.toCollectionName(owner,name)
 
+    // TODO: 'access-content', throw an exception if it already exists
     const result = await this.#collection.insertOne({
       owner,
       name: repositoryCollectionName
@@ -71,7 +71,8 @@ export class MongoRegisterAccess extends RegisterAccess {
 
     let contentCollectionName = MongoContentAccess.toCollectionName(owner, name)
 
-    // TODO: handle errors, find better way to find insert results
+    // TODO: 'access-content' creation of collections
+    // - handle errors (wrap in resource access error)
     // - make a distinguish between name and location of target collection
     // - add validation schema
 
@@ -94,10 +95,12 @@ export class MongoRegisterAccess extends RegisterAccess {
     }))
   }
 
+  // TODO: 'access-content', get, error handling
+  // label: tech-debt
   async get(id) {
     assert(id)
 
-    // TODO: handle errors
+    // TODO: 'access-content', handle errors
     const doc = await this.#collection.findOne({ _id: toObjectId(id)})
 
     if(!doc) {
@@ -107,13 +110,13 @@ export class MongoRegisterAccess extends RegisterAccess {
     return this.#createRepositoryAccess({doc})
   }
 
+  // TODO: 'access-content', remove, error handling
+  // label: tech-debt
   async remove(id) {
     assert(id)
 
-    // TODO: handle errors
     const {value} =  await this.#collection.findOneAndDelete({ _id: toObjectId(id)})
 
-    // TODO: handle corner cases
     await this.#db.collection(value.name).drop()
   }
 

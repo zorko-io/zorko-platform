@@ -1,1 +1,1 @@
-export * from 'AuditRegisterAccess'
+export * from './AuditRegisterAccess'

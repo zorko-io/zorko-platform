@@ -1,12 +1,12 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper'
-import {createRepositoryRegister} from './createRepositoryRegister'
+import {createRegister} from './createRegister.mjs'
 import {NotFoundError} from '@zorko-io/util-error'
 
 setupDb(test, async (t) => {
   const {db} = t.context
   try {
-    t.context.register = await createRepositoryRegister(db)
+    t.context.register = await createRegister(db)
   } catch (err) {
     console.error(`Can't create repo register`, err)
     throw err
