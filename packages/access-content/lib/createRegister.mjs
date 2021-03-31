@@ -55,19 +55,10 @@ export async function createRegister(config, deps = {}) {
 
       let db = client.db()
 
-      try {
-        await db.createCollection(MongoRegisterAccess.name, {
-          validator: {
-            $jsonSchema: MongoRegisterAccess.schema,
-          },
-        })
-      } catch (error) {
-        if (error.codeName === 'NamespaceExists') {
-          log.info(`Collection #name=${MongoRegisterAccess.name} was already created, skipping...`)
-        } else {
-          throw new ResourceAccessError(error.message)
-        }
-      }
+      await MongoRegisterAccess.createSchema({
+        db,
+        log
+      })
 
       register = new MongoRegisterAccess(
         {},

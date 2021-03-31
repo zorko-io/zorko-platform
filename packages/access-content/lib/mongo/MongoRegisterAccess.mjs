@@ -2,7 +2,7 @@ import assert from 'assert'
 import {RegisterAccess} from '../core'
 import {MongoCursorIterator, toObjectId} from './util'
 import {MongoRepositoryAccess} from './MongoRepositoryAccess'
-import {NotFoundError} from '@zorko-io/util-error'
+import {AlreadyExistsError, NotFoundError, ResourceAccessError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
 import {MongoContentAccess} from './MongoContentAccess'
 
@@ -11,19 +11,46 @@ export class MongoRegisterAccess extends RegisterAccess {
   static name = 'register'
 
   static schema = {
-    bsonType: "object",
-    required: [ "name", "owner"],
+    bsonType: 'object',
+    required: ['name', 'owner'],
     properties: {
       name: {
-        bsonType: "string",
-        description: "must be a string and is required"
+        bsonType: 'string',
+        description: 'must be a string and is required'
       },
       owner: {
-        bsonType: "string",
-        description: "must be a string and is required"
+        bsonType: 'string',
+        description: 'must be a string and is required'
       }
     }
   }
+
+  static async createSchema(deps = {}) {
+    const {log, db} = deps
+    try {
+      const collection = await db.createCollection(MongoRegisterAccess.name, {
+        validator: {
+          $jsonSchema: MongoRegisterAccess.schema
+        }
+      })
+
+      collection.createIndex({
+          name: 1,
+          owner: 1
+        }, {
+          unique: true
+        }
+      )
+
+    } catch (error) {
+      if (error.codeName === 'NamespaceExists') {
+        log.info(`Collection #name=${MongoRegisterAccess.name} was already created, skipping...`)
+      } else {
+        throw new ResourceAccessError(error.message)
+      }
+    }
+  }
+
 
   #db = null
   #log = null
@@ -40,17 +67,17 @@ export class MongoRegisterAccess extends RegisterAccess {
 
   constructor(context = {}, deps) {
     super()
-    const {log, db,} = deps
+    const {log, db} = deps
 
     assert(context, 'should have context')
-    assert(log,'should have a log')
+    assert(log, 'should have a log')
     assert(db, 'should have a db')
 
     this.#deps = deps
     this.#context = context
     this.#db = db
     this.#log = deps.log
-    this.#log = log.child({class:this.constructor.name})
+    this.#log = log.child({class: this.constructor.name})
     this.#collection = this.#db.collection(MongoRegisterAccess.name)
   }
 
@@ -58,13 +85,23 @@ export class MongoRegisterAccess extends RegisterAccess {
     assert(owner)
     assert(name)
 
-    let repositoryCollectionName = MongoRepositoryAccess.toCollectionName(owner,name)
+    let repositoryCollectionName = MongoRepositoryAccess.toCollectionName(owner, name)
+    let result
 
-    // TODO: 'access-content', throw an exception if it already exists
-    const result = await this.#collection.insertOne({
-      owner,
-      name: repositoryCollectionName
-    })
+    try {
+      result = await this.#collection.insertOne({
+        owner,
+        name: repositoryCollectionName
+      })
+    } catch (error) {
+      if (error.code === 11000) {
+        this.#log.info(error.message)
+        let message = `Repository with #name=${name} already created for #owner=${owner}`
+        throw new AlreadyExistsError(message)
+      } else {
+        throw new ResourceAccessError(error.message)
+      }
+    }
 
     const doc = result.ops.pop()
 
@@ -75,6 +112,12 @@ export class MongoRegisterAccess extends RegisterAccess {
     // - handle errors (wrap in resource access error)
     // - make a distinguish between name and location of target collection
     // - add validation schema
+    // MongoError {
+    //     code: 48,
+    //     codeName: 'NamespaceExists',
+    //     ok: 0,
+    //     message: 'a collection \'b80d3dcb-76a9-4f6e-88b7-f520b9779ab4.repository.joe.default\' already exists',
+    //   }
 
     await this.#db.createCollection(repositoryCollectionName)
     await this.#db.createCollection(contentCollectionName)
@@ -82,7 +125,7 @@ export class MongoRegisterAccess extends RegisterAccess {
     return this.#createRepositoryAccess({doc})
   }
 
-   iterate(query) {
+  iterate(query) {
     const cursor = this.#collection.find({
       owner: query.owner
     })
@@ -90,9 +133,9 @@ export class MongoRegisterAccess extends RegisterAccess {
     return toIterable(
       new MongoCursorIterator({
         cursor
-      },{
-      wrapValue: this.#createRepositoryAccess
-    }))
+      }, {
+        wrapValue: this.#createRepositoryAccess
+      }))
   }
 
   // TODO: 'access-content', get, error handling
@@ -101,9 +144,9 @@ export class MongoRegisterAccess extends RegisterAccess {
     assert(id)
 
     // TODO: 'access-content', handle errors
-    const doc = await this.#collection.findOne({ _id: toObjectId(id)})
+    const doc = await this.#collection.findOne({_id: toObjectId(id)})
 
-    if(!doc) {
+    if (!doc) {
       throw new NotFoundError(`Can't find repo by #id=${id}`)
     }
 
@@ -115,7 +158,7 @@ export class MongoRegisterAccess extends RegisterAccess {
   async remove(id) {
     assert(id)
 
-    const {value} =  await this.#collection.findOneAndDelete({ _id: toObjectId(id)})
+    const {value} = await this.#collection.findOneAndDelete({_id: toObjectId(id)})
 
     await this.#db.collection(value.name).drop()
   }
