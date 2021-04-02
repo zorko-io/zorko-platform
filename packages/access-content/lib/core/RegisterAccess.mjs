@@ -12,7 +12,7 @@ export class RegisterAccess extends Access {
    * Allocate new space if not exists
    * @param {String} owner -  space owner
    * @param {String} name - name of space
-   * @return {Promise<RepositoryAccess>}
+   * @return {Promise<RepositoryProperties>}
    */
 
   async add(owner, name) {

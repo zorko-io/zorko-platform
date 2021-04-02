@@ -1,8 +1,13 @@
 import {configDiscovery} from './configDiscovery.mjs'
 import {MongoAccessContentFacade} from './mongo'
+import {MockLogger} from '@zorko-io/util-logger/lib/types/index.mjs'
 
 const SUPPORTED_DB_TYPES = {
   Mongo: 'mongodb',
+}
+
+const DEFAULT_DEPS = {
+  log: new MockLogger()
 }
 
 /**
@@ -13,6 +18,11 @@ const SUPPORTED_DB_TYPES = {
 
 export async function createFacade (config = {}, deps = {}) {
 
+  deps = {
+    ...DEFAULT_DEPS,
+    ...deps
+  }
+
   if (!config) {
     config = configDiscovery.discover()
   }
@@ -21,10 +31,16 @@ export async function createFacade (config = {}, deps = {}) {
   let facade
 
   if (dbType === SUPPORTED_DB_TYPES.Mongo) {
-    facade = new MongoAccessContentFacade({
-      ...config
-    }, deps)
+    facade = await new Promise((resolve, reject) => {
+      new MongoAccessContentFacade({
+        ...config,
+        onReady: resolve,
+        onFailure: reject
+      }, deps)
+    })
   }
+
+  // wrap with validation, audit and security decorators
 
   return facade
 

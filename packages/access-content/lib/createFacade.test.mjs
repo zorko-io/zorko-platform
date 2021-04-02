@@ -1,8 +1,7 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper'
 import {createFacade} from './createFacade'
-import {MongoAccessContentFacade} from './mongo/index.mjs'
-import {AccessContentFacade} from './core'
+import {AccessContentFacade, RegisterAccess} from './core'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -18,4 +17,5 @@ test.serial('create facade on top of mongo db', async (t) => {
   const {facade} = t.context
 
   t.true(facade instanceof AccessContentFacade)
+  t.true(facade.register instanceof RegisterAccess)
 })

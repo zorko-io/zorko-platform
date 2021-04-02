@@ -61,7 +61,6 @@ export class MongoRegisterAccess extends RegisterAccess {
   /**
    *
    * @param {Object} context
-   * @param {String} context.collection - name of collection
    * @param {Object} deps
    */
 

@@ -45,4 +45,13 @@ export class AccessContentFacade {
     throw new NotYetImplementedError()
   }
 
+  /**
+   * Dealocate all resources, close connections etc
+   * @return {Promise<void>}
+   */
+
+  async shutDown() {
+    throw new NotYetImplementedError()
+  }
+
 }
