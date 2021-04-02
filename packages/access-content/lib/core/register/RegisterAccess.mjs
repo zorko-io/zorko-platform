@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
-import {Access} from './Access'
+import {Access} from '../Access.mjs'
 
 /**
  * It manages all register allocated by tenants in the system
@@ -12,7 +12,7 @@ export class RegisterAccess extends Access {
    * Allocate new space if not exists
    * @param {String} owner -  space owner
    * @param {String} name - name of space
-   * @return {Promise<RepositoryProperties>}
+   * @return {Promise<RegisterRecordProperties>}
    */
 
   async add(owner, name) {

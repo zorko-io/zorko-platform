@@ -1,7 +1,7 @@
 import assert from 'assert'
 import {AccessContentFacade} from '../core'
 import mongo from 'mongodb'
-import {MongoRegisterAccess} from './MongoRegisterAccess.mjs'
+import {MongoRegisterAccess} from './register/MongoRegisterAccess.mjs'
 import {ApplicationError, ResourceAccessError} from '@zorko-io/util-error'
 
 export class MongoAccessContentFacade extends AccessContentFacade {

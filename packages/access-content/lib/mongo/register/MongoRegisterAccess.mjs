@@ -1,10 +1,11 @@
 import assert from 'assert'
-import {RegisterAccess} from '../core'
-import {MongoCursorIterator, toObjectId} from './util'
-import {MongoRepositoryAccess} from './MongoRepositoryAccess'
+import {RegisterAccess} from '../../core/index.mjs'
+import {MongoCursorIterator, toObjectId} from '../util/index.mjs'
+import {MongoRepositoryAccess} from '../MongoRepositoryAccess.mjs'
 import {AlreadyExistsError, NotFoundError, ResourceAccessError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
-import {MongoContentAccess} from './MongoContentAccess'
+import {MongoContentAccess} from '../MongoContentAccess.mjs'
+import {MongoRegisterRecordProperties} from './MongoRegisterRecordProperties.mjs'
 
 export class MongoRegisterAccess extends RegisterAccess {
 
@@ -85,10 +86,9 @@ export class MongoRegisterAccess extends RegisterAccess {
     assert(name)
 
     let repositoryCollectionName = MongoRepositoryAccess.toCollectionName(owner, name)
-    let result
 
     try {
-      result = await this.#collection.insertOne({
+      const result = await this.#collection.insertOne({
         owner,
         name: repositoryCollectionName
       })
@@ -97,6 +97,24 @@ export class MongoRegisterAccess extends RegisterAccess {
         db: this.#db
       })
 
+      let contentCollectionName = MongoContentAccess.toCollectionName(owner, name)
+
+      // TODO: 'access-content' creation of collections
+      // - handle errors (wrap in resource access error)
+      // - make a distinguish between name and location of target collection
+      // - add validation schema
+      // MongoError {
+      //     code: 48,
+      //     codeName: 'NamespaceExists',
+      //     ok: 0,
+      //     message: 'a collection \'b80d3dcb-76a9-4f6e-88b7-f520b9779ab4.repository.joe.default\' already exists',
+      //   }
+
+
+      // await this.#db.createCollection(repositoryCollectionName)
+      await this.#db.createCollection(contentCollectionName)
+
+      return new MongoRegisterRecordProperties(result)
 
     } catch (error) {
       if (error.code === 11000) {
@@ -107,28 +125,6 @@ export class MongoRegisterAccess extends RegisterAccess {
         throw new ResourceAccessError(error.message)
       }
     }
-
-    const doc = result.ops.pop()
-
-
-    let contentCollectionName = MongoContentAccess.toCollectionName(owner, name)
-
-    // TODO: 'access-content' creation of collections
-    // - handle errors (wrap in resource access error)
-    // - make a distinguish between name and location of target collection
-    // - add validation schema
-    // MongoError {
-    //     code: 48,
-    //     codeName: 'NamespaceExists',
-    //     ok: 0,
-    //     message: 'a collection \'b80d3dcb-76a9-4f6e-88b7-f520b9779ab4.repository.joe.default\' already exists',
-    //   }
-
-
-    // await this.#db.createCollection(repositoryCollectionName)
-    await this.#db.createCollection(contentCollectionName)
-
-    return this.#createRepositoryAccess({doc})
   }
 
   iterate(query) {

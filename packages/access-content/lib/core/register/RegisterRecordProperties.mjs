@@ -1,4 +1,4 @@
-export class RepositoryProperties {
+export class RegisterRecordProperties {
 
   #id = null
   #owner = null
@@ -25,6 +25,14 @@ export class RepositoryProperties {
 
   get name () {
     return this.#name
+  }
+
+  toJSON() {
+    return {
+      name: this.#name,
+      owner: this.#owner,
+      id: this.#id
+    }
   }
 
 }

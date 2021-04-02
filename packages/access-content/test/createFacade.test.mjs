@@ -1,0 +1,21 @@
+import test from '@zorko-io/tool-test-harness'
+import {setupDb} from './helper/index.mjs'
+import {createFacade} from '../lib/createFacade.mjs'
+import {AccessContentFacade, RegisterAccess} from '../lib/core/index.mjs'
+
+setupDb(test, async (t) => {
+  const {db} = t.context
+  try {
+    t.context.facade = await createFacade(db)
+  } catch (err) {
+    console.error(`Can't create access content facade`, err)
+    throw err
+  }
+})
+
+test.serial('create facade with proper getters', async (t) => {
+  const {facade} = t.context
+
+  t.true(facade instanceof AccessContentFacade)
+  t.true(facade.register instanceof RegisterAccess)
+})

@@ -1,4 +1,4 @@
-import {DbManager} from './DbManager'
+import {DbManager} from './DbManager.mjs'
 
 // TODO: DB tests, move to test harness package
 export function setupDb(test, beforeEach = async () => {}) {
