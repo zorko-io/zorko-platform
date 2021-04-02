@@ -6,7 +6,7 @@ export class MongoCursorIterator {
 
   constructor(context = {}, deps = {}) {
 
-    assert(context.cursor)
+    assert(context.cursor, 'should have #cursor')
 
     this.#cursor = context.cursor
     this.#wrapValue = deps.wrapValue
@@ -25,7 +25,7 @@ export class MongoCursorIterator {
     }
 
     const doc = await cursor.next()
-    const value = this.#wrapValue ? this.#wrapValue({doc}) : doc
+    const value = this.#wrapValue ? this.#wrapValue(doc) : doc
 
     return {
       value

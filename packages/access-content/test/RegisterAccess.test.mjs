@@ -1,6 +1,7 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper'
 import {createFacade} from '../lib'
+import {NotFoundError} from '@zorko-io/util-error'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -13,7 +14,7 @@ setupDb(test, async (t) => {
   }
 })
 
-test.serial('create facade on top of mongo db', async (t) => {
+test.serial('add new record', async (t) => {
   const {register} = t.context
 
   const record = await register.add('joe')
@@ -23,7 +24,66 @@ test.serial('create facade on top of mongo db', async (t) => {
   t.is(record.owner, 'joe')
   t.is(record.name, 'repository.joe.default')
 
-  t.true(typeof record.id === 'string' && record.id)
+  t.truthy(typeof record.id === 'string' && record.id)
+})
 
-  console.log({RECORD: record.toJSON()})
+test.serial('add new record, read and remove - happy path', async (t) => {
+  const {register} = t.context
+  const newRecord = await register.add('joe', 'other-repo')
+
+  t.truthy(newRecord)
+
+  const record = await register.get(newRecord.id)
+
+  t.deepEqual(record, newRecord)
+
+  await register.remove(record.id)
+
+  await t.throwsAsync(
+    async () => {
+      await register.get(record.id)
+    },
+    {
+      instanceOf: NotFoundError,
+      message: `Can't find repository record by #id=${record.id}`,
+    }
+  )
+})
+
+test.serial('iterate on empty and should not fail on second call', async (t) => {
+  const {register} = t.context
+  const owner = 'joe'
+
+  let records = register.iterate({owner})
+
+  let result = await records[Symbol.asyncIterator]().next()
+
+  t.true(result.done)
+
+  result = await records[Symbol.asyncIterator]().next()
+
+  t.true(result.done)
+})
+
+test.serial('allocate default and other repo, iterate  - with happy path', async (t) => {
+  const {register} = t.context
+
+  t.truthy(register)
+
+  const joe = 'joe'
+  const otherRepo = 'other-repo'
+  const defaultRecord = await register.add(joe)
+  const otherRepoRecord = await register.add(joe, otherRepo)
+  const records = register.iterate({owner: joe})
+
+  let results = []
+
+  for await (const record of records) {
+    results.push(record)
+  }
+
+  t.true(results.length === 2)
+
+  t.deepEqual(results[0].toJSON(), defaultRecord.toJSON())
+  t.deepEqual(results[1].toJSON(), otherRepoRecord.toJSON())
 })

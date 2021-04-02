@@ -136,7 +136,7 @@ export class MongoRegisterAccess extends RegisterAccess {
       new MongoCursorIterator({
         cursor
       }, {
-        wrapValue: this.#createRepositoryAccess
+        wrapValue: (value) => new MongoRegisterRecordProperties(value)
       }))
   }
 
@@ -149,10 +149,10 @@ export class MongoRegisterAccess extends RegisterAccess {
     const doc = await this.#collection.findOne({_id: toObjectId(id)})
 
     if (!doc) {
-      throw new NotFoundError(`Can't find repo by #id=${id}`)
+      throw new NotFoundError(`Can't find repository record by #id=${id}`)
     }
 
-    return this.#createRepositoryAccess({doc})
+    return new MongoRegisterRecordProperties(doc)
   }
 
   // TODO: 'access-content', remove, error handling
@@ -165,7 +165,4 @@ export class MongoRegisterAccess extends RegisterAccess {
     await this.#db.collection(value.name).drop()
   }
 
-  #createRepositoryAccess = (options) => {
-    return this.#deps.createRepositoryAccess(options, this.#deps)
-  }
 }

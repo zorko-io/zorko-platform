@@ -13,47 +13,7 @@
 //   }
 // })
 //
-// test.serial('allocate, get and remove - with happy path', async (t) => {
-//   const {register} = t.context
-//   const repository = await register.add('joe')
-//
-//   t.truthy(repository)
-//
-//   const props = repository.properties
-//
-//   const space = await register.get(props.id)
-//   const spaceProps = space.properties
-//
-//   t.deepEqual(spaceProps, props)
-//
-//   await register.remove(props.id)
-//
-//   await t.throwsAsync(
-//     async () => {
-//       await register.get(props.id)
-//     },
-//     {
-//       instanceOf: NotFoundError,
-//       message: `Can't find repo by #id=${props.id}`,
-//     }
-//   )
-// })
-//
-// test.serial('iterate on empty and should not fail on second call', async (t) => {
-//   const {register} = t.context
-//   const owner = 'joe'
-//
-//   let iterable = register.iterate({owner})
-//
-//   let result = await iterable[Symbol.asyncIterator]().next()
-//
-//   t.true(result.done)
-//
-//   result = await iterable[Symbol.asyncIterator]().next()
-//
-//   t.true(result.done)
-// })
-//
+
 // test.serial('allocate new and iterate with happy path', async (t) => {
 //   const {register} = t.context
 //

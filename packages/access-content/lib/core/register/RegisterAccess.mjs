@@ -33,9 +33,9 @@ export class RegisterAccess extends Access {
 
   /**
    *
-   * @param {String} id - unique RepositoryAccess ID
+   * @param {String} id - unique Repository ID
    * @throws {NotFoundError}
-   * @return {Promise<RepositoryAccess>}
+   * @return {Promise<RegisterRecordProperties>}
    */
 
   async get(id) {
