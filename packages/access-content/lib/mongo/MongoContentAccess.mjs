@@ -11,6 +11,18 @@ export class MongoContentAccess extends Access {
     return `${MongoContentAccess.prefix}.${owner}.${name}`
   }
 
+  static async createSchema(options = {},deps = {}) {
+    const {owner , name} = options
+    const {db} = deps
+
+    let collectionName = MongoContentAccess.toCollectionName(owner, name)
+
+    // TODO: { validator: {
+    //       $jsonSchema: MongoResourceAccess.schema
+    //     }}
+    await db.createCollection(collectionName)
+  }
+
   #collection = null
   #log = null
   #createContent = null

@@ -9,6 +9,18 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     return `${MongoRepositoryAccess.prefix}.${owner}.${space}`
   }
 
+  static async createSchema(options = {},deps = {}) {
+    const {owner , name} = options
+    const {db} = deps
+
+    let repositoryCollectionName = MongoRepositoryAccess.toCollectionName(owner, name)
+
+    // TODO: { validator: {
+    //       $jsonSchema: MongoResourceAccess.schema
+    //     }}
+    await db.createCollection(repositoryCollectionName)
+  }
+
   #context = null
   #deps = null
   #db = null

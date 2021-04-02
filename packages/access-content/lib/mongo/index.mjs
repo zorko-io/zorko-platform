@@ -1,5 +1,6 @@
-export * from './MongoRegisterAccess.mjs'
-export * from './MongoRepositoryAccess.mjs'
-export * from './MongoResourceAccess.mjs'
-export * from './MongoContentAccess.mjs'
+export * from './MongoAccessContentFacade'
+export * from './MongoRegisterAccess'
+export * from './MongoRepositoryAccess'
+export * from './MongoResourceAccess'
+export * from './MongoContentAccess'
 

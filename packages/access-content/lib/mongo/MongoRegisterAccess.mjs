@@ -93,6 +93,12 @@ export class MongoRegisterAccess extends RegisterAccess {
         owner,
         name: repositoryCollectionName
       })
+
+      await MongoRepositoryAccess.createSchema({owner, name}, {
+        db: this.#db
+      })
+
+
     } catch (error) {
       if (error.code === 11000) {
         this.#log.info(error.message)
@@ -119,7 +125,8 @@ export class MongoRegisterAccess extends RegisterAccess {
     //     message: 'a collection \'b80d3dcb-76a9-4f6e-88b7-f520b9779ab4.repository.joe.default\' already exists',
     //   }
 
-    await this.#db.createCollection(repositoryCollectionName)
+
+    // await this.#db.createCollection(repositoryCollectionName)
     await this.#db.createCollection(contentCollectionName)
 
     return this.#createRepositoryAccess({doc})
