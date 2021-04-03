@@ -3,6 +3,7 @@ import {AccessContentFacade} from '../core'
 import mongo from 'mongodb'
 import {MongoRegisterAccess} from './register/MongoRegisterAccess.mjs'
 import {ApplicationError, ResourceAccessError} from '@zorko-io/util-error'
+import {MongoRepositoryAccess} from './MongoRepositoryAccess.mjs'
 
 export class MongoAccessContentFacade extends AccessContentFacade {
 
@@ -47,7 +48,18 @@ export class MongoAccessContentFacade extends AccessContentFacade {
   }
 
   get repository() {
-    return super.repository;
+    if (this.#repository) {
+      return this.#repository
+    }
+
+    assert(this.#db, 'should have #db')
+
+    this.#repository = new MongoRepositoryAccess({}, {
+      ...this.#deps,
+      db: this.#db
+    })
+
+    return this.#repository
   }
 
   #createConnection = async (context)  => {

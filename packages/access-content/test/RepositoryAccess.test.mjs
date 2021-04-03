@@ -1,22 +1,21 @@
-// import test from '@zorko-io/tool-test-harness'
-// import {setupDb} from './helper'
-// import {createRegister} from './createRegister'
-// import {AlreadyExistsError, NotFoundError} from '@zorko-io/util-error'
-//
-// setupDb(test, async (t) => {
-//   const {db} = t.context
-//   try {
-//     t.context.register = await createRegister(db)
-//   } catch (err) {
-//     console.error(`Can't create repo register`, err)
-//     throw err
-//   }
-// })
-//
+import test from '@zorko-io/tool-test-harness'
+import {setupDb} from './helper'
+import {createFacade} from '../lib'
+
+setupDb(test, async (t) => {
+  const {db} = t.context
+  try {
+    const facade = await createFacade(db)
+    t.context.facade = facade
+    t.context.repository = facade.repository
+  } catch (err) {
+    console.error(`Can't create repo register`, err)
+    throw err
+  }
+})
 
 // test.serial('add new resource with happy path', async (t) => {
 //   const {register} = t.context
-//   const repository = await register.add('joe')
 //   const resource = {
 //     path: '/',
 //     name: 'Bar Char',
@@ -67,4 +66,3 @@
 //
 //   t.true(typeof actual.properties.content == 'string')
 // })
-

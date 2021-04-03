@@ -37,14 +37,14 @@ export class MongoRepositoryAccess extends RepositoryAccess {
   constructor(context = {}, deps = {}) {
     super();
 
-    assert(context.doc)
+    // assert(context.doc)
     // TODO: 'access-content', repository, add permissions
     // label: tech-debt
 
     assert(deps.log)
     assert(deps.db)
-    assert(deps.createContentAccess)
-    assert(deps.createResourceAccess)
+    // assert(deps.createContentAccess)
+    // assert(deps.createResourceAccess)
 
     this.#deps = deps
     this.#context = context
