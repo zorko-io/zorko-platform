@@ -1,7 +1,7 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper'
 import {createFacade} from '../lib'
-import {NotFoundError} from '@zorko-io/util-error'
+import {AlreadyExistsError, NotFoundError} from '@zorko-io/util-error'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -86,4 +86,23 @@ test.serial('allocate default and other repo, iterate  - with happy path', async
 
   t.deepEqual(results[0].toJSON(), defaultRecord.toJSON())
   t.deepEqual(results[1].toJSON(), otherRepoRecord.toJSON())
+})
+
+test.serial('fails if repository with same owner and name already exists', async (t) => {
+  const {register} = t.context
+  const owner = 'joe'
+  const name = 'my-repo'
+
+  await register.add(owner, name)
+
+  await t.throwsAsync(
+    async () => {
+      await register.add(owner, name)
+    },
+    {
+      instanceOf: AlreadyExistsError,
+      message: `Repository with #name=${name} already created for #owner=${owner}`,
+    }
+  )
+
 })
