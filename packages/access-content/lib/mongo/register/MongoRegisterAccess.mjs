@@ -1,11 +1,11 @@
 import assert from 'assert'
-import {RegisterAccess} from '../../core/index.mjs'
+import {RegisterAccess} from '../../core'
 import {MongoCursorIterator, toObjectId} from '../util/index.mjs'
-import {MongoRepositoryAccess} from '../MongoRepositoryAccess.mjs'
+import {MongoRepositoryAccess} from '../repository'
 import {AlreadyExistsError, NotFoundError, ResourceAccessError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
-import {MongoContentAccess} from '../MongoContentAccess.mjs'
-import {MongoRegisterRecordProperties} from './MongoRegisterRecordProperties.mjs'
+import {MongoContentAccess} from '../content'
+import {MongoRegisterRecordProperties} from './MongoRegisterRecordProperties'
 
 export class MongoRegisterAccess extends RegisterAccess {
 

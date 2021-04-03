@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
-import {Access} from './Access.mjs'
+import {Access} from '../Access'
 
 /**
  * Common props for all content

@@ -1,16 +1,4 @@
 /**
- * @typedef RepositoryResourceProperties
- * @property {String} id
- * @property {String} permission
- * @property {Boolean} isFolder
- * @property {String} name
-`* @property {String} mime
- * @property {String} [preview/thumbnail]
- * @property {String} createdAt/updatedAt ...
- * @property {String} contentUri - uri to content
-*/
-
-/**
  * @typedef RepositoryProperties
  * @property {String} id
  * @property {String} owner

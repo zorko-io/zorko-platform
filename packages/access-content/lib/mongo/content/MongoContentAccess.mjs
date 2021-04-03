@@ -1,7 +1,8 @@
 import assert from 'assert'
-import {Access} from '../core'
+import {ContentAccess} from '../../core/content/ContentAccess'
+import {MongoContentProperties} from './MongoContentProperties'
 
-export class MongoContentAccess extends Access {
+export class MongoContentAccess extends ContentAccess {
 
   static prefix = 'content'
 
@@ -32,7 +33,6 @@ export class MongoContentAccess extends Access {
   /**
    *
    * @param {Object} context
-   * @param {Object} context.doc - raw mongo doc
    * @param {Object} deps
    * @param {Object} deps.log
    * @param {Object} deps.createContent - factory function to create content
@@ -43,22 +43,20 @@ export class MongoContentAccess extends Access {
     super()
 
     assert(context)
-    assert(context.doc)
     assert(deps.log)
     assert(deps.db)
-    assert(deps.createContent)
 
     this.#doc = context.doc
 
-    let name = MongoContentAccess.toCollectionName(
-      context.doc.owner,
-      context.doc.name
-    )
+    // let name = MongoContentAccess.toCollectionName(
+    //   context.doc.owner,
+    //   context.doc.name
+    // )
 
     this.#db = deps.db
-    this.#collection = deps.db.collection(name)
+    // this.#collection = deps.db.collection(name)
     this.#log = deps.log
-    this.#createContent = deps.createContent
+    // this.#createContent = deps.createContent
   }
 
 
@@ -68,22 +66,24 @@ export class MongoContentAccess extends Access {
     }
   }
 
-  async add({content, permission, resourceId, mime} = {}) {
-    // TODO: add error handling
-    const result = await this.#collection.insertOne({
-      ...content,
-      resource: {
-        mime,
-        permission,
-        id: resourceId
-      }
+  async add({content, permission, mime, owner, repo, config} = {}) {
+
+    // TODO: 'access-content' error handling
+
+    let name = MongoContentAccess.toCollectionName(
+      owner,
+      repo
+    )
+
+    const collection = this.#db.collection(name)
+
+    const result = await collection.insertOne({
+      content,
+      mime,
+      config,
+      permission
     })
 
-    const doc = result.ops.pop()
-
-    return this.#createContent({doc}, {
-      log: this.#log,
-      db: this.#db
-    })
+    return new MongoContentProperties(result)
   }
 }

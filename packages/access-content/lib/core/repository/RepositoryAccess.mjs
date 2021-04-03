@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
-import {Access} from './Access'
+import {Access} from '../Access.mjs'
 
 export class RepositoryAccess extends Access {
 
@@ -20,7 +20,7 @@ export class RepositoryAccess extends Access {
    * @param {String} [params.mime]
    * @param {String} [params.permission]
    * @param {String} [params.preview]
-   * @return {Promise<ResourceAccess>}
+   * @return {Promise<RepositoryResourceProperties>}
    */
 
   async add(params) {

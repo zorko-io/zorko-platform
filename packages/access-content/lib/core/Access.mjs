@@ -11,6 +11,10 @@ export class Access {
     throw new NotYetImplementedError()
   }
 
+  /**
+   *
+   * @return {Promise<ContentProperties>}
+   */
   async add () {
     throw new NotYetImplementedError()
   }
@@ -30,7 +34,7 @@ export class Access {
    *
    * @param {String} id - unique  ID
    * @throws {NotFoundError}
-   * @return {Promise<Space>}
+   * @return {Promise<T>}
    */
 
   async get(id) {

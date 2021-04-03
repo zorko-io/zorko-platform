@@ -1,9 +1,29 @@
 import assert from 'assert'
-import {RepositoryAccess} from '../core'
+import {RepositoryAccess} from '../../core/index.mjs'
+import {MongoRepositoryResourceProperties} from './MongoRepositoryResourceProperties.mjs'
 
 export class MongoRepositoryAccess extends RepositoryAccess {
 
   static prefix = 'repository'
+
+  static schema = {
+    bsonType: "object",
+    required: [ "name", "parent"],
+    properties: {
+      name: {
+        bsonType: "string",
+        description: "must be a string and is required"
+      },
+      parent: {
+        bsonType: "string",
+        description: "Id of parent resource"
+      },
+      content: {
+        bsonType: "string",
+        description: "Content Id"
+      }
+    }
+  }
 
   static toCollectionName = (owner, space) => {
     return `${MongoRepositoryAccess.prefix}.${owner}.${space}`
@@ -26,12 +46,13 @@ export class MongoRepositoryAccess extends RepositoryAccess {
   #db = null
   #log = null
   #collection = null
+  #content = null
 
   /**
    *
    * @param {Object} context
    * @param {Object} deps
-   * @param {Function} deps.createContentAccess
+   * @param {ContentAccess} deps.content
    */
 
   constructor(context = {}, deps = {}) {
@@ -43,6 +64,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
 
     assert(deps.log)
     assert(deps.db)
+    assert(deps.content)
     // assert(deps.createContentAccess)
     // assert(deps.createResourceAccess)
 
@@ -56,6 +78,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       this.#context.name
     )
     this.#collection = this.#db.collection(name)
+    this.#content = deps.content
   }
 
   get properties() {
@@ -70,33 +93,20 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     // TODO: 'access-content', need to check path on existence and uniq names in that folder
     // label: tech-debt
 
-    const contentAccess = this.#createContentAccess()
-
-    const content = await contentAccess.add({
+    const content = await this.#content.add({
       content: params.content,
-      permission: params.permission
+      permission: params.permission,
+      mime: params.mime
     })
 
     const result = await this.#collection.insertOne({
       parent: params.path,
       name: params.name,
-      content: content.properties.id,
+      content: content.id,
       mime: params.mime,
       preview: params.preview
     })
 
-    const doc = result.ops.pop()
-
-    return this.#createResourceAccess({doc})
-  }
-
-  #createContentAccess = () => {
-    let deps = this.#deps
-    return deps.createContentAccess({doc: this.#context}, deps)
-  }
-
-  #createResourceAccess = (options) => {
-    let deps = this.#deps;
-    return deps.createResourceAccess(options, deps)
+    return new MongoRepositoryResourceProperties(result)
   }
 }

@@ -1,4 +1,3 @@
-import {MongoVisualizationContent} from './mongo/MongoVisualizationContent'
 
 /**
  * Create Content factory function
@@ -12,10 +11,5 @@ import {MongoVisualizationContent} from './mongo/MongoVisualizationContent'
  */
 
 export function createContent(options, deps) {
-  return new MongoVisualizationContent(
-    {
-      doc: options.doc,
-    },
-    deps
-  )
+  return {}
 }

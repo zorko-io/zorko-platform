@@ -1,9 +1,10 @@
 import assert from 'assert'
 import {AccessContentFacade} from '../core'
 import mongo from 'mongodb'
-import {MongoRegisterAccess} from './register/MongoRegisterAccess.mjs'
+import {MongoRegisterAccess} from './register'
 import {ApplicationError, ResourceAccessError} from '@zorko-io/util-error'
-import {MongoRepositoryAccess} from './MongoRepositoryAccess.mjs'
+import {MongoRepositoryAccess} from './repository'
+import {MongoContentAccess} from './content'
 
 export class MongoAccessContentFacade extends AccessContentFacade {
 
@@ -44,7 +45,18 @@ export class MongoAccessContentFacade extends AccessContentFacade {
   }
 
   get content() {
-    return super.content;
+    if (this.#content) {
+      return this.#content
+    }
+
+    assert(this.#db, 'should have #db')
+
+    this.#content = new MongoContentAccess({}, {
+      ...this.#deps,
+      db: this.#db
+    })
+
+    return this.#content
   }
 
   get repository() {
@@ -53,10 +65,12 @@ export class MongoAccessContentFacade extends AccessContentFacade {
     }
 
     assert(this.#db, 'should have #db')
+    assert(this.content, 'should have #content')
 
     this.#repository = new MongoRepositoryAccess({}, {
       ...this.#deps,
-      db: this.#db
+      db: this.#db,
+      content: this.content
     })
 
     return this.#repository

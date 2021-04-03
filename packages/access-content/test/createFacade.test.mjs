@@ -1,11 +1,13 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper/index.mjs'
-import {createFacade} from '../lib'
 import {
+  createFacade,
   AccessContentFacade,
   RegisterAccess,
   RepositoryAccess
 } from '../lib'
+
+import {ContentAccess} from '../lib/core/content/ContentAccess'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -22,5 +24,6 @@ test.serial('create facade with proper getters', async (t) => {
 
   t.true(facade instanceof AccessContentFacade)
   t.true(facade.register instanceof RegisterAccess)
+  t.true(facade.content instanceof ContentAccess)
   t.true(facade.repository instanceof RepositoryAccess)
 })

@@ -1,4 +1,3 @@
-import {MongoResourceAccess} from './mongo'
 
 /**
  * Create Resource Access factory function
@@ -12,10 +11,5 @@ import {MongoResourceAccess} from './mongo'
  */
 
 export function createResourceAccess(options, deps) {
-  return new MongoResourceAccess(
-    {
-      doc: options.doc,
-    },
-    deps
-  )
+  return {}
 }

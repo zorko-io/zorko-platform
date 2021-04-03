@@ -1,9 +1,6 @@
 export * from './Access'
-export * from './register/RegisterAccess.mjs'
-export * from './RepositoryAccess'
+export * from './register'
+export * from './repository'
 export * from './ResourceAccess'
-export * from './ContentAccess'
 export * from './AccessContentFacade'
-
-
-export * from './register/index.mjs'
+export * from './content'
