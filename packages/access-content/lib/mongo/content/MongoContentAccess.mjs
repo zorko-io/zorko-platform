@@ -1,6 +1,6 @@
 import assert from 'assert'
 import {ContentAccess} from '../../core/content/ContentAccess'
-import {MongoContentProperties} from './MongoContentProperties'
+import {MongoContentModel} from './MongoContentModel.mjs'
 
 export class MongoContentAccess extends ContentAccess {
 
@@ -66,9 +66,13 @@ export class MongoContentAccess extends ContentAccess {
     }
   }
 
-  async add({content, permission, mime, owner, repo, config} = {}) {
+  async add({content, mime, owner, repo, config} = {}) {
 
-    // TODO: 'access-content' error handling
+    const model = new MongoContentModel({
+      content,
+      mime,
+      config
+    })
 
     let name = MongoContentAccess.toCollectionName(
       owner,
@@ -77,13 +81,9 @@ export class MongoContentAccess extends ContentAccess {
 
     const collection = this.#db.collection(name)
 
-    const result = await collection.insertOne({
-      content,
-      mime,
-      config,
-      permission
-    })
+    const result = await collection.insertOne(model.toDocument())
 
-    return new MongoContentProperties(result)
+    return new MongoContentModel(result).toJSON()
   }
+
 }

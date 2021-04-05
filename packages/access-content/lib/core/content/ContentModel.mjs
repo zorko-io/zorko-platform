@@ -1,11 +1,26 @@
-export class ContentProperties {
+/**
+ * @typedef ContentProperties
+ * @property {String} id
+ * @property {String} content
+ * @property {String} mime
+ * @property {String} config
+ *
+ */
+
+/**
+ * @implements ContentProperties
+ */
+
+export class ContentModel {
+
+  static rules = {}
 
   #id = null
   #content = null
   #mime = null
   #config = null
 
-  constructor(id, content, mime, config) {
+  constructor({id, content, mime, config} = {}) {
     this.#id = id
     this.#content = content
     this.#mime = mime
@@ -46,7 +61,17 @@ export class ContentProperties {
     return this.#config
   }
 
+  /**
+   * @return {ContentProperties}
+   */
 
-
+  toJSON() {
+    return  {
+      id: this.#id,
+      content: this.#content,
+      mime: this.mime,
+      config: this.config
+    }
+  }
 
 }

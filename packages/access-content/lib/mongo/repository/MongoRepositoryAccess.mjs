@@ -99,6 +99,9 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       mime: params.mime
     })
 
+
+    console.log({CONTENTTTTTTT: content})
+
     const result = await this.#collection.insertOne({
       parent: params.path,
       name: params.name,

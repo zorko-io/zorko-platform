@@ -11,5 +11,4 @@ export class ContentAccess extends Access {
   get properties () {
     throw new NotYetImplementedError()
   }
-
 }

@@ -25,7 +25,7 @@ test.serial('add new resource with happy path', async (t) => {
 
   const content = {
     spec: {
-      schema: 'https://vega.github.io/schema/vega-lite/v5.json',
+      $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
       description: 'A simple bar chart with embedded data.',
       data: {
         values: [

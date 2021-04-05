@@ -1,18 +1,17 @@
-import {ContentProperties} from '../../core/content/ContentProperties.mjs'
+import {ContentModel} from '../../core/content/ContentModel.mjs'
 
-export class MongoContentProperties extends ContentProperties {
+export class MongoContentProperties extends ContentModel {
+
 
   constructor(result) {
     const doc = result.ops.pop()
 
     super(
       doc._id.toString(),
-      // TODO: convert vega schema to $schema
       doc.content,
       doc.mime,
       doc.config
     )
   }
-
 
 }
