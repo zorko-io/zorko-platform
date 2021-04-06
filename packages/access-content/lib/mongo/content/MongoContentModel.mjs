@@ -11,13 +11,16 @@ export class MongoContentModel extends ContentModel {
       if (typeof value === 'object'){
         value = MongoContentModel.encodeSpecialCharters(value)
       }
-      content[MongoContentModel.encodeKey(key)] = value
+      let encoded = MongoContentModel.encodeKey(key)
+
+      delete content[key]
+      content[encoded] = value
     }
     return content
   }
 
   static encodeKey = (key) => {
-    return key.replaceAll('$', `'$'`)
+    return key.replace('$',"\\'$\\'")
   }
 
   static toProps = (doc) => {
@@ -46,10 +49,12 @@ export class MongoContentModel extends ContentModel {
       result._id = toObjectId(this.id)
     }
 
-    let doc = MongoContentModel.encodeSpecialCharters(this)
+    let content = MongoContentModel.encodeSpecialCharters(this.content)
 
     return {
-      ...doc,
+      content: content,
+      mime: this.mime,
+      config: this.config,
       ...result
     }
   }

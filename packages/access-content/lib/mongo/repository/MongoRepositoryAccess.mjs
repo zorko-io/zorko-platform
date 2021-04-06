@@ -65,8 +65,6 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     assert(deps.log)
     assert(deps.db)
     assert(deps.content)
-    // assert(deps.createContentAccess)
-    // assert(deps.createResourceAccess)
 
     this.#deps = deps
     this.#context = context
@@ -98,9 +96,6 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       permission: params.permission,
       mime: params.mime
     })
-
-
-    console.log({CONTENTTTTTTT: content})
 
     const result = await this.#collection.insertOne({
       parent: params.path,

@@ -20,7 +20,7 @@ export class RepositoryAccess extends Access {
    * @param {String} [params.mime]
    * @param {String} [params.permission]
    * @param {String} [params.preview]
-   * @return {Promise<RepositoryResourceProperties>}
+   * @return {Promise<Partial<RepositoryResourceProperties>>}
    */
 
   async add(params) {

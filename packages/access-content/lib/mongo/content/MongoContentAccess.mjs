@@ -81,7 +81,9 @@ export class MongoContentAccess extends ContentAccess {
 
     const collection = this.#db.collection(name)
 
-    const result = await collection.insertOne(model.toDocument())
+    let doc = model.toDocument()
+
+    const result = await collection.insertOne(doc)
 
     return new MongoContentModel(result).toJSON()
   }
