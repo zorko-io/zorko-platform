@@ -5,7 +5,7 @@ import {MongoRepositoryAccess} from '../repository'
 import {AlreadyExistsError, NotFoundError, ResourceAccessError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
 import {MongoContentAccess} from '../content'
-import {MongoRegisterRecordProperties} from './MongoRegisterRecordProperties'
+import {MongoRegisterRecordModel} from './MongoRegisterRecordModel'
 
 export class MongoRegisterAccess extends RegisterAccess {
 
@@ -114,7 +114,7 @@ export class MongoRegisterAccess extends RegisterAccess {
       // await this.#db.createCollection(repositoryCollectionName)
       await this.#db.createCollection(contentCollectionName)
 
-      return new MongoRegisterRecordProperties(result)
+      return new MongoRegisterRecordModel(result).toJSON()
 
     } catch (error) {
       if (error.code === 11000) {
@@ -136,7 +136,7 @@ export class MongoRegisterAccess extends RegisterAccess {
       new MongoCursorIterator({
         cursor
       }, {
-        wrapValue: (value) => new MongoRegisterRecordProperties(value)
+        wrapValue: (value) => new MongoRegisterRecordModel({doc: value}).toJSON()
       }))
   }
 
@@ -152,7 +152,7 @@ export class MongoRegisterAccess extends RegisterAccess {
       throw new NotFoundError(`Can't find repository record by #id=${id}`)
     }
 
-    return new MongoRegisterRecordProperties(doc)
+    return new MongoRegisterRecordModel({doc}).toJSON()
   }
 
   // TODO: 'access-content', remove, error handling
@@ -162,6 +162,7 @@ export class MongoRegisterAccess extends RegisterAccess {
 
     const {value} = await this.#collection.findOneAndDelete({_id: toObjectId(id)})
 
+    // probalby we no need to be so radical and just mark it as deleted
     await this.#db.collection(value.name).drop()
   }
 

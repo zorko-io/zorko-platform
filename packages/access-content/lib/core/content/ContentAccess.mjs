@@ -6,9 +6,4 @@ import {Access} from '../Access'
  * Common props for all content
  */
 
-export class ContentAccess extends Access {
-
-  get properties () {
-    throw new NotYetImplementedError()
-  }
-}
+export class ContentAccess extends Access {}

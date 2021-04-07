@@ -7,10 +7,6 @@ import {NotYetImplementedError} from '@zorko-io/util-error'
 
 export class Access {
 
-  get properties () {
-    throw new NotYetImplementedError()
-  }
-
   /**
    *
    * @return {Promise<ContentProperties>}

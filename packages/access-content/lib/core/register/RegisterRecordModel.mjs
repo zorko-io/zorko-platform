@@ -1,10 +1,22 @@
-export class RegisterRecordProperties {
+/**
+ * @typedef RegisterRecordProperties
+ * @property {String} id
+ * @property {String} owner
+ * @property {String} name
+ *
+ */
+
+/**
+ * @implements RegisterRecordProperties
+ */
+
+export class RegisterRecordModel {
 
   #id = null
   #owner = null
   #name = null
 
-  constructor(id, owner, name) {
+  constructor({id, owner, name} = {}) {
     this.#id = id
     this.#owner = owner
     this.#name = name

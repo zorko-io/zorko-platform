@@ -2,6 +2,7 @@ import assert from 'assert'
 import {RegisterAccess} from '../core'
 
 // TODO: 'access-content' provide an audit layer before integration
+// -also it makes sense to replace with trace object utility
 export class AuditRegisterAccess extends RegisterAccess {
 
   #origin = null

@@ -1,2 +1,2 @@
 export * from './MongoRegisterAccess'
-export * from './MongoRegisterRecordProperties'
+export * from './MongoRegisterRecordModel.mjs'

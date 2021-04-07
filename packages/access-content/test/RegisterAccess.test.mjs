@@ -20,7 +20,6 @@ test.serial('add new record', async (t) => {
   const record = await register.add('joe')
 
   t.truthy(record)
-
   t.is(record.owner, 'joe')
   t.is(record.name, 'repository.joe.default')
 
@@ -84,8 +83,8 @@ test.serial('allocate default and other repo, iterate  - with happy path', async
 
   t.true(results.length === 2)
 
-  t.deepEqual(results[0].toJSON(), defaultRecord.toJSON())
-  t.deepEqual(results[1].toJSON(), otherRepoRecord.toJSON())
+  t.deepEqual(results[0], defaultRecord)
+  t.deepEqual(results[1], otherRepoRecord)
 })
 
 test.serial('fails if repository with same owner and name already exists', async (t) => {
