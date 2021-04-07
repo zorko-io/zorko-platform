@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {toObjectId} from '../util'
 import {ContentModel} from '../../core/content/ContentModel.mjs'
 
@@ -6,27 +7,36 @@ export class MongoContentModel extends ContentModel {
   static schema = {}
 
   static encodeSpecialCharters = (content) => {
-    for(let key of Object.keys(content)) {
-      let value = content[key]
-      if (typeof value === 'object'){
-        value = MongoContentModel.encodeSpecialCharters(value)
-      }
-      let encoded = MongoContentModel.encodeKey(key)
+    content = _.cloneDeep(content)
+    const spec = content.spec
 
-      delete content[key]
-      content[encoded] = value
+    if (spec) {
+      const value = spec['$schema']
+      delete spec['$schema']
+      spec['_schema'] = value
     }
+
     return content
   }
+  static decodeSpecialCharters = (content) => {
+    content = _.cloneDeep(content)
+    const spec = content.spec
 
-  static encodeKey = (key) => {
-    return key.replace('$',"\\'$\\'")
+    if (spec) {
+      const value = spec['_schema']
+      delete spec['_schema']
+      spec['$schema'] = value
+    }
+
+    return content
   }
 
   static toProps = (doc) => {
     return {
       id: doc._id.toString(),
-      content: doc.content,
+      content: MongoContentModel.decodeSpecialCharters(
+        doc.content
+      ),
       mime: doc.mime,
       config: doc.config
     }
@@ -49,7 +59,9 @@ export class MongoContentModel extends ContentModel {
       result._id = toObjectId(this.id)
     }
 
-    let content = MongoContentModel.encodeSpecialCharters(this.content)
+    let content = MongoContentModel.encodeSpecialCharters(
+      this.content
+    )
 
     return {
       content: content,

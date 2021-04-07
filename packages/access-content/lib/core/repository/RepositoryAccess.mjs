@@ -14,6 +14,7 @@ export class RepositoryAccess extends Access {
 
   /**
    * @param {Object} params
+   * @param {String} params.repo - repository name
    * @param {String} params.path
    * @param {String} params.name
    * @param {Object} params.content

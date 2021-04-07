@@ -54,6 +54,8 @@ test.serial('add new resource with happy path', async (t) => {
     content,
     mime: resource.mime,
     preview: resource.preview,
+    repo: 'default',
+    owner: 'joe'
   })
 
   t.truthy(actual)

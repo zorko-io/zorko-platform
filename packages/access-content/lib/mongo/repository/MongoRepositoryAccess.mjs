@@ -58,7 +58,6 @@ export class MongoRepositoryAccess extends RepositoryAccess {
   constructor(context = {}, deps = {}) {
     super();
 
-    // assert(context.doc)
     // TODO: 'access-content', repository, add permissions
     // label: tech-debt
 
@@ -71,6 +70,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     this.#db = deps.db
     this.#log= deps.log
 
+    // TODO: 'access-content' clean up
     let name = MongoRepositoryAccess.toCollectionName(
       this.#context.owner,
       this.#context.name
@@ -93,9 +93,12 @@ export class MongoRepositoryAccess extends RepositoryAccess {
 
     const content = await this.#content.add({
       content: params.content,
-      permission: params.permission,
-      mime: params.mime
+      mime: params.mime,
+      repo: params.repo,
+      owner: params.owner
     })
+
+
 
     const result = await this.#collection.insertOne({
       parent: params.path,

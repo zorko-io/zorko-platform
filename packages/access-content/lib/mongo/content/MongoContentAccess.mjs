@@ -74,6 +74,10 @@ export class MongoContentAccess extends ContentAccess {
       config
     })
 
+    // TODO: `access-content` - make an owner part of repo name
+    assert(repo, 'should have repo')
+    assert(owner, 'should have owner')
+
     let name = MongoContentAccess.toCollectionName(
       owner,
       repo

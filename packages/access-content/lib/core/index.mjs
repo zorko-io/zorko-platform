@@ -1,6 +1,6 @@
 export * from './Access'
 export * from './register'
 export * from './repository'
-export * from './ResourceAccess'
 export * from './AccessContentFacade'
 export * from './content'
+export * from './MimeTypes'
