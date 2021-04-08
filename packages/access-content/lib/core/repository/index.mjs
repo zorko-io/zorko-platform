@@ -1,2 +1,2 @@
 export * from './RepositoryAccess'
-export * from './RepositoryResourceProperties'
+export * from './RepositoryResourceModel.mjs'

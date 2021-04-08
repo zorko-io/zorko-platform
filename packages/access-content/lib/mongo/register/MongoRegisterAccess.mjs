@@ -9,50 +9,6 @@ import {MongoRegisterRecordModel} from './MongoRegisterRecordModel'
 
 export class MongoRegisterAccess extends RegisterAccess {
 
-  static name = 'register'
-
-  static schema = {
-    bsonType: 'object',
-    required: ['name', 'owner'],
-    properties: {
-      name: {
-        bsonType: 'string',
-        description: 'must be a string and is required'
-      },
-      owner: {
-        bsonType: 'string',
-        description: 'must be a string and is required'
-      }
-    }
-  }
-
-  static async createSchema(deps = {}) {
-    const {log, db} = deps
-    try {
-      const collection = await db.createCollection(MongoRegisterAccess.name, {
-        validator: {
-          $jsonSchema: MongoRegisterAccess.schema
-        }
-      })
-
-      collection.createIndex({
-          name: 1,
-          owner: 1
-        }, {
-          unique: true
-        }
-      )
-
-    } catch (error) {
-      if (error.codeName === 'NamespaceExists') {
-        log.info(`Collection #name=${MongoRegisterAccess.name} was already created, skipping...`)
-      } else {
-        throw new ResourceAccessError(error.message)
-      }
-    }
-  }
-
-
   #db = null
   #log = null
   #context = null
@@ -78,7 +34,7 @@ export class MongoRegisterAccess extends RegisterAccess {
     this.#db = db
     this.#log = deps.log
     this.#log = log.child({class: this.constructor.name})
-    this.#collection = this.#db.collection(MongoRegisterAccess.name)
+    this.#collection = this.#db.collection(MongoRegisterRecordModel.name)
   }
 
   async add(owner, name = 'default') {

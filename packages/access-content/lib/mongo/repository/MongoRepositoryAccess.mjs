@@ -1,6 +1,6 @@
 import assert from 'assert'
 import {RepositoryAccess} from '../../core/index.mjs'
-import {MongoRepositoryResourceProperties} from './MongoRepositoryResourceProperties.mjs'
+import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel.mjs'
 
 export class MongoRepositoryAccess extends RepositoryAccess {
 
@@ -108,6 +108,6 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       preview: params.preview
     })
 
-    return new MongoRepositoryResourceProperties(result)
+    return new MongoRepositoryResourceModel(result)
   }
 }

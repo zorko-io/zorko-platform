@@ -1,9 +1,53 @@
 import {toObjectId} from '../util'
 import {RegisterRecordModel}  from '../../core'
+import {ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
 export class MongoRegisterRecordModel extends RegisterRecordModel{
 
-  static schema = {}
+  static name = 'register'
+
+  static schema = {
+    bsonType: 'object',
+    required: ['name', 'owner'],
+    properties: {
+      name: {
+        bsonType: 'string',
+        description: 'must be a string and is required'
+      },
+      owner: {
+        bsonType: 'string',
+        description: 'must be a string and is required'
+      }
+    }
+  }
+
+  // TODO: `access-content` move to utils/helper
+  static async createSchema(deps = {}) {
+    const {log, db} = deps
+    try {
+      const collection = await db.createCollection(MongoRegisterRecordModel.name, {
+        validator: {
+          $jsonSchema: MongoRegisterRecordModel.schema
+        }
+      })
+
+      collection.createIndex({
+          name: 1,
+          owner: 1
+        }, {
+          unique: true
+        }
+      )
+
+    } catch (error) {
+      if (error.codeName === 'NamespaceExists') {
+        log.info(`Collection #name=${MongoRegisterRecordModel.name} was already created, skipping...`)
+      } else {
+        throw new ResourceAccessError(error.message)
+      }
+    }
+  }
+
 
   static toProps = (doc) => {
     return {

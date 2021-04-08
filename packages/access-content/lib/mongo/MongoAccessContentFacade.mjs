@@ -1,7 +1,7 @@
 import assert from 'assert'
 import {AccessContentFacade} from '../core'
 import mongo from 'mongodb'
-import {MongoRegisterAccess} from './register'
+import {MongoRegisterAccess, MongoRegisterRecordModel} from './register'
 import {ApplicationError, ResourceAccessError} from '@zorko-io/util-error'
 import {MongoRepositoryAccess} from './repository'
 import {MongoContentAccess} from './content'
@@ -91,7 +91,7 @@ export class MongoAccessContentFacade extends AccessContentFacade {
 
       let db = client.db()
 
-      await MongoRegisterAccess.createSchema({
+      await MongoRegisterRecordModel.createSchema({
         db,
         log
       })

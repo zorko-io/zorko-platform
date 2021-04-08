@@ -1,4 +1,18 @@
-export class RepositoryResourceProperties {
+/**
+ * @typedef RepositoryResourceProperties
+ * @property {String} id
+ * @property {String} name
+ * @property {String} content
+ * @property {String} mime
+ * @property {String} preview
+ * @property {String} permission
+ */
+
+/**
+ * @implements RepositoryResourceProperties
+ */
+
+export class RepositoryResourceModel {
 
   #id = null
   #name = null

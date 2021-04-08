@@ -1,6 +1,6 @@
-import {RepositoryResourceProperties} from '../../core'
+import {RepositoryResourceModel} from '../../core'
 
-export class MongoRepositoryResourceProperties extends RepositoryResourceProperties {
+export class MongoRepositoryResourceModel extends RepositoryResourceModel {
 
   constructor(result={}) {
     const doc = result.ops.pop()
