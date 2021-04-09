@@ -2,8 +2,9 @@ import assert from 'assert'
 import {ResourceAccessError} from '@zorko-io/util-error'
 
 /**
- *
+ * Creates mongo schema with metadata from mongo model
  * @param {Object} options
+ * @param {ObjectConstructor} options.clazz - mongo model class
  * @param {String} options.name - name of the collection
  * @param {Object} deps
  */
@@ -16,7 +17,6 @@ export async function createSchema(options= {}, deps = {}) {
   assert(name, 'should have a #collection name')
   assert(log, 'should have #log')
   assert(db, 'should have #db')
-
 
   try {
     const config = {}

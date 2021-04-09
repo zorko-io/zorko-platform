@@ -1,6 +1,6 @@
 import assert from 'assert'
 import {RegisterAccess} from '../../core'
-import {MongoCursorIterator, toObjectId, wrapMongoError} from '../util'
+import {MongoCursorIterator, toObjectId, wrapMongoError, createSchema} from '../util'
 import {NotFoundError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
 import {MongoContentAccess} from '../content'
@@ -41,7 +41,7 @@ export class MongoRegisterAccess extends RegisterAccess {
     assert(owner)
     assert(name)
 
-    let repositoryCollectionName = MongoRepositoryResourceModel.toCollectionName(owner, name)
+    let repositoryCollectionName = MongoRepositoryResourceModel.toCollectionName({owner, name})
 
     try {
       const result = await this.#collection.insertOne({
@@ -49,7 +49,11 @@ export class MongoRegisterAccess extends RegisterAccess {
         name: repositoryCollectionName
       })
 
-      await MongoRepositoryResourceModel.createSchema({owner, name}, {
+      await createSchema({
+        clazz: MongoRepositoryResourceModel,
+        name: MongoRepositoryResourceModel.toCollectionName({owner, name})
+      }, {
+        log: this.#log,
         db: this.#db
       })
 

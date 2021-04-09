@@ -1,4 +1,5 @@
-export * from './enhanceWithMongo.mjs'
+export * from './enhanceWithMongo'
 export * from './MongoCursorIterator'
 export * from './toObjectId'
 export * from './wrapMongoError'
+export * from './createSchema'

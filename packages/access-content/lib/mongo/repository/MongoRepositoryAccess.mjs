@@ -33,21 +33,14 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     this.#db = deps.db
     this.#log= deps.log
 
-    // TODO: 'access-content' clean up
+    // TODO: 'access-content' clean up, it's outdated code,
+    //  concrete collection should be determined on method level
     let name = MongoRepositoryResourceModel.toCollectionName(
       this.#context.owner,
       this.#context.name
     )
     this.#collection = this.#db.collection(name)
     this.#content = deps.content
-  }
-
-  get properties() {
-    return {
-      id: this.#context.doc._id.toString(),
-      owner: this.#context.doc.owner,
-      name: this.#context.doc.name
-    }
   }
 
   async add(params) {
@@ -61,15 +54,17 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       owner: params.owner
     })
 
-
-
-    const result = await this.#collection.insertOne({
-      parent: params.path,
+    const model = new MongoRepositoryResourceModel({
+      path: params.path,
       name: params.name,
       content: content.id,
       mime: params.mime,
       preview: params.preview
     })
+
+    const result = await this.#collection.insertOne(
+      model.toDocument()
+    )
 
     return new MongoRepositoryResourceModel(result).toJSON()
   }

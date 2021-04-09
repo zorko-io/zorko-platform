@@ -17,7 +17,7 @@ setupDb(test, async (t) => {
 test.serial('add new resource with happy path', async (t) => {
   const {repository} = t.context
   const resource = {
-    path: '/',
+    path: '/Bar Char',
     name: 'Bar Char',
     preview: 'url/to/preview/here',
     mime: 'application/json+vega-lite',
@@ -61,10 +61,10 @@ test.serial('add new resource with happy path', async (t) => {
   t.truthy(actual)
   t.truthy(actual.id)
 
-  t.deepEqual(actual.name, resource.name)
-  t.deepEqual(actual.path, '/' + resource.name)
-  t.deepEqual(actual.mime, resource.mime)
-  t.deepEqual(actual.preview, resource.preview)
+  t.deepEqual(actual.name, resource.name, 'should match #name')
+  t.deepEqual(actual.path, resource.path, 'should match  #path')
+  t.deepEqual(actual.mime, resource.mime, 'should match  #mime')
+  t.deepEqual(actual.preview, resource.preview, 'should match #preview')
 
   t.true(typeof actual.content == 'string')
 })
