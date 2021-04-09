@@ -34,7 +34,7 @@ export class MongoRegisterAccess extends RegisterAccess {
     this.#db = db
     this.#log = deps.log
     this.#log = log.child({class: this.constructor.name})
-    this.#collection = this.#db.collection(MongoRegisterRecordModel.name)
+    this.#collection = this.#db.collection(MongoRegisterRecordModel.toCollectionName())
   }
 
   async add(owner, name = 'default') {

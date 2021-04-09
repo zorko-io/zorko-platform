@@ -6,6 +6,10 @@ export class MongoRegisterRecordModel extends RegisterRecordModel{
 
   static name = 'register'
 
+  static toCollectionName() {
+    return 'register'
+  }
+
   static schema = {
     bsonType: 'object',
     required: ['name', 'owner'],
@@ -25,7 +29,7 @@ export class MongoRegisterRecordModel extends RegisterRecordModel{
   static async createSchema(deps = {}) {
     const {log, db} = deps
     try {
-      const collection = await db.createCollection(MongoRegisterRecordModel.name, {
+      const collection = await db.createCollection(MongoRegisterRecordModel.toCollectionName(), {
         validator: {
           $jsonSchema: MongoRegisterRecordModel.schema
         }
@@ -41,7 +45,7 @@ export class MongoRegisterRecordModel extends RegisterRecordModel{
 
     } catch (error) {
       if (error.codeName === 'NamespaceExists') {
-        log.info(`Collection #name=${MongoRegisterRecordModel.name} was already created, skipping...`)
+        log.info(`Collection #name=${MongoRegisterRecordModel.toCollectionName()} was already created, skipping...`)
       } else {
         throw new ResourceAccessError(error.message)
       }

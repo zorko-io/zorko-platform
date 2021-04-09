@@ -3,7 +3,7 @@ import {toObjectId} from './toObjectId.mjs'
 // TODO: 'access-content' - remove code duplication to coming mongoloid enchance
 export function enhanceWithMongo ({clazz, adapter}){
 
-  let newClazz = class MongoModel extends clazz {
+  return class MongoModel extends clazz {
 
     static schema = adapter.schema
 
@@ -14,7 +14,7 @@ export function enhanceWithMongo ({clazz, adapter}){
         if (context.ops) {
           const doc = context.ops.pop()
           params = adapter.toProps(doc)
-        }else if (context.doc){
+        } else if (context.doc) {
           params = adapter.toProps(context.doc)
         }
       }
@@ -24,7 +24,7 @@ export function enhanceWithMongo ({clazz, adapter}){
     toDocument() {
       let result = {}
 
-      if (this.id){
+      if (this.id) {
         result._id = toObjectId(this.id)
       }
 
@@ -34,8 +34,4 @@ export function enhanceWithMongo ({clazz, adapter}){
       }
     }
   }
-
-  console.log({NEW_CLAZZ: newClazz})
-
-  return newClazz
 }
