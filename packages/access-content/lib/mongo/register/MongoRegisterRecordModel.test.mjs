@@ -1,6 +1,6 @@
 import test from '@zorko-io/tool-test-harness'
 import {MongoRegisterRecordModel} from './MongoRegisterRecordModel'
-import {toObjectId} from '../util/index.mjs'
+import {toObjectId} from '../util'
 
 test('enhance simple model', (t) => {
 

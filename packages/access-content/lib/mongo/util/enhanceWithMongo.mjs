@@ -7,6 +7,7 @@ export function enhanceWithMongo ({clazz, adapter} = {}) {
 
     static schema = adapter.schema
     static toCollectionName = adapter.toCollectionName
+    static index  = adapter.index
 
     constructor(context) {
       let params = context
