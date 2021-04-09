@@ -1,7 +1,6 @@
 import {toObjectId} from '../util'
 import {RepositoryResourceModel} from '../../core'
 
-// TODO: 'access-content' - remove code dublication to commin mongoloid enchancer
 export class MongoRepositoryResourceModel extends RepositoryResourceModel{
   static prefix = 'repository'
 

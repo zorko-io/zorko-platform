@@ -1,2 +1,2 @@
-export * from './RegisterRecordModel.mjs'
+export * from './RegisterRecordModel'
 export * from './RegisterAccess'
