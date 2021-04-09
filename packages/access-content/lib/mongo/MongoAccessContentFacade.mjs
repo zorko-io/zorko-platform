@@ -5,6 +5,7 @@ import {MongoRegisterAccess, MongoRegisterRecordModel} from './register'
 import {ApplicationError, ResourceAccessError} from '@zorko-io/util-error'
 import {MongoRepositoryAccess} from './repository'
 import {MongoContentAccess} from './content'
+import {createSchema} from './util/createSchema.mjs'
 
 export class MongoAccessContentFacade extends AccessContentFacade {
 
@@ -91,7 +92,10 @@ export class MongoAccessContentFacade extends AccessContentFacade {
 
       let db = client.db()
 
-      await MongoRegisterRecordModel.createSchema({
+      await createSchema({
+        clazz: MongoRegisterRecordModel,
+        name: MongoRegisterRecordModel.toCollectionName()
+      },{
         db,
         log
       })

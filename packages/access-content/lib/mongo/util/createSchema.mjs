@@ -9,7 +9,7 @@ import {ResourceAccessError} from '@zorko-io/util-error'
  */
 
 export async function createSchema(options= {}, deps = {}) {
-  const { clazz , collection: name} = options
+  const { clazz , name} = options
   const { log, db } = deps
 
   assert(clazz, 'should have a model a #class with mongo options')

@@ -1,7 +1,7 @@
 import assert from 'assert'
 import {RegisterAccess} from '../../core'
-import {MongoCursorIterator, toObjectId} from '../util/index.mjs'
-import {AlreadyExistsError, NotFoundError, ResourceAccessError} from '@zorko-io/util-error'
+import {MongoCursorIterator, toObjectId, wrapMongoError} from '../util'
+import {NotFoundError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
 import {MongoContentAccess} from '../content'
 import {MongoRegisterRecordModel} from './MongoRegisterRecordModel'
@@ -55,31 +55,16 @@ export class MongoRegisterAccess extends RegisterAccess {
 
       let contentCollectionName = MongoContentAccess.toCollectionName(owner, name)
 
-      // TODO: 'access-content' creation of collections
-      // - handle errors (wrap in resource access error)
-      // - make a distinguish between name and location of target collection
-      // - add validation schema
-      // MongoError {
-      //     code: 48,
-      //     codeName: 'NamespaceExists',
-      //     ok: 0,
-      //     message: 'a collection \'b80d3dcb-76a9-4f6e-88b7-f520b9779ab4.repository.joe.default\' already exists',
-      //   }
-
-
-      // await this.#db.createCollection(repositoryCollectionName)
       await this.#db.createCollection(contentCollectionName)
 
       return new MongoRegisterRecordModel(result).toJSON()
 
     } catch (error) {
-      if (error.code === 11000) {
-        this.#log.info(error.message)
-        let message = `Repository with #name=${name} already created for #owner=${owner}`
-        throw new AlreadyExistsError(message)
-      } else {
-        throw new ResourceAccessError(error.message)
-      }
+      wrapMongoError(
+        error,
+        `Repository with #name=${name} already created for #owner=${owner}`, {
+          log: this.#log
+        })
     }
   }
 
