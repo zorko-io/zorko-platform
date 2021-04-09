@@ -1,11 +1,12 @@
-import {toObjectId} from './toObjectId.mjs'
+import {toObjectId} from './toObjectId'
 
 // TODO: 'access-content' - remove code duplication to coming mongoloid enchance
-export function enhanceWithMongo ({clazz, adapter}){
+export function enhanceWithMongo ({clazz, adapter} = {}) {
 
   return class MongoModel extends clazz {
 
     static schema = adapter.schema
+    static toCollectionName = adapter.toCollectionName
 
     constructor(context) {
       let params = context

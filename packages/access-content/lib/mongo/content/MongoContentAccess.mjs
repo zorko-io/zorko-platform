@@ -24,9 +24,7 @@ export class MongoContentAccess extends ContentAccess {
     await db.createCollection(collectionName)
   }
 
-  #collection = null
   #log = null
-  #createContent = null
   #doc = null
   #db = null
 
@@ -47,16 +45,8 @@ export class MongoContentAccess extends ContentAccess {
     assert(deps.db)
 
     this.#doc = context.doc
-
-    // let name = MongoContentAccess.toCollectionName(
-    //   context.doc.owner,
-    //   context.doc.name
-    // )
-
     this.#db = deps.db
-    // this.#collection = deps.db.collection(name)
     this.#log = deps.log
-    // this.#createContent = deps.createContent
   }
 
 
