@@ -21,7 +21,7 @@ export class RepositoryResourceModel {
   #mime = null
   #preview = null
 
-  constructor(id, name, path, content, mime, preview) {
+  constructor({id, name, path, content, mime, preview} = {}) {
     this.#id = id
     this.#name= name
     this.#path = path

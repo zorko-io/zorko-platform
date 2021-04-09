@@ -1,45 +1,8 @@
 import assert from 'assert'
-import {RepositoryAccess} from '../../core/index.mjs'
-import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel.mjs'
+import {RepositoryAccess} from '../../core'
+import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel'
 
 export class MongoRepositoryAccess extends RepositoryAccess {
-
-  static prefix = 'repository'
-
-  static schema = {
-    bsonType: "object",
-    required: [ "name", "parent"],
-    properties: {
-      name: {
-        bsonType: "string",
-        description: "must be a string and is required"
-      },
-      parent: {
-        bsonType: "string",
-        description: "Id of parent resource"
-      },
-      content: {
-        bsonType: "string",
-        description: "Content Id"
-      }
-    }
-  }
-
-  static toCollectionName = (owner, space) => {
-    return `${MongoRepositoryAccess.prefix}.${owner}.${space}`
-  }
-
-  static async createSchema(options = {},deps = {}) {
-    const {owner , name} = options
-    const {db} = deps
-
-    let repositoryCollectionName = MongoRepositoryAccess.toCollectionName(owner, name)
-
-    // TODO: { validator: {
-    //       $jsonSchema: MongoResourceAccess.schema
-    //     }}
-    await db.createCollection(repositoryCollectionName)
-  }
 
   #context = null
   #deps = null
@@ -71,7 +34,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     this.#log= deps.log
 
     // TODO: 'access-content' clean up
-    let name = MongoRepositoryAccess.toCollectionName(
+    let name = MongoRepositoryResourceModel.toCollectionName(
       this.#context.owner,
       this.#context.name
     )
@@ -108,6 +71,6 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       preview: params.preview
     })
 
-    return new MongoRepositoryResourceModel(result)
+    return new MongoRepositoryResourceModel(result).toJSON()
   }
 }
