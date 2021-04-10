@@ -1,74 +1,64 @@
 import _ from 'lodash'
-import {toObjectId} from '../util'
-import {ContentModel} from '../../core/content/ContentModel.mjs'
+import {enhanceWithMongo, toObjectId} from '../util'
+import {ContentModel} from '../../core'
 
-export class MongoContentModel extends ContentModel {
+export const MongoContentModel = enhanceWithMongo({
+  clazz: ContentModel,
+  adapter: {
+    toProps  (doc) {
+      const decodeSpecialCharters = (content) => {
+        content = _.cloneDeep(content)
+        const spec = content.spec
 
-  static schema = {}
+        if (spec) {
+          const value = spec['_schema']
+          delete spec['_schema']
+          spec['$schema'] = value
+        }
 
-  static encodeSpecialCharters = (content) => {
-    content = _.cloneDeep(content)
-    const spec = content.spec
+        return content
+      }
 
-    if (spec) {
-      const value = spec['$schema']
-      delete spec['$schema']
-      spec['_schema'] = value
+      return {
+        id: doc._id.toString(),
+        content: decodeSpecialCharters(
+          doc.content
+        ),
+        mime: doc.mime,
+        config: doc.config
+      }
+    },
+    toDocument(props) {
+      let result = {}
+
+      if (props.id){
+        result._id = toObjectId(props.id)
+      }
+
+      const encodeSpecialCharters = (content) => {
+        content = _.cloneDeep(content)
+        const spec = content.spec
+
+        if (spec) {
+          const value = spec['$schema']
+          delete spec['$schema']
+          spec['_schema'] = value
+        }
+
+        return content
+      }
+
+      let content = encodeSpecialCharters(
+        props.content
+      )
+
+      return {
+        content: content,
+        mime: props.mime,
+        config: props.config,
+        ...result
+      }
     }
 
-    return content
   }
-  static decodeSpecialCharters = (content) => {
-    content = _.cloneDeep(content)
-    const spec = content.spec
-
-    if (spec) {
-      const value = spec['_schema']
-      delete spec['_schema']
-      spec['$schema'] = value
-    }
-
-    return content
-  }
-
-  static toProps = (doc) => {
-    return {
-      id: doc._id.toString(),
-      content: MongoContentModel.decodeSpecialCharters(
-        doc.content
-      ),
-      mime: doc.mime,
-      config: doc.config
-    }
-  }
-
-  constructor(context) {
-    let props = context
-
-    if (context.ops) {
-      const doc = context.ops.pop()
-      props = MongoContentModel.toProps(doc)
-    }
-    super(props)
-  }
-
-  toDocument() {
-    let result = {}
-
-    if (this.id){
-      result._id = toObjectId(this.id)
-    }
-
-    let content = MongoContentModel.encodeSpecialCharters(
-      this.content
-    )
-
-    return {
-      content: content,
-      mime: this.mime,
-      config: this.config,
-      ...result
-    }
-  }
-
-}
+})
