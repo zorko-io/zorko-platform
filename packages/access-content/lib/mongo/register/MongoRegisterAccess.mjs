@@ -6,6 +6,7 @@ import {toIterable} from '@zorko-io/util-lang'
 import {MongoContentAccess} from '../content'
 import {MongoRegisterRecordModel} from './MongoRegisterRecordModel'
 import {MongoRepositoryResourceModel} from '../repository'
+import {MongoContentModel} from '../content/MongoContentModel.mjs'
 
 export class MongoRegisterAccess extends RegisterAccess {
 
@@ -57,7 +58,7 @@ export class MongoRegisterAccess extends RegisterAccess {
         db: this.#db
       })
 
-      let contentCollectionName = MongoContentAccess.toCollectionName(owner, name)
+      let contentCollectionName = MongoContentModel.toCollectionName({owner, repo: name})
 
       await this.#db.createCollection(contentCollectionName)
 

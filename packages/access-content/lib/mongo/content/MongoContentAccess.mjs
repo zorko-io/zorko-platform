@@ -3,27 +3,6 @@ import {ContentAccess} from '../../core/content/ContentAccess'
 import {MongoContentModel} from './MongoContentModel.mjs'
 
 export class MongoContentAccess extends ContentAccess {
-
-  static prefix = 'content'
-
-  static schema = {}
-
-  static toCollectionName = (owner, name) => {
-    return `${MongoContentAccess.prefix}.${owner}.${name}`
-  }
-
-  static async createSchema(options = {},deps = {}) {
-    const {owner , name} = options
-    const {db} = deps
-
-    let collectionName = MongoContentAccess.toCollectionName(owner, name)
-
-    // TODO: { validator: {
-    //       $jsonSchema: MongoResourceAccess.schema
-    //     }}
-    await db.createCollection(collectionName)
-  }
-
   #log = null
   #doc = null
   #db = null
@@ -68,10 +47,10 @@ export class MongoContentAccess extends ContentAccess {
     assert(repo, 'should have repo')
     assert(owner, 'should have owner')
 
-    let name = MongoContentAccess.toCollectionName(
+    let name = MongoContentModel.toCollectionName({
       owner,
       repo
-    )
+    })
 
     const collection = this.#db.collection(name)
 
