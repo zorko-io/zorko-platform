@@ -1,4 +1,4 @@
-- [ ] migrate to mongo model from utils
+- [x] migrate to mongo model from utils
 - [ ] start from contentAccess, by adding input validation and all basic CRUD actions
 - [ ] do the same for repository, add permissions
 - [ ] do the same for register, add permissions

@@ -1,6 +1,6 @@
 import test from '@zorko-io/tool-test-harness'
-import {setupDb} from './helper'
-import {createFacade, MimeTypes} from '../lib'
+import {setupDb} from '../../../test/helper'
+import {createFacade, MimeTypes} from '../../index.mjs'
 
 setupDb(test, async (t) => {
   const {db} = t.context
