@@ -10,6 +10,7 @@ test.beforeEach((t) => {
 
   origin.add.returns(returnResult)
   origin.get.returns(returnResult)
+  origin.remove.returns(returnResult)
 
   const access = new ContentAccessWithValidation({origin})
 
@@ -50,6 +51,20 @@ test('get - check delegation to origin', async (t) => {
   t.true(origin.get.calledOnce, '#get(...) should be called once')
   t.deepEqual(actual, returnResult)
 })
+
+test('remove - check delegation to origin', async (t) => {
+  const { access, origin, returnResult } = t.context
+
+  const actual  = await access.remove({
+    id: 'some-id',
+    repository: 'some-repo',
+    owner: 'joe'
+  })
+
+  t.true(origin.remove.calledOnce, '#remove(...) should be called once')
+  t.deepEqual(actual, returnResult)
+})
+
 
 test('add - check required params', async (t) => {
   const { access } = t.context
@@ -115,6 +130,28 @@ test('get - check required and format params', async (t) => {
 
   await t.throwsAsync( async () => {
     await access.get({
+      id: {},
+      repository: {},
+      owner: {}
+    })
+  }, {
+    instanceOf: ResourceAccessError,
+    message: 'ValidationError: {"id":"FORMAT_ERROR","repository":"FORMAT_ERROR","owner":"FORMAT_ERROR"}',
+  })
+})
+
+test('remove - check required and format params', async (t) => {
+  const { access } = t.context
+
+  await t.throwsAsync( async () => {
+    await access.remove({})
+  }, {
+    instanceOf: ResourceAccessError,
+    message: 'ValidationError: {"id":"REQUIRED","repository":"REQUIRED","owner":"REQUIRED"}'
+  })
+
+  await t.throwsAsync( async () => {
+    await access.remove({
       id: {},
       repository: {},
       owner: {}

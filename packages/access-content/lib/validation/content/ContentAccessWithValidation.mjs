@@ -53,6 +53,15 @@ export class ContentAccessWithValidation extends ContentAccess {
     )
   }
 
+  async remove(params) {
+    return this.#execWithValidation(
+      params,
+      this.#origin.remove,
+      this.#compoundContentIdValidator
+    )
+  }
+
+
   #execWithValidation = async (params, method ,validator) => {
     const {error, result} = await validator.parse(params)
 
