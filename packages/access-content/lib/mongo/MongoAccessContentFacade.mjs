@@ -5,7 +5,7 @@ import {MongoRegisterAccess, MongoRegisterRecordModel} from './register'
 import {ApplicationError, ResourceAccessError} from '@zorko-io/util-error'
 import {MongoRepositoryAccess} from './repository'
 import {MongoContentAccess} from './content'
-import {createSchema} from './util/createSchema.mjs'
+import {createSchema} from './util'
 
 export class MongoAccessContentFacade extends AccessContentFacade {
 

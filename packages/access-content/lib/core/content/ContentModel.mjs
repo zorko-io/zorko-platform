@@ -13,8 +13,6 @@
 
 export class ContentModel {
 
-  static rules = {}
-
   #id = null
   #content = null
   #mime = null

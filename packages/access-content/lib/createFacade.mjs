@@ -1,6 +1,7 @@
 import {configDiscovery} from './configDiscovery.mjs'
 import {MongoAccessContentFacade} from './mongo'
 import {MockLogger} from '@zorko-io/util-logger/lib/types/index.mjs'
+import {AccessContentFacadeWithValidation} from './validation'
 
 const SUPPORTED_DB_TYPES = {
   Mongo: 'mongodb',
@@ -40,8 +41,8 @@ export async function createFacade (config = {}, deps = {}) {
     })
   }
 
-  // wrap with validation, audit and security decorators
+  // wrap, audit and default access control decorators
 
-  return facade
+  return new AccessContentFacadeWithValidation({origin: facade})
 
 }
