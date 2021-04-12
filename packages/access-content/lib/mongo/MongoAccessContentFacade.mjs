@@ -68,7 +68,7 @@ export class MongoAccessContentFacade extends AccessContentFacade {
     assert(this.#db, 'should have #db')
     assert(this.content, 'should have #content')
 
-    this.#repository = new MongoRepositoryAccess({}, {
+    this.#repository = new MongoRepositoryAccess({
       ...this.#deps,
       db: this.#db,
       content: this.content

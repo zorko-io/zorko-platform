@@ -44,10 +44,14 @@ test.serial('add new record', async (t) => {
   const mime = MimeTypes.VegaLite
 
   const result = await content.add({
-    content: {spec},
-    mime,
-    repo: 'default',
-    owner: 'joe'
+    content: {
+      mime,
+      content: {spec},
+    },
+    repository: {
+      name: 'default',
+      owner: 'joe'
+    }
   })
 
   t.truthy(result)

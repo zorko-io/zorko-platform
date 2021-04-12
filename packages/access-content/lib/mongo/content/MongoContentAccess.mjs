@@ -35,25 +35,18 @@ export class MongoContentAccess extends ContentAccess {
     }
   }
 
-  async add({content, mime, owner, repo, config} = {}) {
-
+  async add(params) {
+    const {content, repository} = params
     const model = new MongoContentModel({
-      content,
-      mime,
-      config
+      content: content.content,
+      mime: content.mime,
+      config: content.config
     })
-
-    // TODO: `access-content` - make an owner part of repo name
-    assert(repo, 'should have repo')
-    assert(owner, 'should have owner')
-
     let name = MongoContentModel.toCollectionName({
-      owner,
-      repo
+      owner: repository.owner,
+      repo: repository.name
     })
-
     const collection = this.#db.collection(name)
-
     let doc = model.toDocument()
 
     const result = await collection.insertOne(doc)

@@ -4,22 +4,21 @@ import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel'
 
 export class MongoRepositoryAccess extends RepositoryAccess {
 
-  #context = null
   #deps = null
   #db = null
   #log = null
-  #collection = null
   #content = null
 
   /**
-   *
-   * @param {Object} context
+   * @constructor
    * @param {Object} deps
+   * @param {ContentAccess} deps.log
+   * @param {ContentAccess} deps.db
    * @param {ContentAccess} deps.content
    */
 
-  constructor(context = {}, deps = {}) {
-    super();
+  constructor(deps = {}) {
+    super()
 
     // TODO: 'access-content', repository, add permissions
     // label: tech-debt
@@ -29,17 +28,8 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     assert(deps.content)
 
     this.#deps = deps
-    this.#context = context
     this.#db = deps.db
-    this.#log= deps.log
-
-    // TODO: 'access-content' clean up, it's outdated code,
-    //  concrete collection should be determined on method level
-    let name = MongoRepositoryResourceModel.toCollectionName(
-      this.#context.owner,
-      this.#context.name
-    )
-    this.#collection = this.#db.collection(name)
+    this.#log = deps.log
     this.#content = deps.content
   }
 
@@ -48,10 +38,14 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     // label: tech-debt
 
     const content = await this.#content.add({
-      content: params.content,
-      mime: params.mime,
-      repo: params.repo,
-      owner: params.owner
+      content: {
+        content: params.content,
+        mime: params.mime
+      },
+      repository: {
+        name: params.repo,
+        owner: params.owner
+      }
     })
 
     const model = new MongoRepositoryResourceModel({
@@ -62,10 +56,23 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       preview: params.preview
     })
 
-    const result = await this.#collection.insertOne(
+    const result = await this.#getCollection({
+      owner: params.owner,
+      name: params.name
+    }).insertOne(
       model.toDocument()
     )
 
     return new MongoRepositoryResourceModel(result).toJSON()
+  }
+
+  #getCollection = ({owner, name} = {}) => {
+    // TODO: 'access-content' clean up, it's outdated code,
+    //  concrete collection should be determined on method level
+    let collection = MongoRepositoryResourceModel.toCollectionName(
+      owner,
+      name
+    )
+    return this.#db.collection(collection)
   }
 }
