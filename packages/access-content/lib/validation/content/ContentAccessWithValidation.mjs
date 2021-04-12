@@ -21,11 +21,19 @@ const compoundContextIdRules = {
   owner: ['required', 'string']
 }
 
+const contentQueryRules = {
+  select: [{
+    'list_of': [ 'required',  'string' ]
+  }],
+  limit: ['positive_integer', { default: 10 }],
+  offset: ['positive_integer', {default: 0}]
+}
 export class ContentAccessWithValidation extends ContentAccess {
 
   #origin = null
   #newContentValidator = null
   #compoundContentIdValidator = null
+  #iterateQueryValidator = null
 
   constructor(context = {}) {
     assert(context.origin, 'should have #origin')
@@ -35,6 +43,7 @@ export class ContentAccessWithValidation extends ContentAccess {
     this.#origin = context.origin
     this.#newContentValidator = createValidator(newContentRules)
     this.#compoundContentIdValidator = createValidator(compoundContextIdRules)
+    this.#iterateQueryValidator = createValidator(contentQueryRules)
   }
 
   async add(params) {
@@ -42,6 +51,14 @@ export class ContentAccessWithValidation extends ContentAccess {
       params,
       this.#origin.add,
       this.#newContentValidator
+    )
+  }
+
+  iterate(query= {}) {
+    return this.#execWithValidation(
+      query,
+      this.#origin.iterate,
+      this.#iterateQueryValidator
     )
   }
 
@@ -62,8 +79,8 @@ export class ContentAccessWithValidation extends ContentAccess {
   }
 
 
-  #execWithValidation = async (params, method ,validator) => {
-    const {error, result} = await validator.parse(params)
+  #execWithValidation = (params, method ,validator) => {
+    const {error, result} = validator.parseSync(params)
 
     if (error) {
       // wrap with ResourceAccessError to force upper

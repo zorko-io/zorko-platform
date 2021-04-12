@@ -11,6 +11,7 @@ test.beforeEach((t) => {
   origin.add.returns(returnResult)
   origin.get.returns(returnResult)
   origin.remove.returns(returnResult)
+  origin.iterate.returns(returnResult)
 
   const access = new ContentAccessWithValidation({origin})
 
@@ -49,6 +50,15 @@ test('get - check delegation to origin', async (t) => {
   })
 
   t.true(origin.get.calledOnce, '#get(...) should be called once')
+  t.deepEqual(actual, returnResult)
+})
+
+test('iterate - check delegation to origin', (t) => {
+  const { access, origin, returnResult } = t.context
+
+  const actual = access.iterate()
+
+  t.true(origin.iterate.calledOnce, '#iterate(...) should be called once')
   t.deepEqual(actual, returnResult)
 })
 
