@@ -3,15 +3,7 @@ import assert from 'assert'
 import {createValidator} from '@zorko-io/util-validation'
 import {ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
-const newContentRulesOnAdd = {
-  content: ['required','any_object'],
-  mime: ['required', 'string'],
-  config: 'any_object',
-  repo: ['required','string'],
-  owner: ['required', 'string']
-}
-
-const newNewContentRulesOnAdd = {
+const newContentRules = {
   content: ['required',{nested_object: {
       mime: ['required', 'string'],
       content: ['required', 'any_object'],
@@ -23,10 +15,17 @@ const newNewContentRulesOnAdd = {
     }}]
 }
 
+const compoundContextIdRules = {
+  id: ['required', 'string'],
+  repository:  ['required', 'string'],
+  owner: ['required', 'string']
+}
+
 export class ContentAccessWithValidation extends ContentAccess {
 
   #origin = null
-  #newContent = null
+  #newContentValidator = null
+  #compoundContentIdValidator = null
 
   constructor(context = {}) {
     assert(context.origin, 'should have #origin')
@@ -34,11 +33,24 @@ export class ContentAccessWithValidation extends ContentAccess {
     super();
 
     this.#origin = context.origin
-    this.#newContent = createValidator(newNewContentRulesOnAdd)
+    this.#newContentValidator = createValidator(newContentRules)
+    this.#compoundContentIdValidator = createValidator(compoundContextIdRules)
   }
 
   async add(params) {
-    const {error, result} = await this.#newContent.parse(params)
+    const {error, result} = await this.#newContentValidator.parse(params)
+
+    if (error) {
+      // wrap with ResourceAccessError to force upper
+      // layer to do proper validation
+      throw new ResourceAccessError(error.message)
+    }
+
+    return this.#origin.add.apply(this.#origin, [result])
+  }
+
+  async get(params) {
+    const {error, result} = await this.#compoundContentIdValidator.parse(params)
 
     if (error) {
       // wrap with ResourceAccessError to force upper

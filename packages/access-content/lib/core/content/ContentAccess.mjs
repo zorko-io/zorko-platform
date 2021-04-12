@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import {NotYetImplementedError} from '@zorko-io/util-error'
 import {Access} from '../Access'
 
 /**
@@ -7,7 +6,6 @@ import {Access} from '../Access'
  */
 
 export class ContentAccess extends Access {
-
 
   /**
    * Add new content to repository
@@ -21,5 +19,41 @@ export class ContentAccess extends Access {
 
   async add(params) {
     super.add(params);
+  }
+
+  /**
+   * @param {Object} query - content query object
+   * @param {Array} query.select - list of content fields
+   * @param {Number} [query.limit]=10 - limit result set
+   * @param {Number} [query.offset]=0 - offset for result set
+   */
+  iterate(query) {
+    super.iterate(query);
+  }
+
+  /**
+   * Get content by uniq ids
+   * @param {Object} params
+   * @param {String} params.repository - content's repository
+   * @param {String} params.owner - owner of repository
+   * @param {String} params.id - id for content
+   * @return {Promise<ContentProperties>}
+   */
+
+  async get(params) {
+    super.get(params);
+  }
+
+  /**
+   * Remove content by uniq ids
+   * @param {Object} params
+   * @param {String} params.repository - content's repository
+   * @param {String} params.owner - owner of repository
+   * @param {String} params.id - id for content
+   * @return {Promise<void>}
+   */
+
+  async remove(params) {
+    super.remove(params);
   }
 }
