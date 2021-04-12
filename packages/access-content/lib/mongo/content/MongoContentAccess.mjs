@@ -1,38 +1,26 @@
 import assert from 'assert'
-import {ContentAccess} from '../../core/content/ContentAccess'
-import {MongoContentModel} from './MongoContentModel.mjs'
+import {ContentAccess} from '../../core'
+import {MongoContentModel} from './MongoContentModel'
 
 export class MongoContentAccess extends ContentAccess {
   #log = null
-  #doc = null
   #db = null
 
   /**
-   *
-   * @param {Object} context
+   * @constructor
    * @param {Object} deps
-   * @param {Object} deps.log
-   * @param {Object} deps.createContent - factory function to create content
+   * @param {Object} deps.log - logger
    * @param {Object} deps.db - mongo driver db
    */
 
-  constructor(context = {}, deps = {}) {
+  constructor(deps = {}) {
     super()
 
-    assert(context)
     assert(deps.log)
     assert(deps.db)
 
-    this.#doc = context.doc
     this.#db = deps.db
     this.#log = deps.log
-  }
-
-
-  get properties() {
-    return {
-      id: this.#doc._id
-    }
   }
 
   async add(params) {
