@@ -38,19 +38,23 @@ export class ContentAccessWithValidation extends ContentAccess {
   }
 
   async add(params) {
-    const {error, result} = await this.#newContentValidator.parse(params)
-
-    if (error) {
-      // wrap with ResourceAccessError to force upper
-      // layer to do proper validation
-      throw new ResourceAccessError(error.message)
-    }
-
-    return this.#origin.add.apply(this.#origin, [result])
+    return this.#execWithValidation(
+      params,
+      this.#origin.add,
+      this.#newContentValidator
+    )
   }
 
   async get(params) {
-    const {error, result} = await this.#compoundContentIdValidator.parse(params)
+    return this.#execWithValidation(
+      params,
+      this.#origin.get,
+      this.#compoundContentIdValidator
+    )
+  }
+
+  #execWithValidation = async (params, method ,validator) => {
+    const {error, result} = await validator.parse(params)
 
     if (error) {
       // wrap with ResourceAccessError to force upper
@@ -58,6 +62,6 @@ export class ContentAccessWithValidation extends ContentAccess {
       throw new ResourceAccessError(error.message)
     }
 
-    return this.#origin.add.apply(this.#origin, [result])
+    return method.apply(this.#origin, [result])
   }
 }

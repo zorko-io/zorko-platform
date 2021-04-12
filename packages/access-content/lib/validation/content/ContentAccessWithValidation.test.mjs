@@ -6,9 +6,10 @@ import {ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
 test.beforeEach((t) => {
   const origin = sinon.createStubInstance(ContentAccess)
-  const returnResult = 'add-result'
+  const returnResult = 'some-result'
 
   origin.add.returns(returnResult)
+  origin.get.returns(returnResult)
 
   const access = new ContentAccessWithValidation({origin})
 
@@ -46,7 +47,7 @@ test('get - check delegation to origin', async (t) => {
     owner: 'joe'
   })
 
-  t.true(origin.add.calledOnce, '#add(...) should be called once')
+  t.true(origin.get.calledOnce, '#get(...) should be called once')
   t.deepEqual(actual, returnResult)
 })
 
