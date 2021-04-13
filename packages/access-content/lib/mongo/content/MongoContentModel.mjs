@@ -16,13 +16,19 @@ export const MongoContentModel = enhanceWithMongo({
 
     toProps  (doc) {
 
+      const result = {}
+
+      if (doc.config) {
+        result.config = doc.config
+      }
+
       return {
         id: doc._id.toString(),
         content: MongoContentModel.decodeSpecialCharters(
           doc.content
         ),
         mime: doc.mime,
-        config: doc.config
+        ...result
       }
     },
     toDocument(props) {
@@ -32,6 +38,9 @@ export const MongoContentModel = enhanceWithMongo({
         result._id = toObjectId(props.id)
       }
 
+      if (props.config) {
+        result.config = props.config
+      }
       let content = MongoContentModel.encodeSpecialCharters(
         props.content
       )
@@ -39,7 +48,6 @@ export const MongoContentModel = enhanceWithMongo({
       return {
         content: content,
         mime: props.mime,
-        config: props.config,
         ...result
       }
     }

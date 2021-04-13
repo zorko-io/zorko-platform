@@ -1,6 +1,8 @@
 import assert from 'assert'
 import {ContentAccess} from '../../core'
 import {MongoContentModel} from './MongoContentModel'
+import {toObjectId} from '../util/index.mjs'
+import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
 export class MongoContentAccess extends ContentAccess {
   #log = null
@@ -30,11 +32,10 @@ export class MongoContentAccess extends ContentAccess {
       mime: content.mime,
       config: content.config
     })
-    let name = MongoContentModel.toCollectionName({
+    const collection = this.#getCollection({
       owner: repository.owner,
       repo: repository.name
     })
-    const collection = this.#db.collection(name)
     let doc = model.toDocument()
 
     const result = await collection.insertOne(doc)
@@ -42,4 +43,47 @@ export class MongoContentAccess extends ContentAccess {
     return new MongoContentModel(result).toJSON()
   }
 
+
+  async get(params) {
+    const {repository, owner, id}  = params
+    const collection = this.#getCollection({
+      owner: owner,
+      repo: repository
+    })
+
+    let doc
+
+    try {
+      doc = await collection.findOne({_id: toObjectId(id)})
+    } catch (error) {
+      throw new ResourceAccessError(error.message)
+    }
+
+    if (!doc) {
+      throw new NotFoundError(`Can't find content with #id=${id}, #repo=${repository}, #owner=${owner}`)
+    }
+
+    return new MongoContentModel({doc}).toJSON()
+  }
+
+  async remove(params) {
+    const {repository, owner, id}  = params
+    const collection = this.#getCollection({
+      owner: owner,
+      repo: repository
+    })
+
+    try {
+      await collection.findOneAndDelete({_id: toObjectId(id)})
+    } catch (error) {
+      throw new ResourceAccessError(error.message)
+    }
+  }
+
+  #getCollection = ({owner, repo} = {}) => {
+    let collection = MongoContentModel.toCollectionName({
+      owner, repo
+  })
+    return this.#db.collection(collection)
+  }
 }

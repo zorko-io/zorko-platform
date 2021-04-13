@@ -1,6 +1,8 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from '../../../test/helper'
 import {createFacade, MimeTypes} from '../../index.mjs'
+import {toObjectId} from '../util'
+import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -56,7 +58,7 @@ test.beforeEach((t)=> {
   t.context.defaultJoeRepo = defaultJoeRepo
 })
 
-test.serial('add new record', async (t) => {
+test.serial('add new content', async (t) => {
   const {content, contentWithBarChart , defaultJoeRepo, barCharSpec} = t.context
 
   const result = await content.add({
@@ -69,4 +71,54 @@ test.serial('add new record', async (t) => {
   t.deepEqual(result.content, {spec: barCharSpec})
   t.is(result.mime, contentWithBarChart.mime)
   t.truthy(typeof result.id === 'string' && result.id)
+})
+
+test.serial('fails with not found', async (t) => {
+  const {content, defaultJoeRepo} = t.context
+  let id = toObjectId().toString()
+
+  await t.throwsAsync(async  () => {
+    await content.get({
+      repository: defaultJoeRepo.name,
+      owner: defaultJoeRepo.owner,
+      id: id
+    })
+  }, {
+    instanceOf: NotFoundError,
+    message: `Can't find content with #id=${id}, #repo=default, #owner=joe`
+  })
+})
+
+test.serial('add, get and remove one item', async (t) => {
+  const {content, contentWithBarChart , defaultJoeRepo} = t.context
+
+  let result = await content.add({
+    content: contentWithBarChart,
+    repository: defaultJoeRepo
+  })
+
+  let actual = await content.get({
+    repository: defaultJoeRepo.name,
+    owner: defaultJoeRepo.owner,
+    id: result.id
+  })
+
+  t.deepEqual(result, actual)
+
+  await content.remove({
+    id: result.id,
+    repository: defaultJoeRepo.name,
+    owner: defaultJoeRepo.owner
+  })
+
+  await t.throwsAsync(async  () => {
+    await content.get({
+      repository: defaultJoeRepo.name,
+      owner: defaultJoeRepo.owner,
+      id: result.id
+    })
+  }, {
+    instanceOf: NotFoundError,
+  })
+
 })

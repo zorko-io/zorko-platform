@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 /**
  * @typedef ContentProperties
  * @property {String} id
@@ -60,16 +62,16 @@ export class ContentModel {
   }
 
   /**
-   * @return {ContentProperties}
+   * @return {Partial<ContentProperties>}
    */
 
   toJSON() {
-    return  {
-      id: this.#id,
-      content: this.#content,
+    return  _.pickBy({
+      id: this.id,
+      content: this.content,
       mime: this.mime,
       config: this.config
-    }
+    }, (value) => !_.isUndefined(value))
   }
 
 }

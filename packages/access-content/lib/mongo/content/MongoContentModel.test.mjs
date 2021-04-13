@@ -44,7 +44,6 @@ test('enhance simple model', (t) => {
     id: id.toString(),
     content,
     mime: MimeTypes.VegaLite,
-    config: undefined
   }
 
   const instance = new MongoContentModel({doc})
