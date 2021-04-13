@@ -8,7 +8,7 @@ const SUPPORTED_DB_TYPES = {
 }
 
 const DEFAULT_DEPS = {
-  log: new MockLogger()
+  log: new MockLogger(),
 }
 
 /**
@@ -17,11 +17,10 @@ const DEFAULT_DEPS = {
  * @return {Promise<AccessContentFacade>}
  */
 
-export async function createFacade (config = {}, deps = {}) {
-
+export async function createFacade(config = {}, deps = {}) {
   deps = {
     ...DEFAULT_DEPS,
-    ...deps
+    ...deps,
   }
 
   if (!config) {
@@ -33,16 +32,18 @@ export async function createFacade (config = {}, deps = {}) {
 
   if (dbType === SUPPORTED_DB_TYPES.Mongo) {
     facade = await new Promise((resolve, reject) => {
-      new MongoAccessContentFacade({
-        ...config,
-        onReady: resolve,
-        onFailure: reject
-      }, deps)
+      new MongoAccessContentFacade(
+        {
+          ...config,
+          onReady: resolve,
+          onFailure: reject,
+        },
+        deps
+      )
     })
   }
 
   // wrap, audit and default access control decorators
 
   return new AccessContentFacadeWithValidation({origin: facade})
-
 }
