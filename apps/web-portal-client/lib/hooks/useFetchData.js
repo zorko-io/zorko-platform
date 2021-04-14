@@ -1,4 +1,4 @@
-import {useEffect, useReducer, useRef} from 'react'
+import {useEffect, useReducer, useRef, useContext} from 'react'
 import {AppContext} from '../context'
 
 export function useFetchData(callback) {

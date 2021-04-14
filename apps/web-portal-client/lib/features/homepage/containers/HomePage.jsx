@@ -1,25 +1,27 @@
-import React, {useCallback, useContext, useEffect} from 'react'
+import React, {useEffect, useCallback} from 'react'
 import {useFetchData} from '../../../hooks'
 
-
 import Spinner from '../../../components/Spinner'
-
 import {UserProfile} from '../../../components/UserProfile'
 import {PreviewCard} from '../../../components/PreviewCard'
 import {Content, Sidebar, Layout} from '../../../components/layout'
 
-const createFetchHook = (callback) => {
-  const func = useCallback(callback)
-  return useFetchData(func)
-}
-
-const useFetchDataNew = createFetchHook((params, api) => api.previews.findAll(params))
-
 export function HomePage() {
-  const [{data: previews, isLoading, isError}, doFetch] = useFetchDataNew()
+  /*   const createFetchHook = (callback) => {
+    const func = useCallback(callback)
+    return useFetchData(func)
+  } */
+
+  //const useFetchPreviews = () => createFetchHook((params, api) => api.previews.findAll(params))
+
+  //const useFetchPreviews = () => useFetchData((params, api) => api.previews.findAll(params))
+
+  const [{data: previews, isLoading, isError}, doFetch] = useFetchData((params, api) =>
+    api.previews.findAll(params)
+  )
 
   useEffect(() => {
-    doFetch()
+    doFetch({offset: 0, limit: 10})
   }, [])
 
   return (
