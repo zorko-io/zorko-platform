@@ -41,6 +41,24 @@ test.beforeEach((t)=> {
     },
   }
 
+  const gantChart = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "A simple bar chart with ranged data (aka Gantt Chart).",
+    "data": {
+      "values": [
+        {"task": "A", "start": 1, "end": 3},
+        {"task": "B", "start": 3, "end": 8},
+        {"task": "C", "start": 8, "end": 10}
+      ]
+    },
+    "mark": "bar",
+    "encoding": {
+      "y": {"field": "task", "type": "ordinal"},
+      "x": {"field": "start", "type": "quantitative"},
+      "x2": {"field": "end"}
+    }
+  }
+
   const mime = MimeTypes.VegaLite
 
   const defaultJoeRepo = {
@@ -53,6 +71,10 @@ test.beforeEach((t)=> {
     mime
   }
 
+  t.context.contentForFewSpecs = [
+    {content: {spec: barCharSpec}, mime},
+    {content: {spec: gantChart}, mime}
+  ]
   t.context.barCharSpec = barCharSpec
   t.context.contentWithBarChart = contentWithBarChart
   t.context.defaultJoeRepo = defaultJoeRepo
@@ -121,4 +143,26 @@ test.serial('add, get and remove one item', async (t) => {
     instanceOf: NotFoundError,
   })
 
+})
+
+test.serial('query fee items', async (t) => {
+
+  // start with two, then extend for more that limit/offset
+
+  const { content, contentForFewSpecs, defaultJoeRepo} = t.context
+
+  for (let newContent  of contentForFewSpecs) {
+    await content.add({
+      repository: defaultJoeRepo,
+      content: newContent
+    })
+  }
+
+  const items = content.iterate({
+    repository: defaultJoeRepo
+  })
+
+
+
+  t.truthy(items)
 })

@@ -56,7 +56,10 @@ test('get - check delegation to origin', async (t) => {
 test('iterate - check delegation to origin', (t) => {
   const { access, origin, returnResult } = t.context
 
-  const actual = access.iterate()
+  const actual = access.iterate({repository: {
+      name: 'my-repo',
+      owner: 'joe'
+    }})
 
   t.true(origin.iterate.calledOnce, '#iterate(...) should be called once')
   t.deepEqual(actual, returnResult)

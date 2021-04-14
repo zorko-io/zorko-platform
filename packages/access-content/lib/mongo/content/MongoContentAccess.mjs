@@ -1,8 +1,9 @@
 import assert from 'assert'
 import {ContentAccess} from '../../core'
 import {MongoContentModel} from './MongoContentModel'
-import {toObjectId} from '../util/index.mjs'
+import {MongoCursorIterator, toObjectId} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
+import {toIterable} from '@zorko-io/util-lang/lib/index.mjs'
 
 export class MongoContentAccess extends ContentAccess {
   #log = null
@@ -43,6 +44,23 @@ export class MongoContentAccess extends ContentAccess {
     return new MongoContentModel(result).toJSON()
   }
 
+
+  iterate({query, repository} = {}) {
+
+    console.log({QUERY: query})
+
+    const cursor = this.#getCollection({
+      owner: repository.owner,
+      repo: repository.name
+    }).find({})
+
+    return toIterable(
+      new MongoCursorIterator({
+        cursor
+      }, {
+        wrapValue: (value) => new MongoContentModel({doc: value}).toJSON()
+      }))
+  }
 
   async get(params) {
     const {repository, owner, id}  = params

@@ -22,11 +22,17 @@ const compoundContextIdRules = {
 }
 
 const contentQueryRules = {
-  select: [{
-    'list_of': [ 'required',  'string' ]
-  }],
-  limit: ['positive_integer', { default: 10 }],
-  offset: ['positive_integer', {default: 0}]
+  query: [{nested_object: {
+      select: [{
+        'list_of': [ 'required',  'string' ]
+      }],
+      limit: ['positive_integer', { default: 10 }],
+      offset: ['positive_integer', { default: 0 }]
+  }}],
+  repository: ['required', { nested_object: {
+      name: ['required', 'string'],
+      owner: ['required', 'string']
+  }}]
 }
 export class ContentAccessWithValidation extends ContentAccess {
 
