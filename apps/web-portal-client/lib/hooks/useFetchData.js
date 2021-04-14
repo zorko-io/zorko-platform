@@ -1,6 +1,9 @@
 import {useEffect, useReducer, useRef} from 'react'
+import {AppContext} from '../context'
 
 export function useFetchData(callback) {
+  const {api} = useContext(AppContext)
+
   const fetchDataReducer = (state, action) => {
     switch (action.type) {
       case 'FETCH_INIT': {
@@ -30,10 +33,10 @@ export function useFetchData(callback) {
     return () => (isMounted.current = false)
   }, [])
 
-  function doFetch() {
+  function doFetch(params) {
     dispatch({type: 'FETCH_INIT'})
 
-    callback()
+    callback(params, api)
       .then((result) => {
         if (isMounted.current) dispatch({type: 'FETCH_SUCCESS', payload: result})
       })

@@ -1,16 +1,22 @@
-import React, {useContext, useEffect} from 'react'
-import {useFetchData} from '../hooks'
-import {AppContext} from '../context'
+import React, {useCallback, useContext, useEffect} from 'react'
+import {useFetchData} from '../../../hooks'
 
-import Spinner from './Spinner'
 
-import {UserProfile} from './UserProfile'
-import {PreviewCard} from './PreviewCard'
-import {Content, Sidebar, Layout} from './layout'
+import Spinner from '../../../components/Spinner'
+
+import {UserProfile} from '../../../components/UserProfile'
+import {PreviewCard} from '../../../components/PreviewCard'
+import {Content, Sidebar, Layout} from '../../../components/layout'
+
+const createFetchHook = (callback) => {
+  const func = useCallback(callback)
+  return useFetchData(func)
+}
+
+const useFetchDataNew = createFetchHook((params, api) => api.previews.findAll(params))
 
 export function HomePage() {
-  const {api} = useContext(AppContext)
-  const [{data: previews, isLoading, isError}, doFetch] = useFetchData(() => api.preview.findAll())
+  const [{data: previews, isLoading, isError}, doFetch] = useFetchDataNew()
 
   useEffect(() => {
     doFetch()
