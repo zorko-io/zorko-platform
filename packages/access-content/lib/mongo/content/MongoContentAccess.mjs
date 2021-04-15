@@ -1,7 +1,7 @@
 import assert from 'assert'
 import {ContentAccess} from '../../core'
 import {MongoContentModel} from './MongoContentModel'
-import {MongoCursorIterator, toObjectId} from '../util/index.mjs'
+import {MongoCursorIterator, MongoQuery, toObjectId} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 import {toIterable} from '@zorko-io/util-lang/lib/index.mjs'
 
@@ -51,21 +51,18 @@ export class MongoContentAccess extends ContentAccess {
       repo: repository.name
     })
 
-    console.log({QUERY: query})
-
-    const cursor = collection.find({}).limit(query.limit).skip(query.offset)
-
+    query = new MongoQuery({query}, {collection})
 
     return toIterable(
       new MongoCursorIterator({
-        cursor
+        cursor: query.toCursor()
       }, {
         wrapValue: (value) => new MongoContentModel({doc: value}).toJSON()
       }))
   }
 
   async get(params) {
-    const {repository, owner, id}  = params
+    const {repository, owner, id} = params
     const collection = this.#getCollection({
       owner: owner,
       repo: repository
@@ -87,7 +84,7 @@ export class MongoContentAccess extends ContentAccess {
   }
 
   async remove(params) {
-    const {repository, owner, id}  = params
+    const {repository, owner, id} = params
     const collection = this.#getCollection({
       owner: owner,
       repo: repository
@@ -103,7 +100,7 @@ export class MongoContentAccess extends ContentAccess {
   #getCollection = ({owner, repo} = {}) => {
     let collection = MongoContentModel.toCollectionName({
       owner, repo
-  })
+    })
     return this.#db.collection(collection)
   }
 }
