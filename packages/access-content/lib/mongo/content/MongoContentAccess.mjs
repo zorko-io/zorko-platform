@@ -46,13 +46,15 @@ export class MongoContentAccess extends ContentAccess {
 
 
   iterate({query, repository} = {}) {
+    let collection = this.#getCollection({
+      owner: repository.owner,
+      repo: repository.name
+    })
 
     console.log({QUERY: query})
 
-    const cursor = this.#getCollection({
-      owner: repository.owner,
-      repo: repository.name
-    }).find({})
+    const cursor = collection.find({}).limit(query.limit).skip(query.offset)
+
 
     return toIterable(
       new MongoCursorIterator({

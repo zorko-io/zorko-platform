@@ -13,3 +13,13 @@ export class AsyncIterable {
 export function toIterable(iterator) {
   return new AsyncIterable(iterator)
 }
+
+export async function toArray(iterable) {
+  const result = []
+
+  for await (let val of iterable){
+    result.push(val)
+  }
+
+  return result
+}

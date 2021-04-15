@@ -2,7 +2,10 @@ import test from '@zorko-io/tool-test-harness'
 import {setupDb} from '../../../test/helper'
 import {createFacade, MimeTypes} from '../../index.mjs'
 import {toObjectId} from '../util'
+import _ from 'lodash'
 import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
+import {variousVisualizationContent} from './contentWithSpecs.data.mjs'
+import {toArray} from '@zorko-io/util-lang/lib/index.mjs'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -17,8 +20,8 @@ setupDb(test, async (t) => {
   }
 })
 
-test.beforeEach((t)=> {
-  const barCharSpec =  {
+test.beforeEach((t) => {
+  const barCharSpec = {
     $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
     description: 'A simple bar chart with embedded data.',
     data: {
@@ -31,31 +34,31 @@ test.beforeEach((t)=> {
         {a: 'F', b: 53},
         {a: 'G', b: 19},
         {a: 'H', b: 87},
-        {a: 'I', b: 52},
-      ],
+        {a: 'I', b: 52}
+      ]
     },
     mark: 'bar',
     encoding: {
       x: {field: 'a', type: 'nominal', axis: {labelAngle: 0}},
-      y: {field: 'b', type: 'quantitative'},
-    },
+      y: {field: 'b', type: 'quantitative'}
+    }
   }
 
   const gantChart = {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "A simple bar chart with ranged data (aka Gantt Chart).",
-    "data": {
-      "values": [
-        {"task": "A", "start": 1, "end": 3},
-        {"task": "B", "start": 3, "end": 8},
-        {"task": "C", "start": 8, "end": 10}
+    '$schema': 'https://vega.github.io/schema/vega-lite/v5.json',
+    'description': 'A simple bar chart with ranged data (aka Gantt Chart).',
+    'data': {
+      'values': [
+        {'task': 'A', 'start': 1, 'end': 3},
+        {'task': 'B', 'start': 3, 'end': 8},
+        {'task': 'C', 'start': 8, 'end': 10}
       ]
     },
-    "mark": "bar",
-    "encoding": {
-      "y": {"field": "task", "type": "ordinal"},
-      "x": {"field": "start", "type": "quantitative"},
-      "x2": {"field": "end"}
+    'mark': 'bar',
+    'encoding': {
+      'y': {'field': 'task', 'type': 'ordinal'},
+      'x': {'field': 'start', 'type': 'quantitative'},
+      'x2': {'field': 'end'}
     }
   }
 
@@ -67,9 +70,11 @@ test.beforeEach((t)=> {
   }
 
   const contentWithBarChart = {
-    content: { spec :barCharSpec},
+    content: {spec: barCharSpec},
     mime
   }
+
+  t.context.manyContent = _.cloneDeep(variousVisualizationContent)
 
   t.context.contentForFewSpecs = [
     {content: {spec: barCharSpec}, mime},
@@ -81,7 +86,7 @@ test.beforeEach((t)=> {
 })
 
 test.serial('add new content', async (t) => {
-  const {content, contentWithBarChart , defaultJoeRepo, barCharSpec} = t.context
+  const {content, contentWithBarChart, defaultJoeRepo, barCharSpec} = t.context
 
   const result = await content.add({
     content: contentWithBarChart,
@@ -99,7 +104,7 @@ test.serial('fails with not found', async (t) => {
   const {content, defaultJoeRepo} = t.context
   let id = toObjectId().toString()
 
-  await t.throwsAsync(async  () => {
+  await t.throwsAsync(async () => {
     await content.get({
       repository: defaultJoeRepo.name,
       owner: defaultJoeRepo.owner,
@@ -112,7 +117,7 @@ test.serial('fails with not found', async (t) => {
 })
 
 test.serial('add, get and remove one item', async (t) => {
-  const {content, contentWithBarChart , defaultJoeRepo} = t.context
+  const {content, contentWithBarChart, defaultJoeRepo} = t.context
 
   let result = await content.add({
     content: contentWithBarChart,
@@ -133,25 +138,22 @@ test.serial('add, get and remove one item', async (t) => {
     owner: defaultJoeRepo.owner
   })
 
-  await t.throwsAsync(async  () => {
+  await t.throwsAsync(async () => {
     await content.get({
       repository: defaultJoeRepo.name,
       owner: defaultJoeRepo.owner,
       id: result.id
     })
   }, {
-    instanceOf: NotFoundError,
+    instanceOf: NotFoundError
   })
 
 })
 
 test.serial('query fee items', async (t) => {
+  const {content, contentForFewSpecs, defaultJoeRepo} = t.context
 
-  // start with two, then extend for more that limit/offset
-
-  const { content, contentForFewSpecs, defaultJoeRepo} = t.context
-
-  for (let newContent  of contentForFewSpecs) {
+  for (let newContent of contentForFewSpecs) {
     await content.add({
       repository: defaultJoeRepo,
       content: newContent
@@ -190,5 +192,45 @@ test.serial('query fee items', async (t) => {
 
   t.falsy(result.value)
   t.truthy(result.done)
+})
 
+test.serial('query limit and offset', async (t) => {
+  const {content, defaultJoeRepo, manyContent} = t.context
+
+  for (let newContent of manyContent) {
+    await content.add({
+      repository: defaultJoeRepo,
+      content: newContent
+    })
+  }
+
+  let it = content.iterate({
+    query: {
+      limit: 2
+    },
+    repository: defaultJoeRepo
+  })
+
+  let actual = await toArray(it)
+
+  function removeIds (arr) {
+    return arr.map(i => {delete i.id; return i})
+  }
+
+  t.is(actual.length, 2)
+  t.deepEqual(removeIds(actual), [manyContent[0], manyContent[1]])
+
+
+  it = content.iterate({
+    query: {
+      limit: 2,
+      offset: 2
+    },
+    repository: defaultJoeRepo
+  })
+
+  actual = await toArray(it)
+
+  t.is(actual.length, 2)
+  t.deepEqual(removeIds(actual), [manyContent[2],manyContent[3]])
 })

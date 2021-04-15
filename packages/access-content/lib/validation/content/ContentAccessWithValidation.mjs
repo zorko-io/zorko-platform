@@ -28,7 +28,7 @@ const contentQueryRules = {
       }],
       limit: ['positive_integer', { default: 10 }],
       offset: ['positive_integer', { default: 0 }]
-  }}],
+  }}, {default: {limit: 10, offset: 0}}],
   repository: ['required', { nested_object: {
       name: ['required', 'string'],
       owner: ['required', 'string']
