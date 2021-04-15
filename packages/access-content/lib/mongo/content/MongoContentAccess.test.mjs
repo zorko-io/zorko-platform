@@ -162,7 +162,33 @@ test.serial('query fee items', async (t) => {
     repository: defaultJoeRepo
   })
 
-
-
   t.truthy(items)
+
+  let result = await items[Symbol.asyncIterator]().next()
+
+  let value = result.value
+
+  t.truthy(value.id)
+  t.falsy(result.done)
+
+  delete value.id
+
+  t.deepEqual(result.value, contentForFewSpecs[0])
+
+  result = await items[Symbol.asyncIterator]().next()
+
+  value = result.value
+
+  t.truthy(value.id)
+  t.falsy(result.done)
+
+  delete value.id
+  t.deepEqual(result.value, contentForFewSpecs[1])
+
+
+  result = await items[Symbol.asyncIterator]().next()
+
+  t.falsy(result.value)
+  t.truthy(result.done)
+
 })
