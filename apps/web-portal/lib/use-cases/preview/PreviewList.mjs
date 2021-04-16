@@ -12,8 +12,8 @@ export class PreviewList extends UseCase {
         {
           id: '9910f47d-0a9d-4ed2-9c46-a509a68695d2',
           title: 'Title One',
-          previewUrl: '/preview/9910f47d-0a9d-4ed2-9c46-a509a68695d2',
-          contentUrl: '/content/9910f47d-0a9d-4ed2-9c46-a509a68695d2',
+          previewUrl: '/api/v1/specs/2e3140e8-ed62-4843-929f-65becf347721',
+          contentUrl: '/content/2e3140e8-ed62-4843-929f-65becf347721',
           createdAt: '2020-12-03T18:30:29.304Z',
           author: {
             login: 'yzhbankov',
@@ -23,8 +23,8 @@ export class PreviewList extends UseCase {
         {
           id: 'f3dd6d7e-640d-4be9-b91c-0a0d7cddcca9',
           title: 'Title Two',
-          previewUrl: '/preview/f3dd6d7e-640d-4be9-b91c-0a0d7cddcca9',
-          contentUrl: '/content/f3dd6d7e-640d-4be9-b91c-0a0d7cddcca9',
+          previewUrl: '/api/v1/specs/de034563-0c3d-4ace-8e85-739f1a5d3ea5',
+          contentUrl: '/content/de034563-0c3d-4ace-8e85-739f1a5d3ea5',
           createdAt: '2020-12-03T18:30:29.304Z',
           author: {
             login: 'nesterone',

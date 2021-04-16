@@ -13,8 +13,7 @@ export class AxiosAuthApi extends AuthApi {
   }
 
   async login(params) {
-    const response = await this.#http.post('/api/v1/auth/login', params)
-
+    const response = await this.#http.post('/api/v1/auth/login', { credentials: { ...params } })
     return response ? response.data : {status: 1}
   }
 }

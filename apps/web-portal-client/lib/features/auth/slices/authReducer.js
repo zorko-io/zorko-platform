@@ -14,7 +14,7 @@ const authReducer = {
     return {...state, logging: true}
   },
   login: (state, action) => {
-    return {...state, user: {...action.payload}, logging: false}
+    return {...initialState, user: {...action.payload}}
   },
   logout: () => {
     return initialState

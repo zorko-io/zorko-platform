@@ -20,7 +20,7 @@ export function useAuth() {
       })
       .catch((err) => {
         appPersistentStorage.apiToken = null
-        dispatch(Auth.error(err))
+        dispatch(Auth.error(err.response && err.response.data))
       })
   }
   const logout = useCallback(() => {
