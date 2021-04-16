@@ -44,7 +44,6 @@ export class MongoContentAccess extends ContentAccess {
     return new MongoContentModel(result).toJSON()
   }
 
-
   iterate({query, repository} = {}) {
     let collection = this.#getCollection({
       owner: repository.owner,

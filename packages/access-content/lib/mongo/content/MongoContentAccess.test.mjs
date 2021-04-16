@@ -211,6 +211,7 @@ test.serial('query limit and offset', async (t) => {
     repository: defaultJoeRepo
   })
 
+
   let actual = await toArray(it)
 
   function removeIds (arr) {

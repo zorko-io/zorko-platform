@@ -3,6 +3,7 @@
  * @property {String[]} select - list of json paths
  * @property {Number} limit
  * @property {Number} offset
+ * @property {Array} filter
  */
 
 /**
@@ -14,11 +15,13 @@ export class Query {
   #select = null
   #limit = 10
   #offset = 0
+  #filter = []
 
-  constructor(context = {}) {
-    this.#select = context.select
-    this.#limit = context.limit
-    this.#offset = context.offset
+  constructor({select,limit, offset, filter } = {}) {
+    this.#select = select
+    this.#limit = limit
+    this.#offset = offset
+    this.#filter = filter || []
   }
 
   get select() {
@@ -33,10 +36,16 @@ export class Query {
     return this.#offset
   }
 
-  toJSON() {
-    return {
-
-    }
+  get filter () {
+    return this.#filter
   }
 
+  toJSON() {
+    return {
+      select: this.select,
+      limit: this.limit,
+      offset: this.offset,
+      filter: this.filter
+    }
+  }
 }
