@@ -170,12 +170,26 @@ const barColorDisabled = {
 }
 
 
-const mime = MimeTypes.VegaLite
+const darkTheme = {
+  "background": "#333",
+  "title": {"color": "#fff"},
+  "style": {"guide-label": {"fill": "#fff"}, "guide-title": {"fill": "#fff"}},
+  "axis": {"domainColor": "#fff", "gridColor": "#888", "tickColor": "#fff"}
+}
+
+const visualizationMime = MimeTypes.VegaLite
+const vegaLiteThemeMime = MimeTypes.VegaLiteTheme
 
 export const variousVisualizationContent = [
-  { content: { spec: barCharSpec }, mime},
-  { content: { spec: gantChart }, mime},
-  { content: { spec: areaHorizontal }, mime},
-  { content: { spec: barBinned }, mime},
-  { content: { spec: barColorDisabled }, mime},
+  // TODO: remove 'spec' inside the content, just spread spec inside
+  { content: { spec: barCharSpec }, mime: visualizationMime},
+  { content: { spec: gantChart }, mime: visualizationMime},
+  { content: { spec: areaHorizontal }, mime: visualizationMime},
+  { content: { spec: barBinned }, mime: visualizationMime},
+  { content: { spec: barColorDisabled }, mime: visualizationMime},
+]
+
+export const variousDifferentContent = [
+  ...variousVisualizationContent,
+  {content: { spec: darkTheme }, mime: vegaLiteThemeMime}
 ]

@@ -29,7 +29,7 @@ const contentQueryRules = {
       filter: [{
         'list_of': [ 'required',  {'nested_object': {
             field: ['required','string'],
-            eq: ['required', 'string']
+            equal: ['required', 'string']
           }} ]
       }],
       limit: ['positive_integer', { default: 10 }],

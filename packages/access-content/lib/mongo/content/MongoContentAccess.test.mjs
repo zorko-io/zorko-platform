@@ -4,7 +4,7 @@ import {createFacade, MimeTypes} from '../../index.mjs'
 import {toObjectId} from '../util'
 import _ from 'lodash'
 import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
-import {variousVisualizationContent} from './contentWithSpecs.data.mjs'
+import {variousDifferentContent, variousVisualizationContent} from './contentWithSpecs.data.mjs'
 import {toArray} from '@zorko-io/util-lang/lib/index.mjs'
 
 setupDb(test, async (t) => {
@@ -75,6 +75,7 @@ test.beforeEach((t) => {
   }
 
   t.context.manyContent = _.cloneDeep(variousVisualizationContent)
+  t.context.manyDiffContent = _.cloneDeep(variousDifferentContent)
 
   t.context.contentForFewSpecs = [
     {content: {spec: barCharSpec}, mime},
@@ -83,6 +84,15 @@ test.beforeEach((t) => {
   t.context.barCharSpec = barCharSpec
   t.context.contentWithBarChart = contentWithBarChart
   t.context.defaultJoeRepo = defaultJoeRepo
+
+  t.context.uploadVariousContent= async ({items, content, repo} = {}) => {
+    for (let newContent of items) {
+      await content.add({
+        repository: repo,
+        content: newContent
+      })
+    }
+  }
 })
 
 test.serial('add new content', async (t) => {
@@ -235,3 +245,48 @@ test.serial('query limit and offset', async (t) => {
   t.is(actual.length, 2)
   t.deepEqual(removeIds(actual), [manyContent[2],manyContent[3]])
 })
+
+
+test.serial('query with filter', async (t ) => {
+  const {uploadVariousContent, defaultJoeRepo, content, manyDiffContent} = t.context
+
+  await uploadVariousContent({
+    content,
+    repo: defaultJoeRepo,
+    items: manyDiffContent
+  })
+
+  let results = content.iterate({
+    query: {
+      filter: [
+        {field: 'mime', equal: MimeTypes.VegaLiteTheme}
+      ]
+    },
+    repository: defaultJoeRepo
+  })
+
+  results = await toArray(results)
+
+  t.is(results.length, 1)
+
+
+  let actual = results[0]
+
+  delete actual.id
+
+  t.deepEqual(actual, manyDiffContent.pop())
+})
+
+// TODO: probably, need to move to mongo aggregate to properly support it
+// test.serial('query with total', async (t ) => {
+//   const {uploadVariousContent, defaultJoeRepo, content, manyDiffContent} = t.context
+//
+//   const results = await uploadVariousContent({
+//     content,
+//     repo: defaultJoeRepo,
+//     items: manyDiffContent
+//   })
+//
+//   t.is(results.total, 6)
+//
+// })

@@ -59,7 +59,7 @@ MongoContentModel.decodeSpecialCharters = (content) => {
   content = _.cloneDeep(content)
   const spec = content.spec
 
-  if (spec) {
+  if (spec['_schema']) {
     const value = spec['_schema']
     delete spec['_schema']
     spec['$schema'] = value
@@ -72,7 +72,7 @@ MongoContentModel.encodeSpecialCharters = (content) => {
   content = _.cloneDeep(content)
   const spec = content.spec
 
-  if (spec) {
+  if (spec['$schema']) {
     const value = spec['$schema']
     delete spec['$schema']
     spec['_schema'] = value

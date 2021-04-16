@@ -54,6 +54,5 @@ test('enhance simple model', (t) => {
   let actual = instance.toDocument()
 
   t.is(actual._id.toString(), doc._id.toString())
-
 })
 
