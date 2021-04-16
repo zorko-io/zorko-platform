@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react'
+import React, {useEffect} from 'react'
 import {useFetchData} from '../../../hooks'
 
 import Spinner from '../../../components/Spinner'
@@ -7,17 +7,8 @@ import {PreviewCard} from '../../../components/PreviewCard'
 import {Content, Sidebar, Layout} from '../../../components/layout'
 
 export function HomePage() {
-  /*   const createFetchHook = (callback) => {
-    const func = useCallback(callback)
-    return useFetchData(func)
-  } */
-
-  //const useFetchPreviews = () => createFetchHook((params, api) => api.previews.findAll(params))
-
-  //const useFetchPreviews = () => useFetchData((params, api) => api.previews.findAll(params))
-
   const [{data: previews, isLoading, isError}, doFetch] = useFetchData((params, api) =>
-    api.previews.findAll(params)
+    api.preview.findAll(params)
   )
 
   useEffect(() => {

@@ -30,7 +30,9 @@ export function useFetchData(callback) {
 
   useEffect(() => {
     isMounted.current = true
-    return () => (isMounted.current = false)
+    return () => {
+      isMounted.current = false
+    }
   }, [])
 
   function doFetch(params) {
