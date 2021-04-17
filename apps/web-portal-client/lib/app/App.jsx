@@ -1,7 +1,7 @@
 import React from 'react'
 import {Switch, Redirect} from 'react-router-dom'
 import {PrivateRoute} from '../features/auth/containers'
-import {HomePage} from '../components'
+import {HomePage} from '../features/homepage/components'
 import {ExamplesPage} from '../features/examples/components'
 
 import {Header} from '../components/layout'

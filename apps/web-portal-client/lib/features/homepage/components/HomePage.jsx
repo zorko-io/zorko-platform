@@ -1,14 +1,19 @@
 import React, {useEffect} from 'react'
-import Spinner from './Spinner'
-import {UserProfile} from './UserProfile'
-import {PreviewCard} from './PreviewCard'
-import {Content, Sidebar, Layout} from './layout'
-import {usePreviews} from '../features/home/hooks'
+import {useFetchData} from '../../../hooks'
+
+import Spinner from '../../../components/Spinner'
+import {UserProfile} from '../../../components/UserProfile'
+import {PreviewCard} from '../../../components/PreviewCard'
+import {Content, Sidebar, Layout} from '../../../components/layout'
 
 export function HomePage() {
-  const [{previews}, {isLoading, isError, doFetch}] = usePreviews()
+  const [{data: previews, isLoading, isError}, doFetch] = useFetchData((params, api) =>
+    api.preview.findAll(params)
+  )
 
-  useEffect(() => doFetch(), [])
+  useEffect(() => {
+    doFetch({offset: 0, limit: 10})
+  }, [])
 
   return (
     <Layout
@@ -19,11 +24,11 @@ export function HomePage() {
       )}
       contentRender={() => (
         <Content
-          title="Visualization"
+          title="Previews"
           innerContentRender={() => (
             <>
               <Spinner show={isLoading} />
-              {isError && <div>Something went wrong...</div>}
+              {isError && isError.message}
               {previews &&
                 previews.items.map((item) => (
                   <PreviewCard
