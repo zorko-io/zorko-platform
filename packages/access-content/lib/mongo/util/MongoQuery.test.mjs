@@ -5,6 +5,7 @@ import sinon from 'sinon'
 test.beforeEach((t) => {
   const collection = {}
 
+  collection.aggregate = sinon.stub().returns(collection)
   collection.find = sinon.stub().returns(collection)
   collection.limit = sinon.stub().returns(collection)
   collection.skip = sinon.stub().returns(collection)
@@ -30,10 +31,12 @@ test('test filter of particular fields', (t) => {
 
   query.toCursor()
 
-  t.deepEqual(collection.find.firstCall.firstArg, {})
-  t.is(collection.limit.firstCall.firstArg, 10)
-  t.is(collection.skip.firstCall.firstArg, 5)
-  // filter: [{ field: 'mime', equal: 'text/plain'}]
+  t.deepEqual(collection.aggregate.firstCall.firstArg, [
+    {$match: {}},
+    {$skip: 5},
+    {$limit: 10},
+
+  ])
 })
 
 test('test basic filter', (t) => {
@@ -53,11 +56,12 @@ test('test basic filter', (t) => {
 
   t.truthy(query)
 
+
   query.toCursor()
 
-  t.deepEqual(collection.find.firstCall.firstArg, {
-    mime: 'text/plain'
-  })
-  t.is(collection.limit.firstCall.firstArg, 10)
-  t.is(collection.skip.firstCall.firstArg, 5)
+  t.deepEqual(collection.aggregate.firstCall.firstArg, [
+    {$match: { mime: 'text/plain'}},
+    {$skip: 5},
+    {$limit: 10}
+  ])
 })

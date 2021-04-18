@@ -1,6 +1,7 @@
 - [x] migrate to mongo model from utils
 - [x] start from contentAccess, by adding input validation and all basic CRUD actions
-- [ ] add simple iteration use cases (select, limit, offset)
+- [x] add simple iteration use cases (select, limit, offset)
+- [ ] provide 'total' calculation 
 - [ ] do the same for repository, add permissions
 - [ ] do the same for register, add permissions
 - [ ] add Audit wrapers before integration
