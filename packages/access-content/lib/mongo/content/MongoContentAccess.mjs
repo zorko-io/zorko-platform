@@ -1,9 +1,8 @@
 import assert from 'assert'
-import {ContentAccess} from '../../core'
+import {ContentAccess, QueryResult} from '../../core'
 import {MongoContentModel} from './MongoContentModel'
 import {MongoCursorIterator, MongoQuery, toObjectId} from '../util/index.mjs'
-import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
-import {toIterable} from '@zorko-io/util-lang/lib/index.mjs'
+import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error'
 
 export class MongoContentAccess extends ContentAccess {
   #log = null
@@ -52,12 +51,24 @@ export class MongoContentAccess extends ContentAccess {
 
     query = new MongoQuery({query}, {collection})
 
-    return toIterable(
-      new MongoCursorIterator({
-        cursor: query.toCursor()
-      }, {
-        wrapValue: (value) => new MongoContentModel({doc: value}).toJSON()
-      }))
+    let iterator = new MongoCursorIterator({
+      cursor: query.makeResultsCursor()
+    }, {
+      wrapValue: (value) => {
+        return new MongoContentModel({doc: value}).toJSON()
+      }
+    })
+
+    let fetchTotal = async () => {
+      let totalCursor = query.makeTotalCursor()
+      let result = await totalCursor.next()
+      return result.total
+    }
+
+    return new QueryResult({
+      iterator,
+      fetchTotal
+    })
   }
 
   async get(params) {

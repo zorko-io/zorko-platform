@@ -14,17 +14,19 @@ export class MongoQuery extends Query {
     this.#collection = collection
   }
 
-  toCursor() {
-    const pipeline = []
+  makeResultsCursor() {
+    return this.#collection.aggregate([
+      {$match: this.#toMatchQuery()},
+      {$skip: this.offset},
+      {$limit: this.limit}
+    ])
+  }
 
-    // if (this.filter.length > 0){
-      pipeline.push({$match: this.#toMatchQuery()})
-    // }
-    pipeline.push({$skip: this.offset})
-
-    pipeline.push({$limit: this.limit})
-
-    return this.#collection.aggregate(pipeline)
+  makeTotalCursor () {
+    return this.#collection.aggregate([
+      {$match: this.#toMatchQuery()},
+      {$count: 'total'}
+    ])
   }
 
   #toMatchQuery = () => {

@@ -15,7 +15,6 @@ export const MongoContentModel = enhanceWithMongo({
     },
 
     toProps  (doc) {
-
       const result = {}
 
       if (doc.config) {

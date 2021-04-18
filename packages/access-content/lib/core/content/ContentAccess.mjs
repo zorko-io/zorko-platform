@@ -28,7 +28,7 @@ export class ContentAccess extends Access {
    * @param {Number} [query.offset]=0 - offset for result set
    */
   iterate(query) {
-    super.iterate(query);
+    return super.iterate(query);
   }
 
   /**

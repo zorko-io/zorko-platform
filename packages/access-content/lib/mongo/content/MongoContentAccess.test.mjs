@@ -277,16 +277,27 @@ test.serial('query with filter', async (t ) => {
   t.deepEqual(actual, manyDiffContent.pop())
 })
 
-// TODO: probably, need to move to mongo aggregate to properly support it
-// test.serial('query with total', async (t ) => {
-//   const {uploadVariousContent, defaultJoeRepo, content, manyDiffContent} = t.context
-//
-//   const results = await uploadVariousContent({
-//     content,
-//     repo: defaultJoeRepo,
-//     items: manyDiffContent
-//   })
-//
-//   t.is(results.total, 6)
-//
-// })
+test.serial('query with total', async (t ) => {
+  const {uploadVariousContent, defaultJoeRepo, content, manyDiffContent} = t.context
+
+  await uploadVariousContent({
+    content,
+    repo: defaultJoeRepo,
+    items: manyDiffContent
+  })
+
+  const results = content.iterate({
+    query: {
+      filter: [
+        {field: 'mime', equal: MimeTypes.VegaLite}
+      ]
+    },
+    repository: defaultJoeRepo
+  })
+
+
+  const total = await results.total()
+
+  t.is(total, 5)
+
+})
