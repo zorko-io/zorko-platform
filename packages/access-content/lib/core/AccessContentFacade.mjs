@@ -10,6 +10,13 @@ export class AccessContentFacade {
     throw new NotYetImplementedError()
   }
 
+  // TODO: probably it's to generic we may need to branch specific content...
+  // like
+  //  - facade.visualization,
+  //  - facade.dataReference,
+  //  - facade.contentReference
+  //  - facade.theme,
+  //  - facade.securityKey
   /**
    * @return {ContentAccess}
    */
