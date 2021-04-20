@@ -1,21 +1,24 @@
 import test from '@zorko-io/tool-test-harness'
 import {enhanceWithValidation} from './enhanceWithValidation'
-import {ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
+import {NotYetImplementedError, ResourceAccessError, ValidationError} from '@zorko-io/util-error'
+import {AssertionError} from 'assert'
 
-class TestAccess {
-  constructor(props) {
-    console.log({PROPS: props})
+class CoreTestAccess {
+  doSomething() {
+    throw new NotYetImplementedError()
   }
+}
 
+class TestAccess extends CoreTestAccess {
   doSomething(params = {}) {
     const {msg}  = params
     return {msg: msg + "!"}
   }
 }
 
-test('test simple check', async (t) => {
+test('must have an #origin in context', t => {
   const TestAccessWithValidation = enhanceWithValidation({
-    clazz: TestAccess,
+    clazz: CoreTestAccess,
     wrap: () => ({
       doSomething: {
         msg: ['required', 'string']
@@ -23,7 +26,27 @@ test('test simple check', async (t) => {
     })
   })
 
-  let instance = new TestAccessWithValidation()
+  t.throws(()=> {
+    new TestAccessWithValidation()
+  }, {
+    instanceOf:AssertionError,
+    message:'should have #origin in context'
+  })
+})
+
+test('does simple check', (t) => {
+  const TestAccessWithValidation = enhanceWithValidation({
+    clazz: CoreTestAccess,
+    wrap: () => ({
+      doSomething: {
+        msg: ['required', 'string']
+      }
+    })
+  })
+
+  let instance = new TestAccessWithValidation({
+    origin: new TestAccess()
+  })
   t.truthy(instance)
 
   t.throws(() => {
@@ -36,4 +59,20 @@ test('test simple check', async (t) => {
   let result = instance.doSomething({msg:'hello'})
 
   t.deepEqual(result, {msg: 'hello!'})
+})
+
+test('fails if no such method', t => {
+  t.throws(() => {
+    enhanceWithValidation({
+      clazz: TestAccess,
+      wrap: () => ({
+        barFoo: {
+          msg: ['required', 'string']
+        }
+      })
+    })
+  }, {
+    instanceOf: ValidationError,
+    message: 'ValidationError: {"NOT_MATCHED_METHOD_NAME":{"inClazz":"TestAccess","method":"barFoo"}}'
+  })
 })
