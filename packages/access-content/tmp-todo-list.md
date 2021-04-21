@@ -2,8 +2,8 @@
 - [x] start from contentAccess, by adding input validation and all basic CRUD actions
 - [x] add simple iteration use cases (select, limit, offset)
 - [x] provide 'total' calculation
-- [ ] migrate to proper validation enchancer
-- [ ] do the same for repository, add permissions
+- [x] migrate to proper validation enchancer
+- [ ] do the same for repository, add permissions (at least just a string field)
 - [ ] do the same for register, add permissions
 - [ ] replace generic Content with Visualization (themes, data refs, templates later)
 - [ ] add Audit wrapers before integration
