@@ -1,4 +1,5 @@
 import test from '@zorko-io/tool-test-harness'
+import sinon from 'sinon'
 import {enhanceWithValidation} from './enhanceWithValidation'
 import {NotYetImplementedError, ResourceAccessError, ValidationError} from '@zorko-io/util-error'
 import {AssertionError} from 'assert'
@@ -19,11 +20,11 @@ class TestAccess extends CoreTestAccess {
 test('must have an #origin in context', t => {
   const TestAccessWithValidation = enhanceWithValidation({
     clazz: CoreTestAccess,
-    wrap: () => ({
+    rules: {
       doSomething: {
         msg: ['required', 'string']
       }
-    })
+    }
   })
 
   t.throws(()=> {
@@ -34,15 +35,39 @@ test('must have an #origin in context', t => {
   })
 })
 
-test('does simple check', (t) => {
+test('delegation to origin method', (t) => {
   const TestAccessWithValidation = enhanceWithValidation({
     clazz: CoreTestAccess,
-    wrap: () => ({
+    rules: {
       doSomething: {
         msg: ['required', 'string']
       }
-    })
+    }
   })
+
+  const origin = {
+    doSomething: sinon.stub().returns('from origin')
+  }
+
+  const access = new TestAccessWithValidation({origin})
+
+  const result = access.doSomething({msg: 'test'})
+
+  t.deepEqual(result, 'from origin')
+  t.true(origin.doSomething.calledOnce,'should call #origin')
+  t.deepEqual(origin.doSomething.firstCall.args, [{msg: 'test'}])
+})
+
+test('does simple check', (t) => {
+  const TestAccessWithValidation = enhanceWithValidation({
+    clazz: CoreTestAccess,
+    rules:{
+      doSomething: {
+        msg: ['required', 'string']
+      }
+    }
+  })
+
 
   let instance = new TestAccessWithValidation({
     origin: new TestAccess()
@@ -65,11 +90,11 @@ test('fails if no such method', t => {
   t.throws(() => {
     enhanceWithValidation({
       clazz: TestAccess,
-      wrap: () => ({
+      rules: {
         barFoo: {
           msg: ['required', 'string']
         }
-      })
+      }
     })
   }, {
     instanceOf: ValidationError,

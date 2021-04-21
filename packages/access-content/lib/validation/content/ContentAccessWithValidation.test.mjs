@@ -5,7 +5,8 @@ import sinon from 'sinon'
 import {ResourceAccessError} from '@zorko-io/util-error'
 
 test.beforeEach((t) => {
-  const origin = sinon.createStubInstance(ContentAccess)
+  const sandbox = sinon.createSandbox()
+  const origin = sandbox.createStubInstance(ContentAccess)
   const returnResult = 'some-result'
 
   origin.add.returns(returnResult)
@@ -18,8 +19,13 @@ test.beforeEach((t) => {
   t.context = {
     access,
     origin,
-    returnResult
+    returnResult,
+    sandbox
   }
+})
+
+test.afterEach((t)=>{
+  t.context.sandbox.restore()
 })
 
 test('add - check delegation to origin', async (t) => {
