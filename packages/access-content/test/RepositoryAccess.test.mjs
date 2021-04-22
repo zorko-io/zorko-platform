@@ -1,6 +1,6 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper'
-import {createFacade} from '../lib'
+import {createFacade, PermissionDefaults} from '../lib'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -49,13 +49,18 @@ test.serial('add new resource with happy path', async (t) => {
   }
 
   const actual = await repository.add({
-    path: resource.path,
-    name: resource.name,
+    resource: {
+      dir: resource.path,
+      name: resource.name,
+      mime: resource.mime,
+      preview: resource.preview,
+      permission: PermissionDefaults.Public
+    },
     content,
-    mime: resource.mime,
-    preview: resource.preview,
-    repo: 'default',
-    owner: 'joe'
+    repository: {
+      name : 'default',
+      owner: 'joe'
+    }
   })
 
   t.truthy(actual)

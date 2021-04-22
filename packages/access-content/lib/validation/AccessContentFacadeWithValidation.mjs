@@ -1,11 +1,13 @@
 import {AccessContentFacade} from '../core/index.mjs'
 import assert from 'assert'
 import {ContentAccessWithValidation} from './content'
+import {RepositoryAccessWithValidation} from './repository'
 
 export class AccessContentFacadeWithValidation extends AccessContentFacade{
 
   #origin = null
   #content = null
+  #repository = null
 
   /**
    *
@@ -23,6 +25,9 @@ export class AccessContentFacadeWithValidation extends AccessContentFacade{
     this.#content = new ContentAccessWithValidation({
       origin: this.#origin.content
     })
+    this.#repository = new RepositoryAccessWithValidation({
+      origin: this.#origin.repository
+    })
   }
 
   get content() {
@@ -34,7 +39,7 @@ export class AccessContentFacadeWithValidation extends AccessContentFacade{
   }
 
   get repository() {
-    return this.#origin.repository;
+    return this.#repository;
   }
 
   withAudit(options) {

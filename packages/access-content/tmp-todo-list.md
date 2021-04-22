@@ -3,7 +3,8 @@
 - [x] add simple iteration use cases (select, limit, offset)
 - [x] provide 'total' calculation
 - [x] migrate to proper validation enchancer
-- [ ] do the same for repository, add permissions (at least just a string field)
+- [x] added input validation, clean up, add method
+- [ ] add other methods for repository, with validation (get, remove, iterate)
 - [ ] do the same for register, add permissions
 - [ ] replace generic Content with Visualization (themes, data refs, templates later)
 - [ ] add Audit wrapers before integration

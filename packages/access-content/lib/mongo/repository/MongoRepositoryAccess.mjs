@@ -20,9 +20,6 @@ export class MongoRepositoryAccess extends RepositoryAccess {
   constructor(deps = {}) {
     super()
 
-    // TODO: 'access-content', repository, add permissions
-    // label: tech-debt
-
     assert(deps.log)
     assert(deps.db)
     assert(deps.content)
@@ -33,33 +30,27 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     this.#content = deps.content
   }
 
-  async add(params) {
+  async add({ resource, repository, content} = {})  {
     // TODO: 'access-content', need to check path on existence and uniq names in that folder
     // label: tech-debt
 
-    const content = await this.#content.add({
+    const { id } = await this.#content.add({
       content: {
-        content: params.content,
-        mime: params.mime
+        content: content,
+        mime: resource.mime
       },
-      repository: {
-        name: params.repo,
-        owner: params.owner
-      }
+      repository
     })
 
     const model = new MongoRepositoryResourceModel({
-      path: params.path,
-      name: params.name,
-      content: content.id,
-      mime: params.mime,
-      preview: params.preview
+      path: resource.dir,
+      name: resource.name,
+      content: id,
+      mime: resource.mime,
+      preview: resource.preview
     })
 
-    const result = await this.#getCollection({
-      owner: params.owner,
-      name: params.name
-    }).insertOne(
+    const result = await this.#getCollection(repository).insertOne(
       model.toDocument()
     )
 
@@ -67,8 +58,6 @@ export class MongoRepositoryAccess extends RepositoryAccess {
   }
 
   #getCollection = ({owner, name} = {}) => {
-    // TODO: 'access-content' clean up, it's outdated code,
-    //  concrete collection should be determined on method level
     let collection = MongoRepositoryResourceModel.toCollectionName(
       owner,
       name

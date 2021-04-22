@@ -14,13 +14,16 @@ export class RepositoryAccess extends Access {
 
   /**
    * @param {Object} params
-   * @param {String} params.repo - repository name
-   * @param {String} params.path
-   * @param {String} params.name
+   * @param {Object} params.repository
+   * @param {String} params.repository.name
+   * @param {String} params.repository.owner
+   * @param {Object} params.resource
+   * @param {String} params.resource.dir
+   * @param {String} params.resource.name
+   * @param {String} params.resource.mime
+   * @param {String} params.resource.permission
+   * @param {String} params.resource.preview
    * @param {Object} params.content
-   * @param {String} [params.mime]
-   * @param {String} [params.permission]
-   * @param {String} [params.preview]
    * @return {Promise<Partial<RepositoryResourceProperties>>}
    */
 
