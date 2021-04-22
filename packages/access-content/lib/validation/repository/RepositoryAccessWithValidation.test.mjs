@@ -87,6 +87,48 @@ test('add - check proper formats', async (t) => {
   })
 })
 
+test('iterate - check required params', async (t) => {
+  const { repository } = t.context
+
+  await t.throws(  () => {
+    repository.iterate({})
+  }, {
+    instanceOf: ResourceAccessError,
+    message: 'ValidationError: {"repository":"REQUIRED"}'
+  })
+
+  await t.throws(() => {
+    repository.iterate({
+      repository: {}
+    })
+  }, {
+    instanceOf: ResourceAccessError,
+    message:   'ValidationError: {"repository":{"name":"REQUIRED","owner":"REQUIRED"}}',
+  })
+})
+
+test('iterate - check wrong format', async (t) => {
+  const { repository } = t.context
+
+  await t.throws(  () => {
+    repository.iterate({
+      repository: {
+        name: {},
+        owner: []
+      },
+      query: {
+        select: 1232131,
+        filter: 10000,
+        limit: 'fsdfsdfds',
+        offset: 'fsdfsddf'
+      }
+    })
+  }, {
+    instanceOf: ResourceAccessError,
+    message: 'ValidationError: {"query":{"select":"FORMAT_ERROR","filter":"FORMAT_ERROR","limit":"NOT_POSITIVE_INTEGER","offset":"NOT_POSITIVE_INTEGER"},"repository":{"name":"FORMAT_ERROR","owner":"FORMAT_ERROR"}}'
+  })
+})
+
 test('get - check required and format params', async (t) => {
   const { repository } = t.context
 
