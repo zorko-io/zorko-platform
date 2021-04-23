@@ -48,7 +48,7 @@ test('add - check required params', async (t) => {
     })
   }, {
     instanceOf: ResourceAccessError,
-    message:   'ValidationError: {"resource":{"dir":"REQUIRED","name":"REQUIRED","mime":"REQUIRED","permission":"REQUIRED"},"repository":{"name":"REQUIRED","owner":"REQUIRED"}}',
+    message:   'ValidationError: {"resource":{"parent":"REQUIRED","name":"REQUIRED","mime":"REQUIRED","permission":"REQUIRED"},"repository":{"name":"REQUIRED","owner":"REQUIRED"}}',
   })
 })
 
@@ -70,7 +70,7 @@ test('add - check proper formats', async (t) => {
     await repository.add({
       content: 1111,
       resource: {
-        dir: {},
+        parent: {},
         mime: {},
         name: [],
         permission: [],
@@ -83,7 +83,7 @@ test('add - check proper formats', async (t) => {
     })
   }, {
     instanceOf: ResourceAccessError,
-    message:  'ValidationError: {"content":"FORMAT_ERROR","resource":{"dir":"FORMAT_ERROR","name":"FORMAT_ERROR","mime":"FORMAT_ERROR","preview":"FORMAT_ERROR","permission":"FORMAT_ERROR"},"repository":{"name":"FORMAT_ERROR","owner":"FORMAT_ERROR"}}'
+    message:  'ValidationError: {"content":"FORMAT_ERROR","resource":{"parent":"FORMAT_ERROR","name":"FORMAT_ERROR","mime":"FORMAT_ERROR","preview":"FORMAT_ERROR","permission":"FORMAT_ERROR"},"repository":{"name":"FORMAT_ERROR","owner":"FORMAT_ERROR"}}'
   })
 })
 

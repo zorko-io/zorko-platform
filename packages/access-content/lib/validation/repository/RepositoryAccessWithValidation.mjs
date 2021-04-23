@@ -7,7 +7,7 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
     add: {
       content: ['required', 'any_object'],
       resource: ['required', {nested_object: {
-          dir: ['required', 'string'],
+          parent: ['required', 'string'],
           name: ['required', 'string'],
           mime: ['required', 'string'],
           preview: ['string'],
