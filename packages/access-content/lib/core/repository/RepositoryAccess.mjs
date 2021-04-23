@@ -24,7 +24,7 @@ export class RepositoryAccess extends Access {
    * @param {String} params.resource.permission
    * @param {String} params.resource.preview
    * @param {Object} params.content
-   * @return {Promise<Partial<RepositoryResourceProperties>>}
+   * @return {Promise<Partial<ResourceProperties>>}
    */
 
   async add(params) {

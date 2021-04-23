@@ -1,12 +1,12 @@
 import {enhanceWithMongo, toObjectId} from '../util'
-import {RepositoryResourceModel} from '../../core'
+import {ResourceModel} from '../../core'
 
 export const MongoRepositoryResourceModel = enhanceWithMongo({
-  clazz: RepositoryResourceModel,
+  clazz: ResourceModel,
   adapter: {
     schema : {
       bsonType: "object",
-      required: [ "name", "parent"],
+      required: [ "name", "parent", "permission", "content", "mime"],
       properties: {
         name: {
           bsonType: "string",
@@ -14,7 +14,7 @@ export const MongoRepositoryResourceModel = enhanceWithMongo({
         },
         parent: {
           bsonType: "string",
-          description: "Id of parent resource"
+          description: "path to the parent resource"
         },
         content: {
           bsonType: "string",
@@ -23,6 +23,10 @@ export const MongoRepositoryResourceModel = enhanceWithMongo({
         mime: {
           bsonType: "string",
           description: "Mime Types Id"
+        },
+        permission: {
+          bsonType: "string",
+          description: "Permission to the resource"
         }
       }
     },
@@ -34,11 +38,12 @@ export const MongoRepositoryResourceModel = enhanceWithMongo({
     toProps (doc) {
       return {
         id: doc._id.toString(),
+        parent: doc.parent,
         name: doc.name,
-        path: `${doc.parent}/${doc.name}`,
         content: doc.content,
         mime: doc.mime,
-        preview: doc.preview
+        preview: doc.preview,
+        permission: doc.permission
       }
     },
 
@@ -51,10 +56,11 @@ export const MongoRepositoryResourceModel = enhanceWithMongo({
 
       return {
         name: props.name,
-        parent: props.path.replace('/' + props.name, ''),
+        parent: props.parent,
         content: props.content,
         mime: props.mime,
         preview: props.preview,
+        permission: props.permission,
         ...result
       }
     }

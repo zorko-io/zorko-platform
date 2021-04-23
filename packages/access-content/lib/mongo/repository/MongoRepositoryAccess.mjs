@@ -43,11 +43,12 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     })
 
     const model = new MongoRepositoryResourceModel({
-      path: resource.dir,
+      parent: resource.parent,
       name: resource.name,
       content: id,
       mime: resource.mime,
-      preview: resource.preview
+      preview: resource.preview,
+      permission: resource.permission
     })
 
     const result = await this.#getCollection(repository).insertOne(

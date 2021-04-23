@@ -1,6 +1,9 @@
+import {join} from 'path'
+
 /**
- * @typedef RepositoryResourceProperties
+ * @typedef ResourceProperties
  * @property {String} id
+ * @property {String} parent
  * @property {String} name
  * @property {String} content
  * @property {String} mime
@@ -8,26 +11,29 @@
  * @property {String} permission
  */
 
+
 /**
- * @implements RepositoryResourceProperties
+ * @implements ResourceProperties
  */
 
-export class RepositoryResourceModel {
+export class ResourceModel {
 
   #id = null
   #name = null
-  #path = null
+  #parent = null
   #content = null
   #mime = null
   #preview = null
+  #permission = null
 
-  constructor({id, name, path, content, mime, preview} = {}) {
+  constructor({id, name, parent, content, mime, preview, permission} = {}) {
     this.#id = id
     this.#name= name
-    this.#path = path
+    this.#parent = parent
     this.#content = content
     this.#mime = mime
     this.#preview = preview
+    this.#permission = permission
   }
 
   get id () {
@@ -39,7 +45,11 @@ export class RepositoryResourceModel {
   }
 
   get path () {
-    return this.#path
+    return join(this.#parent, this.#name)
+  }
+
+  get parent () {
+    return this.#parent
   }
 
   get content() {
@@ -54,14 +64,20 @@ export class RepositoryResourceModel {
     return this.#preview
   }
 
+  get permission() {
+    return this.#permission
+  }
+
   toJSON() {
     return {
       id: this.#id,
       name: this.#name,
-      path: this.#path,
+      parent: this.#parent,
+      path: this.path,
       content: this.#content,
       mime: this.#mime,
-      preview: this.#preview
+      preview: this.#preview,
+      permission: this.#permission
     }
   }
 
