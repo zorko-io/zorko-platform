@@ -1,6 +1,8 @@
 import test from '@zorko-io/tool-test-harness'
 import {setupDb} from './helper'
 import {createFacade, PermissionDefaults} from '../lib'
+import {toObjectId} from '../lib/mongo/util/index.mjs'
+import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -108,6 +110,23 @@ test.serial('get resource - happy path', async (t) => {
   t.deepEqual(actual.permission, defaultBarChartResource.permission, 'should match #permission')
 
   t.true(typeof actual.content == 'string')
+})
+
+test.serial('fails with not found', async (t) => {
+  const {repository, defaultJoeRepository} = t.context
+  let id = toObjectId().toString()
+
+  await t.throwsAsync(async () => {
+    await repository.get({
+      repository: defaultJoeRepository,
+      resource:{
+        id
+      }
+    })
+  }, {
+    instanceOf: NotFoundError,
+    message: `Can't find resource with #id=${id}, #repo=default, #owner=joe`
+  })
 })
 
 

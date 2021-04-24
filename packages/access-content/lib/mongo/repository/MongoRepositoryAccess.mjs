@@ -74,8 +74,8 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     }
 
     if (!doc) {
-      let message = `Can't find resource with #id=${id}, 
-      #repo=${repository.name}, #owner=${repository.owner}`
+      let message = `Can't find resource with #id=${id},`+
+        ` #repo=${repository.name}, #owner=${repository.owner}`
       throw new NotFoundError(message)
     }
 
