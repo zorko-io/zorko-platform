@@ -10,6 +10,9 @@
   [ ] instead of go away from content, we still may keep generic content (don't forget about history) also there is a need for just read method, which would return content  without wrappers
   again we are in experiencing mode, so if it's handly let add them, however current gal could be solved without 
   adding rich viz/theme/data refs support
+  
+- what about renaming content to history ....
+
 - [ ] add Audit wrappers before integration
 
 - [] after first integration, switch to preview generation script (aka future rendering engine) 

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
-import {Access} from '../Access.mjs'
+import {Access} from '../Access'
 
 /**
  * It manages all register allocated by tenants in the system
@@ -43,30 +43,12 @@ export class RegisterAccess extends Access {
   }
 
   /**
-   *
+   * Mark repository record as deleted
    * @param {String} id - unique Repository ID
    * @return {Promise<void>}
    */
 
   async remove(id) {
-    throw new NotYetImplementedError()
-  }
-
-  /**
-   * Allocate content search session
-   * @param {Object} scope - specify Repository to search over
-   * @return Promise{ContentSearch}
-   */
-
-   startContentSearch(scope) {
-    throw new NotYetImplementedError()
-  }
-
-  /**
-   * Import new repository
-   * @param {ReadableStream} stream
-   */
-  ingestContent(scope, stream){
     throw new NotYetImplementedError()
   }
 

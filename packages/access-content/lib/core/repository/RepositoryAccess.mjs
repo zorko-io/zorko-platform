@@ -5,14 +5,7 @@ import {Access} from '../Access.mjs'
 export class RepositoryAccess extends Access {
 
   /**
-   * Returns register details, doesn't changes once created
-   * @returns {RepositoryProperties}
-   */
-  get properties () {
-    throw new NotYetImplementedError()
-  }
-
-  /**
+   * Create new resource with as content
    * @param {Object} params
    * @param {Object} params.repository
    * @param {String} params.repository.name
@@ -28,6 +21,51 @@ export class RepositoryAccess extends Access {
    */
 
   async add(params) {
+    throw new NotYetImplementedError()
+  }
+
+  /**
+   * Get resource properties
+   * @param {Object} params
+   * @param {Object} params.resource
+   * @param {String} params.resource.id - id of resource
+   * @param {Object} params.repository
+   * @param {String} params.repository.name - name of repository
+   * @param {string} params.repository.owner - owner of repository
+   * @return {Promise<ResourceProperties>}
+   */
+
+  get(params) {
+    throw new NotYetImplementedError()
+  }
+
+  /**
+   * Remove resource from repository
+   * @param {Object} params
+   * @param {Object} params.resource
+   * @param {String} params.resource.id - id of resource
+   * @param {Object} params.repository
+   * @param {String} params.repository.name - name of repository
+   * @param {string} params.repository.owner - owner of repository
+   * @return {Promise<void>}
+   */
+
+  remove(params) {
+    throw new NotYetImplementedError()
+  }
+
+  /**
+   * Read resource's content as an object
+   * @param {Object} params
+   * @param {Object} params.resource
+   * @param {String} params.resource.id - id of resource
+   * @param {Object} params.repository
+   * @param {String} params.repository.name - name of repository
+   * @param {string} params.repository.owner - owner of repository
+   * @return {Promise<Object>}
+   */
+
+  read(params) {
     throw new NotYetImplementedError()
   }
 
@@ -53,5 +91,6 @@ export class RepositoryAccess extends Access {
   async copy (src, dst) {
     throw new NotYetImplementedError()
   }
+
 
 }
