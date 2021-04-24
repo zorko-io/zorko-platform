@@ -1,6 +1,8 @@
 import assert from 'assert'
 import {RepositoryAccess} from '../../core'
 import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel'
+import {toObjectId} from '../util/index.mjs'
+import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
 export class MongoRepositoryAccess extends RepositoryAccess {
 
@@ -56,6 +58,28 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     )
 
     return new MongoRepositoryResourceModel(result).toJSON()
+  }
+
+
+  async get(params) {
+    const {repository, resource: {id} } = params
+    const collection = this.#getCollection(repository)
+
+    let doc
+
+    try {
+      doc = await collection.findOne({_id: toObjectId(id)})
+    } catch (error) {
+      throw new ResourceAccessError(error.message)
+    }
+
+    if (!doc) {
+      let message = `Can't find resource with #id=${id}, 
+      #repo=${repository.name}, #owner=${repository.owner}`
+      throw new NotFoundError(message)
+    }
+
+    return new MongoRepositoryResourceModel({doc}).toJSON()
   }
 
   #getCollection = ({owner, name} = {}) => {
