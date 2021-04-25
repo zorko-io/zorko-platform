@@ -22,8 +22,10 @@ export function PrivateRoute({children, ...rest}) {
 
 PrivateRoute.propTypes = {
   children: PropTypes.shape({}),
+  location: PropTypes.shape({}),
 }
 
 PrivateRoute.defaultProps = {
   children: null,
+  location: {},
 }

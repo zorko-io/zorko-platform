@@ -29,7 +29,16 @@ export function HomePage() {
             <>
               <Spinner show={isLoading} />
               {isError && isError.message}
-              {previews && previews.items.map((item) => <PreviewCard key={item.id} {...item} />)}
+              {previews &&
+                previews.items.map((item) => (
+                  <PreviewCard
+                    key={item.id}
+                    title={item.title}
+                    author={item.author}
+                    createdAt={item.createdAt}
+                    previewUrl={item.previewUrl}
+                  />
+                ))}
             </>
           )}
         />

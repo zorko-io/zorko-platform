@@ -27,9 +27,18 @@ export function Viewer({match, history}) {
 }
 
 Viewer.propTypes = {
-  '': PropTypes.func,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }),
 }
 
 Viewer.defaultProps = {
-  '': () => {},
+  match: {},
+  history: {},
 }
