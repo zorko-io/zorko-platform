@@ -1,11 +1,14 @@
 import test from '@zorko-io/tool-test-harness'
-import {setupDb} from '../../../test/helper'
-import {createFacade, MimeTypes} from '../../index.mjs'
-import {toObjectId} from '../util'
+import {setupDb} from './helper/index.mjs'
+import {createFacade, MimeTypes} from '../lib/index.mjs'
+import {toObjectId} from '../lib/mongo/util/index.mjs'
 import _ from 'lodash'
 import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
-import {variousDifferentContent, variousVisualizationContent} from './contentWithSpecs.data.mjs'
-import {toArray} from '@zorko-io/util-lang/lib/index.mjs'
+import {
+  variousDifferentContent,
+  variousVisualizationContent
+} from './data/contentWithSpecs.data.mjs'
+import {toArray} from '@zorko-io/util-lang'
 
 setupDb(test, async (t) => {
   const {db} = t.context

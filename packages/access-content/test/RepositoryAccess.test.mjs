@@ -172,3 +172,48 @@ test.serial('add, get and remove one item', async (t) => {
 
 })
 
+// test.serial('query fee items', async (t) => {
+//   const {content, contentForFewSpecs, defaultJoeRepo} = t.context
+//
+//   for (let newContent of contentForFewSpecs) {
+//     await content.add({
+//       repository: defaultJoeRepo,
+//       content: newContent
+//     })
+//   }
+//
+//   const items = content.iterate({
+//     repository: defaultJoeRepo
+//   })
+//
+//   t.truthy(items)
+//
+//   let result = await items[Symbol.asyncIterator]().next()
+//
+//   let value = result.value
+//
+//   t.truthy(value.id)
+//   t.falsy(result.done)
+//
+//   delete value.id
+//
+//   t.deepEqual(result.value, contentForFewSpecs[0])
+//
+//   result = await items[Symbol.asyncIterator]().next()
+//
+//   value = result.value
+//
+//   t.truthy(value.id)
+//   t.falsy(result.done)
+//
+//   delete value.id
+//   t.deepEqual(result.value, contentForFewSpecs[1])
+//
+//
+//   result = await irtems[Symbol.asyncIterator]().next()
+//
+//   t.falsy(result.value)
+//   t.truthy(result.done)
+// })
+
+
