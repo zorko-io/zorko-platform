@@ -16,3 +16,26 @@
 - [ ] add Audit wrappers before integration
 
 - [] after first integration, switch to preview generation script (aka future rendering engine) 
+
+
+
+idea of separation of layers 
+
+------engine---
+
+engine-rendering
+  - browser
+  - node
+
+------ access---- 
+
+| access-tenant | access-content | access-project | access-data-source | access-flow
+
+
+
+
+
+access-data-source
+
+Package to encapsulate volatility over various datasources, allow to connext, get metadate and
+run data streams over it ...
