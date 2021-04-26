@@ -32,11 +32,11 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     this.#content = deps.content
   }
 
-  async add({ resource, repository, content} = {})  {
+  async add({resource, repository, content} = {}) {
     // TODO: 'access-content', need to check path on existence and uniq names in that folder
     // label: tech-debt
 
-    const { id } = await this.#content.add({
+    const {id} = await this.#content.add({
       content: {
         content: content,
         mime: resource.mime
@@ -62,7 +62,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
 
 
   async get(params) {
-    const {repository, resource: {id} } = params
+    const {repository, resource: {id}} = params
     const collection = this.#getCollection(repository)
 
     let doc
@@ -74,12 +74,23 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     }
 
     if (!doc) {
-      let message = `Can't find resource with #id=${id},`+
+      let message = `Can't find resource with #id=${id},` +
         ` #repo=${repository.name}, #owner=${repository.owner}`
       throw new NotFoundError(message)
     }
 
     return new MongoRepositoryResourceModel({doc}).toJSON()
+  }
+
+  async remove(params) {
+    const {repository, resource: {id}} = params
+    const collection = this.#getCollection(repository)
+
+    try {
+      await collection.findOneAndDelete({_id: toObjectId(id)})
+    } catch (error) {
+      throw new ResourceAccessError(error.message)
+    }
   }
 
   #getCollection = ({owner, name} = {}) => {

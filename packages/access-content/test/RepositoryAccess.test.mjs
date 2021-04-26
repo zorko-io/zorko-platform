@@ -129,4 +129,46 @@ test.serial('fails with not found', async (t) => {
   })
 })
 
+test.serial('add, get and remove one item', async (t) => {
+  const {
+    repository,
+    defaultJoeRepository,
+    defaultBarChartResource,
+    defaultBarChartContent
+  } = t.context
+
+  const newResource = await repository.add({
+    resource: defaultBarChartResource,
+    content: defaultBarChartContent,
+    repository: defaultJoeRepository
+  })
+
+  let actual = await repository.get({
+    repository: defaultJoeRepository,
+    resource: {
+      id: newResource.id
+    }
+  })
+
+  t.deepEqual(newResource, actual)
+
+  await repository.remove({
+    resource:{
+      id: newResource.id,
+    },
+    repository: defaultJoeRepository
+  })
+
+  await t.throwsAsync(async () => {
+    await repository.get({
+      repository: defaultJoeRepository,
+      resource: {
+        id: newResource.id
+      }
+    })
+  }, {
+    instanceOf: NotFoundError
+  })
+
+})
 
