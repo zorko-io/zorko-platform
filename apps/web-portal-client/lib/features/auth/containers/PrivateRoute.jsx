@@ -9,8 +9,12 @@ export function PrivateRoute({children, ...rest}) {
     <Route
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
-      render={({location}) => {
-        return hasToken ? children : <Redirect to={{pathname: '/login', state: {from: location}}} />
+      render={(props) => {
+        return hasToken ? (
+          React.Children.map(children, (child) => React.cloneElement(child, props))
+        ) : (
+          <Redirect to={{pathname: '/login', state: {from: props.location}}} />
+        )
       }}
     />
   )
@@ -18,8 +22,10 @@ export function PrivateRoute({children, ...rest}) {
 
 PrivateRoute.propTypes = {
   children: PropTypes.shape({}),
+  location: PropTypes.shape({}),
 }
 
 PrivateRoute.defaultProps = {
   children: null,
+  location: {},
 }

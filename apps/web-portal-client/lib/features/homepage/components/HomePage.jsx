@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
-import {useFetchData} from '../../../hooks'
 
+import {useFetchData} from '../../../hooks'
 import Spinner from '../../../components/Spinner'
 import {UserProfile} from '../../../components/UserProfile'
 import {PreviewCard} from '../../../components/PreviewCard'
@@ -35,7 +35,8 @@ export function HomePage() {
                     key={item.id}
                     title={item.title}
                     author={item.author}
-                    cteatedAt={item.cteatedAt}
+                    createdAt={item.createdAt}
+                    previewUrl={item.previewUrl}
                   />
                 ))}
             </>

@@ -3,7 +3,7 @@ import {Switch, Redirect} from 'react-router-dom'
 import {PrivateRoute} from '../features/auth/containers'
 import {HomePage} from '../features/homepage/components'
 import {ExamplesPage} from '../features/examples/components'
-
+import {Viewer} from '../features/viewer'
 import {Header} from '../components/layout'
 
 export function App() {
@@ -17,7 +17,10 @@ export function App() {
         <PrivateRoute path="/home">
           <HomePage />
         </PrivateRoute>
-        <Redirect path="/" to="/home" />
+        <PrivateRoute path="/viewer/:id">
+          <Viewer />
+        </PrivateRoute>
+        <Redirect path="/" exact to="/home" />
       </Switch>
     </>
   )
