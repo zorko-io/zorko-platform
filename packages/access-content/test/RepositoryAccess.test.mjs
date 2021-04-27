@@ -4,6 +4,7 @@ import {createFacade, PermissionDefaults} from '../lib'
 import {toObjectId} from '../lib/mongo/util'
 import {NotFoundError} from '@zorko-io/util-error'
 import * as path from 'path'
+import {toArray} from '@zorko-io/util-lang/lib/index.mjs'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -39,24 +40,25 @@ test.beforeEach((t) => {
           {a: 'F', b: 53},
           {a: 'G', b: 19},
           {a: 'H', b: 87},
-          {a: 'I', b: 52},
-        ],
+          {a: 'I', b: 52}
+        ]
       },
       mark: 'bar',
       encoding: {
         x: {field: 'a', type: 'nominal', axis: {labelAngle: 0}},
-        y: {field: 'b', type: 'quantitative'},
-      },
-    },
+        y: {field: 'b', type: 'quantitative'}
+      }
+    }
   }
   t.context.defaultJoeRepository = {
-    name : 'default',
+    name: 'default',
     owner: 'joe'
   }
 })
 
 test.serial('add - new resource with happy path', async (t) => {
-  const {repository,
+  const {
+    repository,
     defaultBarChartResource,
     defaultBarChartContent,
     defaultJoeRepository
@@ -82,13 +84,14 @@ test.serial('add - new resource with happy path', async (t) => {
 })
 
 test.serial('get resource - happy path', async (t) => {
-  const {repository,
+  const {
+    repository,
     defaultBarChartResource,
     defaultBarChartContent,
     defaultJoeRepository
   } = t.context
 
- const { id } = await repository.add({
+  const {id} = await repository.add({
     resource: defaultBarChartResource,
     content: defaultBarChartContent,
     repository: defaultJoeRepository
@@ -120,7 +123,7 @@ test.serial('fails with not found', async (t) => {
   await t.throwsAsync(async () => {
     await repository.get({
       repository: defaultJoeRepository,
-      resource:{
+      resource: {
         id
       }
     })
@@ -154,8 +157,8 @@ test.serial('add, get and remove one item', async (t) => {
   t.deepEqual(newResource, actual)
 
   await repository.remove({
-    resource:{
-      id: newResource.id,
+    resource: {
+      id: newResource.id
     },
     repository: defaultJoeRepository
   })
@@ -174,15 +177,16 @@ test.serial('add, get and remove one item', async (t) => {
 })
 
 test.serial('query fee items', async (t) => {
-  const {repository, defaultJoeRepository} = t.context
+  const {repository} = t.context
 
+  const defaultJoeRepository = RepositoryDataHelper.getRepositoryLocation()
   const resources = await RepositoryDataHelper.getVariousResources()
 
   for (let resource of resources) {
     await repository.add({
       repository: defaultJoeRepository,
       resource: resource,
-      content: resource.content,
+      content: resource.content
     })
   }
 
@@ -217,5 +221,56 @@ test.serial('query fee items', async (t) => {
 
   t.true(count === resources.length)
 })
+
+test.serial('query limit and offset', async (t) => {
+  const {repository} = t.context
+
+  const defaultJoeRepository = RepositoryDataHelper.getRepositoryLocation()
+  let resources = await RepositoryDataHelper.getVariousResources()
+
+  for (let resource of resources) {
+    await repository.add({
+      repository: defaultJoeRepository,
+      resource: resource,
+      content: resource.content
+    })
+  }
+
+  let it = repository.list({
+    limit: 2,
+    repository: defaultJoeRepository
+  })
+
+
+  let actual = await toArray(it)
+
+  function cleanUpBeforeCompare(arr) {
+    return arr.map(i => {
+      delete i.id
+      delete i.content
+      delete i.path
+      return i
+    })
+  }
+
+  actual = cleanUpBeforeCompare(actual)
+  resources = cleanUpBeforeCompare(resources)
+
+  t.is(actual.length, 2)
+  t.deepEqual(actual, [resources[0], resources[1]])
+
+
+  it = repository.list({
+    limit: 2,
+    offset: 2,
+    repository: defaultJoeRepository
+  })
+
+  actual = await toArray(it)
+
+  t.is(actual.length, 2)
+  t.deepEqual(cleanUpBeforeCompare(actual), [resources[2], resources[3]])
+})
+
 
 

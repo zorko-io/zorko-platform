@@ -52,6 +52,13 @@ export class RepositoryDataHelper {
       }
     ]
   }
+
+  static getRepositoryLocation() {
+    return {
+      name : 'default',
+      owner: 'joe'
+    }
+  }
 }
 
 
