@@ -87,18 +87,18 @@ test('add - check proper formats', async (t) => {
   })
 })
 
-test('iterate - check required params', async (t) => {
+test('list - check required params', async (t) => {
   const { repository } = t.context
 
   await t.throws(  () => {
-    repository.iterate({})
+    repository.list({})
   }, {
     instanceOf: ResourceAccessError,
     message: 'ValidationError: {"repository":"REQUIRED"}'
   })
 
   await t.throws(() => {
-    repository.iterate({
+    repository.list({
       repository: {}
     })
   }, {
@@ -107,25 +107,23 @@ test('iterate - check required params', async (t) => {
   })
 })
 
-test('iterate - check wrong format', async (t) => {
+test('list - check wrong format', async (t) => {
   const { repository } = t.context
 
   await t.throws(  () => {
-    repository.iterate({
+    repository.list({
+      path: {},
+      filter: [],
+      limit: 'fsdfsdfds',
+      offset: 'fsdfsddf',
       repository: {
         name: {},
         owner: []
       },
-      query: {
-        select: 1232131,
-        filter: 10000,
-        limit: 'fsdfsdfds',
-        offset: 'fsdfsddf'
-      }
     })
   }, {
     instanceOf: ResourceAccessError,
-    message: 'ValidationError: {"query":{"select":"FORMAT_ERROR","filter":"FORMAT_ERROR","limit":"NOT_POSITIVE_INTEGER","offset":"NOT_POSITIVE_INTEGER"},"repository":{"name":"FORMAT_ERROR","owner":"FORMAT_ERROR"}}'
+    message: 'ValidationError: {"path":"FORMAT_ERROR","filter":"FORMAT_ERROR","limit":"NOT_POSITIVE_INTEGER","offset":"NOT_POSITIVE_INTEGER","repository":{"name":"FORMAT_ERROR","owner":"FORMAT_ERROR"}}',
   })
 })
 

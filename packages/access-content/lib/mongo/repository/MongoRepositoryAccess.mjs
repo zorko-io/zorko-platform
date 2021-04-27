@@ -1,8 +1,9 @@
 import assert from 'assert'
-import {RepositoryAccess} from '../../core'
+import {QueryResult, RepositoryAccess} from '../../core'
 import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel'
-import {toObjectId} from '../util/index.mjs'
+import {MongoCursorIterator, MongoQuery, toObjectId} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
+import {MongoContentModel} from '../content/MongoContentModel.mjs'
 
 export class MongoRepositoryAccess extends RepositoryAccess {
 
@@ -80,6 +81,40 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     }
 
     return new MongoRepositoryResourceModel({doc}).toJSON()
+  }
+
+  list(params) {
+    const  {repository, filter}  = params
+    let collection = this.#getCollection(repository)
+
+    const query = new MongoQuery({
+      filter: Object.keys(filter || {}).reduce((memo,key) => {
+        let val = filter[key]
+        if (val) {
+          memo.push({field: key, equal: val})
+        }
+        return memo
+      }, [])
+    }, {collection})
+
+    let iterator = new MongoCursorIterator({
+      cursor: query.makeResultsCursor()
+    }, {
+      wrapValue: (value) => {
+        return new MongoRepositoryResourceModel({doc: value}).toJSON()
+      }
+    })
+
+    let fetchTotal = async () => {
+      let totalCursor = query.makeTotalCursor()
+      let result = await totalCursor.next()
+      return result.total
+    }
+
+    return new QueryResult({
+      iterator,
+      fetchTotal
+    })
   }
 
   async remove(params) {

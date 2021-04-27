@@ -1,8 +1,8 @@
 import test from '@zorko-io/tool-test-harness'
-import {setupDb} from './helper'
+import {RepositoryDataHelper, setupDb} from './helper'
 import {createFacade, PermissionDefaults} from '../lib'
-import {toObjectId} from '../lib/mongo/util/index.mjs'
-import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
+import {toObjectId} from '../lib/mongo/util'
+import {NotFoundError} from '@zorko-io/util-error'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -173,17 +173,20 @@ test.serial('add, get and remove one item', async (t) => {
 })
 
 // test.serial('query fee items', async (t) => {
-//   const {content, contentForFewSpecs, defaultJoeRepo} = t.context
+//   const {repository, defaultJoeRepository} = t.context
 //
-//   for (let newContent of contentForFewSpecs) {
-//     await content.add({
-//       repository: defaultJoeRepo,
-//       content: newContent
+//   const resources = await RepositoryDataHelper.getVariousResources()
+//
+//   for (let resource of resources) {
+//     await repository.add({
+//       repository: defaultJoeRepository,
+//       resource: resource,
+//       content: resource.content,
 //     })
 //   }
 //
-//   const items = content.iterate({
-//     repository: defaultJoeRepo
+//   const items = repository.list({
+//     repository: defaultJoeRepository
 //   })
 //
 //   t.truthy(items)
@@ -210,7 +213,7 @@ test.serial('add, get and remove one item', async (t) => {
 //   t.deepEqual(result.value, contentForFewSpecs[1])
 //
 //
-//   result = await irtems[Symbol.asyncIterator]().next()
+//   result = await items[Symbol.asyncIterator]().next()
 //
 //   t.falsy(result.value)
 //   t.truthy(result.done)

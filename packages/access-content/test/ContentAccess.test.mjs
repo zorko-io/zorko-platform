@@ -7,7 +7,7 @@ import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
 import {
   variousDifferentContent,
   variousVisualizationContent
-} from './data/contentWithSpecs.data.mjs'
+} from './helper/data/contentWithSpecsData.mjs'
 import {toArray} from '@zorko-io/util-lang'
 
 setupDb(test, async (t) => {

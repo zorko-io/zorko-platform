@@ -70,6 +70,26 @@ export class RepositoryAccess extends Access {
   }
 
   /**
+   * Provide a list of resources in provided folder
+   * @param {Object} params
+   * @param {String} [params.path] - folder path, default 'root'
+   * @param {Number} [params.limit]
+   * @param {Number} [params.offset]
+   * @param {Object} [params.filter]
+   * @param {String} params.filter.mime - mime of resource
+   * @param {Object} params.filter.permission - permission of resource
+   * @param {String} params.repository.name - name of repository
+   * @param {string} params.repository.owner - owner of repository
+   * @return {AsyncIterable}
+   */
+
+  list (params) {
+    throw new NotYetImplementedError()
+  }
+
+
+
+  /**
    * Move resource from src to dest
    * @param src
    * @param dst

@@ -22,30 +22,23 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
         }
       }]
     },
-    iterate: {
-      query: [{
+    list: {
+      path: ['string', {default: '/'}],
+      filter: [{
         nested_object: {
-          select: [{
-            'list_of': ['required', 'string']
-          }],
-          filter: [{
-            'list_of': ['required', {
-              'nested_object': {
-                field: ['required', 'string'],
-                equal: ['required', 'string']
-              }
-            }]
-          }],
-          limit: ['positive_integer', {default: 10}],
-          offset: ['positive_integer', {default: 0}]
+          name: ['string'],
+          mime: ['string'],
+          permission: ['required', 'string']
         }
-      }, {default: {limit: 10, offset: 0}}],
+      }],
+      limit: ['positive_integer', {default: 10}],
+      offset: ['positive_integer', {default: 0}],
       repository: ['required', {
         nested_object: {
           name: ['required', 'string'],
           owner: ['required', 'string']
         }
-      }]
+      }],
     },
     get: {
       resource: ['required', {

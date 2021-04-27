@@ -1,4 +1,4 @@
-import {MimeTypes} from '../../lib/core/index.mjs'
+import {MimeTypes} from '../../../lib/core/index.mjs'
 
 // TODO: 'access-content' manage test data (move to proper place)
 
@@ -168,7 +168,6 @@ const barColorDisabled = {
     }
   }
 }
-
 
 const darkTheme = {
   "background": "#333",
