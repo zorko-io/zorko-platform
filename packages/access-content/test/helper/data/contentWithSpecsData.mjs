@@ -132,7 +132,7 @@ export const barBinned = {
   }
 }
 
-const barColorDisabled = {
+export const barColorDisabled = {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "description": "A bar chart that directly encodes color names in the data.",
   "data": {

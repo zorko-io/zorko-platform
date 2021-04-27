@@ -3,6 +3,7 @@ import {RepositoryDataHelper, setupDb} from './helper'
 import {createFacade, PermissionDefaults} from '../lib'
 import {toObjectId} from '../lib/mongo/util'
 import {NotFoundError} from '@zorko-io/util-error'
+import * as path from 'path'
 
 setupDb(test, async (t) => {
   const {db} = t.context
@@ -172,51 +173,49 @@ test.serial('add, get and remove one item', async (t) => {
 
 })
 
-// test.serial('query fee items', async (t) => {
-//   const {repository, defaultJoeRepository} = t.context
-//
-//   const resources = await RepositoryDataHelper.getVariousResources()
-//
-//   for (let resource of resources) {
-//     await repository.add({
-//       repository: defaultJoeRepository,
-//       resource: resource,
-//       content: resource.content,
-//     })
-//   }
-//
-//   const items = repository.list({
-//     repository: defaultJoeRepository
-//   })
-//
-//   t.truthy(items)
-//
-//   let result = await items[Symbol.asyncIterator]().next()
-//
-//   let value = result.value
-//
-//   t.truthy(value.id)
-//   t.falsy(result.done)
-//
-//   delete value.id
-//
-//   t.deepEqual(result.value, contentForFewSpecs[0])
-//
-//   result = await items[Symbol.asyncIterator]().next()
-//
-//   value = result.value
-//
-//   t.truthy(value.id)
-//   t.falsy(result.done)
-//
-//   delete value.id
-//   t.deepEqual(result.value, contentForFewSpecs[1])
-//
-//
-//   result = await items[Symbol.asyncIterator]().next()
-//
-//   t.falsy(result.value)
-//   t.truthy(result.done)
-// })
+test.serial('query fee items', async (t) => {
+  const {repository, defaultJoeRepository} = t.context
+
+  const resources = await RepositoryDataHelper.getVariousResources()
+
+  for (let resource of resources) {
+    await repository.add({
+      repository: defaultJoeRepository,
+      resource: resource,
+      content: resource.content,
+    })
+  }
+
+  const items = repository.list({
+    repository: defaultJoeRepository
+  })
+
+  t.truthy(items)
+
+  let count = 0
+
+  for await (let item of items) {
+    let expectedResource = resources[count]
+
+    t.truthy(item)
+    t.true(typeof item.id === 'string')
+    t.truthy(item.id)
+
+    t.true(typeof item.content === 'string')
+    t.truthy(item.id)
+
+    t.is(item.path, path.join(expectedResource.parent, expectedResource.name))
+
+    delete item.id
+    delete item.content
+    delete item.path
+    delete expectedResource.content
+
+    t.deepEqual(item, expectedResource)
+    count = count + 1
+  }
+
+  t.true(count === resources.length)
+})
 
 

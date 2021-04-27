@@ -16,7 +16,7 @@ export class MongoQuery extends Query {
 
   makeResultsCursor() {
     return this.#collection.aggregate([
-      {$match: this.#toMatchQuery()},
+      {$match: this.toMatchQuery()},
       {$skip: this.offset},
       {$limit: this.limit}
     ])
@@ -24,12 +24,12 @@ export class MongoQuery extends Query {
 
   makeTotalCursor () {
     return this.#collection.aggregate([
-      {$match: this.#toMatchQuery()},
+      {$match: this.toMatchQuery()},
       {$count: 'total'}
     ])
   }
 
-  #toMatchQuery = () => {
+  toMatchQuery = () => {
     return this.filter.reduce((memo, value) => {
       if (value.equal) {
         memo[value.field] = value.equal

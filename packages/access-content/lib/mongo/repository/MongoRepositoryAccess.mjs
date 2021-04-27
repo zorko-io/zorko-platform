@@ -84,17 +84,21 @@ export class MongoRepositoryAccess extends RepositoryAccess {
   }
 
   list(params) {
-    const  {repository, filter}  = params
+    const  {repository, filter, path, limit, offset}  = params
     let collection = this.#getCollection(repository)
 
     const query = new MongoQuery({
-      filter: Object.keys(filter || {}).reduce((memo,key) => {
-        let val = filter[key]
-        if (val) {
-          memo.push({field: key, equal: val})
-        }
-        return memo
-      }, [])
+      query: {
+        filter: Object.keys(filter || {}).reduce((memo,key) => {
+          let val = filter[key]
+          if (val) {
+            memo.push({field: key, equal: val})
+          }
+          return memo
+        }, [{field:'parent', equal: path}]),
+        limit,
+        offset
+      }
     }, {collection})
 
     let iterator = new MongoCursorIterator({
