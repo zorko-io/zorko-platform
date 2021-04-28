@@ -1,6 +1,6 @@
 import test from '@zorko-io/tool-test-harness'
 import {RepositoryDataHelper, setupDb} from './helper'
-import {createFacade, PermissionDefaults} from '../lib'
+import {createFacade, MimeTypes, PermissionDefaults} from '../lib'
 import {toObjectId} from '../lib/mongo/util'
 import {NotFoundError} from '@zorko-io/util-error'
 import * as path from 'path'
@@ -17,6 +17,29 @@ setupDb(test, async (t) => {
     throw err
   }
 })
+
+const writeResources = async ({repository, location, resources} = {}) => {
+  let results = []
+
+  for (let resource of resources) {
+    results.push(await repository.add({
+      repository: location,
+      resource: resource,
+      content: resource.content
+    }))
+  }
+  return results
+}
+
+function cleanUpBeforeCompare(arr) {
+  return arr.map(i => {
+    delete i.id
+    delete i.content
+    delete i.path
+    return i
+  })
+}
+
 
 test.beforeEach((t) => {
   t.context.defaultBarChartResource = {
@@ -228,13 +251,11 @@ test.serial('query limit and offset', async (t) => {
   const defaultJoeRepository = RepositoryDataHelper.getRepositoryLocation()
   let resources = await RepositoryDataHelper.getVariousResources()
 
-  for (let resource of resources) {
-    await repository.add({
-      repository: defaultJoeRepository,
-      resource: resource,
-      content: resource.content
-    })
-  }
+  await writeResources({
+    repository,
+    resources,
+    location: defaultJoeRepository
+  })
 
   let it = repository.list({
     limit: 2,
@@ -270,6 +291,33 @@ test.serial('query limit and offset', async (t) => {
 
   t.is(actual.length, 2)
   t.deepEqual(cleanUpBeforeCompare(actual), [resources[2], resources[3]])
+})
+
+test.serial('query with filter', async (t ) => {
+  const {repository} = t.context
+
+  const defaultJoeRepository = RepositoryDataHelper.getRepositoryLocation()
+  let resources = await RepositoryDataHelper.getVariousResources()
+
+   await writeResources({
+    repository,
+    resources,
+    location: defaultJoeRepository
+  })
+
+  let results = repository.list({
+    filter: {
+      mime:MimeTypes.VegaLiteTheme
+    },
+    repository: defaultJoeRepository
+  })
+
+  results = await toArray(results)
+
+  t.is(results.length, 1)
+
+
+  t.deepEqual(cleanUpBeforeCompare([results[0]]), cleanUpBeforeCompare([resources.pop()]))
 })
 
 

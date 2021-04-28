@@ -28,7 +28,7 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
         nested_object: {
           name: ['string'],
           mime: ['string'],
-          permission: ['required', 'string']
+          permission: ['string']
         }
       }],
       limit: ['positive_integer', {default: 10}],
