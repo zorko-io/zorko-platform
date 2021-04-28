@@ -1,11 +1,8 @@
 {
-  "name": "@zorko-io/{__NAME__}",
+  "name": "@zorko-io/access-content",
   "type": "module",
   "version": "1.0.0",
   "main": "index.mjs",
-  "devDependencies": {
-    "@zorko-io/tool-test-harness": "1.0.0"
-  },
   "scripts": {
     "test": "tth",
     "test:watch": "tth --watch",
@@ -13,6 +10,14 @@
     "lint": "eslint --ext .mjs,.cjs lib",
     "clean": "yarn run clean:node-modules",
     "clean:node-modules": "rimraf node_modules"
+  },
+  "dependencies": {
+    "mongodb": "^3.6.4",
+    "@zorko-io/util-lang": "1.0.0",
+    "@zorko-io/util-config": "1.0.0"
+  },
+  "devDependencies": {
+    "@zorko-io/tool-test-harness": "1.0.0",
+    "mongodb-memory-server": "^6.9.6"
   }
 }
-

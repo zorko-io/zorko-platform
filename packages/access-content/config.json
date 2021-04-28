@@ -1,0 +1,4 @@
+{
+  "dbType": "{{ZORKO_SPACES_DB_TYPE}}",
+  "uri": "{{ZORKO_SPACES_DB_URI}}"
+}

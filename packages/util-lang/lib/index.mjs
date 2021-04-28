@@ -1,1 +1,2 @@
-export * from './isTypeInProtoChain.mjs'
+export * from './isTypeInProtoChain'
+export * from './AsyncIterable'

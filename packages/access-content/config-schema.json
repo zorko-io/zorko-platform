@@ -1,0 +1,14 @@
+{
+  "dbType": [
+    "required",
+    {
+      "one_of": [
+        "mongodb"
+      ]
+    }
+  ],
+  "uri": [
+    "required",
+    "string"
+  ]
+}
