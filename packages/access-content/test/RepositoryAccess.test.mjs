@@ -51,7 +51,7 @@ test.serial('add - new resource with happy path', async (t) => {
 
   const actual = await repository.add({
     resource: resource,
-    content: { spec }, // TODO: just pass spec
+    content: spec, // TODO: just pass spec
     path: path
   })
 

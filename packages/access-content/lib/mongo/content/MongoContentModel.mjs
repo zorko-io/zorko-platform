@@ -56,7 +56,7 @@ export const MongoContentModel = enhanceWithMongo({
 
 MongoContentModel.decodeSpecialCharters = (content) => {
   content = _.cloneDeep(content)
-  const spec = content.spec
+  const spec = content
 
   if (spec['_schema']) {
     const value = spec['_schema']
@@ -69,7 +69,7 @@ MongoContentModel.decodeSpecialCharters = (content) => {
 
 MongoContentModel.encodeSpecialCharters = (content) => {
   content = _.cloneDeep(content)
-  const spec = content.spec
+  const spec = content
 
   if (spec['$schema']) {
     const value = spec['$schema']

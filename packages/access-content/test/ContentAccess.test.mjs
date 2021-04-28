@@ -73,7 +73,7 @@ test.beforeEach((t) => {
   }
 
   const contentWithBarChart = {
-    content: {spec: barCharSpec},
+    content: barCharSpec,
     mime
   }
 
@@ -81,8 +81,8 @@ test.beforeEach((t) => {
   t.context.manyDiffContent = _.cloneDeep(variousDifferentContent)
 
   t.context.contentForFewSpecs = [
-    {content: {spec: barCharSpec}, mime},
-    {content: {spec: gantChart}, mime}
+    {content: barCharSpec, mime},
+    {content: gantChart, mime}
   ]
   t.context.barCharSpec = barCharSpec
   t.context.contentWithBarChart = contentWithBarChart
@@ -108,7 +108,7 @@ test.serial('add new content', async (t) => {
 
   t.truthy(result)
 
-  t.deepEqual(result.content, {spec: barCharSpec})
+  t.deepEqual(result.content, barCharSpec)
   t.is(result.mime, contentWithBarChart.mime)
   t.truthy(typeof result.id === 'string' && result.id)
 })

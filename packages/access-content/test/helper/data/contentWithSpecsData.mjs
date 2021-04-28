@@ -1,4 +1,4 @@
-import {MimeTypes} from '../../../lib/core/index.mjs'
+import {MimeTypes} from '../../../lib/core'
 
 // TODO: 'access-content' manage test data (move to proper place)
 
@@ -181,14 +181,14 @@ const vegaLiteThemeMime = MimeTypes.VegaLiteTheme
 
 export const variousVisualizationContent = [
   // TODO: remove 'spec' inside the content, just spread spec inside
-  { content: { spec: barCharSpec }, mime: visualizationMime},
-  { content: { spec: gantChart }, mime: visualizationMime},
-  { content: { spec: areaHorizontal }, mime: visualizationMime},
-  { content: { spec: barBinned }, mime: visualizationMime},
-  { content: { spec: barColorDisabled }, mime: visualizationMime},
+  { content: barCharSpec, mime: visualizationMime},
+  { content: gantChart , mime: visualizationMime},
+  { content: areaHorizontal , mime: visualizationMime},
+  { content: barBinned , mime: visualizationMime},
+  { content: barColorDisabled , mime: visualizationMime},
 ]
 
 export const variousDifferentContent = [
   ...variousVisualizationContent,
-  {content: { spec: darkTheme }, mime: vegaLiteThemeMime}
+  {content: darkTheme , mime: vegaLiteThemeMime}
 ]

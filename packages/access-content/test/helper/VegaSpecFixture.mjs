@@ -2,7 +2,7 @@
 export class VegaSpecFixture {
 
 
-   static getBarChart = async () => {
+   static getBarChart = () => {
     return {
       $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
       description: 'A simple bar chart with embedded data.',
