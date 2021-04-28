@@ -37,18 +37,18 @@ test('add - check required params', async (t) => {
     await repository.add({})
   }, {
     instanceOf: ResourceAccessError,
-    message:  'ValidationError: {"content":"REQUIRED","resource":"REQUIRED","repository":"REQUIRED"}'
+    message: 'ValidationError: {"content":"REQUIRED","resource":"REQUIRED","path":"REQUIRED"}',
   })
 
   await t.throwsAsync( async () => {
     await repository.add({
       content: {},
       resource: {},
-      repository: {}
+      path: {}
     })
   }, {
     instanceOf: ResourceAccessError,
-    message:   'ValidationError: {"resource":{"parent":"REQUIRED","name":"REQUIRED","mime":"REQUIRED","permission":"REQUIRED"},"repository":{"name":"REQUIRED","owner":"REQUIRED"}}',
+    message:   'ValidationError: {"resource":{"name":"REQUIRED","mime":"REQUIRED","permission":"REQUIRED"},"path":{"repo":"REQUIRED","owner":"REQUIRED","folder":"REQUIRED"}}',
   })
 })
 
@@ -59,31 +59,31 @@ test('add - check proper formats', async (t) => {
     await repository.add({
       content: 'fdfdfdf',
       resource: 'dddddd',
-      repository: 'dfdfdffd'
+      path: 'dfdfdffd'
     })
   }, {
     instanceOf: ResourceAccessError,
-    message:  'ValidationError: {"content":"FORMAT_ERROR","resource":"FORMAT_ERROR","repository":"FORMAT_ERROR"}',
+    message:   'ValidationError: {"content":"FORMAT_ERROR","resource":"FORMAT_ERROR","path":"FORMAT_ERROR"}',
   })
 
   await t.throwsAsync( async () => {
     await repository.add({
       content: 1111,
       resource: {
-        parent: {},
         mime: {},
         name: [],
         permission: [],
         preview: {}
       },
-      repository: {
-        name: [],
+      path: {
+        repo: [],
         owner: {},
+        folder: {}
       }
     })
   }, {
     instanceOf: ResourceAccessError,
-    message:  'ValidationError: {"content":"FORMAT_ERROR","resource":{"parent":"FORMAT_ERROR","name":"FORMAT_ERROR","mime":"FORMAT_ERROR","preview":"FORMAT_ERROR","permission":"FORMAT_ERROR"},"repository":{"name":"FORMAT_ERROR","owner":"FORMAT_ERROR"}}'
+    message:  'ValidationError: {"content":"FORMAT_ERROR","resource":{"name":"FORMAT_ERROR","mime":"FORMAT_ERROR","preview":"FORMAT_ERROR","permission":"FORMAT_ERROR"},"path":{"repo":"FORMAT_ERROR","owner":"FORMAT_ERROR","folder":"FORMAT_ERROR"}}',
   })
 })
 

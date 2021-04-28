@@ -8,17 +8,17 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
       content: ['required', 'any_object'],
       resource: ['required', {
         nested_object: {
-          parent: ['required', 'string'],
           name: ['required', 'string'],
           mime: ['required', 'string'],
           preview: ['string'],
           permission: ['required', 'string']
         }
       }],
-      repository: ['required', {
+      path: ['required', {
         nested_object: {
-          name: ['required', 'string'],
-          owner: ['required', 'string']
+          repo: ['required', 'string'],
+          owner: ['required', 'string'],
+          folder: ['required', 'string'],
         }
       }]
     },

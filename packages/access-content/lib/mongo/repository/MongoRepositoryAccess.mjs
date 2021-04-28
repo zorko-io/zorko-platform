@@ -3,7 +3,6 @@ import {QueryResult, RepositoryAccess} from '../../core'
 import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel'
 import {MongoCursorIterator, MongoQuery, toObjectId} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
-import {MongoContentModel} from '../content/MongoContentModel.mjs'
 
 export class MongoRepositoryAccess extends RepositoryAccess {
 
@@ -33,7 +32,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     this.#content = deps.content
   }
 
-  async add({resource, repository, content} = {}) {
+  async add({resource, path, content} = {}) {
     // TODO: 'access-content', need to check path on existence and uniq names in that folder
     // label: tech-debt
 
@@ -42,11 +41,14 @@ export class MongoRepositoryAccess extends RepositoryAccess {
         content: content,
         mime: resource.mime
       },
-      repository
+      repository: {
+        name: path.repo,
+        owner: path.owner
+      }
     })
 
     const model = new MongoRepositoryResourceModel({
-      parent: resource.parent,
+      parent: path.folder,
       name: resource.name,
       content: id,
       mime: resource.mime,
@@ -54,7 +56,10 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       permission: resource.permission
     })
 
-    const result = await this.#getCollection(repository).insertOne(
+    const result = await this.#getCollection({
+      owner: path.owner,
+      name: path.repo
+    }).insertOne(
       model.toDocument()
     )
 

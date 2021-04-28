@@ -2,10 +2,20 @@ import {MimeTypes, PermissionDefaults} from '../../lib'
 
 import {areaHorizontal, barCharSpec, gantChart, barBinned, barColorDisabled} from './data/contentWithSpecsData.mjs'
 
-export class RepositoryDataHelper {
+export class RepositoryFixture {
 
   static create() {
-    return new RepositoryDataHelper()
+    return new RepositoryFixture()
+  }
+
+  static getSomeResource() {
+    return {
+      name: 'Bar Char',
+      preview: 'url/to/preview/here',
+      mime: 'application/json+vega-lite',
+      permission: PermissionDefaults.Public
+    }
+
   }
 
    static getVariousResources = async () => {
@@ -56,7 +66,8 @@ export class RepositoryDataHelper {
   static getRepoPath() {
     return {
       repo : 'default',
-      owner: 'joe'
+      owner: 'joe',
+      folder: '/'
     }
   }
 }

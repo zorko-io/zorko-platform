@@ -1,3 +1,4 @@
 export * from './setupDb.mjs'
-export * from './RepositoryDataHelper'
+export * from './RepositoryFixture.mjs'
+export * from './VegaSpecFixture.mjs'
 
