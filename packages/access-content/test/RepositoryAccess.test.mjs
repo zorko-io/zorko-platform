@@ -23,7 +23,10 @@ const writeResources = async ({repository, location, resources} = {}) => {
 
   for (let resource of resources) {
     results.push(await repository.add({
-      repository: location,
+      repository: {
+        name: location.repo,
+        owner: location.owner
+      },
       resource: resource,
       content: resource.content
     }))
@@ -202,19 +205,22 @@ test.serial('add, get and remove one item', async (t) => {
 test.serial('query fee items', async (t) => {
   const {repository} = t.context
 
-  const defaultJoeRepository = RepositoryDataHelper.getRepositoryLocation()
+  const defaultJoeRepoPath = RepositoryDataHelper.getRepoPath()
   const resources = await RepositoryDataHelper.getVariousResources()
 
   for (let resource of resources) {
     await repository.add({
-      repository: defaultJoeRepository,
+      repository: {
+        name: defaultJoeRepoPath.repo,
+        owner: defaultJoeRepoPath.owner
+      },
       resource: resource,
       content: resource.content
     })
   }
 
   const items = repository.list({
-    repository: defaultJoeRepository
+    path: defaultJoeRepoPath,
   })
 
   t.truthy(items)
@@ -248,7 +254,7 @@ test.serial('query fee items', async (t) => {
 test.serial('query limit and offset', async (t) => {
   const {repository} = t.context
 
-  const defaultJoeRepository = RepositoryDataHelper.getRepositoryLocation()
+  const defaultJoeRepository = RepositoryDataHelper.getRepoPath()
   let resources = await RepositoryDataHelper.getVariousResources()
 
   await writeResources({
@@ -259,7 +265,7 @@ test.serial('query limit and offset', async (t) => {
 
   let it = repository.list({
     limit: 2,
-    repository: defaultJoeRepository
+    path: defaultJoeRepository
   })
 
 
@@ -282,9 +288,9 @@ test.serial('query limit and offset', async (t) => {
 
 
   it = repository.list({
+    path: defaultJoeRepository,
     limit: 2,
     offset: 2,
-    repository: defaultJoeRepository
   })
 
   actual = await toArray(it)
@@ -296,7 +302,7 @@ test.serial('query limit and offset', async (t) => {
 test.serial('query with filter', async (t ) => {
   const {repository} = t.context
 
-  const defaultJoeRepository = RepositoryDataHelper.getRepositoryLocation()
+  const defaultJoeRepository = RepositoryDataHelper.getRepoPath()
   let resources = await RepositoryDataHelper.getVariousResources()
 
    await writeResources({
@@ -306,10 +312,10 @@ test.serial('query with filter', async (t ) => {
   })
 
   let results = repository.list({
+    path: defaultJoeRepository,
     filter: {
       mime:MimeTypes.VegaLiteTheme
     },
-    repository: defaultJoeRepository
   })
 
   results = await toArray(results)
@@ -320,5 +326,29 @@ test.serial('query with filter', async (t ) => {
   t.deepEqual(cleanUpBeforeCompare([results[0]]), cleanUpBeforeCompare([resources.pop()]))
 })
 
+test.serial('query with total', async (t ) => {
+  const {repository} = t.context
+
+  const defaultJoeRepository = RepositoryDataHelper.getRepoPath()
+  let resources = await RepositoryDataHelper.getVariousResources()
+
+  await writeResources({
+    repository,
+    resources,
+    location: defaultJoeRepository
+  })
+
+  const results = repository.list({
+    path: defaultJoeRepository,
+    filter: {
+      mime: MimeTypes.VegaLite
+    },
+  })
+
+  const total = await results.total()
+
+  t.is(total, 4)
+
+})
 
 

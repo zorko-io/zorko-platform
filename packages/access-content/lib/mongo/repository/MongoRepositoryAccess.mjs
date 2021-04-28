@@ -84,8 +84,13 @@ export class MongoRepositoryAccess extends RepositoryAccess {
   }
 
   list(params) {
-    const  {repository, filter, path, limit, offset}  = params
-    let collection = this.#getCollection(repository)
+    const  {filter, path, limit, offset}  = params
+    let folder = path.folder || '/'
+
+    let collection = this.#getCollection({
+      name: path.repo,
+      owner: path.owner
+    })
 
     const query = new MongoQuery({
       query: {
@@ -95,7 +100,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
             memo.push({field: key, equal: val})
           }
           return memo
-        }, [{field:'parent', equal: path}]),
+        }, [{field:'parent', equal: folder}]),
         limit,
         offset
       }

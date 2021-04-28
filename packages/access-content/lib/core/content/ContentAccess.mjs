@@ -2,7 +2,8 @@
 import {Access} from '../Access'
 
 /**
- * Common props for all content
+ * Keep content and manage it versioning, should provide not
+ * only a content retrieval, but navigation over content history
  */
 
 export class ContentAccess extends Access {

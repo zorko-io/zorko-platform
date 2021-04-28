@@ -70,24 +70,24 @@ export class RepositoryAccess extends Access {
   }
 
   /**
-   * Provide a list of resources in provided folder
+   * Get a list of resources in provided absolute path
    * @param {Object} params
-   * @param {String} [params.path] - folder path, default 'root'
+   * @param {Object} params.path - absolute path to resource
+   * @param {String} params.path.repo - repository name
+   * @param {String} params.path.owner  - repository owner
+   * @param {String} [params.path.folder]  - folder path, default is '/'
    * @param {Number} [params.limit]
    * @param {Number} [params.offset]
    * @param {Object} [params.filter]
+   * @param {String} params.filter.name - mime of resource
    * @param {String} params.filter.mime - mime of resource
    * @param {Object} params.filter.permission - permission of resource
-   * @param {String} params.repository.name - name of repository
-   * @param {string} params.repository.owner - owner of repository
    * @return {AsyncIterable}
    */
 
   list (params) {
     throw new NotYetImplementedError()
   }
-
-
 
   /**
    * Move resource from src to dest
@@ -112,5 +112,14 @@ export class RepositoryAccess extends Access {
     throw new NotYetImplementedError()
   }
 
+  /**
+   * Makes new folder
+   * @param params
+   * @return {Promise<void>}
+   */
+
+  async makeFolder (path) {
+    throw new NotYetImplementedError()
+  }
 
 }

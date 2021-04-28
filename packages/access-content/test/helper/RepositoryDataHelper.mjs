@@ -53,9 +53,9 @@ export class RepositoryDataHelper {
     ]
   }
 
-  static getRepositoryLocation() {
+  static getRepoPath() {
     return {
-      name : 'default',
+      repo : 'default',
       owner: 'joe'
     }
   }

@@ -23,7 +23,11 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
       }]
     },
     list: {
-      path: ['string', {default: '/'}],
+      path: [['required'], {nested_object: {
+          repo: ['required', 'string'],
+          owner: ['required', 'string'],
+          folder: ['string', {default: '/'}]
+        }}],
       filter: [{
         nested_object: {
           name: ['string'],
@@ -32,13 +36,7 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
         }
       }],
       limit: ['positive_integer', {default: 10}],
-      offset: ['positive_integer', {default: 0}],
-      repository: ['required', {
-        nested_object: {
-          name: ['required', 'string'],
-          owner: ['required', 'string']
-        }
-      }],
+      offset: ['positive_integer', {default: 0}]
     },
     get: {
       resource: ['required', {
