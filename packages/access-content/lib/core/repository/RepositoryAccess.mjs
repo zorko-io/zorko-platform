@@ -27,11 +27,10 @@ export class RepositoryAccess extends Access {
   /**
    * Get resource properties
    * @param {Object} params
-   * @param {Object} params.resource
-   * @param {String} params.resource.id - id of resource
-   * @param {Object} params.repository
-   * @param {String} params.repository.name - name of repository
-   * @param {string} params.repository.owner - owner of repository
+   * @param {Object} params.uri
+   * @param {String} params.uri.repo - name of repository
+   * @param {string} params.uri.owner - owner of repository
+   * @param {string} params.uri.path - path to resource in repository
    * @return {Promise<ResourceProperties>}
    */
 

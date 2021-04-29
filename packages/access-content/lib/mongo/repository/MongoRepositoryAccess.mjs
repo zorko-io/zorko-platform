@@ -4,6 +4,10 @@ import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel'
 import {MongoCursorIterator, MongoQuery, toObjectId} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
+function uriToString (uri) {
+  return `${uri.owner}/${uri.repo}${uri.path}`
+}
+
 export class MongoRepositoryAccess extends RepositoryAccess {
 
   #deps = null
@@ -68,20 +72,25 @@ export class MongoRepositoryAccess extends RepositoryAccess {
 
 
   async get(params) {
-    const {repository, resource: {id}} = params
-    const collection = this.#getCollection(repository)
+    const { uri } = params
+    const collection = this.#getCollection({
+      owner: uri.owner,
+      name: uri.repo
+    })
+    const path = uri.path
+    const name = path.split('/').pop()
+    const parent = path.replace(name, '')
 
     let doc
 
     try {
-      doc = await collection.findOne({_id: toObjectId(id)})
+      doc = await collection.findOne({name, parent})
     } catch (error) {
       throw new ResourceAccessError(error.message)
     }
 
     if (!doc) {
-      let message = `Can't find resource with #id=${id},` +
-        ` #repo=${repository.name}, #owner=${repository.owner}`
+      let message = `Can't find resource with #uri=${uriToString(uri)}`
       throw new NotFoundError(message)
     }
 

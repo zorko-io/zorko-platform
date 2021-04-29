@@ -134,32 +134,27 @@ test('get - check required and format params', async (t) => {
     await repository.get({})
   }, {
     instanceOf: ResourceAccessError,
-    message: 'ValidationError: {"resource":"REQUIRED","repository":"REQUIRED"}',
+    message: 'ValidationError: {"uri":"REQUIRED"}',
   })
 
   await t.throwsAsync( async () => {
-    await repository.get({
-      repository: {},
-      resource: {}
-    })
+    await repository.get({uri: {}})
   }, {
     instanceOf: ResourceAccessError,
-    message:  'ValidationError: {"resource":{"id":"REQUIRED"},"repository":{"name":"REQUIRED","owner":"REQUIRED"}}',
+    message:  'ValidationError: {"uri":{"repo":"REQUIRED","owner":"REQUIRED","path":"REQUIRED"}}',
   })
 
   await t.throwsAsync( async () => {
     await repository.get({
-      resource: {
-        id: []
-      },
-      repository: {
-        name: [],
-        owner: {}
+      uri: {
+        repo: [],
+        owner: {},
+        path: {}
       }
     })
   }, {
     instanceOf: ResourceAccessError,
-    message: 'ValidationError: {"resource":{"id":"FORMAT_ERROR"},"repository":{"name":"FORMAT_ERROR","owner":"FORMAT_ERROR"}}',
+    message: 'ValidationError: {"uri":{"repo":"FORMAT_ERROR","owner":"FORMAT_ERROR","path":"FORMAT_ERROR"}}',
   })
 })
 

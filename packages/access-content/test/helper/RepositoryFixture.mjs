@@ -70,6 +70,22 @@ export class RepositoryFixture {
       folder: '/'
     }
   }
+
+  static getResourceFolderUri(path = '/') {
+    return {
+      repo : 'default',
+      owner: 'joe',
+      path
+    }
+  }
+
+  static getResourceUri(path = '/Bar Char') {
+    return {
+      repo : 'default',
+      owner: 'joe',
+      path
+    }
+  }
 }
 
 

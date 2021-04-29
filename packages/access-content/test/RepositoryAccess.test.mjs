@@ -51,7 +51,7 @@ test.serial('add - new resource with happy path', async (t) => {
 
   const actual = await repository.add({
     resource: resource,
-    content: spec, // TODO: just pass spec
+    content: spec,
     path: path
   })
 
@@ -68,55 +68,47 @@ test.serial('add - new resource with happy path', async (t) => {
   t.true(typeof actual.content == 'string')
 })
 
-// test.serial('get resource - happy path', async (t) => {
-//   const {
-//     repository,
-//     defaultBarChartResource,
-//     defaultBarChartContent,
-//     defaultJoeRepository
-//   } = t.context
-//
-//   const {id} = await repository.add({
-//     resource: defaultBarChartResource,
-//     content: defaultBarChartContent,
-//     repository: defaultJoeRepository
-//   })
-//
-//   const actual = await repository.get({
-//     resource: {
-//       id
-//     },
-//     repository: defaultJoeRepository
-//   })
-//
-//   t.truthy(actual)
-//   t.truthy(actual.id)
-//
-//   t.deepEqual(actual.name, defaultBarChartResource.name, 'should match #name')
-//   t.deepEqual(actual.path, '/Bar Char', 'should match  #path')
-//   t.deepEqual(actual.mime, defaultBarChartResource.mime, 'should match  #mime')
-//   t.deepEqual(actual.preview, defaultBarChartResource.preview, 'should match #preview')
-//   t.deepEqual(actual.permission, defaultBarChartResource.permission, 'should match #permission')
-//
-//   t.true(typeof actual.content == 'string')
-// })
-//
-// test.serial('fails with not found', async (t) => {
-//   const {repository, defaultJoeRepository} = t.context
-//   let id = toObjectId().toString()
-//
-//   await t.throwsAsync(async () => {
-//     await repository.get({
-//       repository: defaultJoeRepository,
-//       resource: {
-//         id
-//       }
-//     })
-//   }, {
-//     instanceOf: NotFoundError,
-//     message: `Can't find resource with #id=${id}, #repo=default, #owner=joe`
-//   })
-// })
+test.serial('get resource - happy path', async (t) => {
+  const {
+    repository
+  } = t.context
+
+  const spec = VegaSpecFixture.getBarChart()
+  let path = RepositoryFixture.getRepoPath()
+  let resource = RepositoryFixture.getSomeResource()
+
+  await repository.add({
+    resource: resource,
+    content: spec,
+    path: path
+  })
+
+  const actual = await repository.get({
+    uri: RepositoryFixture.getResourceUri()
+  })
+
+  t.truthy(actual)
+  t.truthy(actual.id)
+
+  t.deepEqual(actual.name, resource.name, 'should match #name')
+  t.deepEqual(actual.path, '/Bar Char', 'should match  #path')
+  t.deepEqual(actual.mime, resource.mime, 'should match  #mime')
+  t.deepEqual(actual.preview, resource.preview, 'should match #preview')
+  t.deepEqual(actual.permission, resource.permission, 'should match #permission')
+
+  t.true(typeof actual.content == 'string')
+})
+
+test.serial('fails with not found', async (t) => {
+  const { repository } = t.context
+
+  await t.throwsAsync(async () => {
+    await repository.get({uri: RepositoryFixture.getResourceUri()})
+  }, {
+    instanceOf: NotFoundError,
+    message: 'Can\'t find resource with #uri=joe/default/Bar Char'
+  })
+})
 //
 // test.serial('add, get and remove one item', async (t) => {
 //   const {

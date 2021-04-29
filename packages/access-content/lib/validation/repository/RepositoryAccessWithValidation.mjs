@@ -39,17 +39,22 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
       offset: ['positive_integer', {default: 0}]
     },
     get: {
-      resource: ['required', {
-        nested_object: {
-          id: ['required', 'string']
-        }
-      }],
-      repository: ['required', {
-        nested_object: {
-          name: ['required', 'string'],
-          owner: ['required', 'string']
-        }
-      }]
+      uri: ['required',{nested_object: {
+        repo: ['required', 'string'],
+        owner: ['required', 'string'],
+        path: ['required', 'string']
+      }}],
+      // resource: ['required', {
+      //   nested_object: {
+      //     id: ['required', 'string']
+      //   }
+      // }],
+      // repository: ['required', {
+      //   nested_object: {
+      //     name: ['required', 'string'],
+      //     owner: ['required', 'string']
+      //   }
+      // }]
     },
     remove: {
       resource: ['required', {
