@@ -14,11 +14,11 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
           permission: ['required', 'string']
         }
       }],
-      path: ['required', {
+      folder: ['required', {
         nested_object: {
           repo: ['required', 'string'],
           owner: ['required', 'string'],
-          folder: ['required', 'string'],
+          path: ['required', 'string'],
         }
       }]
     },
@@ -43,18 +43,7 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
         repo: ['required', 'string'],
         owner: ['required', 'string'],
         path: ['required', 'string']
-      }}],
-      // resource: ['required', {
-      //   nested_object: {
-      //     id: ['required', 'string']
-      //   }
-      // }],
-      // repository: ['required', {
-      //   nested_object: {
-      //     name: ['required', 'string'],
-      //     owner: ['required', 'string']
-      //   }
-      // }]
+      }}]
     },
     remove: {
       resource: ['required', {

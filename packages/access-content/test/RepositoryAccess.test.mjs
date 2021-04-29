@@ -46,13 +46,13 @@ test.serial('add - new resource with happy path', async (t) => {
   } = t.context
 
   const spec = VegaSpecFixture.getBarChart()
-  let path = RepositoryFixture.getRepoPath()
+  let folder = RepositoryFixture.getResourceFolderUri()
   let resource = RepositoryFixture.getSomeResource()
 
   const actual = await repository.add({
     resource: resource,
     content: spec,
-    path: path
+    folder: folder
   })
 
   t.truthy(actual)
@@ -74,13 +74,13 @@ test.serial('get resource - happy path', async (t) => {
   } = t.context
 
   const spec = VegaSpecFixture.getBarChart()
-  let path = RepositoryFixture.getRepoPath()
+  let folder = RepositoryFixture.getResourceFolderUri()
   let resource = RepositoryFixture.getSomeResource()
 
   await repository.add({
     resource: resource,
     content: spec,
-    path: path
+    folder: folder
   })
 
   const actual = await repository.get({

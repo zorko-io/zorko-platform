@@ -4,6 +4,7 @@ import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel'
 import {MongoCursorIterator, MongoQuery, toObjectId} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
+// TODO: 'access-content', move to utils
 function uriToString (uri) {
   return `${uri.owner}/${uri.repo}${uri.path}`
 }
@@ -36,7 +37,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     this.#content = deps.content
   }
 
-  async add({resource, path, content} = {}) {
+  async add({resource, folder, content} = {}) {
     // TODO: 'access-content', need to check path on existence and uniq names in that folder
     // label: tech-debt
 
@@ -46,13 +47,13 @@ export class MongoRepositoryAccess extends RepositoryAccess {
         mime: resource.mime
       },
       repository: {
-        name: path.repo,
-        owner: path.owner
+        name: folder.repo,
+        owner: folder.owner
       }
     })
 
     const model = new MongoRepositoryResourceModel({
-      parent: path.folder,
+      parent: folder.path,
       name: resource.name,
       content: id,
       mime: resource.mime,
@@ -61,15 +62,14 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     })
 
     const result = await this.#getCollection({
-      owner: path.owner,
-      name: path.repo
+      owner: folder.owner,
+      name: folder.repo
     }).insertOne(
       model.toDocument()
     )
 
     return new MongoRepositoryResourceModel(result).toJSON()
   }
-
 
   async get(params) {
     const { uri } = params

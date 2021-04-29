@@ -37,18 +37,18 @@ test('add - check required params', async (t) => {
     await repository.add({})
   }, {
     instanceOf: ResourceAccessError,
-    message: 'ValidationError: {"content":"REQUIRED","resource":"REQUIRED","path":"REQUIRED"}',
+    message: 'ValidationError: {"content":"REQUIRED","resource":"REQUIRED","folder":"REQUIRED"}',
   })
 
   await t.throwsAsync( async () => {
     await repository.add({
       content: {},
       resource: {},
-      path: {}
+      folder: {}
     })
   }, {
     instanceOf: ResourceAccessError,
-    message:   'ValidationError: {"resource":{"name":"REQUIRED","mime":"REQUIRED","permission":"REQUIRED"},"path":{"repo":"REQUIRED","owner":"REQUIRED","folder":"REQUIRED"}}',
+    message:   'ValidationError: {"resource":{"name":"REQUIRED","mime":"REQUIRED","permission":"REQUIRED"},"folder":{"repo":"REQUIRED","owner":"REQUIRED","path":"REQUIRED"}}',
   })
 })
 
@@ -59,11 +59,11 @@ test('add - check proper formats', async (t) => {
     await repository.add({
       content: 'fdfdfdf',
       resource: 'dddddd',
-      path: 'dfdfdffd'
+      folder: 'dfdfdffd'
     })
   }, {
     instanceOf: ResourceAccessError,
-    message:   'ValidationError: {"content":"FORMAT_ERROR","resource":"FORMAT_ERROR","path":"FORMAT_ERROR"}',
+    message:   'ValidationError: {"content":"FORMAT_ERROR","resource":"FORMAT_ERROR","folder":"FORMAT_ERROR"}',
   })
 
   await t.throwsAsync( async () => {
@@ -75,15 +75,15 @@ test('add - check proper formats', async (t) => {
         permission: [],
         preview: {}
       },
-      path: {
+      folder: {
         repo: [],
         owner: {},
-        folder: {}
+        path: {}
       }
     })
   }, {
     instanceOf: ResourceAccessError,
-    message:  'ValidationError: {"content":"FORMAT_ERROR","resource":{"name":"FORMAT_ERROR","mime":"FORMAT_ERROR","preview":"FORMAT_ERROR","permission":"FORMAT_ERROR"},"path":{"repo":"FORMAT_ERROR","owner":"FORMAT_ERROR","folder":"FORMAT_ERROR"}}',
+    message:  'ValidationError: {"content":"FORMAT_ERROR","resource":{"name":"FORMAT_ERROR","mime":"FORMAT_ERROR","preview":"FORMAT_ERROR","permission":"FORMAT_ERROR"},"folder":{"repo":"FORMAT_ERROR","owner":"FORMAT_ERROR","path":"FORMAT_ERROR"}}',
   })
 })
 
