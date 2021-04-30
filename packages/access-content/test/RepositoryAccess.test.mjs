@@ -18,12 +18,12 @@ setupDb(test, async (t) => {
   }
 })
 
-const writeResources = async ({repository, path, resources} = {}) => {
+const writeResources = async ({folder, resources, repository} = {}) => {
   let results = []
 
   for (let resource of resources) {
     results.push(await repository.add({
-      path: path,
+      folder: folder,
       resource: resource,
       content: resource.content
     }))
@@ -144,153 +144,147 @@ test.serial('add, get and remove one item', async (t) => {
 
 })
 
-// test.serial('query fee items', async (t) => {
-//   const {repository} = t.context
-//
-//   const defaultJoeRepoPath = RepositoryDataHelper.getRepoPath()
-//   const resources = await RepositoryDataHelper.getVariousResources()
-//
-//   for (let resource of resources) {
-//     await repository.add({
-//       repository: {
-//         name: defaultJoeRepoPath.repo,
-//         owner: defaultJoeRepoPath.owner
-//       },
-//       resource: resource,
-//       content: resource.content
-//     })
-//   }
-//
-//   const items = repository.list({
-//     path: defaultJoeRepoPath,
-//   })
-//
-//   t.truthy(items)
-//
-//   let count = 0
-//
-//   for await (let item of items) {
-//     let expectedResource = resources[count]
-//
-//     t.truthy(item)
-//     t.true(typeof item.id === 'string')
-//     t.truthy(item.id)
-//
-//     t.true(typeof item.content === 'string')
-//     t.truthy(item.id)
-//
-//     t.is(item.path, path.join(expectedResource.parent, expectedResource.name))
-//
-//     delete item.id
-//     delete item.content
-//     delete item.path
-//     delete expectedResource.content
-//
-//     t.deepEqual(item, expectedResource)
-//     count = count + 1
-//   }
-//
-//   t.true(count === resources.length)
-// })
-//
-// test.serial('query limit and offset', async (t) => {
-//   const {repository} = t.context
-//
-//   const defaultJoeRepository = RepositoryDataHelper.getRepoPath()
-//   let resources = await RepositoryDataHelper.getVariousResources()
-//
-//   await writeResources({
-//     repository,
-//     resources,
-//     location: defaultJoeRepository
-//   })
-//
-//   let it = repository.list({
-//     limit: 2,
-//     path: defaultJoeRepository
-//   })
-//
-//
-//   let actual = await toArray(it)
-//
-//   function cleanUpBeforeCompare(arr) {
-//     return arr.map(i => {
-//       delete i.id
-//       delete i.content
-//       delete i.path
-//       return i
-//     })
-//   }
-//
-//   actual = cleanUpBeforeCompare(actual)
-//   resources = cleanUpBeforeCompare(resources)
-//
-//   t.is(actual.length, 2)
-//   t.deepEqual(actual, [resources[0], resources[1]])
-//
-//
-//   it = repository.list({
-//     path: defaultJoeRepository,
-//     limit: 2,
-//     offset: 2,
-//   })
-//
-//   actual = await toArray(it)
-//
-//   t.is(actual.length, 2)
-//   t.deepEqual(cleanUpBeforeCompare(actual), [resources[2], resources[3]])
-// })
-//
-// test.serial('query with filter', async (t ) => {
-//   const {repository} = t.context
-//
-//   const defaultJoeRepository = RepositoryDataHelper.getRepoPath()
-//   let resources = await RepositoryDataHelper.getVariousResources()
-//
-//    await writeResources({
-//     repository,
-//     resources,
-//     location: defaultJoeRepository
-//   })
-//
-//   let results = repository.list({
-//     path: defaultJoeRepository,
-//     filter: {
-//       mime:MimeTypes.VegaLiteTheme
-//     },
-//   })
-//
-//   results = await toArray(results)
-//
-//   t.is(results.length, 1)
-//
-//
-//   t.deepEqual(cleanUpBeforeCompare([results[0]]), cleanUpBeforeCompare([resources.pop()]))
-// })
-//
-// test.serial('query with total', async (t ) => {
-//   const {repository} = t.context
-//
-//   const defaultJoeRepository = RepositoryDataHelper.getRepoPath()
-//   let resources = await RepositoryDataHelper.getVariousResources()
-//
-//   await writeResources({
-//     repository,
-//     resources,
-//     location: defaultJoeRepository
-//   })
-//
-//   const results = repository.list({
-//     path: defaultJoeRepository,
-//     filter: {
-//       mime: MimeTypes.VegaLite
-//     },
-//   })
-//
-//   const total = await results.total()
-//
-//   t.is(total, 4)
-//
-// })
-//
-//
+test.serial('query fee items', async (t) => {
+  const {repository} = t.context
+
+  const rootFolderUri = RepositoryFixture.getResourceFolderUri()
+  const resources = await RepositoryFixture.getVariousResources()
+
+  for (let resource of resources) {
+    await repository.add({
+      folder: rootFolderUri,
+      resource: resource,
+      content: resource.content
+    })
+  }
+
+  const items = repository.list({
+    folder: rootFolderUri,
+  })
+
+  t.truthy(items)
+
+  let count = 0
+
+  for await (let item of items) {
+    let expectedResource = resources[count]
+
+    t.truthy(item)
+    t.true(typeof item.id === 'string')
+    t.truthy(item.id)
+
+    t.true(typeof item.content === 'string')
+    t.truthy(item.id)
+
+    t.is(item.path, path.join(expectedResource.parent, expectedResource.name))
+
+    delete item.id
+    delete item.content
+    delete item.path
+    delete expectedResource.content
+
+    t.deepEqual(item, expectedResource)
+    count = count + 1
+  }
+
+  t.true(count === resources.length)
+})
+
+test.serial('query limit and offset', async (t) => {
+  const {repository} = t.context
+
+  const rootFolderUri = RepositoryFixture.getResourceFolderUri()
+  let resources = await RepositoryFixture.getVariousResources()
+
+  await writeResources({
+    folder: rootFolderUri,
+    resources,
+    repository
+  })
+
+  let it = repository.list({
+    limit: 2,
+    folder: rootFolderUri
+  })
+
+
+  let actual = await toArray(it)
+
+  function cleanUpBeforeCompare(arr) {
+    return arr.map(i => {
+      delete i.id
+      delete i.content
+      delete i.path
+      return i
+    })
+  }
+
+  actual = cleanUpBeforeCompare(actual)
+  resources = cleanUpBeforeCompare(resources)
+
+  t.is(actual.length, 2)
+  t.deepEqual(actual, [resources[0], resources[1]])
+
+
+  it = repository.list({
+    folder: rootFolderUri,
+    limit: 2,
+    offset: 2,
+  })
+
+  actual = await toArray(it)
+
+  t.is(actual.length, 2)
+  t.deepEqual(cleanUpBeforeCompare(actual), [resources[2], resources[3]])
+})
+
+test.serial('query with filter', async (t ) => {
+  const {repository} = t.context
+
+  const rootFolder = RepositoryFixture.getResourceFolderUri()
+  let resources = await RepositoryFixture.getVariousResources()
+
+   await writeResources({
+    repository,
+    resources,
+    folder: rootFolder
+  })
+
+  let results = repository.list({
+    folder: rootFolder,
+    filter: {
+      mime:MimeTypes.VegaLiteTheme
+    },
+  })
+
+  results = await toArray(results)
+
+  t.is(results.length, 1)
+  t.deepEqual(cleanUpBeforeCompare([results[0]]), cleanUpBeforeCompare([resources.pop()]))
+})
+
+test.serial('query with total', async (t ) => {
+  const {repository} = t.context
+
+  const rootFolder = RepositoryFixture.getResourceFolderUri()
+  let resources = await RepositoryFixture.getVariousResources()
+
+  await writeResources({
+    repository,
+    resources,
+    folder: rootFolder
+  })
+
+  const results = repository.list({
+    folder: rootFolder,
+    filter: {
+      mime: MimeTypes.VegaLite
+    },
+  })
+
+  const total = await results.total()
+
+  t.is(total, 4)
+})
+
+

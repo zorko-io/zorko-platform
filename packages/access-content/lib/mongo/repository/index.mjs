@@ -1,2 +1,2 @@
 export * from './MongoRepositoryAccess'
-export * from './MongoRepositoryResourceModel'
+export * from './MongoResource.mjs'

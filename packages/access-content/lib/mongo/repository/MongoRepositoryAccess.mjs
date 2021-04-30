@@ -1,7 +1,7 @@
 import assert from 'assert'
 import {QueryResult, RepositoryAccess} from '../../core'
-import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel'
-import {MongoCursorIterator, MongoQuery, toObjectId} from '../util/index.mjs'
+import {MongoResource} from './MongoResource.mjs'
+import {MongoCursorIterator, MongoQuery} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
 // TODO: 'access-content', move to utils
@@ -61,7 +61,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       }
     })
 
-    const model = new MongoRepositoryResourceModel({
+    const model = new MongoResource({
       parent: folder.path,
       name: resource.name,
       content: id,
@@ -74,7 +74,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       model.toDocument()
     )
 
-    return new MongoRepositoryResourceModel(result).toJSON()
+    return new MongoResource(result).toJSON()
   }
 
   async get(params) {
@@ -95,14 +95,14 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       throw new NotFoundError(message)
     }
 
-    return new MongoRepositoryResourceModel({doc}).toJSON()
+    return new MongoResource({doc}).toJSON()
   }
 
   list(params) {
-    const  {filter, path, limit, offset}  = params
-    let folder = path.folder || '/'
+    const  {filter, folder, limit, offset}  = params
+    let path = folder.path || '/'
 
-    let collection = this.#getCollection(path)
+    let collection = this.#getCollection(folder)
 
     const query = new MongoQuery({
       query: {
@@ -112,7 +112,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
             memo.push({field: key, equal: val})
           }
           return memo
-        }, [{field:'parent', equal: folder}]),
+        }, [{field:'parent', equal: path}]),
         limit,
         offset
       }
@@ -122,7 +122,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       cursor: query.makeResultsCursor()
     }, {
       wrapValue: (value) => {
-        return new MongoRepositoryResourceModel({doc: value}).toJSON()
+        return new MongoResource({doc: value}).toJSON()
       }
     })
 
@@ -151,7 +151,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
   }
 
   #getCollection = ({owner, repo} = {}) => {
-    let collection = MongoRepositoryResourceModel.toCollectionName(
+    let collection = MongoResource.toCollectionName(
       owner,
       repo
     )

@@ -5,18 +5,15 @@ import {Access} from '../Access.mjs'
 export class RepositoryAccess extends Access {
 
   /**
-   * Create new resource with as content
+   * Create new resource
    * @param {Object} params
-   * @param {Object} params.repository
-   * @param {String} params.repository.name
-   * @param {String} params.repository.owner
+   * @param {ResourceUriProperties} params.folder - uri of the folder to add resource
    * @param {Object} params.resource
-   * @param {String} params.resource.dir
-   * @param {String} params.resource.name
-   * @param {String} params.resource.mime
-   * @param {String} params.resource.permission
-   * @param {String} params.resource.preview
-   * @param {Object} params.content
+   * @param {String} params.resource.name - name of the resource
+   * @param {String} params.resource.mime - mime type of the resource
+   * @param {String} params.resource.permission - resource permissions
+   * @param {String} params.resource.preview - url to resource preview
+   * @param {Object} params.content - resource content
    * @return {Promise<Partial<ResourceProperties>>}
    */
 
@@ -27,10 +24,7 @@ export class RepositoryAccess extends Access {
   /**
    * Get resource properties
    * @param {Object} params
-   * @param {Object} params.uri
-   * @param {String} params.uri.repo - name of repository
-   * @param {string} params.uri.owner - owner of repository
-   * @param {string} params.uri.path - path to resource in repository
+   * @param {ResourceUriProperties} params.uri - resource uri
    * @return {Promise<ResourceProperties>}
    */
 
@@ -41,11 +35,7 @@ export class RepositoryAccess extends Access {
   /**
    * Remove resource from repository
    * @param {Object} params
-   * @param {Object} params.resource
-   * @param {String} params.resource.id - id of resource
-   * @param {Object} params.repository
-   * @param {String} params.repository.name - name of repository
-   * @param {string} params.repository.owner - owner of repository
+   * @param {ResourceUriProperties} params.uri  - resource uri
    * @return {Promise<void>}
    */
 
@@ -71,16 +61,12 @@ export class RepositoryAccess extends Access {
   /**
    * Get a list of resources in provided absolute path
    * @param {Object} params
-   * @param {Object} params.path - absolute path to resource
-   * @param {String} params.path.repo - repository name
-   * @param {String} params.path.owner  - repository owner
-   * @param {String} [params.path.folder]  - folder path, default is '/'
+   * @param {ResourceUriProperties} params.folder - absolute path to resource
    * @param {Number} [params.limit]
    * @param {Number} [params.offset]
    * @param {Object} [params.filter]
-   * @param {String} params.filter.name - mime of resource
-   * @param {String} params.filter.mime - mime of resource
-   * @param {Object} params.filter.permission - permission of resource
+   * @param {String} [params.filter.mime] - mime of resource
+   * @param {String} [params.filter.permission] - permission of resource
    * @return {AsyncIterable}
    */
 

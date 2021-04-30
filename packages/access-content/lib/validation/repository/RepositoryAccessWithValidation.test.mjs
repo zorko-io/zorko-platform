@@ -94,16 +94,16 @@ test('list - check required params', async (t) => {
     repository.list({})
   }, {
     instanceOf: ResourceAccessError,
-    message: 'ValidationError: {"path":"REQUIRED"}',
+    message: 'ValidationError: {"folder":"REQUIRED"}',
   })
 
   await t.throws(() => {
     repository.list({
-      path: {}
+      folder: {}
     })
   }, {
     instanceOf: ResourceAccessError,
-    message:   'ValidationError: {"path":{"repo":"REQUIRED","owner":"REQUIRED"}}',
+    message:   'ValidationError: {"folder":{"repo":"REQUIRED","owner":"REQUIRED"}}',
   })
 })
 
@@ -112,10 +112,10 @@ test('list - check wrong format', async (t) => {
 
   await t.throws(  () => {
     repository.list({
-      path: {
+      folder: {
         repo: {},
         owner: [],
-        folder: {}
+        path: {}
       },
       filter: [],
       limit: 'fsdfsdfds',
@@ -123,7 +123,7 @@ test('list - check wrong format', async (t) => {
     })
   }, {
     instanceOf: ResourceAccessError,
-    message: 'ValidationError: {"path":{"repo":"FORMAT_ERROR","owner":"FORMAT_ERROR","folder":"FORMAT_ERROR"},"filter":"FORMAT_ERROR","limit":"NOT_POSITIVE_INTEGER","offset":"NOT_POSITIVE_INTEGER"}',
+    message: 'ValidationError: {"folder":{"repo":"FORMAT_ERROR","owner":"FORMAT_ERROR","path":"FORMAT_ERROR"},"filter":"FORMAT_ERROR","limit":"NOT_POSITIVE_INTEGER","offset":"NOT_POSITIVE_INTEGER"}',
   })
 })
 

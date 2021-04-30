@@ -1,8 +1,8 @@
 import {enhanceWithMongo, toObjectId} from '../util'
-import {ResourceModel} from '../../core'
+import {Resource} from '../../core'
 
-export const MongoRepositoryResourceModel = enhanceWithMongo({
-  clazz: ResourceModel,
+export const MongoResource = enhanceWithMongo({
+  clazz: Resource,
   adapter: {
     schema : {
       bsonType: "object",

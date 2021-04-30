@@ -26,7 +26,7 @@ export class RepositoryFixture {
         mime: MimeTypes.VegaLite,
         permission: PermissionDefaults.Public,
         // TODO: 'access-content' skip spec nesting, just a content
-        content: {spec: barCharSpec}
+        content: barCharSpec
     },
       {
           parent: '/',
@@ -34,7 +34,7 @@ export class RepositoryFixture {
           preview: 'url/to/preview/here',
           mime: MimeTypes.VegaLite,
           permission: PermissionDefaults.Public,
-          content: {spec: gantChart}
+          content: gantChart
       },
       {
           parent: '/',
@@ -42,7 +42,7 @@ export class RepositoryFixture {
           preview: 'url/to/preview/here',
           mime: MimeTypes.VegaLite,
           permission: PermissionDefaults.Public,
-          content: {spec: areaHorizontal}
+          content: areaHorizontal
       },
       {
         parent: '/',
@@ -50,7 +50,7 @@ export class RepositoryFixture {
         preview: 'url/to/preview/here',
         mime: MimeTypes.VegaLite,
         permission: PermissionDefaults.Public,
-        content: {spec: barBinned}
+        content: barBinned
       },
       {
         parent: '/',
@@ -58,7 +58,7 @@ export class RepositoryFixture {
         preview: 'url/to/preview/here',
         mime: MimeTypes.VegaLiteTheme,
         permission: PermissionDefaults.Public,
-        content: {spec: barColorDisabled}
+        content: barColorDisabled
       }
     ]
   }

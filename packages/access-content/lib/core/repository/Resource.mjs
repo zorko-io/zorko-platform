@@ -16,7 +16,7 @@ import {join} from 'path'
  * @implements ResourceProperties
  */
 
-export class ResourceModel {
+export class Resource {
 
   #id = null
   #name = null

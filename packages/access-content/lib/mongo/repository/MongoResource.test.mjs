@@ -1,19 +1,11 @@
 import test from '@zorko-io/tool-test-harness'
-import {MongoRepositoryResourceModel} from './MongoRepositoryResourceModel'
+import {MongoResource} from './MongoResource.mjs'
 import {toObjectId} from '../util'
 import {PermissionDefaults} from '../../core/index.mjs'
 
-// * @property {String} id
-// * @property {String} dir
-// * @property {String} name
-// * @property {String} content
-// * @property {String} mime
-// * @property {String} preview
-// * @property {String} permission
-
 test('check repo resource mongo model', (t) => {
 
-  t.is(MongoRepositoryResourceModel.toCollectionName({
+  t.is(MongoResource.toCollectionName({
     owner: 'joe',
     name: 'my-repo'
   }), 'repository.joe.my-repo')
@@ -41,7 +33,7 @@ test('check repo resource mongo model', (t) => {
     permission: PermissionDefaults.Public
   }
 
-  const instance = new MongoRepositoryResourceModel({doc})
+  const instance = new MongoResource({doc})
 
   t.truthy(instance)
 

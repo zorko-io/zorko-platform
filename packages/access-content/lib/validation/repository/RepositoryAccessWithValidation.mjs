@@ -23,11 +23,11 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
       }]
     },
     list: {
-      path: [['required'], {
+      folder: [['required'], {
         nested_object: {
           repo: ['required', 'string'],
           owner: ['required', 'string'],
-          folder: ['string', {default: '/'}]
+          path: ['string', {default: '/'}]
         }
       }],
       filter: [{
