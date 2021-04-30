@@ -109,50 +109,41 @@ test.serial('fails with not found', async (t) => {
     message: 'Can\'t find resource with #uri=joe/default/Bar Char'
   })
 })
-//
-// test.serial('add, get and remove one item', async (t) => {
-//   const {
-//     repository,
-//     defaultJoeRepository,
-//     defaultBarChartResource,
-//     defaultBarChartContent
-//   } = t.context
-//
-//   const newResource = await repository.add({
-//     resource: defaultBarChartResource,
-//     content: defaultBarChartContent,
-//     repository: defaultJoeRepository
-//   })
-//
-//   let actual = await repository.get({
-//     repository: defaultJoeRepository,
-//     resource: {
-//       id: newResource.id
-//     }
-//   })
-//
-//   t.deepEqual(newResource, actual)
-//
-//   await repository.remove({
-//     resource: {
-//       id: newResource.id
-//     },
-//     repository: defaultJoeRepository
-//   })
-//
-//   await t.throwsAsync(async () => {
-//     await repository.get({
-//       repository: defaultJoeRepository,
-//       resource: {
-//         id: newResource.id
-//       }
-//     })
-//   }, {
-//     instanceOf: NotFoundError
-//   })
-//
-// })
-//
+
+test.serial('add, get and remove one item', async (t) => {
+  const {
+    repository,
+  } = t.context
+
+  const spec = VegaSpecFixture.getBarChart()
+  let folder = RepositoryFixture.getResourceFolderUri()
+  let resource = RepositoryFixture.getSomeResource()
+
+  const newResource = await repository.add({
+    resource,
+    content: spec,
+    folder
+  })
+
+  let newResourceUri = RepositoryFixture.getResourceUri(newResource.path)
+  let actual = await repository.get({
+    uri: newResourceUri
+  })
+
+  t.deepEqual(newResource, actual)
+
+  await repository.remove({
+    uri: newResourceUri
+  })
+
+  await t.throwsAsync(async () => {
+    await repository.get({uri: newResourceUri})
+    },{
+    instanceOf: NotFoundError
+  })
+
+})
+
 // test.serial('query fee items', async (t) => {
 //   const {repository} = t.context
 //

@@ -9,6 +9,15 @@ function uriToString (uri) {
   return `${uri.owner}/${uri.repo}${uri.path}`
 }
 
+function splitResourcePath(path) {
+  const name = path.split('/').pop()
+
+  return {
+    parent: path.replace(name, ''),
+    name,
+  }
+}
+
 export class MongoRepositoryAccess extends RepositoryAccess {
 
   #deps = null
@@ -61,10 +70,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
       permission: resource.permission
     })
 
-    const result = await this.#getCollection({
-      owner: folder.owner,
-      name: folder.repo
-    }).insertOne(
+    const result = await this.#getCollection(folder).insertOne(
       model.toDocument()
     )
 
@@ -73,13 +79,8 @@ export class MongoRepositoryAccess extends RepositoryAccess {
 
   async get(params) {
     const { uri } = params
-    const collection = this.#getCollection({
-      owner: uri.owner,
-      name: uri.repo
-    })
-    const path = uri.path
-    const name = path.split('/').pop()
-    const parent = path.replace(name, '')
+    const collection = this.#getCollection(uri)
+    const {name, parent} = splitResourcePath(uri.path)
 
     let doc
 
@@ -101,10 +102,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     const  {filter, path, limit, offset}  = params
     let folder = path.folder || '/'
 
-    let collection = this.#getCollection({
-      name: path.repo,
-      owner: path.owner
-    })
+    let collection = this.#getCollection(path)
 
     const query = new MongoQuery({
       query: {
@@ -141,20 +139,21 @@ export class MongoRepositoryAccess extends RepositoryAccess {
   }
 
   async remove(params) {
-    const {repository, resource: {id}} = params
-    const collection = this.#getCollection(repository)
+    const {uri } = params
+    const collection = this.#getCollection(uri)
+    const {parent, name} = splitResourcePath(uri.path)
 
     try {
-      await collection.findOneAndDelete({_id: toObjectId(id)})
+      await collection.findOneAndDelete({name, parent})
     } catch (error) {
       throw new ResourceAccessError(error.message)
     }
   }
 
-  #getCollection = ({owner, name} = {}) => {
+  #getCollection = ({owner, repo} = {}) => {
     let collection = MongoRepositoryResourceModel.toCollectionName(
       owner,
-      name
+      repo
     )
     return this.#db.collection(collection)
   }

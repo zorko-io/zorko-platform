@@ -18,16 +18,18 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
         nested_object: {
           repo: ['required', 'string'],
           owner: ['required', 'string'],
-          path: ['required', 'string'],
+          path: ['required', 'string']
         }
       }]
     },
     list: {
-      path: [['required'], {nested_object: {
+      path: [['required'], {
+        nested_object: {
           repo: ['required', 'string'],
           owner: ['required', 'string'],
           folder: ['string', {default: '/'}]
-        }}],
+        }
+      }],
       filter: [{
         nested_object: {
           name: ['string'],
@@ -39,22 +41,20 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
       offset: ['positive_integer', {default: 0}]
     },
     get: {
-      uri: ['required',{nested_object: {
-        repo: ['required', 'string'],
-        owner: ['required', 'string'],
-        path: ['required', 'string']
-      }}]
+      uri: ['required', {
+        nested_object: {
+          repo: ['required', 'string'],
+          owner: ['required', 'string'],
+          path: ['required', 'string']
+        }
+      }]
     },
     remove: {
-      resource: ['required', {
+      uri: ['required', {
         nested_object: {
-          id: ['required', 'string']
-        }
-      }],
-      repository: ['required', {
-        nested_object: {
-          name: ['required', 'string'],
-          owner: ['required', 'string']
+          repo: ['required', 'string'],
+          owner: ['required', 'string'],
+          path: ['required', 'string']
         }
       }]
     }
