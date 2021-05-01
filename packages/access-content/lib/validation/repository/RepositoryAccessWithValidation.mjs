@@ -57,6 +57,15 @@ export const RepositoryAccessWithValidation = enhanceWithValidation({
           path: ['required', 'string']
         }
       }]
+    },
+    read: {
+      uri: ['required', {
+        nested_object: {
+          repo: ['required', 'string'],
+          owner: ['required', 'string'],
+          path: ['required', 'string']
+        }
+      }]
     }
   }
 })

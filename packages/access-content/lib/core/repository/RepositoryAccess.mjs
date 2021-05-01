@@ -22,7 +22,7 @@ export class RepositoryAccess extends Access {
   }
 
   /**
-   * Get resource properties
+   * Get resource properties, it doesn't return content
    * @param {Object} params
    * @param {ResourceUriProperties} params.uri - resource uri
    * @return {Promise<ResourceProperties>}
@@ -46,11 +46,7 @@ export class RepositoryAccess extends Access {
   /**
    * Read resource's content as an object
    * @param {Object} params
-   * @param {Object} params.resource
-   * @param {String} params.resource.id - id of resource
-   * @param {Object} params.repository
-   * @param {String} params.repository.name - name of repository
-   * @param {string} params.repository.owner - owner of repository
+   * @param {Object} params.uri - uri of resource's
    * @return {Promise<Object>}
    */
 

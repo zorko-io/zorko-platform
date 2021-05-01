@@ -4,7 +4,7 @@ import {MongoResource} from './MongoResource.mjs'
 import {MongoCursorIterator, MongoQuery} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
-// TODO: 'access-content', move to utils
+// TODO: gh-242 'access-content', replace with ResourceUri
 function uriToString (uri) {
   return `${uri.owner}/${uri.repo}${uri.path}`
 }
@@ -129,7 +129,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     let fetchTotal = async () => {
       let totalCursor = query.makeTotalCursor()
       let result = await totalCursor.next()
-      return result.total
+      return result ? result.total : null
     }
 
     return new QueryResult({
@@ -148,6 +148,21 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     } catch (error) {
       throw new ResourceAccessError(error.message)
     }
+  }
+
+  async read (params){
+
+    const {uri} = params
+
+    const { content } = await this.get({uri})
+
+    const result = await this.#content.get({
+      id: content,
+      repository: uri.repo,
+      owner: uri.owner
+    })
+
+    return result.content
   }
 
   #getCollection = ({owner, repo} = {}) => {

@@ -1,6 +1,6 @@
 import test from '@zorko-io/tool-test-harness'
 import {RepositoryFixture, setupDb, VegaSpecFixture} from './helper'
-import {createFacade, MimeTypes, PermissionDefaults} from '../lib'
+import {createFacade, MimeTypes, PermissionDefaults, ResourceUri} from '../lib'
 import {toObjectId} from '../lib/mongo/util'
 import {NotFoundError} from '@zorko-io/util-error'
 import * as path from 'path'
@@ -42,7 +42,7 @@ function cleanUpBeforeCompare(arr) {
 
 test.serial('add - new resource with happy path', async (t) => {
   const {
-    repository,
+    repository
   } = t.context
 
   const spec = VegaSpecFixture.getBarChart()
@@ -100,7 +100,7 @@ test.serial('get resource - happy path', async (t) => {
 })
 
 test.serial('fails with not found', async (t) => {
-  const { repository } = t.context
+  const {repository} = t.context
 
   await t.throwsAsync(async () => {
     await repository.get({uri: RepositoryFixture.getResourceUri()})
@@ -112,7 +112,7 @@ test.serial('fails with not found', async (t) => {
 
 test.serial('add, get and remove one item', async (t) => {
   const {
-    repository,
+    repository
   } = t.context
 
   const spec = VegaSpecFixture.getBarChart()
@@ -138,7 +138,7 @@ test.serial('add, get and remove one item', async (t) => {
 
   await t.throwsAsync(async () => {
     await repository.get({uri: newResourceUri})
-    },{
+  }, {
     instanceOf: NotFoundError
   })
 
@@ -159,7 +159,7 @@ test.serial('query fee items', async (t) => {
   }
 
   const items = repository.list({
-    folder: rootFolderUri,
+    folder: rootFolderUri
   })
 
   t.truthy(items)
@@ -229,7 +229,7 @@ test.serial('query limit and offset', async (t) => {
   it = repository.list({
     folder: rootFolderUri,
     limit: 2,
-    offset: 2,
+    offset: 2
   })
 
   actual = await toArray(it)
@@ -238,13 +238,13 @@ test.serial('query limit and offset', async (t) => {
   t.deepEqual(cleanUpBeforeCompare(actual), [resources[2], resources[3]])
 })
 
-test.serial('query with filter', async (t ) => {
+test.serial('query with filter', async (t) => {
   const {repository} = t.context
 
   const rootFolder = RepositoryFixture.getResourceFolderUri()
   let resources = await RepositoryFixture.getVariousResources()
 
-   await writeResources({
+  await writeResources({
     repository,
     resources,
     folder: rootFolder
@@ -253,8 +253,8 @@ test.serial('query with filter', async (t ) => {
   let results = repository.list({
     folder: rootFolder,
     filter: {
-      mime:MimeTypes.VegaLiteTheme
-    },
+      mime: MimeTypes.VegaLiteTheme
+    }
   })
 
   results = await toArray(results)
@@ -263,7 +263,7 @@ test.serial('query with filter', async (t ) => {
   t.deepEqual(cleanUpBeforeCompare([results[0]]), cleanUpBeforeCompare([resources.pop()]))
 })
 
-test.serial('query with total', async (t ) => {
+test.serial('query with total', async (t) => {
   const {repository} = t.context
 
   const rootFolder = RepositoryFixture.getResourceFolderUri()
@@ -279,12 +279,53 @@ test.serial('query with total', async (t ) => {
     folder: rootFolder,
     filter: {
       mime: MimeTypes.VegaLite
-    },
+    }
   })
 
   const total = await results.total()
 
   t.is(total, 4)
+})
+
+test.serial('read content as an object', async (t) => {
+  const {
+    repository
+  } = t.context
+
+  let folder = RepositoryFixture.getResourceFolderUri()
+
+
+  const results = repository.list({
+    folder
+  })
+
+  const total = await results.total()
+
+
+  const spec = VegaSpecFixture.getBarChart()
+  let resource = RepositoryFixture.getSomeResource()
+
+  const newResoource = await repository.add({
+    resource,
+    content: spec,
+    folder
+  })
+
+
+  let uri = {
+    ...folder,
+    path: path.join(folder.path, resource.name)
+  }
+
+  console.log({NEW_RES: newResoource, total, uri})
+
+
+  const content = await repository.read({
+    uri: uri
+  })
+
+  t.deepEqual(content, spec)
+
 })
 
 
