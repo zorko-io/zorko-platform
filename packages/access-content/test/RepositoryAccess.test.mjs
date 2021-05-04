@@ -117,7 +117,8 @@ test.serial('fails with not found', async (t) => {
 
 test.serial('add, get and remove one item', async (t) => {
   const {
-    repository
+    repository,
+    content
   } = t.context
 
   const spec = VegaSpecFixture.getBarChart()
@@ -143,6 +144,12 @@ test.serial('add, get and remove one item', async (t) => {
 
   await t.throwsAsync(async () => {
     await repository.get({uri: newResourceUri})
+  }, {
+    instanceOf: NotFoundError
+  })
+
+  await t.throwsAsync(async () => {
+    await content.readAsObject({uri: newResourceUri})
   }, {
     instanceOf: NotFoundError
   })

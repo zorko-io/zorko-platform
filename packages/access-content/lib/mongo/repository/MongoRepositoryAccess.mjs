@@ -135,6 +135,8 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     const collection = this.#getCollection(uri)
     const {parent, name} = splitResourcePath(uri.path)
 
+    await this.#content.removeContent({uri})
+
     try {
       await collection.findOneAndDelete({name, parent})
     } catch (error) {
