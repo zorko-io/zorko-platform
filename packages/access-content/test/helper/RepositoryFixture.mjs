@@ -1,6 +1,5 @@
 import {MimeTypes, PermissionDefaults} from '../../lib'
-
-import {areaHorizontal, barCharSpec, gantChart, barBinned, barColorDisabled} from './data/contentWithSpecsData.mjs'
+import {VegaSpecFixture} from './VegaSpecFixture'
 
 export class RepositoryFixture {
 
@@ -15,7 +14,6 @@ export class RepositoryFixture {
       mime: 'application/json+vega-lite',
       permission: PermissionDefaults.Public
     }
-
   }
 
    static getVariousResources = async () => {
@@ -25,8 +23,7 @@ export class RepositoryFixture {
         preview: 'url/to/preview/here',
         mime: MimeTypes.VegaLite,
         permission: PermissionDefaults.Public,
-        // TODO: 'access-content' skip spec nesting, just a content
-        content: barCharSpec
+        content: VegaSpecFixture.getBarChart()
     },
       {
           parent: '/',
@@ -34,7 +31,7 @@ export class RepositoryFixture {
           preview: 'url/to/preview/here',
           mime: MimeTypes.VegaLite,
           permission: PermissionDefaults.Public,
-          content: gantChart
+          content: VegaSpecFixture.getGantChartInline()
       },
       {
           parent: '/',
@@ -42,7 +39,7 @@ export class RepositoryFixture {
           preview: 'url/to/preview/here',
           mime: MimeTypes.VegaLite,
           permission: PermissionDefaults.Public,
-          content: areaHorizontal
+          content: VegaSpecFixture.getAreaHorizontal()
       },
       {
         parent: '/',
@@ -50,7 +47,7 @@ export class RepositoryFixture {
         preview: 'url/to/preview/here',
         mime: MimeTypes.VegaLite,
         permission: PermissionDefaults.Public,
-        content: barBinned
+        content: VegaSpecFixture.getBarBinnedInline()
       },
       {
         parent: '/',
@@ -58,7 +55,7 @@ export class RepositoryFixture {
         preview: 'url/to/preview/here',
         mime: MimeTypes.VegaLiteTheme,
         permission: PermissionDefaults.Public,
-        content: barColorDisabled
+        content: VegaSpecFixture.getBarColorDisabledInline()
       }
     ]
   }

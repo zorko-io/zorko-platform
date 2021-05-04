@@ -5,8 +5,9 @@
 - [x] migrate to proper validation enchancer
 - [x] added input validation, clean up, add method
 - [x] add other methods for repository, with validation (get, remove, iterate)
-- [ ] make content more content specific and operate over uri instead of resource ids 
-- [ ] do the same for register, add permissions ???
+- [x] make content more content specific and operate over uri instead of resource ids
+- [ ] run delete for content when removing resource
+- [ ] add validation for register, add permissions ???
 ~~- [ ] replace generic Content with Visualization (themes, data refs, templates later)~~
   [ ] instead of go away from content, we still may keep generic content (don't forget about history) also there is a need for just read method, which would return content  without wrappers
   again we are in experiencing mode, so if it's handly let add them, however current gal could be solved without 
