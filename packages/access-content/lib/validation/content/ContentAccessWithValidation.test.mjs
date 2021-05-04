@@ -1,6 +1,6 @@
 import test from '@zorko-io/tool-test-harness'
 import {ContentAccessWithValidation} from './ContentAccessWithValidation'
-import {ContentAccess, MimeTypes} from '../../core'
+import {ContentAccess} from '../../core'
 import sinon from 'sinon'
 import {ResourceAccessError} from '@zorko-io/util-error'
 

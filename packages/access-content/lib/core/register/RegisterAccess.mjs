@@ -10,12 +10,13 @@ export class RegisterAccess extends Access {
 
   /**
    * Allocate new space if not exists
-   * @param {String} owner -  space owner
-   * @param {String} name - name of space
+   * @param {Object} params
+   * @param {String} params.owner -  repository owner
+   * @param {String} params.repo - repository name
    * @return {Promise<RegisterRecordProperties>}
    */
 
-  async add(owner, name) {
+  async add(params) {
     throw new NotYetImplementedError()
   }
 
