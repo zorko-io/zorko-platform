@@ -53,9 +53,9 @@ export class MongoContentAccess extends ContentAccess {
       throw new ResourceAccessError(error.message)
     }
 
-    // if (!doc) {
-    //   throw new NotFoundError(`Can't find content with #uri=${ResourceUri.asString(uri)}`)
-    // }
+    if (!doc) {
+      throw new NotFoundError(`Can't find content with #uri=${ResourceUri.asString(uri)}`)
+    }
 
     let result = new MongoContentModel({doc}).toJSON()
     return result.content

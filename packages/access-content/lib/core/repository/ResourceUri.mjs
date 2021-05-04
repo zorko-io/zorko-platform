@@ -22,8 +22,6 @@ export class ResourceUri {
     return new ResourceUri(params).toString()
   }
 
-
-
   constructor({ repo, owner, path, name }) {
     this.#repo = repo
     this.#owner = owner

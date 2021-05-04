@@ -118,6 +118,19 @@ test.serial('write and read content', async (t) => {
   t.deepEqual(spec, actual)
 })
 
+test.serial('readAsObject - fails with not found', async (t) => {
+  const {content} = t.context
+  const uri = RepositoryFixture.getResourceUri('/NoSuchResource')
+
+  await t.throwsAsync(async () => {
+    await content.readAsObject({
+      uri
+    })
+  }, {
+    instanceOf: NotFoundError,
+    message: 'Can\'t find content with #uri=joe/default/NoSuchResource'
+  })
+})
 test.serial('add new content', async (t) => {
   const {content, contentWithBarChart, defaultJoeRepo, barCharSpec} = t.context
 
