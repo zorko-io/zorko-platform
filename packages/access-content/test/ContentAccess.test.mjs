@@ -156,6 +156,30 @@ test.serial('writeAsObject - can not write twice with the same path', async (t) 
   })
 })
 
+test.serial('removeContent - read content metadata', async (t) => {
+  const {content } = t.context
+  const uri = RepositoryFixture.getResourceUri()
+  const spec = VegaSpecFixture.getBarChart()
+
+  await content.writeAsObject({
+    uri,
+    content: spec
+  })
+
+  await content.removeContent({
+    uri
+  })
+
+  await t.throwsAsync(async () => {
+    await content.readAsObject({
+      uri
+    })
+  }, {
+    instanceOf: NotFoundError,
+    message: 'Can\'t find content with #uri=joe/default/Bar Char'
+  })
+})
+
 
 test.serial('add new content', async (t) => {
   const {content, contentWithBarChart, defaultJoeRepo, barCharSpec} = t.context

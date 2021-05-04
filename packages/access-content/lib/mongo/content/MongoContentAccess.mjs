@@ -69,6 +69,17 @@ export class MongoContentAccess extends ContentAccess {
     return result.content
   }
 
+  async removeContent(params) {
+    const {uri} = params
+    const collection = this.#getCollection(uri)
+
+    try {
+      await collection.findOneAndDelete({path: uri.path})
+    } catch (error) {
+      throw new ResourceAccessError(error.message)
+    }
+  }
+
   async add(params) {
     const {content, repository} = params
     const model = new MongoContentModel({
