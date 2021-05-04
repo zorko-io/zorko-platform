@@ -34,6 +34,8 @@ export async function createSchema(options= {}, deps = {}) {
       collection.createIndex(clazz.index[0], clazz.index[1])
     }
 
+    return collection
+
   } catch (error) {
     if (error.codeName === 'NamespaceExists') {
       log.info(`Collection #name=${name} was already created, skipping...`)

@@ -6,6 +6,21 @@ import assert from 'assert'
 export const MongoContentModel = enhanceWithMongo({
   clazz: ContentModel,
   adapter: {
+    schema : {
+      bsonType: "object",
+      required: [ "path", "content"],
+      properties: {
+        path: {
+          bsonType: "string",
+          description: "must be a string and is required"
+        },
+        content: {
+          bsonType: "object",
+          description: "Json-like content here"
+        },
+      }
+    },
+    index: [{path: 1}, {unique: true}],
 
     toCollectionName  ({owner, repo} = {}) {
       assert(owner)

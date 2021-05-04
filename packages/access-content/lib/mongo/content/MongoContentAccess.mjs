@@ -1,7 +1,7 @@
 import assert from 'assert'
 import {ContentAccess, QueryResult, ResourceUri} from '../../core'
 import {MongoContentModel} from './MongoContentModel'
-import {MongoCursorIterator, MongoQuery, toObjectId} from '../util/index.mjs'
+import {MongoCursorIterator, MongoQuery, toObjectId, wrapMongoError} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error'
 
 export class MongoContentAccess extends ContentAccess {
@@ -38,7 +38,15 @@ export class MongoContentAccess extends ContentAccess {
 
     const doc = model.toDocument()
 
-    await collection.insertOne(doc)
+    try {
+      await collection.insertOne(doc)
+    }catch (error) {
+      wrapMongoError(
+        error,
+        `Content with #uri=${ResourceUri.asString(uri)} was already created`, {
+          log: this.#log
+        })
+    }
   }
 
   async readAsObject(params) {

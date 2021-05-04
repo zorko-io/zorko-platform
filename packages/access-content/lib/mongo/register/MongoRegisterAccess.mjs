@@ -57,9 +57,13 @@ export class MongoRegisterAccess extends RegisterAccess {
         db: this.#db
       })
 
-      let contentCollectionName = MongoContentModel.toCollectionName({owner, repo: name})
-
-      await this.#db.createCollection(contentCollectionName)
+      await createSchema({
+        clazz: MongoContentModel,
+        name: MongoContentModel.toCollectionName({owner, repo: name})
+      }, {
+        log: this.#log,
+        db: this.#db
+      })
 
       return new MongoRegisterRecordModel(result).toJSON()
 

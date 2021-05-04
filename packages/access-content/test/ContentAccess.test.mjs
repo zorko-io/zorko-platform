@@ -3,7 +3,7 @@ import {RepositoryFixture, setupDb, VegaSpecFixture} from './helper/index.mjs'
 import {createFacade, MimeTypes, PermissionDefaults} from '../lib/index.mjs'
 import {toObjectId} from '../lib/mongo/util/index.mjs'
 import _ from 'lodash'
-import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
+import {NotFoundError, AlreadyExistsError} from '@zorko-io/util-error'
 import {
   variousDifferentContent,
   variousVisualizationContent
@@ -131,6 +131,32 @@ test.serial('readAsObject - fails with not found', async (t) => {
     message: 'Can\'t find content with #uri=joe/default/NoSuchResource'
   })
 })
+
+test.serial('writeAsObject - can not write twice with the same path', async (t) => {
+  const {content, register} = t.context
+  const uri = RepositoryFixture.getResourceUri()
+  const spec = VegaSpecFixture.getBarChart()
+
+  // we have to register repository first
+  await register.add(uri.owner, uri.repo)
+
+  await content.writeAsObject({
+    uri,
+    content: spec
+  })
+
+  await t.throwsAsync(async () => {
+    await content.writeAsObject({
+      uri,
+      content: spec
+    })
+  }, {
+    instanceOf: AlreadyExistsError,
+    message: 'Content with #uri=joe/default/Bar Char was already created'
+  })
+})
+
+
 test.serial('add new content', async (t) => {
   const {content, contentWithBarChart, defaultJoeRepo, barCharSpec} = t.context
 
