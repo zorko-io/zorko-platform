@@ -32,18 +32,18 @@ test('enhance simple model', (t) => {
     },
   }
 
-  const content = {spec}
-
   const doc = {
     _id: id,
-    content: MongoContentModel.encodeSpecialCharters(content),
+    content: MongoContentModel.encodeSpecialCharters(spec),
     mime: MimeTypes.VegaLite,
+    path: '/Bar Chart'
   }
 
   const props = {
     id: id.toString(),
-    content,
+    content: spec,
     mime: MimeTypes.VegaLite,
+    path: '/Bar Chart'
   }
 
   const instance = new MongoContentModel({doc})

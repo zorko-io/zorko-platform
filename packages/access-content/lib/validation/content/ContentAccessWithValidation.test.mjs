@@ -106,6 +106,47 @@ test('add - check required params', async (t) => {
   })
 })
 
+test('writeAsObject - check params', async (t) => {
+  const { access } = t.context
+
+  await t.throwsAsync( async () => {
+    await access.writeAsObject({})
+  }, {
+    instanceOf: ResourceAccessError,
+    message:  'ValidationError: {"content":"REQUIRED","uri":"REQUIRED"}',
+  })
+
+  await t.throwsAsync( async () => {
+    await access.writeAsObject({
+      content: 123123123,
+      uri: []
+    })
+  }, {
+    instanceOf: ResourceAccessError,
+    message:   'ValidationError: {"content":"FORMAT_ERROR","uri":"FORMAT_ERROR"}',
+  })
+})
+
+test('readAsObject - check  params', async (t) => {
+  const { access } = t.context
+
+  await t.throwsAsync( async () => {
+    await access.readAsObject({})
+  }, {
+    instanceOf: ResourceAccessError,
+    message:  'ValidationError: {"uri":"REQUIRED"}',
+  })
+
+  await t.throwsAsync( async () => {
+    await access.readAsObject({
+      uri: []
+    })
+  }, {
+    instanceOf: ResourceAccessError,
+    message:   'ValidationError: {"uri":"FORMAT_ERROR"}',
+  })
+})
+
 test('iterate - check required params', async (t) => {
   const { access } = t.context
 

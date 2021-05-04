@@ -1,6 +1,6 @@
 import test from '@zorko-io/tool-test-harness'
-import {setupDb} from './helper/index.mjs'
-import {createFacade, MimeTypes} from '../lib/index.mjs'
+import {RepositoryFixture, setupDb, VegaSpecFixture} from './helper/index.mjs'
+import {createFacade, MimeTypes, PermissionDefaults} from '../lib/index.mjs'
 import {toObjectId} from '../lib/mongo/util/index.mjs'
 import _ from 'lodash'
 import {NotFoundError} from '@zorko-io/util-error/lib/index.mjs'
@@ -96,6 +96,26 @@ test.beforeEach((t) => {
       })
     }
   }
+})
+
+test.serial('write and read content', async (t) => {
+  const uri = RepositoryFixture.getResourceUri()
+  const spec = VegaSpecFixture.getBarChart()
+  const permission = PermissionDefaults.Public
+
+  const { content } = t.context
+
+  await content.writeAsObject({
+    content: spec,
+    permission,
+    uri
+  })
+
+  const actual = await content.readAsObject({
+    uri
+  })
+
+  t.deepEqual(spec, actual)
 })
 
 test.serial('add new content', async (t) => {

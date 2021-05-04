@@ -1,7 +1,6 @@
 import test from '@zorko-io/tool-test-harness'
 import {RepositoryFixture, setupDb, VegaSpecFixture} from './helper'
-import {createFacade, MimeTypes, PermissionDefaults, ResourceUri} from '../lib'
-import {toObjectId} from '../lib/mongo/util'
+import {createFacade, MimeTypes} from '../lib'
 import {NotFoundError} from '@zorko-io/util-error'
 import * as path from 'path'
 import {toArray} from '@zorko-io/util-lang/lib/index.mjs'
@@ -293,19 +292,10 @@ test.serial('read content as an object', async (t) => {
   } = t.context
 
   let folder = RepositoryFixture.getResourceFolderUri()
-
-
-  const results = repository.list({
-    folder
-  })
-
-  const total = await results.total()
-
-
   const spec = VegaSpecFixture.getBarChart()
   let resource = RepositoryFixture.getSomeResource()
 
-  const newResoource = await repository.add({
+  await repository.add({
     resource,
     content: spec,
     folder
@@ -316,9 +306,6 @@ test.serial('read content as an object', async (t) => {
     ...folder,
     path: path.join(folder.path, resource.name)
   }
-
-  console.log({NEW_RES: newResoource, total, uri})
-
 
   const content = await repository.read({
     uri: uri

@@ -1,5 +1,5 @@
 import assert from 'assert'
-import {ContentAccess, QueryResult} from '../../core'
+import {ContentAccess, QueryResult, ResourceUri} from '../../core'
 import {MongoContentModel} from './MongoContentModel'
 import {MongoCursorIterator, MongoQuery, toObjectId} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error'
@@ -23,6 +23,42 @@ export class MongoContentAccess extends ContentAccess {
 
     this.#db = deps.db
     this.#log = deps.log
+  }
+
+
+  async writeAsObject(params) {
+    const { uri, content } = params
+
+    const collection = this.#getCollection(uri)
+
+    const model = new MongoContentModel({
+      content: content,
+      path: uri.path
+    })
+
+    const doc = model.toDocument()
+
+    await collection.insertOne(doc)
+  }
+
+  async readAsObject(params) {
+    const {uri} = params
+    const collection = this.#getCollection(uri)
+
+    let doc
+
+    try {
+      doc = await collection.findOne({path: uri.path})
+    } catch (error) {
+      throw new ResourceAccessError(error.message)
+    }
+
+    // if (!doc) {
+    //   throw new NotFoundError(`Can't find content with #uri=${ResourceUri.asString(uri)}`)
+    // }
+
+    let result = new MongoContentModel({doc}).toJSON()
+    return result.content
   }
 
   async add(params) {

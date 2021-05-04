@@ -4,6 +4,7 @@ import _ from 'lodash'
  * @typedef ContentProperties
  * @property {String} id
  * @property {String} content
+ * @property {String} path
  * @property {String} mime
  * @property {String} config
  *
@@ -18,13 +19,15 @@ export class ContentModel {
   #id = null
   #content = null
   #mime = null
+  #path = null
   #config = null
 
-  constructor({id, content, mime, config} = {}) {
+  constructor({id, content, mime, config, path} = {}) {
     this.#id = id
     this.#content = content
     this.#mime = mime
     this.#config = config
+    this.#path = path
   }
 
   /**
@@ -62,6 +65,14 @@ export class ContentModel {
   }
 
   /**
+   * Path to resource
+   * @return {Object}
+   */
+  get path() {
+    return this.#path
+  }
+
+  /**
    * @return {Partial<ContentProperties>}
    */
 
@@ -70,7 +81,8 @@ export class ContentModel {
       id: this.id,
       content: this.content,
       mime: this.mime,
-      config: this.config
+      config: this.config,
+      path: this.path
     }, (value) => !_.isUndefined(value))
   }
 

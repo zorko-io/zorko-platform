@@ -21,6 +21,10 @@ export const MongoContentModel = enhanceWithMongo({
         result.config = doc.config
       }
 
+      if (doc.path) {
+        result.path = doc.path
+      }
+
       return {
         id: doc._id.toString(),
         content: MongoContentModel.decodeSpecialCharters(
@@ -40,6 +44,11 @@ export const MongoContentModel = enhanceWithMongo({
       if (props.config) {
         result.config = props.config
       }
+
+      if (props.path) {
+        result.path = props.path
+      }
+
       let content = MongoContentModel.encodeSpecialCharters(
         props.content
       )

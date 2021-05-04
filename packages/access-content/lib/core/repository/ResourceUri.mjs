@@ -18,6 +18,11 @@ export class ResourceUri {
   #path = null
   #name = null
 
+  static asString(params) {
+    return new ResourceUri(params).toString()
+  }
+
+
 
   constructor({ repo, owner, path, name }) {
     this.#repo = repo
