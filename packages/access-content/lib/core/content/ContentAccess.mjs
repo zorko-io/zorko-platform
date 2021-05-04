@@ -49,6 +49,28 @@ export class ContentAccess extends Access {
   }
 
   /**
+   * Read content's metadata
+   * @param {Object} params
+   * @param {ResourceUriProperties} params.uri - path to content in repository
+   * @return {Promise<Object>}
+   */
+
+  async readMetadata(params) {
+    throw new NotYetImplementedError()
+  }
+
+  /**
+   * Remove content by uri
+   * @param {Object} params
+   * @param {ResourceUriProperties} params.uri - content's repository
+   * @return {Promise<void>}
+   */
+
+  async removeContent(params) {
+    throw new NotYetImplementedError()
+  }
+
+  /**
    * @param {Object} query - content query object
    * @param {Array} query.select - list of content fields
    * @param {Number} [query.limit]=10 - limit result set

@@ -24,6 +24,26 @@ export const ContentAccessWithValidation = enhanceWithValidation({
         }
       }]
     },
+
+    readMetadata: {
+      uri: ['required', {
+        nested_object: {
+          repo: ['required', 'string'],
+          owner: ['required', 'string'],
+          path: ['required', 'string']
+        }
+      }]
+    },
+    removeContent: {
+      uri: ['required', {
+        nested_object: {
+          repo: ['required', 'string'],
+          owner: ['required', 'string'],
+          path: ['required', 'string']
+        }
+      }]
+    },
+
     add: {
       content: ['required',{nested_object: {
           mime: ['required', 'string'],
