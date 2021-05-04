@@ -17,7 +17,6 @@ test('check repo resource mongo model', (t) => {
     name: 'Bar Chart',
     parent: '/my-repo',
     path: '/my-repo/Bar Chart',
-    content: 'some-content-id',
     mime: 'some-mime-type',
     preview: 'preview/data/url/here',
     permission: PermissionDefaults.Public
@@ -27,7 +26,6 @@ test('check repo resource mongo model', (t) => {
     _id: id,
     name: 'Bar Chart',
     parent: '/my-repo',
-    content: 'some-content-id',
     mime: 'some-mime-type',
     preview: 'preview/data/url/here',
     permission: PermissionDefaults.Public

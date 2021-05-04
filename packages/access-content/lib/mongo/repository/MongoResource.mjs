@@ -16,10 +16,6 @@ export const MongoResource = enhanceWithMongo({
           bsonType: "string",
           description: "path to the parent resource"
         },
-        content: {
-          bsonType: "string",
-          description: "Content Id"
-        },
         mime: {
           bsonType: "string",
           description: "Mime Types Id"
@@ -40,7 +36,6 @@ export const MongoResource = enhanceWithMongo({
         id: doc._id.toString(),
         parent: doc.parent,
         name: doc.name,
-        content: doc.content,
         mime: doc.mime,
         preview: doc.preview,
         permission: doc.permission
@@ -57,7 +52,6 @@ export const MongoResource = enhanceWithMongo({
       return {
         name: props.name,
         parent: props.parent,
-        content: props.content,
         mime: props.mime,
         preview: props.preview,
         permission: props.permission,

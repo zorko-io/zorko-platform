@@ -44,17 +44,6 @@ export class RepositoryAccess extends Access {
   }
 
   /**
-   * Read resource's content as an object
-   * @param {Object} params
-   * @param {Object} params.uri - uri of resource's
-   * @return {Promise<Object>}
-   */
-
-  read(params) {
-    throw new NotYetImplementedError()
-  }
-
-  /**
    * Get a list of resources in provided absolute path
    * @param {Object} params
    * @param {ResourceUriProperties} params.folder - absolute path to resource

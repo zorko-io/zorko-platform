@@ -21,16 +21,14 @@ export class Resource {
   #id = null
   #name = null
   #parent = null
-  #content = null
   #mime = null
   #preview = null
   #permission = null
 
-  constructor({id, name, parent, content, mime, preview, permission} = {}) {
+  constructor({id, name, parent, mime, preview, permission} = {}) {
     this.#id = id
     this.#name= name
     this.#parent = parent
-    this.#content = content
     this.#mime = mime
     this.#preview = preview
     this.#permission = permission
@@ -52,10 +50,6 @@ export class Resource {
     return this.#parent
   }
 
-  get content() {
-    return this.#content
-  }
-
   get mime () {
     return this.#mime
   }
@@ -74,7 +68,6 @@ export class Resource {
       name: this.#name,
       parent: this.#parent,
       path: this.path,
-      content: this.#content,
       mime: this.#mime,
       preview: this.#preview,
       permission: this.#permission

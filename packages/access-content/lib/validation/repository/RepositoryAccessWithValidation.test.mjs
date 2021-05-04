@@ -190,27 +190,3 @@ test('remove - check required and format params', async (t) => {
     message: 'ValidationError: {"uri":{"repo":"FORMAT_ERROR","owner":"FORMAT_ERROR","path":"FORMAT_ERROR"}}',
   })
 })
-
-test('read - check required and format params', async (t) => {
-  const { repository } = t.context
-
-  await t.throwsAsync( async () => {
-    await repository.read({})
-  }, {
-    instanceOf: ResourceAccessError,
-    message:  'ValidationError: {"uri":"REQUIRED"}',
-  })
-
-  await t.throwsAsync( async () => {
-    await repository.read({
-      uri: {
-        repo: [],
-        owner: {},
-        path: {}
-      }
-    })
-  }, {
-    instanceOf: ResourceAccessError,
-    message: 'ValidationError: {"uri":{"repo":"FORMAT_ERROR","owner":"FORMAT_ERROR","path":"FORMAT_ERROR"}}',
-  })
-})

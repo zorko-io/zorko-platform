@@ -11,6 +11,7 @@ setupDb(test, async (t) => {
     const facade = await createFacade(db)
     t.context.facade = facade
     t.context.repository = facade.repository
+    t.context.content = facade.content
   } catch (err) {
     console.error(`Can't create repo register`, err)
     throw err
@@ -41,7 +42,8 @@ function cleanUpBeforeCompare(arr) {
 
 test.serial('add - new resource with happy path', async (t) => {
   const {
-    repository
+    repository,
+    content
   } = t.context
 
   const spec = VegaSpecFixture.getBarChart()
@@ -64,7 +66,13 @@ test.serial('add - new resource with happy path', async (t) => {
   t.deepEqual(actual.preview, resource.preview, 'should match #preview')
   t.deepEqual(actual.permission, resource.permission, 'should match #permission')
 
-  t.true(typeof actual.content == 'string')
+  const actualSpec = await content.readAsObject({
+    uri: RepositoryFixture.getResourceUri(actual.path)
+  })
+
+  delete actualSpec.id
+
+  t.deepEqual(actualSpec, spec)
 })
 
 test.serial('get resource - happy path', async (t) => {
@@ -94,8 +102,6 @@ test.serial('get resource - happy path', async (t) => {
   t.deepEqual(actual.mime, resource.mime, 'should match  #mime')
   t.deepEqual(actual.preview, resource.preview, 'should match #preview')
   t.deepEqual(actual.permission, resource.permission, 'should match #permission')
-
-  t.true(typeof actual.content == 'string')
 })
 
 test.serial('fails with not found', async (t) => {
@@ -170,9 +176,6 @@ test.serial('query fee items', async (t) => {
 
     t.truthy(item)
     t.true(typeof item.id === 'string')
-    t.truthy(item.id)
-
-    t.true(typeof item.content === 'string')
     t.truthy(item.id)
 
     t.is(item.path, path.join(expectedResource.parent, expectedResource.name))
@@ -284,35 +287,6 @@ test.serial('query with total', async (t) => {
   const total = await results.total()
 
   t.is(total, 4)
-})
-
-test.serial('read content as an object', async (t) => {
-  const {
-    repository
-  } = t.context
-
-  let folder = RepositoryFixture.getResourceFolderUri()
-  const spec = VegaSpecFixture.getBarChart()
-  let resource = RepositoryFixture.getSomeResource()
-
-  await repository.add({
-    resource,
-    content: spec,
-    folder
-  })
-
-
-  let uri = {
-    ...folder,
-    path: path.join(folder.path, resource.name)
-  }
-
-  const content = await repository.read({
-    uri: uri
-  })
-
-  t.deepEqual(content, spec)
-
 })
 
 

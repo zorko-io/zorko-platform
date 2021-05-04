@@ -1,14 +1,10 @@
 import assert from 'assert'
-import {QueryResult, RepositoryAccess} from '../../core'
+import {QueryResult, RepositoryAccess, ResourceUri} from '../../core'
 import {MongoResource} from './MongoResource.mjs'
 import {MongoCursorIterator, MongoQuery} from '../util/index.mjs'
 import {NotFoundError, ResourceAccessError} from '@zorko-io/util-error/lib/index.mjs'
 
 // TODO: gh-242 'access-content', replace with ResourceUri
-function uriToString (uri) {
-  return `${uri.owner}/${uri.repo}${uri.path}`
-}
-
 function splitResourcePath(path) {
   const name = path.split('/').pop()
 
@@ -50,24 +46,20 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     // TODO: 'access-content', need to check path on existence and uniq names in that folder
     // label: tech-debt
 
-    const {id} = await this.#content.add({
-      content: {
-        content: content,
-        mime: resource.mime
-      },
-      repository: {
-        name: folder.repo,
-        owner: folder.owner
-      }
-    })
-
     const model = new MongoResource({
       parent: folder.path,
       name: resource.name,
-      content: id,
       mime: resource.mime,
       preview: resource.preview,
       permission: resource.permission
+    })
+
+    await this.#content.writeAsObject({
+      content: content,
+      uri: {
+        ...folder,
+        path: model.path
+      }
     })
 
     const result = await this.#getCollection(folder).insertOne(
@@ -91,7 +83,7 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     }
 
     if (!doc) {
-      let message = `Can't find resource with #uri=${uriToString(uri)}`
+      let message = `Can't find resource with #uri=${ResourceUri.asString(uri)}`
       throw new NotFoundError(message)
     }
 
@@ -148,21 +140,6 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     } catch (error) {
       throw new ResourceAccessError(error.message)
     }
-  }
-
-  async read (params){
-
-    const {uri} = params
-
-    const { content } = await this.get({uri})
-
-    const result = await this.#content.get({
-      id: content,
-      repository: uri.repo,
-      owner: uri.owner
-    })
-
-    return result.content
   }
 
   #getCollection = ({owner, repo} = {}) => {
