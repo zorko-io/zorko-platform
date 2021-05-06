@@ -1,4 +1,5 @@
 import assert from 'assert'
+import {wrapMongoError} from './wrapMongoError.mjs'
 
 export class MongoCursorIterator {
   #cursor = null
@@ -25,6 +26,8 @@ export class MongoCursorIterator {
     }
 
     const doc = await cursor.next()
+
+
     const value = this.#wrapValue ? this.#wrapValue(doc) : doc
 
     return {

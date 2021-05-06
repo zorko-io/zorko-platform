@@ -1,6 +1,6 @@
 import assert from 'assert'
 import {RegisterAccess} from '../../core'
-import {MongoCursorIterator, toObjectId, wrapMongoError, createSchema} from '../util'
+import {MongoCursorIterator, wrapMongoError, createSchema} from '../util'
 import {NotFoundError} from '@zorko-io/util-error'
 import {toIterable} from '@zorko-io/util-lang'
 import {MongoRegisterRecordModel} from './MongoRegisterRecordModel'
@@ -76,9 +76,15 @@ export class MongoRegisterAccess extends RegisterAccess {
   }
 
   iterate(query) {
-    const cursor = this.#collection.find({
-      owner: query.owner
-    })
+    let cursor
+
+    try {
+      cursor = this.#collection.find({
+        owner: query.owner
+      })
+    }catch (error) {
+      wrapMongoError(error, null, {log: this.#log})
+    }
 
     return toIterable(
       new MongoCursorIterator({
@@ -88,14 +94,18 @@ export class MongoRegisterAccess extends RegisterAccess {
       }))
   }
 
-  // TODO: 'access-content', get, error handling
-  // label: tech-debt
   async get({repo, owner}) {
-    // TODO: 'access-content', handle errors
-    const doc = await this.#collection.findOne({
-      name: repo,
-      owner: owner
-    })
+    let doc
+
+    try {
+      doc = await this.#collection.findOne({
+        name: repo,
+        owner: owner
+      })
+
+    } catch (error) {
+      wrapMongoError(error, null, {log: this.#log})
+    }
 
     if (!doc) {
       throw new NotFoundError(`Can't find repository record by #repo=${repo}, #owner=${owner}`)
@@ -104,13 +114,14 @@ export class MongoRegisterAccess extends RegisterAccess {
     return new MongoRegisterRecordModel({doc}).toJSON()
   }
 
-  // TODO: 'access-content', remove, error handling
-  // label: tech-debt
   async remove({repo, owner}) {
-    const {value} = await this.#collection.findOneAndDelete({name: repo, owner })
+    try {
+      const {value} = await this.#collection.findOneAndDelete({name: repo, owner})
 
-    // probalby we no need to be so radical and just mark it as deleted
-    await this.#db.collection(value.name).drop()
+      // probably we no need to be so radical and just mark it as deleted
+      await this.#db.collection(value.name).drop()
+    }catch (error) {
+      wrapMongoError(error, null, {log: this.#log})
+    }
   }
-
 }
