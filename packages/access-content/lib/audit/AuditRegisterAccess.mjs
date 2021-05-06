@@ -22,8 +22,8 @@ export class AuditRegisterAccess extends RegisterAccess {
     return this.#origin.properties
   }
 
-  async add(...args) {
-      return this.#origin.add.apply(this.#origin, args)
+  async allocateNewRepo(...args) {
+      return this.#origin.allocateNewRepo.apply(this.#origin, args)
   }
 
   iterate(...args) {

@@ -4,7 +4,7 @@ import {enhanceWithValidation} from '../enhanceWithValidation'
 export const RegisterAccessWithValidation = enhanceWithValidation({
   clazz: RegisterAccess,
   rules: {
-    add: {
+    allocateNewRepo: {
       repo: ['required', 'string'],
       owner: ['required', 'string']
     },

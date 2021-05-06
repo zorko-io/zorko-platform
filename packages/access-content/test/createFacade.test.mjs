@@ -4,10 +4,9 @@ import {
   createFacade,
   AccessContentFacade,
   RegisterAccess,
-  RepositoryAccess
+  RepositoryAccess,
+  ContentAccess
 } from '../lib'
-
-import {ContentAccess} from '../lib/core/content/ContentAccess'
 
 setupDb(test, async (t) => {
   const {db} = t.context

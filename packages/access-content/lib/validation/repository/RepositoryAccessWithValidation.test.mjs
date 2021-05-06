@@ -30,7 +30,7 @@ test.afterEach((t)=>{
   t.context.sandbox.restore()
 })
 
-test('add - check required params', async (t) => {
+test('allocateNewRepo - check required params', async (t) => {
   const { repository } = t.context
 
   await t.throwsAsync( async () => {
@@ -52,7 +52,7 @@ test('add - check required params', async (t) => {
   })
 })
 
-test('add - check proper formats', async (t) => {
+test('allocateNewRepo - check proper formats', async (t) => {
   const { repository } = t.context
 
   await t.throwsAsync( async () => {

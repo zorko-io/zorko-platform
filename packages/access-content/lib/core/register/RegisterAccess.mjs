@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import {NotYetImplementedError} from '@zorko-io/util-error'
-import {Access} from '../Access'
 
 /**
  * It manages all register allocated by tenants in the system
  */
 
-export class RegisterAccess extends Access {
+export class RegisterAccess {
 
   /**
    * Allocate new space if not exists
@@ -16,7 +15,7 @@ export class RegisterAccess extends Access {
    * @return {Promise<RegisterRecordProperties>}
    */
 
-  async add(params) {
+  async allocateNewRepo(params) {
     throw new NotYetImplementedError()
   }
 

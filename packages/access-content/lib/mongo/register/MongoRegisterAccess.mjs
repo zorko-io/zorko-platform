@@ -38,7 +38,7 @@ export class MongoRegisterAccess extends RegisterAccess {
     this.#collection = this.#db.collection(MongoRegisterRecordModel.toCollectionName())
   }
 
-  async add({owner, repo = 'default'} = {}) {
+  async allocateNewRepo({owner, repo = 'default'} = {}) {
     let repositoryCollectionName = MongoResource.toCollectionName({owner, repo})
     let contentCollectionName = MongoContentModel.toCollectionName({owner, repo})
 

@@ -14,10 +14,10 @@ setupDb(test, async (t) => {
   }
 })
 
-test.serial('add new record', async (t) => {
+test.serial('allocateNewRepo new record', async (t) => {
   const {register} = t.context
 
-  const record = await register.add({
+  const record = await register.allocateNewRepo({
     owner: 'joe',
     repo: 'default'
   })
@@ -29,9 +29,9 @@ test.serial('add new record', async (t) => {
   t.truthy(typeof record.id === 'string' && record.id)
 })
 
-test.serial('add new record, read and remove - happy path', async (t) => {
+test.serial('allocateNewRepo new record, read and remove - happy path', async (t) => {
   const {register} = t.context
-  const newRecord = await register.add({
+  const newRecord = await register.allocateNewRepo({
     owner: 'joe',
     repo: 'other-repo'
   })
@@ -86,8 +86,8 @@ test.serial('allocate default and other repo, iterate  - with happy path', async
 
   const joe = 'joe'
   const otherRepo = 'other-repo'
-  const defaultRecord = await register.add({ owner: joe, repo: 'default'})
-  const otherRepoRecord = await register.add({ owner: joe, repo: otherRepo})
+  const defaultRecord = await register.allocateNewRepo({ owner: joe, repo: 'default'})
+  const otherRepoRecord = await register.allocateNewRepo({ owner: joe, repo: otherRepo})
   const records = register.iterate({owner: joe})
 
   let results = []
@@ -107,11 +107,11 @@ test.serial('fails if repository with same owner and name already exists', async
   const owner = 'joe'
   const name = 'my-repo'
 
-  await register.add({ owner, repo: name})
+  await register.allocateNewRepo({ owner, repo: name})
 
   await t.throwsAsync(
     async () => {
-      await register.add({ owner, repo: name})
+      await register.allocateNewRepo({ owner, repo: name})
     },
     {
       instanceOf: AlreadyExistsError,

@@ -9,7 +9,7 @@ test.beforeEach((t) => {
   const origin = sandbox.createStubInstance(RegisterAccess)
   const returnResult = 'some-result'
 
-  origin.add.returns(returnResult)
+  origin.allocateNewRepo.returns(returnResult)
   origin.get.returns(returnResult)
   origin.remove.returns(returnResult)
   origin.iterate.returns(returnResult)
@@ -30,18 +30,18 @@ test.afterEach((t) => {
   t.context.sandbox.restore()
 })
 
-test('add - check required and format params', async (t) => {
+test('allocateNewRepo - check required and format params', async (t) => {
   const { register } = t.context
 
   await t.throwsAsync( async () => {
-    await register.add({})
+    await register.allocateNewRepo({})
   }, {
     instanceOf: ResourceAccessError,
     message: 'ValidationError: {"repo":"REQUIRED","owner":"REQUIRED"}',
   })
 
   await t.throwsAsync( async () => {
-    await register.add({
+    await register.allocateNewRepo({
       repo: {},
       owner: {}
     })
