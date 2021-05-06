@@ -7,7 +7,7 @@ test('check repo resource mongo model', (t) => {
 
   t.is(MongoResource.toCollectionName({
     owner: 'joe',
-    name: 'my-repo'
+    repo: 'my-repo'
   }), 'repository.joe.my-repo')
 
   const id = toObjectId()

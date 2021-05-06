@@ -10,6 +10,14 @@ export const RegisterAccessWithValidation = enhanceWithValidation({
     },
     iterate: {
       owner: ['string']
+    },
+    get: {
+      repo: ['required', 'string'],
+      owner: ['required', 'string']
+    },
+    remove: {
+      repo: ['required', 'string'],
+      owner: ['required', 'string']
     }
   }
 })

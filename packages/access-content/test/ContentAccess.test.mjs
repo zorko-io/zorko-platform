@@ -56,7 +56,7 @@ test.serial('writeAsObject - can not write twice with the same path', async (t) 
   const spec = VegaSpecFixture.getBarChart()
 
   // we have to register repository first
-  await register.add(uri.owner, uri.repo)
+  await register.add(uri)
 
   await content.writeAsObject({
     uri,

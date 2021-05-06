@@ -17,7 +17,10 @@ setupDb(test, async (t) => {
 test.serial('add new record', async (t) => {
   const {register} = t.context
 
-  const record = await register.add('joe')
+  const record = await register.add({
+    owner: 'joe',
+    repo: 'default'
+  })
 
   t.truthy(record)
   t.is(record.owner, 'joe')
@@ -28,23 +31,35 @@ test.serial('add new record', async (t) => {
 
 test.serial('add new record, read and remove - happy path', async (t) => {
   const {register} = t.context
-  const newRecord = await register.add('joe', 'other-repo')
+  const newRecord = await register.add({
+    owner: 'joe',
+    repo: 'other-repo'
+  })
 
   t.truthy(newRecord)
 
-  const record = await register.get(newRecord.id)
+  const record = await register.get({
+    repo: newRecord.name,
+    owner: newRecord.owner
+  })
 
   t.deepEqual(record, newRecord)
 
-  await register.remove(record.id)
+  await register.remove({
+    repo: newRecord.name,
+    owner: newRecord.owner
+  })
 
   await t.throwsAsync(
     async () => {
-      await register.get(record.id)
+      await register.get({
+        repo: record.name,
+        owner: record.owner
+      })
     },
     {
       instanceOf: NotFoundError,
-      message: `Can't find repository record by #id=${record.id}`,
+      message: 'Can\'t find repository record by #repo=repository.joe.other-repo, #owner=joe',
     }
   )
 })
@@ -71,8 +86,8 @@ test.serial('allocate default and other repo, iterate  - with happy path', async
 
   const joe = 'joe'
   const otherRepo = 'other-repo'
-  const defaultRecord = await register.add(joe)
-  const otherRepoRecord = await register.add(joe, otherRepo)
+  const defaultRecord = await register.add({ owner: joe, repo: 'default'})
+  const otherRepoRecord = await register.add({ owner: joe, repo: otherRepo})
   const records = register.iterate({owner: joe})
 
   let results = []
@@ -92,11 +107,11 @@ test.serial('fails if repository with same owner and name already exists', async
   const owner = 'joe'
   const name = 'my-repo'
 
-  await register.add(owner, name)
+  await register.add({ owner, repo: name})
 
   await t.throwsAsync(
     async () => {
-      await register.add(owner, name)
+      await register.add({ owner, repo: name})
     },
     {
       instanceOf: AlreadyExistsError,

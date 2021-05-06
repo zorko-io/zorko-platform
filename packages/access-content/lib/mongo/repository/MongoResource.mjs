@@ -26,9 +26,9 @@ export const MongoResource = enhanceWithMongo({
         }
       }
     },
-    toCollectionName ({owner, name} = {}) {
-      name = name || 'default'
-      return `repository.${owner}.${name}`
+    toCollectionName ({owner, repo} = {}) {
+      repo = repo || 'default'
+      return `repository.${owner}.${repo}`
     },
 
     toProps (doc) {

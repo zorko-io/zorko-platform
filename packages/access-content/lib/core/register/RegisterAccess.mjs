@@ -34,22 +34,26 @@ export class RegisterAccess extends Access {
 
   /**
    *
-   * @param {String} id - unique Repository ID
+   * @param {Object} params
+   * @param {String} params.repo - repository name
+   * @param {String} params.owner - repository owner
    * @throws {NotFoundError}
    * @return {Promise<RegisterRecordProperties>}
    */
 
-  async get(id) {
+  async get(params) {
     throw new NotYetImplementedError()
   }
 
   /**
    * Mark repository record as deleted
-   * @param {String} id - unique Repository ID
+   * @param {Object} params
+   * @param {String} params.repo - repository name
+   * @param {String} params.owner - repository owner
    * @return {Promise<void>}
    */
 
-  async remove(id) {
+  async remove(params) {
     throw new NotYetImplementedError()
   }
 

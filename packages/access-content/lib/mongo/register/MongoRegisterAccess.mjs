@@ -34,14 +34,13 @@ export class MongoRegisterAccess extends RegisterAccess {
     this.#db = db
     this.#log = deps.log
     this.#log = log.child({class: this.constructor.name})
+
     this.#collection = this.#db.collection(MongoRegisterRecordModel.toCollectionName())
   }
 
-  async add(owner, name = 'default') {
-    assert(owner)
-    assert(name)
-
-    let repositoryCollectionName = MongoResource.toCollectionName({owner, name})
+  async add({owner, repo = 'default'} = {}) {
+    let repositoryCollectionName = MongoResource.toCollectionName({owner, repo})
+    let contentCollectionName = MongoContentModel.toCollectionName({owner, repo})
 
     try {
       const result = await this.#collection.insertOne({
@@ -51,7 +50,7 @@ export class MongoRegisterAccess extends RegisterAccess {
 
       await createSchema({
         clazz: MongoResource,
-        name: MongoResource.toCollectionName({owner, name})
+        name: repositoryCollectionName
       }, {
         log: this.#log,
         db: this.#db
@@ -59,7 +58,7 @@ export class MongoRegisterAccess extends RegisterAccess {
 
       await createSchema({
         clazz: MongoContentModel,
-        name: MongoContentModel.toCollectionName({owner, repo: name})
+        name: contentCollectionName
       }, {
         log: this.#log,
         db: this.#db
@@ -70,7 +69,7 @@ export class MongoRegisterAccess extends RegisterAccess {
     } catch (error) {
       wrapMongoError(
         error,
-        `Repository with #name=${name} already created for #owner=${owner}`, {
+        `Repository with #name=${repo} already created for #owner=${owner}`, {
           log: this.#log
         })
     }
@@ -91,14 +90,15 @@ export class MongoRegisterAccess extends RegisterAccess {
 
   // TODO: 'access-content', get, error handling
   // label: tech-debt
-  async get(id) {
-    assert(id)
-
+  async get({repo, owner}) {
     // TODO: 'access-content', handle errors
-    const doc = await this.#collection.findOne({_id: toObjectId(id)})
+    const doc = await this.#collection.findOne({
+      name: repo,
+      owner: owner
+    })
 
     if (!doc) {
-      throw new NotFoundError(`Can't find repository record by #id=${id}`)
+      throw new NotFoundError(`Can't find repository record by #repo=${repo}, #owner=${owner}`)
     }
 
     return new MongoRegisterRecordModel({doc}).toJSON()
@@ -106,10 +106,8 @@ export class MongoRegisterAccess extends RegisterAccess {
 
   // TODO: 'access-content', remove, error handling
   // label: tech-debt
-  async remove(id) {
-    assert(id)
-
-    const {value} = await this.#collection.findOneAndDelete({_id: toObjectId(id)})
+  async remove({repo, owner}) {
+    const {value} = await this.#collection.findOneAndDelete({name: repo, owner })
 
     // probalby we no need to be so radical and just mark it as deleted
     await this.#db.collection(value.name).drop()
