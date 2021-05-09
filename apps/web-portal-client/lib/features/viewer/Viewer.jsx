@@ -14,7 +14,7 @@ export function Viewer({match, history}) {
 
   useEffect(() => {
     doFetch(match.params.id)
-  }, [])
+  }, [match.params.id])
 
   return (
     <>
@@ -27,18 +27,6 @@ export function Viewer({match, history}) {
 }
 
 Viewer.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
-  }),
-
-  history: PropTypes.shape({
-    goBack: PropTypes.func,
-  }),
-}
-
-Viewer.defaultProps = {
-  match: {},
-  history: {},
+  match: PropTypes.object,
+  history: PropTypes.object,
 }
