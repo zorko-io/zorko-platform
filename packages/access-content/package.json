@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "index.mjs",
   "scripts": {
+    "seeds:load" : "node --experimental-modules --es-module-specifier-resolution=node ./bin/readProject.mjs './seeds/Vega Lite Examples/Bar Charts & Histograms/'",
     "test": "tth",
     "test:watch": "tth --watch",
     "test:coverage": "tth --coverage",
@@ -12,9 +13,10 @@
     "clean:node-modules": "rimraf node_modules"
   },
   "dependencies": {
-    "mongodb": "^3.6.4",
+    "@zorko-io/util-config": "1.0.0",
     "@zorko-io/util-lang": "1.0.0",
-    "@zorko-io/util-config": "1.0.0"
+    "mongodb": "^3.6.4",
+    "ndjson": "^2.0.0"
   },
   "devDependencies": {
     "@zorko-io/tool-test-harness": "1.0.0",
