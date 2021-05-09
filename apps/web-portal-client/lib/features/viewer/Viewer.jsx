@@ -6,6 +6,7 @@ import {useFetchData} from '../../hooks'
 import Spinner from '../../components/Spinner'
 
 import './viewer.css'
+
 export function Viewer({match}) {
   const [{data: vegaData, isLoading, isError}, doFetch] = useFetchData((params, api) =>
     api.spec.findById(params)
