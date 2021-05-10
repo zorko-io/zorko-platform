@@ -30,20 +30,24 @@ export async function createFacade(config = {}, deps = {}) {
   const {dbType} = config
   let facade
 
-  if (dbType === SUPPORTED_DB_TYPES.Mongo) {
-    facade = await new Promise((resolve, reject) => {
-      new MongoAccessContentFacade(
-        {
-          ...config,
-          onReady: resolve,
-          onFailure: reject,
-        },
-        deps
-      )
-    })
+
+  try {
+    if (dbType === SUPPORTED_DB_TYPES.Mongo) {
+      facade = await new Promise((resolve, reject) => {
+        new MongoAccessContentFacade(
+          {
+            ...config,
+            onReady: resolve,
+            onFailure: reject,
+          },
+          deps
+        )
+      })
+    }
+
+    return new AccessContentFacadeWithValidation({origin: facade})
+  } catch (error) {
+    // TODO: 'access-content' use logger from deps
+    console.error(error)
   }
-
-  // wrap, audit and default access control decorators
-
-  return new AccessContentFacadeWithValidation({origin: facade})
 }

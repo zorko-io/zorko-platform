@@ -109,6 +109,8 @@ export class MongoAccessContentFacade extends AccessContentFacade {
       }
       if (!(error instanceof ApplicationError)) {
         throw new ResourceAccessError(error.message)
+      } else {
+        throw error
       }
     }
   }

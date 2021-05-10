@@ -45,7 +45,7 @@ export class MongoRegisterAccess extends RegisterAccess {
     try {
       const result = await this.#collection.insertOne({
         owner,
-        name: repositoryCollectionName
+        name: repo
       })
 
       await createSchema({
@@ -116,10 +116,16 @@ export class MongoRegisterAccess extends RegisterAccess {
 
   async remove({repo, owner}) {
     try {
-      const {value} = await this.#collection.findOneAndDelete({name: repo, owner})
+      await this.#collection.findOneAndDelete({name: repo, owner})
 
+      let repositoryCollectionName = MongoResource.toCollectionName({owner, repo})
+      let contentCollectionName = MongoContentModel.toCollectionName({owner, repo})
       // probably we no need to be so radical and just mark it as deleted
-      await this.#db.collection(value.name).drop()
+      await Promise.all([
+        this.#db.collection(repositoryCollectionName).drop(),
+        this.#db.collection(contentCollectionName).drop()
+      ])
+
     }catch (error) {
       wrapMongoError(error, null, {log: this.#log})
     }

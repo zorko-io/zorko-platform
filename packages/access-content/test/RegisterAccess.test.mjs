@@ -24,7 +24,7 @@ test.serial('allocateNewRepo new record', async (t) => {
 
   t.truthy(record)
   t.is(record.owner, 'joe')
-  t.is(record.name, 'repository.joe.default')
+  t.is(record.name, 'default')
 
   t.truthy(typeof record.id === 'string' && record.id)
 })
@@ -59,7 +59,7 @@ test.serial('allocateNewRepo new record, read and remove - happy path', async (t
     },
     {
       instanceOf: NotFoundError,
-      message: 'Can\'t find repository record by #repo=repository.joe.other-repo, #owner=joe',
+      message: 'Can\'t find repository record by #repo=other-repo, #owner=joe',
     }
   )
 })
