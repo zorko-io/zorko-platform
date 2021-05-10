@@ -144,11 +144,9 @@ export class MongoRepositoryAccess extends RepositoryAccess {
     }
   }
 
-  #getCollection = ({owner, repo} = {}) => {
-    let collection = MongoResource.toCollectionName(
-      owner,
-      repo
-    )
+  #getCollection = (folder) => {
+    let collection = MongoResource.toCollectionName(folder)
+
     return this.#db.collection(collection)
   }
 }

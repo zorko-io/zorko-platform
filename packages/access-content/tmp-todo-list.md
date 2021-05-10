@@ -15,8 +15,8 @@
   
 ~~- what about renaming content to history ? .... (later)~~
 
-- [] add a very simple script with few  visualization (inline data) and their previews already generated
-
+- [x] add a very simple script with few  visualization (inline data) and their previews already generated
+- [ ]  extend seeds script with rewrite params, improve params handling (check with web-app calls), fix mime/path in content 
 - [] after first integration, switch to preview generation script (aka future rendering engine) 
 - [] add mongo to docker and make sure that access content at least available on webapp level (not a command integration)
 - [ ] add Audit wrappers before integration (parallel with adding docker)

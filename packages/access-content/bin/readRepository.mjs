@@ -5,7 +5,7 @@ const {argv, stdout} = process
 
 main({
   path: argv[2]
-}).then(console.log)
+}).catch(console.error)
 
 async function main({path} = {}){
   let stream =  await createResourceStream({

@@ -6,7 +6,7 @@ export const MongoResource = enhanceWithMongo({
   adapter: {
     schema : {
       bsonType: "object",
-      required: [ "name", "parent", "permission", "content", "mime"],
+      required: [ "name", "parent", "permission", "mime"],
       properties: {
         name: {
           bsonType: "string",

@@ -1,7 +1,7 @@
 import {stringify} from 'ndjson'
 import {readdir, readFile} from 'fs/promises'
 import {basename, join} from 'path'
-import {MimeTypes} from '../lib'
+import {MimeTypes, PermissionDefaults} from '../lib'
 
 export async function createResourceStream( {path}) {
 
@@ -29,7 +29,8 @@ export async function createResourceStream( {path}) {
         resource : {
           name,
           mime: MimeTypes.VegaLite,
-          preview: toDataUri(preview)
+          preview: toDataUri(preview),
+          permission: PermissionDefaults.Private
         },
         content: spec,
         folder: {
@@ -37,6 +38,8 @@ export async function createResourceStream( {path}) {
         }
       })
     }
+
+    stream.end()
 
   } catch (err) {
     console.error(err);
