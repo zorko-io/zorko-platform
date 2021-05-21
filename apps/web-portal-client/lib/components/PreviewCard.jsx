@@ -2,11 +2,11 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-export function PreviewCard({id, title, author, createdAt, previewUrl}) {
+export function PreviewCard({title, author, createdAt, previewUrl}) {
   const previewId = previewUrl.match(/(?<=\/api\/v1\/specs\/).*/)
 
   return (
-    <div data-test-id={id} className="flex-auto mx-4 my-4 w-72">
+    <div className="flex-auto mx-4 my-4 w-72">
       <Link to={`/viewer/${previewId}`}>
         <img className="w-full" src="https://graphsketch.com/images/blank.png" alt="" />
       </Link>
@@ -27,7 +27,6 @@ export function PreviewCard({id, title, author, createdAt, previewUrl}) {
 }
 
 PreviewCard.propTypes = {
-  id: PropTypes.string,
   title: PropTypes.string,
   createdAt: PropTypes.string,
   previewUrl: PropTypes.string,
@@ -35,7 +34,6 @@ PreviewCard.propTypes = {
 }
 
 PreviewCard.defaultProps = {
-  id: '',
   title: '',
   createdAt: '',
   previewUrl: '',
