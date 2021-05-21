@@ -86,7 +86,9 @@ module.exports = {
     },
   ],
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      defaults: true
+    }),
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
