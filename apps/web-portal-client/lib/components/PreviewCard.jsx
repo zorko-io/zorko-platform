@@ -7,7 +7,7 @@ export function PreviewCard({title, author, createdAt, previewUrl}) {
 
   return (
     <div className="flex-auto mx-4 my-4 w-72">
-      <Link to={`/viewer/${previewId}`}>
+      <Link to={`/viewer/${previewId}`} data-test-id="preview">
         <img className="w-full" src="https://graphsketch.com/images/blank.png" alt="" />
       </Link>
 

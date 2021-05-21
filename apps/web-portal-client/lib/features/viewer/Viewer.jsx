@@ -21,7 +21,7 @@ export function Viewer({match}) {
       <Spinner show={isLoading} />
       {isError && isError.message}
       {vegaData && (
-        <div className="viewer">
+        <div className="viewer" data-test-id="full-preview">
           <Vega spec={vegaData.data.spec} />
         </div>
       )}
