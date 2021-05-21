@@ -4,8 +4,7 @@ import {Vega} from 'react-vega'
 
 import {useFetchData} from '../../hooks'
 import Spinner from '../../components/Spinner'
-
-import './viewer.css'
+import {Tab} from '../../components/Tab'
 
 export function Viewer({match}) {
   const [{data: vegaData, isLoading, isError}, doFetch] = useFetchData((params, api) =>
@@ -21,8 +20,10 @@ export function Viewer({match}) {
       <Spinner show={isLoading} />
       {isError && isError.message}
       {vegaData && (
-        <div className="viewer">
-          <Vega spec={vegaData.data.spec} />
+        <div className="viewer" data-test-id="full-preview">
+          <Tab>
+            <Vega spec={vegaData.data.spec} />
+          </Tab>
         </div>
       )}
     </>
