@@ -4,7 +4,8 @@ import {Vega} from 'react-vega'
 
 import {useFetchData} from '../../hooks'
 import Spinner from '../../components/Spinner'
-import {Tab} from '../../components/Tab'
+import {Tab, TabItem} from '../../components/tab'
+import {ImageShapes} from '../../components/Image'
 
 export function Viewer({match}) {
   const [{data: vegaData, isLoading, isError}, doFetch] = useFetchData((params, api) =>
@@ -22,7 +23,15 @@ export function Viewer({match}) {
       {vegaData && (
         <div className="viewer" data-test-id="full-preview">
           <Tab>
-            <Vega spec={vegaData.data.spec} />
+            <TabItem name="Chart" id="chart">
+              <Vega spec={vegaData.data.spec} />
+            </TabItem>
+            <TabItem name="Second" id="second">
+              Content for second Tab
+            </TabItem>
+            <TabItem name="Download" id="download" icon={ImageShapes.save}>
+              Download
+            </TabItem>
           </Tab>
         </div>
       )}
