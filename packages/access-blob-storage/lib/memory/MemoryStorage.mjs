@@ -20,6 +20,7 @@ export class MemoryStorage extends Storage {
     return this.#storage.delete(folderName)
   }
 
+  // eslint-disable-next-line no-unused-vars
   async listBlobs(folderName, options) {
     const blobs = Object.keys(this.#storage.get(folderName))
     return new ReadableStream(blobs)
