@@ -8,6 +8,7 @@ export class MinioStorage extends Storage {
    */
   #storage = null
 
+  // eslint-disable-next-line no-unused-vars
   constructor(options) {
     super()
     const config = createConfigDiscovery().discover();
