@@ -33,7 +33,6 @@ export function HomePage() {
                 previews.items.map((item) => (
                   <PreviewCard
                     key={item.id}
-                    id={item.id}
                     title={item.title}
                     author={item.author}
                     createdAt={item.createdAt}
