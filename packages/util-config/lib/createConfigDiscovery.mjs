@@ -12,7 +12,7 @@ export function createConfigDiscovery(
     dir: fromUrlToDirPath(import.meta.url, '..'),
   }
 ) {
-  dotenv.config({ path: options.dir + '/.env.default' });
+  dotenv.config({path: options.dir + '/.env.default'})
 
   const definition = options.dir + '/config.json'
   const validation = options.dir + '/config-schema.json'
