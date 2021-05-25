@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 import {ConfmeConfigDiscovery} from './confme'
 import {fromUrlToDirPath} from './fromUrlToDirPath'
 
@@ -11,6 +12,8 @@ export function createConfigDiscovery(
     dir: fromUrlToDirPath(import.meta.url, '..'),
   }
 ) {
+  dotenv.config({ path: options.dir + '/.env.default' });
+
   const definition = options.dir + '/config.json'
   const validation = options.dir + '/config-schema.json'
 

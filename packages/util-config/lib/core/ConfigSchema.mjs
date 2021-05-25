@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable class-methods-use-this */
-import {NotYetImplementedError} from '@zorko-io/util-error/lib/index.mjs'
+import {NotYetImplementedError} from '@zorko-io/util-error'
 
 export class ConfigSchema {
 

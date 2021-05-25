@@ -1,6 +1,6 @@
 import fs from 'fs'
-import {ConfigSchema} from '../core/index.mjs'
 import assert from 'assert'
+import {ConfigSchema} from '../core'
 
 export class ConfmeConfigSchema extends ConfigSchema {
 
