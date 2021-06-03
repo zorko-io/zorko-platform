@@ -1,6 +1,6 @@
 {
   "blobStorage": {
-    "endPoint": "{{ZORKO_BLOB_STORAGE_HOST}}",
+    "endPoint": "{{ZORKO_BLOB_STORAGE_END_POINT}}",
     "port": "{{ZORKO_BLOB_STORAGE_PORT}}",
     "useSSL": "{{ZORKO_BLOB_STORAGE_SSL}}",
     "accessKey": "{{ZORKO_BLOB_STORAGE_ACCESS_KEY}}",

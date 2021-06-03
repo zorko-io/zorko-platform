@@ -1,6 +1,6 @@
 import confme_ from 'confme'
-import {ConfigDiscovery} from '../core/index.mjs'
-import {ConfmeConfigSchema} from './ConfmeConfigSchema.mjs'
+import {ConfigDiscovery} from '../core'
+import {ConfmeConfigSchema} from './ConfmeConfigSchema'
 
 export class ConfmeConfigDiscovery extends ConfigDiscovery {
   #context = null
@@ -8,6 +8,7 @@ export class ConfmeConfigDiscovery extends ConfigDiscovery {
 
   /**
    * @param {ConfmeContext} context
+   * @param {Object} deps
    */
   constructor(context = {}, deps = {confme: confme_}) {
     super()
