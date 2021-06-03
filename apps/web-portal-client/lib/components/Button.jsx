@@ -9,6 +9,8 @@ import './button.css'
 export const ButtonTypes = {
   Primary: 'primary',
   Default: 'default',
+  ActiveTab: 'active-tab',
+  DefaultTab: 'default-tab',
 }
 export function Button(props) {
   const {label, onClick, children, type} = props
@@ -19,6 +21,8 @@ export function Button(props) {
       className={className({
         'btn-default': type === ButtonTypes.Default,
         'btn-primary': type === ButtonTypes.Primary,
+        'btn-tab': type === ButtonTypes.DefaultTab,
+        'btn-tab-active': type === ButtonTypes.ActiveTab,
       })}
       onClick={onClick}
     >

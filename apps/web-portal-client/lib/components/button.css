@@ -5,3 +5,11 @@
 .btn-default {
   @apply bg-gray-800 text-white hover:bg-gray-700 inline-flex flex-1 items-center justify-center p-2 rounded-md focus:outline-none;
 }
+
+.btn-tab {
+  @apply px-4 py-2 font-semibold text-gray-400 rounded-t opacity-50 focus:outline-none;
+}
+
+.btn-tab-active {
+  @apply px-4 py-2 -mb-px font-semibold text-gray-800 border-b-2 border-smooth-green rounded-t opacity-50 focus:outline-none;
+}
