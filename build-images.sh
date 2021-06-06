@@ -10,3 +10,6 @@ docker build --no-cache -t zorko-common -f dev-ops/common/Dockerfile .
 
 echo "Building zorko-proxy image..."
 docker build --no-cache -t zorko-proxy dev-ops/nginx-router/
+
+echo "Building vega-editor image..."
+docker build --no-cache -t vega-editor -f ../editor/Dockerfile ../editor

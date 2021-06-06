@@ -1,5 +1,4 @@
-version: "3.1"
-# TODO: gh-87 proper link to docker file with multiple contexts
+version: "3.7"
 services:
   nginx-router:
     networks: { default: { aliases: [ 'zorko-io.local' ] } }
@@ -31,3 +30,10 @@ services:
       - ./apps/web-portal-client:/zorko-platform/apps/web-portal-client
       - ./packages:/zorko-platform/packages
       - ./tools:/zorko-platform/tools
+  vega-editor:
+    image: vega-editor:latest
+    command: sh -c "yarn start --host 0.0.0.0"
+    ports: ['8080:8080']
+    volumes:
+      - ../editor:/usr/src/app
+    restart: always
