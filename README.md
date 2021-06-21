@@ -5,8 +5,9 @@
 Data Visualization Content Management Platform.
 It contains from tree parts:
 
-1. Visualization Content Management - server to create,store and share visualizations
+1. Visualization Content Management - server to create, store and share visualizations
 1. Rendering Engine to display visualization by connecting to various data sources
+1. Visualization editor - service to edit visualization schemas
 1. Data Provide/Consumer communication broker and (API) to plugin any data source
 
 ### Pre-requirements
@@ -31,6 +32,12 @@ open `http://localhost:5000` and have a fun ;-)
 
 > Make sure that you don't run `yarn install` before. If you already have installed dependencies,
 > run `yarn clean`
+
+> Clone zorko-io/editor project to folder `editor` at the same level with `zorko-platform`:
+
+```
+git clone https://github.com/zorko-io/editor.git
+```
 
 Run it once
 
@@ -59,6 +66,7 @@ It's optional, add to you [host file](https://serverfault.com/questions/3646/how
 
 So, you can just open `http://zorko-io.local`
 
+The vega-editor is accessible by url `http://127.0.0.1:8080`
 
 ## Contribution
 
