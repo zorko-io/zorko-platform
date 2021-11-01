@@ -2,7 +2,7 @@
   "name": "@zorko-io/tool-project-helper",
   "version": "1.0.0",
   "dependencies": {
-    "@types/yargs": "^16.0.0"
+    "@types/yargs": "^17.0.5"
   },
   "bin": {
     "tph": "bin/index.mjs"
