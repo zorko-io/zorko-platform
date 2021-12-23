@@ -12,7 +12,7 @@
     "clean:node-modules": "rimraf node_modules"
   },
   "dependencies": {
-    "@types/yargs": "^16.0.0",
+    "@types/yargs": "^17.0.8",
     "ava": "^3.8.2",
     "c8": "^7.1.2",
     "yargs": "^15.3.1"
