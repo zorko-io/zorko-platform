@@ -5,7 +5,7 @@
   "main": "index.mjs",
   "devDependencies": {
     "@zorko-io/tool-test-harness": "1.0.0",
-    "sinon": "^10.0.0"
+    "sinon": "^13.0.2"
   },
   "scripts": {
     "test": "tth",
