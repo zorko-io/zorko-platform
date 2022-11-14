@@ -31,7 +31,7 @@
   "private": true,
   "devDependencies": {
     "c8": "^7.3.0",
-    "cypress": "^7.1.0",
+    "cypress": "^11.0.1",
     "eslint": "^7.8.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-cypress": "^2.11.2",
